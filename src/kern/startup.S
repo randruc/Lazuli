@@ -6,6 +6,8 @@ reset_handler:
 
 	;; TODO: Switch off the watchdog (in case of a software reset)
 
+	;; TODO: Disable interrupts
+	
 	;; Clear bss section
 	;; TODO: Find a way to omit this code if no .bss
 	ldi r26, lo8(_bss_start)
