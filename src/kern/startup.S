@@ -39,6 +39,12 @@ copy_data:
 out_data:	
 	
 	;; Set kernel stack pointer
+	.equ spl, 0x3d
+	.equ sph, 0x3e
+	ldi r16, lo8(_ramend)
+	ldi r17, hi8(_ramend)
+	out spl, r16
+	out sph, r17
 
 	;; Start the kernel
 	jmp kmain
