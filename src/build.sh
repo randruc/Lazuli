@@ -7,6 +7,7 @@ avr-gcc \
 	-mmcu=atmega328p \
 	-nostartfiles \
 	-nostdlib \
+	-nodefaultlibs \
 	-T kern/linker.x \
 	-o u \
 	kern/interrupt_vectors_table.S \
