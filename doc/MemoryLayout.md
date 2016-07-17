@@ -92,9 +92,9 @@ The arrows on the right specify addresses.
     |. . . . . . . . |
     | (unused). . . .|
     |. . . . . . . . |
-    | . . . . . . . .|
+    | . . . . . . . .|<- brk
     +----------------+
-    |                |<- brk
+    |                |
     | heap           |
     |                |
     |                |<- heap_start

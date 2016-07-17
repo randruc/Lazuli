@@ -8,21 +8,26 @@
 #include <sys/malloc.h>
 #include <sys/config.h>
 #include <sys/types.h>
+#include <sys/arch.h>
 
 /**
- * Set break position of a memory region
+ * Set break position of a memory region.
  *
- * @param increment The number of bytes to increment the break
- * @param map A pointer to the concerned memory map
+ * @param increment The number of bytes to increment the break.
+ * @param map A pointer to the concerned allocation map.
  *
  * @return A pointer to the beginning of the added memory block,
  *         or NULL if can't set break,
- *         or the current break position if increment is zero
+ *         or the current break position if increment is zero.
  */
-static void *sbrk(unsigned int increment, struct memory_map *map)
+static void *sbrk(unsigned int increment, struct allocation_map *map)
 {
+  void *stack_pointer;
+  unsigned int new_gap;
   unsigned int new_break = (unsigned int)map->brk + increment;
-  unsigned int new_gap = (unsigned int)map->sp - new_break;
+
+  stack_pointer = get_stack_pointer();
+  new_gap = (unsigned int)stack_pointer - new_break;
   
   if (increment == 0) {
 	return map->brk;
@@ -38,10 +43,10 @@ static void *sbrk(unsigned int increment, struct memory_map *map)
 }
 #warning comments
 /**
- * Get more memory from the heap
+ * Get more memory from the heap.
  */
 static struct alloc_block *more_core(size_t units,
-									 struct memory_map *map,
+									 struct allocation_map *map,
 									 struct alloc_block *blocks_list_head)
 {
   struct alloc_block *new_block;
@@ -63,9 +68,7 @@ static struct alloc_block *more_core(size_t units,
 }
 
 void *malloc(size_t size,
-			 struct memory_map *map,
-			 struct alloc_block *base_alloc_block,
-			 struct alloc_block *blocks_list_head)
+			 struct allocation_map *map)
 {
   unsigned int units;
   struct alloc_block *current, *previous;
@@ -73,7 +76,7 @@ void *malloc(size_t size,
   units = (size + sizeof(struct alloc_block) - 1)
 	/ sizeof(struct alloc_block) + 1;
   
-  previous = blocks_list_head;
+  previous = map->blocks_list;
   current = previous->next;
 
   while (current != NULL) {
@@ -86,12 +89,12 @@ void *malloc(size_t size,
 		current->size = units;
 	  }
 
-	  blocks_list_head = previous;
+	  map->blocks_list = previous;
 
 	  return (void *)(current + 1);
 	}
 
-	if (current == blocks_list_head) {
+	if (current == map->blocks_list) {
 	  if ((current = morecore(units, map)) == NULL) {
 		return NULL;
 	  }
@@ -100,5 +103,4 @@ void *malloc(size_t size,
 	previous = current;
 	current = current->next;
   }
-  
 }

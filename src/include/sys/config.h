@@ -9,13 +9,13 @@
 #define CONFIG_H
 
 /**
- * Size in bytes of the secutiry gap between the break and the stack pointer
+ * Size in bytes of the secutiry gap between the break and the stack pointer.
  */
-#define BREAK_STACK_GAP (50)
+#define BREAK_STACK_GAP ((unsigned int)50)
 
 /**
- * Minimum size in bytes of a new alloc_block asked to sbrk
+ * Minimum size in bytes of a new alloc_block asked to sbrk.
  */
-#define MIN_ALLOC_BLOCK (100)
+#define MIN_ALLOC_BLOCK ((unsigned int)100)
 
 #endif /* CONFIG_H */

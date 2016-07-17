@@ -21,9 +21,9 @@
  * Close C++ header file declarations
  */    
 #define _EXTERN_C_DECL_END    }
-#else
+#else /* __cplusplus */
 #define _EXTERN_C_DECL_BEGIN
 #define _EXTERN_C_DECL_END
-#endif
+#endif /* __cplusplus */
 
 #endif /* UTILS_H */

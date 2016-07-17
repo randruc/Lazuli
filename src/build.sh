@@ -13,4 +13,5 @@ avr-gcc \
 	kern/interrupt_vectors_table.S \
 	kern/startup.S \
 	kern/kmain.c \
-	kern/malloc.c
+	kern/malloc.c \
+	kern/arch.c
