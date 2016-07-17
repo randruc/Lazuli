@@ -8,12 +8,12 @@
 #define TYPES_H
 
 /**
- * NULL pointer
+ * NULL pointer.
  */
 #define NULL ((void *)0)
 
 /**
- * Represents the size of an object
+ * Represents the size of an object.
  */
 typedef unsigned int size_t;
 
