@@ -2,6 +2,8 @@
 # Main build file
 # No Makefile for the moment
 
+project_name=Peacock
+
 avr-gcc \
 	-Iinclude \
 	-mmcu=atmega328p \
@@ -9,7 +11,7 @@ avr-gcc \
 	-nostdlib \
 	-nodefaultlibs \
 	-T kern/linker.x \
-	-o u \
+	-o $project_name \
 	kern/interrupt_vectors_table.S \
 	kern/startup.S \
 	kern/kmain.c \
