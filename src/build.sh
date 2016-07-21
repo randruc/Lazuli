@@ -2,7 +2,7 @@
 # Main build file
 # No Makefile for the moment
 
-project_name=Peacock
+project_name=Lorenzo
 
 avr-gcc \
 	-Iinclude \

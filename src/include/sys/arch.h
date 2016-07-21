@@ -16,7 +16,7 @@ _EXTERN_C_DECL_BEGIN
  *
  * @return The address pointed by the machine stack pointer.
  */
-void *get_stack_pointer();
+void *GetStackPointer();
 
 _EXTERN_C_DECL_END
 

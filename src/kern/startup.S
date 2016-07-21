@@ -47,7 +47,7 @@ out_data:
 	out sph, r17
 
 	;; Start the kernel
-	jmp kmain
+	jmp KMain
 
 	;; Parachute trap, infinite loop, should never be reached
 	;; TODO: Should this be left here or thrown away ?

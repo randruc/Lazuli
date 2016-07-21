@@ -10,6 +10,35 @@
 #include <sys/types.h>
 #include <sys/arch.h>
 
+int
+CyclicIntegerDivisionWithModulo(unsigned int a,
+								unsigned int b,
+								unsigned int *modulo)
+{
+  unsigned int i = 0;
+
+  if (b == 0) {
+	#warning Handle error!
+  }
+  
+  while (a > b) {
+	a -= b;
+	i++;
+  }
+  
+  *modulo = a;
+  return i;
+}
+
+int
+CyclicIntegerDivision(unsigned int a,
+					  unsigned int b)
+{
+  int modulo;
+  
+  return CyclicIntegerDivisionWithModulo(a, b, &modulo);
+}
+
 /**
  * Set break position of a memory region.
  *
@@ -20,20 +49,21 @@
  *         or NULL if can't set break,
  *         or the current break position if increment is zero.
  */
-static void *sbrk(unsigned int increment, struct allocation_map *map)
+static void *
+Sbrk(unsigned int increment, AllocationMap *map)
 {
-  void *stack_pointer;
-  unsigned int new_gap;
-  unsigned int new_break = (unsigned int)map->brk + increment;
+  ptrdiff_t newGap;
+  void *sp;
+  void *newBreak = map->brk + increment;
 
-  stack_pointer = get_stack_pointer();
-  new_gap = (unsigned int)stack_pointer - new_break;
-  
   if (increment == 0) {
 	return map->brk;
   }
   
-  if (new_gap > BREAK_STACK_GAP) {
+  sp = GetStackPointer();
+  newGap = sp - newBreak;
+  
+  if (newGap < BREAK_STACK_GAP) {
 	return NULL;
   }
 
@@ -41,66 +71,94 @@ static void *sbrk(unsigned int increment, struct allocation_map *map)
 
   return map->brk - increment;
 }
+
 #warning comments
 /**
  * Get more memory from the heap.
  */
-static struct alloc_block *more_core(size_t units,
-									 struct allocation_map *map,
-									 struct alloc_block *blocks_list_head)
+static AllocationBlock *
+MoreCore(size_t s, AllocationMap *map)
 {
-  struct alloc_block *new_block;
+  AllocationBlock *newBlock;
   
-  if (units < MIN_ALLOC_BLOCK) {
-	units = MIN_ALLOC_BLOCK;
+  if (s < MIN_ALLOC_BLOCK) {
+	s = MIN_ALLOC_BLOCK;
   }
 
-  new_block = sbrk(units * sizeof(struct alloc_block), map);
+  newBlock = Sbrk(s * sizeof(*newBlock), map);
 
-  if (new_block == NULL) {
+  if (newBlock == NULL) {
 	return NULL;
   }
 
-  new_block->size = units;
-  free((void *)(new_block + 1));
+  newBlock->size = s;
+  BaseFree((void *)(newBlock + 1), map);
 
-  return blocks_list_head; 
+  return map->blocksList; 
 }
 
-void *malloc(size_t size,
-			 struct allocation_map *map)
+void
+BaseFree(void *p, AllocationMap *map)
 {
-  unsigned int units;
-  struct alloc_block *current, *previous;
+  AllocationBlock *current;
+  AllocationBlock *block = (AllocationBlock *)p - 1;
 
-  units = (size + sizeof(struct alloc_block) - 1)
-	/ sizeof(struct alloc_block) + 1;
-  
-  previous = map->blocks_list;
-  current = previous->next;
+  for (current = map->blocksList;
+	   block <= current || block >= current->next;
+	   current = current->next) {
+	if (current >= current->next &&
+		(block > current || block < current->next)) {
+	  break;
+	}
+  }
 
-  while (current != NULL) {
-	if (current->size >= units) {
-	  if (current->size == units) {
+  if (block + block->size == current->next) {
+	block->size += current->next->size;
+	block->next = current->next->next;
+  } else {
+	block->next = current->next;
+  }
+
+  if (current + current->size == block) {
+	current->size += block->size;
+	current->next = block->next;
+  } else {
+	current->next = block;
+  }
+
+  map->blocksList = current;
+}
+
+void *
+BaseMalloc(size_t s, AllocationMap *map)
+{
+  AllocationBlock *current, *previous;
+
+  s = CyclicIntegerDivision(s + sizeof(AllocationBlock) - 1,
+							sizeof(AllocationBlock) + 1);
+  previous = map->blocksList;
+
+  for (current = previous->next;
+	   ;
+	   previous = current, current = current->next) {
+	if (current->size >= s) {
+	  if (current->size == s) {
 		previous->next = current->next;
 	  } else {
-		current->size -= units;
+		current->size -= s;
 		current += current->size;
-		current->size = units;
+		current->size = s;
 	  }
 
-	  map->blocks_list = previous;
+	  map->blocksList = previous;
 
 	  return (void *)(current + 1);
 	}
 
-	if (current == map->blocks_list) {
-	  if ((current = morecore(units, map)) == NULL) {
+	if (current == map->blocksList) {
+	  if ((current = MoreCore(s, map)) == NULL) {
 		return NULL;
 	  }
 	}
-
-	previous = current;
-	current = current->next;
   }
 }

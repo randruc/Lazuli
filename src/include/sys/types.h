@@ -17,4 +17,9 @@
  */
 typedef unsigned int size_t;
 
+/**
+ * Represents the difference between two pointers.
+ */
+typedef int ptrdiff_t;
+
 #endif /* TYPES_H */

@@ -9,7 +9,7 @@ int b = 13;
  * This is the kernel entry point
  */
 void
-kmain()
+KMain()
 {
   a = b;
 }

@@ -7,7 +7,7 @@
 #include <sys/arch.h>
 #include <sys/registers.h>
 
-void *get_stack_pointer()
+void *GetStackPointer()
 {
   return (void*)SPL;
 }
