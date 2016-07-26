@@ -11,11 +11,6 @@
 /**
  * Size in bytes of the secutiry gap between the break and the stack pointer.
  */
-#define BREAK_STACK_GAP ((unsigned int)50)
-
-/**
- * Minimum size in bytes of a new alloc_block asked to sbrk.
- */
-#define MIN_ALLOC_BLOCK ((unsigned int)100)
+#define BREAK_STACK_GAP ((int)50)
 
 #endif /* CONFIG_H */

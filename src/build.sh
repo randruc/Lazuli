@@ -5,6 +5,12 @@
 project_name=Lorenzo
 
 avr-gcc \
+	-ansi \
+	-std=c89 \
+	-pedantic \
+	-Wall \
+	-Wextra \
+	-Werror \
 	-Iinclude \
 	-mmcu=atmega328p \
 	-nostartfiles \
@@ -14,6 +20,7 @@ avr-gcc \
 	-o $project_name \
 	kern/interrupt_vectors_table.S \
 	kern/startup.S \
-	kern/kmain.c \
-	kern/malloc.c \
-	kern/arch.c
+	kern/kernel.c \
+	kern/memory.c \
+	kern/arch.c \
+	kern/main.c

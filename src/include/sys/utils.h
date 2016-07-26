@@ -26,4 +26,12 @@
 #define _EXTERN_C_DECL_END
 #endif /* __cplusplus */
 
+/**
+ * Macro used to allow arithmetic on void pointers.
+ * Arithmetic on void pointers isn't allowed in standard C.
+ *
+ * @param X The void pointer on which to do arithmetic.
+ */
+#define ALLOW_ARITHM(X) ((char *)X)
+
 #endif /* UTILS_H */

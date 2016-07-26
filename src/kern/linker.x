@@ -48,6 +48,6 @@ SECTIONS
 		*(.bss)
 	} > REGION_BSS
 	_bss_size = SIZEOF(.bss);
-
+	_brk = .;
 	_ramend = LENGTH(ram) - 1;
 }
