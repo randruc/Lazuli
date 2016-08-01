@@ -1,6 +1,8 @@
 #!/bin/bash
-# Main build file
-# No Makefile for the moment
+
+# Main build file.
+# Build the executable and copy it as intel hex format binary image.
+# No Makefile for the moment.
 
 project_name=Lorenzo
 
@@ -24,3 +26,10 @@ avr-gcc \
 	kern/memory.c \
 	kern/arch.c \
 	kern/main.c
+
+avr-objcopy \
+	-j .text \
+	-j .data \
+	-O ihex \
+	Lorenzo \
+	Lorenzo.hex
