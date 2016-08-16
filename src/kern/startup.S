@@ -1,16 +1,23 @@
-	;; Startup
+	;;
+	;; startup.s
 	;; Set up the runtime environment and run the kernel
+	;;
 
+	;; Frequently used registers
 	.equ spl,  0x3d
 	.equ sph,  0x3e
 	.equ sreg, 0x3f
-	
-	.global reset_handler
-reset_handler:
+
+	;;
+	;; Main entry point of the whole system.
+	;;
+	.global reset_system
+reset_system:
 
 	;; TODO: Switch off the watchdog (in case of a software reset)
 
-	;; TODO: Disable interrupts
+	;; Disable interrupts
+	cli
 	
 	;; Clear bss section
 	;; TODO: Find a way to omit this code if no .bss
