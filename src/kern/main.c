@@ -5,6 +5,7 @@
  */
 
 #include <sys/registers.h>
+#include <sys/arch.h>
 
 void
 BlinkOnce()
@@ -69,6 +70,8 @@ Main()
   EICRA = (char)0x03;
   EIMSK = (char)0x01;
 
+  GlobalInterruptsEnable();
+  
   t = 4;
 
   while (t--) {

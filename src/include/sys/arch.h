@@ -16,7 +16,20 @@ _EXTERN_C_DECL_BEGIN
  *
  * @return The address pointed by the machine stack pointer.
  */
-void *GetStackPointer();
+void *
+GetStackPointer();
+
+/**
+ * Enable global interrupts
+ */
+extern void
+GlobalInterruptsEnable();
+
+/**
+ * Disable global interrupts
+ */
+extern void
+GlobalInterruptsDisable();
 
 _EXTERN_C_DECL_END
 

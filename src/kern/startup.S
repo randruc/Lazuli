@@ -49,7 +49,6 @@ out_data:
 	out sph, r17
 
 	;; Start the kernel
-	sei
 	jmp KMain
 
 	;; Parachute trap, infinite loop, should never be reached
@@ -57,7 +56,16 @@ out_data:
 infinite_loop:
 	rjmp infinite_loop
 
+	.global GlobalInterruptsEnable
+GlobalInterruptsEnable:
+	sei
+	ret
 
+	.global GlobalInterruptsDisable
+GlobalInterruptsDisable:
+	cli
+	ret
+	
 	.global int0_handler
 int0_handler:
 	push r0
