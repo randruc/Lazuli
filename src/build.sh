@@ -4,7 +4,7 @@
 # Build the executable and copy it as intel hex format binary image.
 # No Makefile for the moment.
 
-project_name=Lorenzo
+project_name=Lazuli
 
 avr-gcc \
 	-ansi \
@@ -31,5 +31,5 @@ avr-objcopy \
 	-j .text \
 	-j .data \
 	-O ihex \
-	Lorenzo \
-	Lorenzo.hex
+	$project_name \
+	$project_name.hex
