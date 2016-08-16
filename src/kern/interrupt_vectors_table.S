@@ -1,9 +1,11 @@
 	;; Set up the interrupt vectors table
 
 	.global interrupt_vectors_table
-interrupt_vectors_table:	
+interrupt_vectors_table:
+	.org 0x0000
 	rjmp reset_handler			; RESET        Reset, Entry point at boot
-	rjmp reset_handler			; INT0         External interrupt request 0
+	.org 0x0020
+	rjmp int0_handler			; INT0         External interrupt request 0
 	rjmp reset_handler			; INT1         External interrupt request 1
 	rjmp reset_handler			; PCINT0       Pin change interrupt request 0
 	rjmp reset_handler			; PCINT1       Pin change interrupt request 1

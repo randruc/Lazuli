@@ -48,19 +48,48 @@ PrintInt(unsigned int i)
   }
 }
 
+unsigned volatile int mode;
+
+void
+Int0Handler()
+{
+  mode = !mode;
+}
+
 /**
  * Main entry point for user tasks.
  */
 void
 Main()
 {
-  unsigned int i;
-  
-  DDRB = (char)0xff;
+  unsigned int i, t;
+  mode = 0;
 
-  for (i = 0; i < 60000; i++);
+  DDRB = (char)0xff;
+  EICRA = (char)0x03;
+  EIMSK = (char)0x01;
+
+  t = 4;
+
+  while (t--) {
+	PORTB = (char)0xff;
+	for (i = 0; i < 5000; i++);
+	PORTB = (char)0x00;
+	for (i = 0; i < 5000; i++);
+  }
   
-  PrintInt(0x5555);
+  while (1) {
+	if (mode) {
+	  t = 10000;
+	} else {
+	  t = 5000;
+	}
+
+	PORTB = (char)0xff;
+	for (i = 0; i < t; i++);
+	PORTB = (char)0x00;
+	for (i = 0; i < t; i++);
+  }
   
   while (1);
 }
