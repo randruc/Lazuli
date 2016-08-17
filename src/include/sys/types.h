@@ -4,8 +4,8 @@
  * Basic types used in the kernel.
  */
 
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef LZ_TYPES_H
+#define LZ_TYPES_H
 
 /**
  * NULL pointer.
@@ -22,4 +22,4 @@ typedef unsigned int size_t;
  */
 typedef int ptrdiff_t;
 
-#endif /* TYPES_H */
+#endif /* LZ_TYPES_H */

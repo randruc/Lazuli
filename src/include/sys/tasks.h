@@ -1,11 +1,11 @@
 /**
  * @file tasks.h
  *
- * Describes all objects and functions related to tasks.
+ * Describes all types and functions related to tasks.
  */
 
-#ifndef TASKS_H
-#define TASKS_H
+#ifndef LZ_TASKS_H
+#define LZ_TASKS_H
 
 #include <sys/utils.h>
 #include <sys/memory.h>
@@ -22,4 +22,4 @@ typedef struct {
 
 _EXTERN_C_DECL_END
 
-#endif /* TASKS_H */
+#endif /* LZ_TASKS_H */

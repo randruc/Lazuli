@@ -1,11 +1,11 @@
 /**
- * @file malloc.h
+ * @file memory.h
  *
- * Defines base types and base operations for memory allocation.
+ * Defines base types and operations for memory management.
  */
 
-#ifndef MALLOC_H
-#define MALLOC_H
+#ifndef LZ_MEMORY_H
+#define LZ_MEMORY_H
 
 #include <sys/utils.h>
 #include <sys/types.h>
@@ -48,4 +48,4 @@ _EXTERN_C_DECL_END
 void *
 KIncrementalMalloc(size_t s);
 
-#endif /* MALLOC_H */
+#endif /* LZ_MEMORY_H */

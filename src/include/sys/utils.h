@@ -4,12 +4,11 @@
  * This file contains some useful macros.
  * It can be included independently, without dependency conflicts.
  *
- * The content of this file is not related to the current project. 
+ * The content of this file is not directly related to the current project. 
  */
 
-
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef LZ_UTILS_H
+#define LZ_UTILS_H
 
 #ifdef __cplusplus
 /** 
@@ -34,4 +33,4 @@
  */
 #define ALLOW_ARITHM(X) ((char *)X)
 
-#endif /* UTILS_H */
+#endif /* LZ_UTILS_H */

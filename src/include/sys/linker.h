@@ -2,8 +2,8 @@
  * Symbols defined by the linker
  */
 
-#ifndef LINKER_H
-#define LINKER_H
+#ifndef LZ_LINKER_H
+#define LZ_LINKER_H
 
 /** 
  * Start address of the .data section
@@ -40,4 +40,4 @@ extern void *_brk;
  */
 extern void *_ramend;
 
-#endif /* LINKER_H */
+#endif /* LZ_LINKER_H */

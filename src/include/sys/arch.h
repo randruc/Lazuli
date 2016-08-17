@@ -4,8 +4,8 @@
  * Defines architecture specific functions for AVR.
  */
 
-#ifndef ARCH_H
-#define ARCH_H
+#ifndef LZ_ARCH_H
+#define LZ_ARCH_H
 
 #include <sys/utils.h>
 
@@ -33,4 +33,4 @@ GlobalInterruptsDisable();
 
 _EXTERN_C_DECL_END
 
-#endif /* ARCH_H */
+#endif /* LZ_ARCH_H */

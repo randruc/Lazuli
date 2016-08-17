@@ -4,8 +4,8 @@
  * Defines kernel objects.
  */
 
-#ifndef KERNEL_H
-#define KERNEL_H
+#ifndef LZ_KERNEL_H
+#define LZ_KERNEL_H
 
 #include <sys/utils.h>
 
@@ -18,4 +18,4 @@ extern AllocationMap kernelAllocationMap;
 
 _EXTERN_C_DECL_END
 
-#endif /* KERNEL_H */
+#endif /* LZ_KERNEL_H */
