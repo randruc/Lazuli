@@ -113,7 +113,7 @@ The arrows on the right specify addresses.
 
 
 User tasks memory
--------------------
+-----------------
 
 User tasks share their .text, .bss and .data section with other tasks and the
 kernel as they are all fixed in size and can be determined at compile time.
