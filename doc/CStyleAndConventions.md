@@ -1,7 +1,7 @@
 C style and conventions
 =======================
 
-This file explains the programming styel and conventions to apply on C code.
+This file describes the programming style and conventions to apply on C code.
 
 
 C dialect
