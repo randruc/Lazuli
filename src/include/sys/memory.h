@@ -28,14 +28,12 @@ typedef struct {
   void *baseMem;                       /** < Base address of the memory
 										     region                           */
   void *brk;                           /** < Break position, points to the
-										     first location beyond the curent
+										     first location beyond the current
 											 end of the heap                  */
   void *endMem;                        /** < End address of the memory region */
   AllocationType allocationType;       /** < The type of allocation used for
 										     this map                         */
 }AllocationMap;
-
-_EXTERN_C_DECL_END
 
 /**
  * Allocate memory for kernel objects using incremental method.
@@ -47,5 +45,7 @@ _EXTERN_C_DECL_END
  */
 void *
 KIncrementalMalloc(size_t s);
+
+_EXTERN_C_DECL_END
 
 #endif /* LZ_MEMORY_H */
