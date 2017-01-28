@@ -22,11 +22,12 @@ avr-gcc \
 	-nodefaultlibs \
 	-T kern/linker.x \
 	-o $project_name \
-	kern/interrupt_vectors_table.S \
-	kern/startup.S \
+	kern/arch/AVR/interrupt_vectors_table.S \
+	kern/arch/AVR/startup.S \
+	kern/arch/AVR/arch.c \
+	kern/arch/AVR/timer0.c \
 	kern/kernel.c \
 	kern/memory.c \
-	kern/arch.c \
 	kern/main.c
 
 avr-objcopy \

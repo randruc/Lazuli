@@ -7,7 +7,7 @@
 #ifndef LZ_TASKS_H
 #define LZ_TASKS_H
 
-#include <sys/utils.h>
+#include <sys/types.h>
 #include <sys/memory.h>
 
 _EXTERN_C_DECL_BEGIN

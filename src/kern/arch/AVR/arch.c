@@ -4,8 +4,8 @@
  * Implements architecture specific functions for AVR.
  */
 
-#include <sys/arch.h>
-#include <sys/registers.h>
+#include <sys/arch/AVR/arch.h>
+#include <sys/arch/AVR/registers.h>
 
 void *GetStackPointer()
 {

@@ -8,8 +8,7 @@
 #include <sys/memory.h>
 #include <sys/config.h>
 #include <sys/types.h>
-#include <sys/arch.h>
-#include <sys/utils.h>
+#include <sys/arch/AVR/arch.h>
 #include <sys/kernel.h>
 
 /**
@@ -23,20 +22,20 @@
  *         or the current break position if increment is zero.
  */
 static void *
-SetBreak(unsigned int increment, AllocationMap *map)
+SetBreak(const unsigned int increment, AllocationMap * const map)
 {
   ptrdiff_t newGap;
-  void *sp;
-  void *newBreak = ALLOW_ARITHM(map->brk) + increment;
-
+  void *sp, *newBreak;
+  
   if (map == NULL) {
 	return NULL;
   }
-  
+
   if (increment == 0) {
 	return map->brk;
   }
   
+  newBreak = ALLOW_ARITHM(map->brk) + increment;
   sp = GetStackPointer();
   newGap = ALLOW_ARITHM(sp) - ALLOW_ARITHM(newBreak);
   
@@ -59,7 +58,7 @@ SetBreak(unsigned int increment, AllocationMap *map)
  *         impossible.
  */
 static void *
-BaseIncrementalMalloc(size_t s, AllocationMap *map)
+BaseIncrementalMalloc(const size_t s, AllocationMap * const map)
 {
   if (map == NULL) {
 	return NULL;
@@ -75,7 +74,7 @@ BaseIncrementalMalloc(size_t s, AllocationMap *map)
 }
 
 void *
-KIncrementalMalloc(size_t s)
+KIncrementalMalloc(const size_t s)
 {
   return BaseIncrementalMalloc(s, &kernelAllocationMap);
 }

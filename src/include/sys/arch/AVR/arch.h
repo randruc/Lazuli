@@ -7,7 +7,7 @@
 #ifndef LZ_ARCH_H
 #define LZ_ARCH_H
 
-#include <sys/utils.h>
+#include <sys/types.h>
 
 _EXTERN_C_DECL_BEGIN
 
@@ -20,16 +20,22 @@ void *
 GetStackPointer();
 
 /**
- * Enable global interrupts
+ * Enable global interrupts.
  */
 extern void
 GlobalInterruptsEnable();
 
 /**
- * Disable global interrupts
+ * Disable global interrupts.
  */
 extern void
 GlobalInterruptsDisable();
+
+/**
+ * Function that loops forever, never returns.
+ */
+extern void
+InfiniteLoop();
 
 _EXTERN_C_DECL_END
 

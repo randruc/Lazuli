@@ -7,7 +7,6 @@
 #ifndef LZ_MEMORY_H
 #define LZ_MEMORY_H
 
-#include <sys/utils.h>
 #include <sys/types.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -25,14 +24,18 @@ typedef enum {
  * for a task or the kernel.
  */
 typedef struct {
-  void *baseMem;                       /** < Base address of the memory
-										     region                           */
-  void *brk;                           /** < Break position, points to the
-										     first location beyond the current
-											 end of the heap                  */
-  void *endMem;                        /** < End address of the memory region */
-  AllocationType allocationType;       /** < The type of allocation used for
-										     this map                         */
+  /** Base address of the memory region */
+  void *baseMem;
+
+  /** Break position, points to the first location beyond the current end of
+	  the heap */
+  void *brk;
+
+  /** < End address of the memory region */
+  void *endMem;
+
+  /** < The type of allocation used for this map */
+  AllocationType allocationType;  
 }AllocationMap;
 
 /**
@@ -44,7 +47,7 @@ typedef struct {
  *         impossible.
  */
 void *
-KIncrementalMalloc(size_t s);
+KIncrementalMalloc(const size_t s);
 
 _EXTERN_C_DECL_END
 
