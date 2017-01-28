@@ -1,0 +1,4 @@
+* Re-organize files tree for header files (Introduce "Lazuli/...").
+
+* Maybe switch to C99 (to allow inline).
+
