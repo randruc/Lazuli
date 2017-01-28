@@ -9,6 +9,11 @@ C dialect
 
 The whole project is written in pure ANSI C 89.
 
+Line length
+-----------
+
+Line length is set to 80 characters. Each line of code shouldn't exceed 80
+columns.
 
 Comments
 --------
@@ -54,8 +59,8 @@ Brackets
 
 Brackets use the K&R style.
 
-For functions, the opening bracket is always on a new line and the closing bracket
-is always on a new line too.
+For functions, the opening bracket is always on a new line and the closing
+bracket is always on a new line too.
 
 This is good:
 
@@ -130,7 +135,8 @@ This is not good:
       i++;
     }
 
-For control statements that involve code section brackets must always be present.
+For control statements that involve code section brackets must always be
+present.
 
 This is good:
 

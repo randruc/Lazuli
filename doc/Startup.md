@@ -17,8 +17,8 @@ Steps
    _bss_start symbols defined by the linker.
 
 2. Load the .data section. The .data section is copied to RAM from ROM using the
-   _data_load_start (address in ROM), _data_start (address in RAM) and _data_size
-   symbols defined by the linker.
+   _data_load_start (address in ROM), _data_start (address in RAM) and
+   _data_size symbols defined by the linker.
 
 3. Set kernel stack pointer. The kernel stack pointer is set using the _ramend
    symbol defined by the linker. After this step, the kernel stack pointer
