@@ -6,6 +6,8 @@
 
 project_name=Lazuli
 
+../checklines.sh
+
 avr-gcc \
 	-ansi \
 	-std=c89 \
