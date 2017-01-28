@@ -164,14 +164,3 @@ int0_handler:
 	call Int0Handler
 	INTERRUPT_EPILOGUE
 	reti
-
-	;;
-	;; Timer/counter0 compare match A
-	;;
-	.global timer0_compare_match_A
-timer0_compare_match_A:
-	INTERRUPT_PROLOGUE
-	call Timer0CompareMacthAHandler
-	INTERRUPT_EPILOGUE
-	reti
-	

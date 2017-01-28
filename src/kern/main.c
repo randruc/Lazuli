@@ -6,34 +6,27 @@
 
 #include <sys/arch/AVR/registers.h>
 #include <sys/arch/AVR/arch.h>
-#include <sys/arch/AVR/timer0.h>
 #include <sys/types.h>
-
-static volatile bool mode;
+#include <sys/arch/AVR/timer_counter_0.h>
 
 void
 Int0Handler()
 {
-  mode = !mode;
-  
-  if (mode) {
-	PORTB = (char)0xff;
-  } else {
-	PORTB = (char)0x00;
-  }
 }
 
-void
-Timer0CompareMacthAHandler()
-{
-  mode = !mode;
-  
-  if (mode) {
-	PORTB = u8_MAX;
-  } else {
-	PORTB = u8_MIN;
-  }
-}
+/* 
+ * void
+ * Timer0CompareMacthAHandler()
+ * {
+ *   mode = !mode;
+ *   
+ *   if (mode) {
+ * 	PORTB = u8_MAX;
+ *   } else {
+ * 	PORTB = u8_MIN;
+ *   }
+ * }
+ */
 
 /**
  * Main entry point for user tasks.
@@ -41,44 +34,23 @@ Timer0CompareMacthAHandler()
 void
 Main()
 {
-  /* unsigned int i; */
-  mode = false;
-
+  TimerCounter0 * const timer0 = GetTimerCounter0();
+  
   DDRB = (u8)0xff;
   EICRA = (u8)0x03;
   EIMSK = (u8)0x01;
 
-  Timer0SelectClock(SystemClock);
-  Timer0SetMode(CTC);
-  Timer0SetCompareRegisterA((u8)20);
-  Timer0Enable();
-  Timer0OutputCompareMatchAInterruptEnable();
+  timer0->tccr0b = 0;
+  timer0->tccr0b = TCCR0B_CS02 | TCCR0B_CS00;
+  timer0->tcnt0 = 0;
 
-  GlobalInterruptsEnable();
-
-  /* 
-   * while (t--) {
-   * 	PORTB = (char)0xff;
-   * 	for (i = 0; i < 5000; i++);
-   * 	PORTB = (char)0x00;
-   * 	for (i = 0; i < 5000; i++);
-   * }
-   */
+  PORTB = u8_MIN;
   
-  /* 
-   * while (1) {
-   * 	if (mode) {
-   * 	  t = 50000;
-   * 	} else {
-   * 	  t = 5000;
-   * 	}
-   * 
-   * 	PORTB = (char)0xff;
-   * 	for (i = 0; i < t; i++);
-   * 	PORTB = (char)0x00;
-   * 	for (i = 0; i < t; i++);
-   * }
-   */
-  
-  while (1);
+  while (true) {
+	if (TCNT0 >= 120) {
+	  PORTB = u8_MAX;
+	} else {
+	  PORTB = u8_MIN;
+	}
+  }
 }

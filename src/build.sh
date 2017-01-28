@@ -25,7 +25,7 @@ avr-gcc \
 	kern/arch/AVR/interrupt_vectors_table.S \
 	kern/arch/AVR/startup.S \
 	kern/arch/AVR/arch.c \
-	kern/arch/AVR/timer0.c \
+	kern/arch/AVR/timer_counter_0.c \
 	kern/kernel.c \
 	kern/memory.c \
 	kern/main.c

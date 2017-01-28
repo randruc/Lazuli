@@ -19,7 +19,7 @@ interrupt_vectors_table:
 	reti                         ; TIMER1COMPA  Timer/counter1 compare match A
 	reti                         ; TIMER1COMPB  Timer/counter1 compare match B
 	reti                         ; TIMER1OVF    Timer/counter1 overflow
-	rjmp timer0_compare_match_A  ; TIMER0COMPA  Timer/counter0 compare match A
+	reti					     ; TIMER0COMPA  Timer/counter0 compare match A
 	reti                         ; TIMER0COMPB  Timer/counter0 compare match B
 	reti                         ; TIMER0OVF    Timer/counter0 overflow
 	reti                         ; SPISTC       SPI serial transfer complete
