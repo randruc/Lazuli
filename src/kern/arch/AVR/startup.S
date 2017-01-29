@@ -4,9 +4,9 @@
 	;;
 
 	;; Frequently used registers
-	.equ spl,  0x3d				; Stack pointer low byte
-	.equ sph,  0x3e				; Stack pointer high byte
-	.equ sreg, 0x3f				; State register
+.equ spl,  0x3d				; Stack pointer low byte
+.equ sph,  0x3e				; Stack pointer high byte
+.equ sreg, 0x3f				; State register
 
 	;;
 	;; Prologue to execute when entering an interrupt handler.
@@ -155,12 +155,16 @@ GlobalInterruptsDisable:
 	cli
 	ret
 
-	;;
-	;; External interrupt request 0 handler
-	;; 
 	.global int0_handler
 int0_handler:
 	INTERRUPT_PROLOGUE
 	call Int0Handler
+	INTERRUPT_EPILOGUE
+	reti
+
+	.global timer0_overflow_handler
+timer0_overflow_handler:
+	INTERRUPT_PROLOGUE
+	call TimerCounter0OverflowHandler
 	INTERRUPT_EPILOGUE
 	reti

@@ -3,7 +3,7 @@
 	.global interrupt_vectors_table
 interrupt_vectors_table:
 	.org 0x0000
-	rjmp reset_system  ; RESET        Reset, Entry point at boot
+	rjmp reset_system            ; RESET        Reset, Entry point at boot
 
 	.org 0x0020
 	rjmp int0_handler            ; INT0         External interrupt request 0
@@ -21,7 +21,9 @@ interrupt_vectors_table:
 	reti                         ; TIMER1OVF    Timer/counter1 overflow
 	reti					     ; TIMER0COMPA  Timer/counter0 compare match A
 	reti                         ; TIMER0COMPB  Timer/counter0 compare match B
-	reti                         ; TIMER0OVF    Timer/counter0 overflow
+
+	.org 0x0200
+	rjmp timer0_overflow_handler ; TIMER0OVF    Timer/counter0 overflow
 	reti                         ; SPISTC       SPI serial transfer complete
 	reti                         ; USARTRX      USART Rx complete
 	reti                         ; USARTUDRE    USART data register empty

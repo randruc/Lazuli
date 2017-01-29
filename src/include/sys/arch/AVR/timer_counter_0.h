@@ -48,12 +48,44 @@ typedef struct {
 }TimerCounter0;
 
 /**
+ * Content of the TIMSK0 register.
+ */
+enum {
+  /** Timer/Counter 0 Overflow Interrupt enable */
+  TIMSK0_TOEI0 = POSITION(0),
+
+  /** Timer/Counter 0 Output Compare Match A Interrupt Enable */
+  TIMSK0_OCIE0A = POSITION(1),
+
+  /** Timer/Counter 0 Output Compare Match B Interrupt Enable */
+  TIMSK0_OCIE0B = POSITION(2)
+};
+
+/**
  * Obtain the memory mapped structure of the "8-bit timer/counter 0" driver.
  *
  * @return A pointer to the memory mapped structure.
  */
 TimerCounter0 *
 GetTimerCounter0();
+
+/**
+ * Enable interrupts fortimer/counter 0.
+ *
+ * @param interruptsMask The mask of interrupts to enable, according to the
+ *                       possible values of TIMSK0 register.
+ */
+void
+TimerCounter0InterruptsEnable(u8 interruptsMask);
+
+/**
+ * Disable interrupts for timer/counter 0.
+ *
+ * @param interruptsMask The mask of interrupts to disable, according to the
+ *                       possible values of TIMSK0 register.
+ */
+void
+TimerCounter0InterruptsDisable(u8 interruptsMask);
 
 _EXTERN_C_DECL_END
 

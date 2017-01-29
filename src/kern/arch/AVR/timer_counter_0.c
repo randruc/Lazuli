@@ -5,10 +5,23 @@
  * atmega328p.
  */
 
+#include <sys/types.h>
 #include <sys/arch/AVR/timer_counter_0.h>
 
 TimerCounter0 *
 GetTimerCounter0()
 {
   return (TimerCounter0 *)&TCCR0A;
+}
+
+void
+TimerCounter0InterruptsEnable(u8 interruptsMask)
+{
+  SET_BITS(TIMSK0, u8, interruptsMask);
+}
+
+void
+TimerCounter0InterruptsDisable(u8 interruptsMask)
+{
+  CLEAR_BITS(TIMSK0, u8, interruptsMask);
 }
