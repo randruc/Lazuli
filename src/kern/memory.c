@@ -28,11 +28,11 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   void *sp, *newBreak;
   
   if (map == NULL) {
-	return NULL;
+    return NULL;
   }
 
   if (increment == 0) {
-	return map->brk;
+    return map->brk;
   }
   
   newBreak = ALLOW_ARITHM(map->brk) + increment;
@@ -40,7 +40,7 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   newGap = ALLOW_ARITHM(sp) - ALLOW_ARITHM(newBreak);
   
   if (newGap < BREAK_STACK_GAP) {
-	return NULL;
+    return NULL;
   }
 
   map->brk = ALLOW_ARITHM(map->brk) + increment;
@@ -61,13 +61,13 @@ static void *
 BaseIncrementalMalloc(const size_t s, AllocationMap * const map)
 {
   if (map == NULL) {
-	return NULL;
+    return NULL;
   }
   
   if (map->allocationType == ALLOC_UNDEFINED) {
-	map->allocationType = ALLOC_INCREMENTAL;
+    map->allocationType = ALLOC_INCREMENTAL;
   } else if (map->allocationType != ALLOC_INCREMENTAL) {
-	return NULL;
+    return NULL;
   }
   
   return SetBreak(s, map);

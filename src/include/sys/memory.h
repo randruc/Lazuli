@@ -28,7 +28,7 @@ typedef struct {
   void *baseMem;
 
   /** Break position, points to the first location beyond the current end of
-	  the heap */
+      the heap */
   void *brk;
 
   /** < End address of the memory region */

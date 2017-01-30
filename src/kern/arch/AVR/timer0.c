@@ -17,19 +17,19 @@ Timer0SetMode(const Timer0Mode mode)
   switch (mode) {
   case Normal:
   case PwmPhaseCorrect0xFF:
-	break;
-	
+    break;
+
   case CTC:
-	CLEAR_BITS(TCCR0A, u8, TCCR0A_WGM00);
-	SET_BITS(TCCR0A, u8, TCCR0A_WGM01);
-	CLEAR_BITS(TCCR0B, u8, TCCR0B_WGM02);
-	break;
+    CLEAR_BITS(TCCR0A, u8, TCCR0A_WGM00);
+    SET_BITS(TCCR0A, u8, TCCR0A_WGM01);
+    CLEAR_BITS(TCCR0B, u8, TCCR0B_WGM02);
+    break;
 
   case FastPwm0xFF:
   case PWMPhaseCorrect:
   case FastPwm:
   default:
-	break;
+    break;
   }
 }
 
@@ -51,43 +51,43 @@ typedef struct {
  */
 static const ToSetToClear toSetToClear[] = {
   { /* Stop */
-	0,
-	TCCR0B_CS02 | TCCR0B_CS01 | TCCR0B_CS00
+    0,
+    TCCR0B_CS02 | TCCR0B_CS01 | TCCR0B_CS00
   },
   
   { /* Clock */
-	TCCR0B_CS00,
-	TCCR0B_CS02 | TCCR0B_CS01
+    TCCR0B_CS00,
+    TCCR0B_CS02 | TCCR0B_CS01
   },
 
   { /* Clock_8 */
-	TCCR0B_CS01,
-	TCCR0B_CS02 | TCCR0B_CS00
+    TCCR0B_CS01,
+    TCCR0B_CS02 | TCCR0B_CS00
   },
 
   { /* Clock_64 */
-	TCCR0B_CS01 | TCCR0B_CS00,
-	TCCR0B_CS02
+    TCCR0B_CS01 | TCCR0B_CS00,
+    TCCR0B_CS02
   },
 
   { /* Clock_256 */
-	TCCR0B_CS02,
-	TCCR0B_CS01 | TCCR0B_CS00
+    TCCR0B_CS02,
+    TCCR0B_CS01 | TCCR0B_CS00
   },
 
   { /* Clock_1024 */
-	TCCR0B_CS02 | TCCR0B_CS00,
-	TCCR0B_CS01
+    TCCR0B_CS02 | TCCR0B_CS00,
+    TCCR0B_CS01
   },
 
   { /* ExternalT0Falling */
-	TCCR0B_CS02 | TCCR0B_CS01,
-	TCCR0B_CS00
+    TCCR0B_CS02 | TCCR0B_CS01,
+    TCCR0B_CS00
   },
 
   { /* ExternalT0Rising */
-	TCCR0B_CS02 | TCCR0B_CS01 | TCCR0B_CS00,
-	0
+    TCCR0B_CS02 | TCCR0B_CS01 | TCCR0B_CS00,
+    0
   }
 };
 

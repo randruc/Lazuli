@@ -141,8 +141,8 @@ present.
 This is good:
 
     if (map == NULL) {
-	  return NULL;
-	}
+      return NULL;
+    }
 
     for (i = 0; i < LENGTH; i++) {
       t[i] = NULL;
@@ -151,7 +151,7 @@ This is good:
 This is not good:
 
     if (map == NULL)
-	  return NULL;
+      return NULL;
 
     for (i = 0; i < LENGTH; i++)
       t[i] = NULL;

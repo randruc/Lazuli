@@ -46,10 +46,10 @@ Main()
   PORTB = u8_MIN;
   
   while (true) {
-	if (mode) {
-	  PORTB = u8_MAX;
-	} else {
-	  PORTB = u8_MIN;
-	}
+    if (mode) {
+      PORTB = u8_MAX;
+    } else {
+      PORTB = u8_MIN;
+    }
   }
 }

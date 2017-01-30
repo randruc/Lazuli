@@ -42,8 +42,8 @@
 enum {
   PRR_PRADC    = POSITION(0), /** < Power Reduction ADC                       */
   PRR_PRUSART0 = POSITION(1), /** < Power Reduction USART0                    */
-  PRR_PRSPI	   = POSITION(2), /** < Power Reduction Serial Peripheral
-								    Interface                                 */
+  PRR_PRSPI    = POSITION(2), /** < Power Reduction Serial Peripheral
+                                    Interface                                 */
   PRR_PRTIM1   = POSITION(3), /** < Power Reduction Timer/Counter 1           */
   PRR_PRTIM0   = POSITION(5), /** < Power Reduction Timer/Counter 0           */
   PRR_PRTIM2   = POSITION(6), /** < Power Reduction Timer/Counter 2           */

@@ -6,33 +6,36 @@
 
 project_name=Lazuli
 
+rm $project_name
+rm $project_name.hex
+
 ../checklines.sh
 
 avr-gcc \
-	-ansi \
-	-std=c89 \
-	-pedantic \
-	-Wall \
-	-Wextra \
-	-Werror \
-	-Iinclude \
-	-mmcu=atmega328p \
-	-nostartfiles \
-	-nostdlib \
-	-nodefaultlibs \
-	-T kern/linker.x \
-	-o $project_name \
-	kern/arch/AVR/interrupt_vectors_table.S \
-	kern/arch/AVR/startup.S \
-	kern/arch/AVR/arch.c \
-	kern/arch/AVR/timer_counter_0.c \
-	kern/kernel.c \
-	kern/memory.c \
-	kern/main.c
+    -ansi \
+    -std=c89 \
+    -pedantic \
+    -Wall \
+    -Wextra \
+    -Werror \
+    -Iinclude \
+    -mmcu=atmega328p \
+    -nostartfiles \
+    -nostdlib \
+    -nodefaultlibs \
+    -T kern/linker.x \
+    -o $project_name \
+    kern/arch/AVR/interrupt_vectors_table.S \
+    kern/arch/AVR/startup.S \
+    kern/arch/AVR/arch.c \
+    kern/arch/AVR/timer_counter_0.c \
+    kern/kernel.c \
+    kern/memory.c \
+    kern/main.c
 
 avr-objcopy \
-	-j .text \
-	-j .data \
-	-O ihex \
-	$project_name \
-	$project_name.hex
+    -j .text \
+    -j .data \
+    -O ihex \
+    $project_name \
+    $project_name.hex

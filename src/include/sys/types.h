@@ -64,10 +64,10 @@
  * @param T The type of the value V.
  * @param X A value containing the bits (at logical 1) to set.
  */
-#define SET_BITS(V, T, X)							\
-  do {												\
-	STATIC_CHECK_TYPE(V, T);						\
-	V |= (T)(X);									\
+#define SET_BITS(V, T, X)                           \
+  do {                                              \
+    STATIC_CHECK_TYPE(V, T);                        \
+    V |= (T)(X);                                    \
   } while (0)
 
 /**
@@ -77,10 +77,10 @@
  * @param T The type of the value V.
  * @param X A value containing the bits (at logical 1) to clear.
  */
-#define CLEAR_BITS(V, T, X)						\
-  do {											\
-	STATIC_CHECK_TYPE(V, T);					\
-	V &= (T)(~(X));								\
+#define CLEAR_BITS(V, T, X)                     \
+  do {                                          \
+    STATIC_CHECK_TYPE(V, T);                    \
+    V &= (T)(~(X));                             \
   } while (0)
 
 /**

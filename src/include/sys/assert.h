@@ -18,10 +18,11 @@
  *
  * @param C The assertion to check.
  */
-#define _BASE_ASSERT(C)							\
-  if(C) {}										\
-  else											\
-	Panic()
+#define _BASE_ASSERT(C)                         \
+  if(C)                                         \
+    {}                                          \
+  else                                          \
+    Panic()
 
 #if DEBUG
 /**

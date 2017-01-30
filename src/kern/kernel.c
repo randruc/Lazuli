@@ -46,7 +46,7 @@ void
 Panic()
 {  
   if (ON_PANIC_INFINITE_LOOP) {
-	InfiniteLoop();
+    InfiniteLoop();
   } else if (ON_PANIC_SOFTWARE_RESET) {
   }
 }

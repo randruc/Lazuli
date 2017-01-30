@@ -53,11 +53,11 @@ enum {
  */
 enum {
   TIMSK0_TOEIE0 = POSITION(0), /** < Timer/Counter 0 Overflow Interrupt
-								     enable                                  */
+                                     enable                                  */
   TIMSK0_OCIE0A = POSITION(1), /** < Timer/Counter 0 Output Compare Match A
-								     Interrupt Enable                        */
+                                     Interrupt Enable                        */
   TIMSK0_OCIE0B = POSITION(2)  /** < Timer/Counter 0 Output Compare Match B
-								     Interrupt Enable                        */
+                                     Interrupt Enable                        */
 };
 
 /**
@@ -66,9 +66,9 @@ enum {
 enum {
   TIFR0_TOV0  = POSITION(0), /** < Timer/Counter 0 Overflow Flag             */
   TIFR0_OCF0A = POSITION(1), /** < Timer/Counter 0 Output Compare A Match
-								   Flag                                      */
+                                   Flag                                      */
   TIFR0_OCF0B = POSITION(2)  /** < Timer/Counter 0 Output Compare B Match
-								   Flag                                      */
+                                   Flag                                      */
 };
 
 /**
