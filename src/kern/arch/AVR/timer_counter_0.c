@@ -15,13 +15,13 @@ GetTimerCounter0()
 }
 
 void
-TimerCounter0InterruptsEnable(u8 interruptsMask)
+TimerCounter0InterruptsEnable(const u8 interruptsMask)
 {
   SET_BITS(TIMSK0, u8, interruptsMask);
 }
 
 void
-TimerCounter0InterruptsDisable(u8 interruptsMask)
+TimerCounter0InterruptsDisable(const u8 interruptsMask)
 {
   CLEAR_BITS(TIMSK0, u8, interruptsMask);
 }

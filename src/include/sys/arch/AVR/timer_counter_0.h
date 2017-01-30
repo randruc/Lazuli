@@ -76,7 +76,7 @@ GetTimerCounter0();
  *                       possible values of TIMSK0 register.
  */
 void
-TimerCounter0InterruptsEnable(u8 interruptsMask);
+TimerCounter0InterruptsEnable(const u8 interruptsMask);
 
 /**
  * Disable interrupts for timer/counter 0.
@@ -85,7 +85,7 @@ TimerCounter0InterruptsEnable(u8 interruptsMask);
  *                       possible values of TIMSK0 register.
  */
 void
-TimerCounter0InterruptsDisable(u8 interruptsMask);
+TimerCounter0InterruptsDisable(const u8 interruptsMask);
 
 _EXTERN_C_DECL_END
 
