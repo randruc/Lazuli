@@ -2,7 +2,7 @@
  * @file timer_counter_0.h
  *
  * Describes the interface of the "8-bit timer/counter 0" driver for the
- * atmega328p. 
+ * atmega328p.
  */
 
 #ifndef LZ_AVR_TIMER_COUNTER_0_H
@@ -25,6 +25,29 @@ _EXTERN_C_DECL_BEGIN
 #define TIMSK0 DIRECT(0x6e)   /** < Timer/Counter Interrupt Mask Register   */
 
 /**
+ * Describes the memory mapping for timer/counter 0.
+ */
+typedef struct {
+  volatile u8 tccr0a; /** < Timer/Counter Control Register A        */
+  volatile u8 tccr0b; /** < Timer/Counter Control Register B        */
+  volatile u8 tcnt0;  /** < Timer/Counter Register                  */
+  volatile u8 ocr0a;  /** < Output Compare register A               */
+  volatile u8 ocr0b;  /** < Output Compare register B               */
+}TimerCounter0;
+
+/**
+ * Content of the TCCR0A register.
+ */
+enum {
+  TCCR0A_WGM00  = POSITION(0), /** < Waveform Generation Mode    */
+  TCCR0A_WGM01  = POSITION(1), /** < Waveform Generation Mode    */
+  TCCR0A_COM0B0 = POSITION(4), /** < Compare Match Output B Mode */
+  TCCR0A_COM0B1 = POSITION(5), /** < Compare Match Output B Mode */
+  TCCR0A_COM0A0 = POSITION(6), /** < Compare Match Output A Mode */
+  TCCR0A_COM0A1 = POSITION(7)  /** < Compare Match Output A Mode */
+};
+
+/**
  * Content of the TCCR0B register
  */
 enum {
@@ -35,17 +58,6 @@ enum {
   TCCR0B_FOC0B = POSITION(6), /** < Force Output Compare B   */
   TCCR0B_FOC0A = POSITION(7)  /** < Force Output Compare A   */
 };
-
-/**
- * Describes the memory mapping for timer/counter 0.
- */
-typedef struct {
-  volatile u8 tccr0a; /** < Timer/Counter Control Register A        */
-  volatile u8 tccr0b; /** < Timer/Counter Control Register B        */
-  volatile u8 tcnt0;  /** < Timer/Counter Register                  */
-  volatile u8 ocr0a;  /** < Output Compare register A               */
-  volatile u8 ocr0b;  /** < Output Compare register B               */
-}TimerCounter0;
 
 /**
  * Content of the TIMSK0 register.
@@ -59,6 +71,17 @@ enum {
 
   /** Timer/Counter 0 Output Compare Match B Interrupt Enable */
   TIMSK0_OCIE0B = POSITION(2)
+};
+
+/**
+ * Content of the TIFR0 Register.
+ */
+enum {
+  TIFR0_TOV0  = POSITION(0), /** < Timer/Counter 0 Overflow Flag             */
+  TIFR0_OCF0A = POSITION(1), /** < Timer/Counter 0 Output Compare A Match
+                                   Flag                                      */
+  TIFR0_OCF0B = POSITION(2)  /** < Timer/Counter 0 Output Compare B Match
+                                   Flag                                      */
 };
 
 /**
