@@ -7,7 +7,8 @@ grep -nrH \
      --include=*.c \
      --include=*.h \
      --include=*.md \
-     --include=*.sh
+     --include=*.sh \
+     --include=*.x
 
 grep -nrHP \
      --color \
@@ -15,4 +16,5 @@ grep -nrHP \
      --include=*.c \
      --include=*.h \
      --include=*.md \
-     --include=*.sh
+     --include=*.sh \
+     --include=*.x

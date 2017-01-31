@@ -5,13 +5,23 @@
 # No Makefile for the moment.
 
 project_name=Lazuli
+debug=true
 
-rm $project_name
-rm $project_name.hex
+if [ $debug = true ]
+then
+    cflags='-g'
+else
+    cflags=''
+fi
+
+rm -f sourcelist
+rm -f $project_name
+rm -f $project_name.hex
 
 ../checklines.sh
 
 avr-gcc \
+    $cflags \
     -ansi \
     -std=c89 \
     -pedantic \
@@ -39,3 +49,8 @@ avr-objcopy \
     -O ihex \
     $project_name \
     $project_name.hex
+
+if [ $debug = true ]
+then
+    avr-objdump -hS $project_name > sourcelist
+fi
