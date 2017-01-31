@@ -9,12 +9,12 @@
 
 #include <sys/types.h>
 
-/** 
+/**
  * Start address of the .data section.
  */
 extern void * const _data_start;
 
-/** 
+/**
  * Start address of the loaded .data section.
  */
 extern void *const _data_load_start;
@@ -29,7 +29,7 @@ extern const u8 _data_size;
  */
 extern void * const _bss_start;
 
-/** 
+/**
  * Total size of the .bss section.
  */
 extern const u8 _bss_size;

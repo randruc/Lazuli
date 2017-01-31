@@ -54,7 +54,7 @@ static const ToSetToClear toSetToClear[] = {
     0,
     TCCR0B_CS02 | TCCR0B_CS01 | TCCR0B_CS00
   },
-  
+
   { /* Clock */
     TCCR0B_CS00,
     TCCR0B_CS02 | TCCR0B_CS01
@@ -97,9 +97,9 @@ Timer0SelectClock(const Timer0ClockSelect clockSelect)
   const ToSetToClear *t;
 
   DEBUG_ASSERT(clockSelect > ExternalT0Rising || clockSelect < 0);
-  
+
   t = &toSetToClear[clockSelect];
-  
+
   CLEAR_BITS(TCCR0B, u8, t->toClear);
   SET_BITS(TCCR0B, u8, t->toSet);
 }

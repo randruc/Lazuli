@@ -1,22 +1,26 @@
 #!/bin/bash
 
+filetypes="--include=*.c \
+     --include=*.h \
+     --include=*.md \
+     --include=*.sh \
+     --include=*.x \
+     --include=*.S"
+
 # Print lines longer than 80 characters
 grep -nrH \
      '.\{81\}'\
      --color \
-     --include=*.c \
-     --include=*.h \
-     --include=*.md \
-     --include=*.sh \
-     --include=*.x \
-     --include=*.S
+     $filetypes
 
+# Find tab characters
 grep -nrHP \
      --color \
      "\t" \
-     --include=*.c \
-     --include=*.h \
-     --include=*.md \
-     --include=*.sh \
-     --include=*.x \
-     --include=*.S
+     $filetypes
+
+# Find trailing whitespaces
+grep -nrH \
+     "\([[:space:]]\)$" \
+     --color \
+     $filetypes

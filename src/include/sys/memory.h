@@ -35,7 +35,7 @@ typedef struct {
   void *endMem;
 
   /** < The type of allocation used for this map */
-  AllocationType allocationType;  
+  AllocationType allocationType;
 }AllocationMap;
 
 /**

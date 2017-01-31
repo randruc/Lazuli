@@ -26,7 +26,7 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
 {
   ptrdiff_t newGap;
   void *sp, *newBreak;
-  
+
   if (map == NULL) {
     return NULL;
   }
@@ -34,11 +34,11 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   if (increment == 0) {
     return map->brk;
   }
-  
+
   newBreak = ALLOW_ARITHM(map->brk) + increment;
   sp = GetStackPointer();
   newGap = ALLOW_ARITHM(sp) - ALLOW_ARITHM(newBreak);
-  
+
   if (newGap < BREAK_STACK_GAP) {
     return NULL;
   }
@@ -63,13 +63,13 @@ BaseIncrementalMalloc(const size_t s, AllocationMap * const map)
   if (map == NULL) {
     return NULL;
   }
-  
+
   if (map->allocationType == ALLOC_UNDEFINED) {
     map->allocationType = ALLOC_INCREMENTAL;
   } else if (map->allocationType != ALLOC_INCREMENTAL) {
     return NULL;
   }
-  
+
   return SetBreak(s, map);
 }
 

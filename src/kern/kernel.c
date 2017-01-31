@@ -44,7 +44,7 @@ KMain()
 
 void
 Panic()
-{  
+{
   if (ON_PANIC_INFINITE_LOOP) {
     InfiniteLoop();
   } else if (ON_PANIC_SOFTWARE_RESET) {

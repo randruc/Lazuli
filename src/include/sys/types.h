@@ -10,13 +10,13 @@
 #define LZ_TYPES_H
 
 #ifdef __cplusplus
-/** 
+/**
  * Open C++ header file declarations
- */    
+ */
 #define _EXTERN_C_DECL_BEGIN extern "C" {
-/** 
+/**
  * Close C++ header file declarations
- */    
+ */
 #define _EXTERN_C_DECL_END }
 #else /* __cplusplus */
 #define _EXTERN_C_DECL_BEGIN
