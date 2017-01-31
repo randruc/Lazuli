@@ -96,7 +96,7 @@
  *
  * @param X The address of the register.
  */
-#define INDIRECT(X) ((u8 *)(X))
+#define INDIRECT(X) ((volatile u8 *)(X))
 
 /**
  * Define a direct read/write register at an aboslute address.
