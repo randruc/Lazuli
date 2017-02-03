@@ -9,7 +9,7 @@ debug=true
 
 if [ $debug = true ]
 then
-    cflags='-g'
+    cflags='-g -DLZ_DEBUG=1'
 else
     cflags=''
 fi

@@ -24,7 +24,7 @@
   else                                          \
     Panic()
 
-#if DEBUG
+#if LZ_DEBUG
 /**
  * Perform an assertion a runtime, only in debug configuration.
  *
@@ -33,7 +33,7 @@
 #define DEBUG_ASSERT(C) _BASE_ASSERT(C)
 #else
 #define DEBUG_ASSERT(C)
-#endif /* DEBUG */
+#endif /* LZ_DEBUG */
 
 /**
  * Perform an assertion a runtime, wether the configuration is in debug or not.

@@ -12,11 +12,6 @@
 #include <Lazuli/common.h>
 
 /**
- * Run the kernel in debug configuration (0 = False, 1 = True).
- */
-#define DEBUG (1)
-
-/**
  * Size in bytes of the security gap between the break and the stack pointer.
  */
 #define BREAK_STACK_GAP ((u8)50)
