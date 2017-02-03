@@ -9,7 +9,7 @@
 #ifndef LZ_CONFIG_H
 #define LZ_CONFIG_H
 
-#include <sys/types.h>
+#include <Lazuli/common.h>
 
 /**
  * Run the kernel in debug configuration (0 = False, 1 = True).

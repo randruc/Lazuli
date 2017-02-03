@@ -7,7 +7,7 @@
 #ifndef LZ_LINKER_H
 #define LZ_LINKER_H
 
-#include <sys/types.h>
+#include <Lazuli/common.h>
 
 /**
  * Start address of the .data section.

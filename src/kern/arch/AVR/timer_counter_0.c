@@ -5,8 +5,8 @@
  * atmega328p.
  */
 
-#include <sys/types.h>
-#include <sys/arch/AVR/timer_counter_0.h>
+#include <Lazuli/common.h>
+#include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 
 TimerCounter0 *
 GetTimerCounter0()

@@ -4,10 +4,10 @@
  * Entry point for user tasks.
  */
 
-#include <sys/arch/AVR/registers.h>
-#include <sys/arch/AVR/arch.h>
-#include <sys/types.h>
-#include <sys/arch/AVR/timer_counter_0.h>
+#include <Lazuli/sys/arch/AVR/registers.h>
+#include <Lazuli/sys/arch/AVR/arch.h>
+#include <Lazuli/common.h>
+#include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 
 void
 Int0Handler()

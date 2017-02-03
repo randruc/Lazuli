@@ -1,13 +1,12 @@
 /**
- * @file types.h
+ * @file common.h
  *
- * This file contains useful macros and describes basic types used in the
- * kernel.
+ * This file describes basic types and useful macros used in the Lazuli project.
+ * This file can be used within kernel code or within user code.
  */
-/* TODO: Maybe consider renaming this file */
 
-#ifndef LZ_TYPES_H
-#define LZ_TYPES_H
+#ifndef LZ_COMMON_H
+#define LZ_COMMON_H
 
 #ifdef __cplusplus
 /**
@@ -232,4 +231,4 @@ STATIC_ASSERT(sizeof(bool) == 1, "bool MUST be 1 byte long.");
  */
 #define false ((bool)0);
 
-#endif /* LZ_TYPES_H */
+#endif /* LZ_COMMON_H */

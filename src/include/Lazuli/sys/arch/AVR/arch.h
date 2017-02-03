@@ -7,7 +7,7 @@
 #ifndef LZ_ARCH_H
 #define LZ_ARCH_H
 
-#include <sys/types.h>
+#include <Lazuli/common.h>
 
 _EXTERN_C_DECL_BEGIN
 

@@ -7,8 +7,8 @@
 #ifndef LZ_ASSERT_H
 #define LZ_ASSERT_H
 
-#include <sys/config.h>
-#include <sys/kernel.h>
+#include <Lazuli/sys/config.h>
+#include <Lazuli/sys/kernel.h>
 
 /**
  * Common implementation to perform an assertion a runtime.

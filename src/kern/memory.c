@@ -5,11 +5,11 @@
  * This can serve the kernel or the tasks.
  */
 
-#include <sys/memory.h>
-#include <sys/config.h>
-#include <sys/types.h>
-#include <sys/arch/AVR/arch.h>
-#include <sys/kernel.h>
+#include <Lazuli/sys/memory.h>
+#include <Lazuli/sys/config.h>
+#include <Lazuli/common.h>
+#include <Lazuli/sys/arch/AVR/arch.h>
+#include <Lazuli/sys/kernel.h>
 
 /**
  * Set break position of a memory region.

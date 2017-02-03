@@ -7,7 +7,7 @@
 #ifndef LZ_REGISTERS_H
 #define LZ_REGISTERS_H
 
-#include <sys/types.h>
+#include <Lazuli/common.h>
 
 /*
  * General register definitions.

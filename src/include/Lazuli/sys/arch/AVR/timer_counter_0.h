@@ -8,7 +8,7 @@
 #ifndef LZ_AVR_TIMER_COUNTER_0_H
 #define LZ_AVR_TIMER_COUNTER_0_H
 
-#include <sys/types.h>
+#include <Lazuli/common.h>
 
 _EXTERN_C_DECL_BEGIN
 

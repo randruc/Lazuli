@@ -4,11 +4,11 @@
  * Describes the "8-bit timer/counter 0" driver for the atmega328p.
  */
 
-#include <sys/arch/AVR/registers.h>
-#include <sys/arch/AVR/timer0.h>
-#include <sys/kernel.h>
-#include <sys/types.h>
-#include <sys/assert.h>
+#include <Lazuli/sys/arch/AVR/registers.h>
+#include <Lazuli/sys/arch/AVR/timer0.h>
+#include <Lazuli/sys/kernel.h>
+#include <Lazuli/common.h>
+#include <Lazuli/sys/assert.h>
 
 void
 Timer0SetMode(const Timer0Mode mode)

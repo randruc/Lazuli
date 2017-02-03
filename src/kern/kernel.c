@@ -7,12 +7,12 @@
  * - Kernel panic
  */
 
-#include <sys/memory.h>
-#include <sys/linker.h>
-#include <sys/memory.h>
-#include <sys/arch/AVR/arch.h>
-#include <sys/config.h>
-#include <sys/types.h>
+#include <Lazuli/sys/memory.h>
+#include <Lazuli/sys/linker.h>
+#include <Lazuli/sys/memory.h>
+#include <Lazuli/sys/arch/AVR/arch.h>
+#include <Lazuli/sys/config.h>
+#include <Lazuli/common.h>
 
 /**
  * Main entry point for user tasks.

@@ -7,8 +7,8 @@
 #ifndef LZ_TASKS_H
 #define LZ_TASKS_H
 
-#include <sys/types.h>
-#include <sys/memory.h>
+#include <Lazuli/common.h>
+#include <Lazuli/sys/memory.h>
 
 _EXTERN_C_DECL_BEGIN
 

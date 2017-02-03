@@ -7,8 +7,8 @@
 #ifndef LZ_KERNEL_H
 #define LZ_KERNEL_H
 
-#include <sys/memory.h>
-#include <sys/types.h>
+#include <Lazuli/sys/memory.h>
+#include <Lazuli/common.h>
 
 _EXTERN_C_DECL_BEGIN
 
