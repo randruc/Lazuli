@@ -15,7 +15,7 @@ else
 fi
 
 rm -f sourcelist
-rm -f $project_name
+rm -f $project_name.elf
 rm -f $project_name.hex
 
 ../checklines.sh
@@ -34,7 +34,7 @@ avr-gcc \
     -nostdlib \
     -nodefaultlibs \
     -T kern/linker.x \
-    -o $project_name \
+    -o $project_name.elf \
     kern/arch/AVR/interrupt_vectors_table.S \
     kern/arch/AVR/startup.S \
     kern/arch/AVR/arch.c \
@@ -47,10 +47,10 @@ avr-objcopy \
     -j .text \
     -j .data \
     -O ihex \
-    $project_name \
+    $project_name.elf \
     $project_name.hex
 
 if [ $debug = true ]
 then
-    avr-objdump -hS $project_name > sourcelist
+    avr-objdump -hS $project_name.elf > sourcelist
 fi
