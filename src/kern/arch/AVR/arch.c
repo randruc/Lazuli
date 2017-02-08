@@ -11,3 +11,6 @@ void *GetStackPointer()
 {
   return (void*)SPL;
 }
+
+/* TODO: Check that */
+volatile void * const StackPointer = (void*)SPH;

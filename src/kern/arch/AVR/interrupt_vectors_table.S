@@ -2,12 +2,18 @@
 
     .global interrupt_vectors_table
 interrupt_vectors_table:
+    ;; RESET - Reset, Entry point at boot
     .org 0x0000
-    rjmp reset_system            ; RESET        Reset, Entry point at boot
+    jmp reset_system
 
-    .org 0x0020
-    rjmp int0_handler            ; INT0         External interrupt request 0
-    reti                         ; INT1         External interrupt request 1
+    ;; INT0 - External interrupt request 0
+    .org 0x00004
+    jmp int0_handler
+
+    ;; INT1 - External interrupt request 1
+    .org 0x00008
+    jmp int1_handler
+
     reti                         ; PCINT0       Pin change interrupt request 0
     reti                         ; PCINT1       Pin change interrupt request 1
     reti                         ; PCINT2       Pin change interrupt request 2
@@ -19,11 +25,17 @@ interrupt_vectors_table:
     reti                         ; TIMER1COMPA  Timer/counter1 compare match A
     reti                         ; TIMER1COMPB  Timer/counter1 compare match B
     reti                         ; TIMER1OVF    Timer/counter1 overflow
-    reti                         ; TIMER0COMPA  Timer/counter0 compare match A
+
+    ;; TIMER0COMPA - Timer/counter0 compare match A
+    .org 0x0038
+    jmp timer0_compare_match_A_handler
+
     reti                         ; TIMER0COMPB  Timer/counter0 compare match B
 
-    .org 0x0200
-    rjmp timer0_overflow_handler ; TIMER0OVF    Timer/counter0 overflow
+    ;; TIMER0OVF - Timer/counter0 overflow
+    .org 0x0040
+    jmp timer0_overflow_handler
+
     reti                         ; SPISTC       SPI serial transfer complete
     reti                         ; USARTRX      USART Rx complete
     reti                         ; USARTUDRE    USART data register empty

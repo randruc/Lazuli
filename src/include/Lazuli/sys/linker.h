@@ -17,12 +17,27 @@ extern void * const _data_start;
 /**
  * Start address of the loaded .data section.
  */
-extern void *const _data_load_start;
+extern void * const _data_load_start;
 
 /**
  * Total size of the .data section.
  */
 extern const u8 _data_size;
+
+/**
+ * Start address of the .rodata section.
+ */
+extern void * const _rodata_start;
+
+/**
+ * Start address of the loaded .rodata section.
+ */
+extern void * const _rodata_load_start;
+
+/**
+ * Total size of the .rodata section
+ */
+extern const u8 _rodata_size;
 
 /**
  * Start address of the .bss section.

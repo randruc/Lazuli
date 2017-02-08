@@ -64,7 +64,7 @@ enum {
  */
 enum {
   /** Timer/Counter 0 Overflow Interrupt enable */
-  TIMSK0_TOEI0 = POSITION(0),
+  TIMSK0_TOIE0 = POSITION(0),
 
   /** Timer/Counter 0 Output Compare Match A Interrupt Enable */
   TIMSK0_OCIE0A = POSITION(1),

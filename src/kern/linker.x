@@ -1,5 +1,5 @@
 /*
- * Architecure independent linker script.
+ * Architecture independent linker script.
  */
 
 INCLUDE kern/arch/AVR/linker.x
@@ -23,6 +23,14 @@ SECTIONS
     } > REGION_DATA
     _data_size = SIZEOF(.data);
     _data_load_start = LOADADDR(.data);
+
+    .rodata :
+    {
+        _rodata_start = .;
+        *(.rodata)
+    } > REGION_DATA
+    _rodata_size = SIZEOF(.rodata);
+    _rodata_load_start = LOADADDR(.rodata);
 
     .bss :
     {

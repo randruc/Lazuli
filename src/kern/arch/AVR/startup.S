@@ -91,6 +91,37 @@
 .endm
 
     ;;
+    ;; Interrupts handlers
+    ;;
+    .global int0_handler
+int0_handler:
+    INTERRUPT_PROLOGUE
+    call Int0Handler
+    INTERRUPT_EPILOGUE
+    reti
+
+    .global int1_handler
+int1_handler:
+    INTERRUPT_PROLOGUE
+    call Int1Handler
+    INTERRUPT_EPILOGUE
+    reti
+
+    .global timer0_compare_match_A_handler
+timer0_compare_match_A_handler:
+    INTERRUPT_PROLOGUE
+    call Timer0CompareMatchAHandler
+    INTERRUPT_EPILOGUE
+    reti
+
+    .global timer0_overflow_handler
+timer0_overflow_handler:
+    INTERRUPT_PROLOGUE
+    call TimerCounter0OverflowHandler
+    INTERRUPT_EPILOGUE
+    reti
+
+    ;;
     ;; Main entry point of the whole system.
     ;;
     .global reset_system
@@ -103,33 +134,52 @@ reset_system:
 
     ;; Clear bss section
     ;; TODO: Find a way to omit this code if no .bss
+    ldi r16, _bss_size
+    cpi r16, 0
+    breq bss_loop_end
     ldi r26, lo8(_bss_start)
     ldi r27, hi8(_bss_start)
-    ldi r16, _bss_size
-clear_bss:
-    cpi r16, 0
-    breq out_bss
     ldi r17, 0
+bss_loop_start:
     st X+, r17
     dec r16
-    rjmp clear_bss
-out_bss:
+    cpi r16, 0
+    brne bss_loop_start
+bss_loop_end:
 
     ;; Load data section
     ;; TODO: Find a way to omit this code if no .data
+    ldi r16, _data_size
+    cpi r16, 0
+    breq data_loop_end
     ldi r30, lo8(_data_load_start)
     ldi r31, hi8(_data_load_start)
     ldi r26, lo8(_data_start)
     ldi r27, hi8(_data_start)
-    ldi r16, _data_size
-copy_data:
-    cpi r16, 0
-    breq out_data
+data_loop_start:
     lpm r17, Z+
     st X+, r17
     dec r16
-    rjmp copy_data
-out_data:
+    cpi r16, 0
+    brne data_loop_start
+data_loop_end:
+
+    ;; Load rodata section
+    ;;  TODO: Find a way to omit this code if no .rodata
+    ldi r16, _rodata_size
+    cpi r16, 0
+    breq rodata_loop_end
+    ldi r30, lo8(_rodata_load_start)
+    ldi r31, hi8(_rodata_load_start)
+    ldi r26, lo8(_rodata_start)
+    ldi r27, hi8(_rodata_start)
+rodata_loop_start:
+    lpm r17, Z+
+    st X+, r17
+    dec r16
+    cpi r16, 0
+    brne rodata_loop_start
+rodata_loop_end:
 
     ;; Set kernel stack pointer
     ldi r16, lo8(_ramend)
@@ -154,17 +204,3 @@ GlobalInterruptsEnable:
 GlobalInterruptsDisable:
     cli
     ret
-
-    .global int0_handler
-int0_handler:
-    INTERRUPT_PROLOGUE
-    call Int0Handler
-    INTERRUPT_EPILOGUE
-    reti
-
-    .global timer0_overflow_handler
-timer0_overflow_handler:
-    INTERRUPT_PROLOGUE
-    call TimerCounter0OverflowHandler
-    INTERRUPT_EPILOGUE
-    reti

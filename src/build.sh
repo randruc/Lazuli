@@ -46,6 +46,7 @@ avr-gcc \
 avr-objcopy \
     -j .text \
     -j .data \
+    -j .rodata \
     -O ihex \
     $project_name.elf \
     $project_name.hex
