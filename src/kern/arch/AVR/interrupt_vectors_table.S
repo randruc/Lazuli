@@ -1,17 +1,33 @@
     ;; Set up the interrupt vectors table
 
+    ;;
+    ;; Compute the right placement of the interrupt vector, after the address
+    ;; specified in the datasheet.
+    ;;
+    ;; @param X The address with which to compute the placement.
+    ;;
+#define INTERRUPT_ADDRESS(X) (X * 2)
+
+    ;;
+    ;; Specify the placement of the interrupt vector
+    ;;
+    ;; @param X The interrupt vector address.
+    ;;
+#define AT(X) .org INTERRUPT_ADDRESS(X)
+
     .global interrupt_vectors_table
 interrupt_vectors_table:
+
     ;; RESET - Reset, Entry point at boot
-    .org 0x0000
+    AT(0x0000)
     jmp reset_system
 
     ;; INT0 - External interrupt request 0
-    .org 0x00004
+    AT(0x0002)
     jmp int0_handler
 
     ;; INT1 - External interrupt request 1
-    .org 0x00008
+    AT(0x0004)
     jmp int1_handler
 
     reti                         ; PCINT0       Pin change interrupt request 0
@@ -27,13 +43,13 @@ interrupt_vectors_table:
     reti                         ; TIMER1OVF    Timer/counter1 overflow
 
     ;; TIMER0COMPA - Timer/counter0 compare match A
-    .org 0x0038
+    AT(0x001c)
     jmp timer0_compare_match_A_handler
 
     reti                         ; TIMER0COMPB  Timer/counter0 compare match B
 
     ;; TIMER0OVF - Timer/counter0 overflow
-    .org 0x0040
+    AT(0x0020)
     jmp timer0_overflow_handler
 
     reti                         ; SPISTC       SPI serial transfer complete
