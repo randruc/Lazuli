@@ -1,7 +1,7 @@
 /**
  * @file kernel.h
  *
- * Defines kernel objects.
+ * Kernel symbols definition.
  */
 
 #ifndef LZ_KERNEL_H
