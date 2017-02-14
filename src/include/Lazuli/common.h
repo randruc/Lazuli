@@ -105,6 +105,20 @@
 #define DIRECT(X) (*INDIRECT(X))
 
 /**
+ * Take the low byte of a 16-bit value.
+ *
+ * @param X The 16-bit value.
+ */
+#define LO8(X) ((u8)X)
+
+/**
+ * Take the high byte of a 16-bit value.
+ *
+ * @param X The 16-bit value.
+ */
+#define HI8(X) LO8(X >> 8)
+
+/**
  * NULL pointer.
  */
 #define NULL ((void *)0)

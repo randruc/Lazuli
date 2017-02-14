@@ -33,12 +33,14 @@ avr-gcc \
     -nostartfiles \
     -nostdlib \
     -nodefaultlibs \
+    -fshort-enums \
     -T kern/linker.x \
     -o $project_name.elf \
     kern/arch/AVR/interrupt_vectors_table.S \
     kern/arch/AVR/startup.S \
     kern/arch/AVR/arch.c \
     kern/arch/AVR/timer_counter_0.c \
+    kern/arch/AVR/usart.c \
     kern/kernel.c \
     kern/memory.c \
     kern/main.c

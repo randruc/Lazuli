@@ -3,7 +3,7 @@
  *
  * This file contains all the configuration of the kernel.
  * These are mainly constants.
- * Does not contain arch-specific configuration.
+ * Does not contain any arch-specific configuration.
  */
 
 #ifndef LZ_CONFIG_H
@@ -19,7 +19,7 @@
 /**
  * Clock frequency in Hertz.
  */
-#define CLOCK_FREQUENCY (8000000)
+#define CLOCK_FREQUENCY (1000000)
 
 /**
  * Run an infinite loop on kernel panic.

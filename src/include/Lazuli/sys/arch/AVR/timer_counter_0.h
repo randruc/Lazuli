@@ -2,7 +2,7 @@
  * @file timer_counter_0.h
  *
  * Describes the interface of the "8-bit timer/counter 0" driver for the
- * atmega328p.
+ * ATMega328p.
  */
 
 #ifndef LZ_AVR_TIMER_COUNTER_0_H
@@ -13,7 +13,7 @@
 _EXTERN_C_DECL_BEGIN
 
 /*
- * Timer 0 registers definitions
+ * Timer 0 registers definitions.
  * Ordered by address.
  */
 #define TIFR0  DIRECT(0x35)   /** < Timer/Counter 0 Interrupt Flag Register */
