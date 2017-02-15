@@ -119,6 +119,27 @@
 #define HI8(X) LO8(X >> 8)
 
 /**
+ * Get the offset of a member in a structure.
+ *
+ * @param M The name of the member.
+ * @param T The type of the structure.
+ */
+#define OFFSET_OF(M, T)                         \
+  ((u8)(&(((T*)0)->M)))
+
+/**
+ * Get a pointer to the structure T containing the member M pointed by P.
+ *
+ * May crash if P doesn't point to the type defined by M.
+ *
+ * @param P The pointer to the member.
+ * @param M The name of the member.
+ * @param T The type of the structure.
+ */
+#define CONTAINER_OF(P, M, T)                               \
+  ((T*)((u8*)(1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
+
+/**
  * NULL pointer.
  */
 #define NULL ((void *)0)
