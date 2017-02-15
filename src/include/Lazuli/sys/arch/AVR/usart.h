@@ -96,6 +96,38 @@ Usart_Init();
 void
 Usart_PutChar(char c);
 
+/**
+ * Print an u32 value in hexadecimal.
+ *
+ * @param value The u32 value to print.
+ */
+void
+Usart_HexaPrint_u32(const u32 value);
+
+/**
+ * Print an u16 value in hexadecimal.
+ *
+ * @param value The u16 value to print.
+ */
+void
+Usart_HexaPrint_u16(const u16 value);
+
+/**
+ * Print an u8 value in hexadecimal.
+ *
+ * @param value The u8 value to print.
+ */
+void
+Usart_HexaPrint_u8(const u8 value);
+
+/**
+ * Print an pointer value in hexadecimal.
+ *
+ * @param pointer The pointer value to print.
+ */
+void
+Usart_HexaPrint_Pointer(void * const pointer);
+
 _EXTERN_C_DECL_END
 
 #endif /* LZ_AVR_USART_H */

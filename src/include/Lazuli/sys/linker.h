@@ -12,51 +12,36 @@
 /**
  * Start address of the .data section.
  */
-extern void * const _data_start;
+extern u8 _data_start;
 
 /**
  * Start address of the loaded .data section.
  */
-extern void * const _data_load_start;
-
-/**
- * Total size of the .data section.
- */
-extern const u8 _data_size;
+extern u8 _data_load_start;
 
 /**
  * Start address of the .rodata section.
  */
-extern void * const _rodata_start;
+extern u8 _rodata_start;
 
 /**
  * Start address of the loaded .rodata section.
  */
-extern void * const _rodata_load_start;
-
-/**
- * Total size of the .rodata section
- */
-extern const u8 _rodata_size;
+extern u8 _rodata_load_start;
 
 /**
  * Start address of the .bss section.
  */
-extern void * const _bss_start;
-
-/**
- * Total size of the .bss section.
- */
-extern const u8 _bss_size;
+extern u8 _bss_start;
 
 /**
  * Initial break address.
  */
-extern void * const _brk;
+extern u8 _brk;
 
 /**
  * Last address of RAM.
  */
-extern void * const _ramend;
+extern u8 _ramend;
 
 #endif /* LZ_LINKER_H */
