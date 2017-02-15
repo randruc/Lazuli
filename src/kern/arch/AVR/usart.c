@@ -39,6 +39,7 @@ Usart_PutChar(char c)
   usart->udr0 = c;
 }
 
+/* TODO: Store this is program memory */
 /**
  * Array used to get the character representation of a hexadecimal digit
  */
