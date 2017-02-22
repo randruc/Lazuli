@@ -10,6 +10,7 @@
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/AVR/arch.h>
 #include <Lazuli/sys/kernel.h>
+#include <Lazuli/sys/arch/AVR/registers.h>
 
 /**
  * Set break position of a memory region.
@@ -27,16 +28,18 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   ptrdiff_t newGap;
   void *sp, *newBreak;
 
-  if (map == NULL) {
+  if (NULL == map) {
     return NULL;
   }
 
-  if (increment == 0) {
+  if (0 == increment) {
     return map->brk;
   }
 
   newBreak = ALLOW_ARITHM(map->brk) + increment;
-  sp = GetStackPointer();
+
+  sp = (void*)SP;
+
   newGap = ALLOW_ARITHM(sp) - ALLOW_ARITHM(newBreak);
 
   if (newGap < BREAK_STACK_GAP) {
@@ -60,13 +63,13 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
 static void *
 BaseIncrementalMalloc(const size_t s, AllocationMap * const map)
 {
-  if (map == NULL) {
+  if (NULL == map) {
     return NULL;
   }
 
-  if (map->allocationType == ALLOC_UNDEFINED) {
+  if (ALLOC_UNDEFINED == map->allocationType) {
     map->allocationType = ALLOC_INCREMENTAL;
-  } else if (map->allocationType != ALLOC_INCREMENTAL) {
+  } else if (ALLOC_INCREMENTAL != map->allocationType) {
     return NULL;
   }
 

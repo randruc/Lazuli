@@ -7,6 +7,8 @@
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/linker.h>
+#include <Lazuli/sys/scheduler.h>
+#include <Lazuli/sys/arch/AVR/registers.h>
 
 void
 Int0Handler()
@@ -28,63 +30,38 @@ TimerCounter0OverflowHandler()
 {
 }
 
+void
+Task1()
+{
+  u16 i = 0;
+
+  DDRB = (u8)0xff;
+
+  while (true) {
+    while(i++ < 20000);
+    i = 0;
+
+    PORTB = u8_MIN;
+
+    while(i++ < 20000);
+    i = 0;
+
+    PORTB = u8_MAX;
+  }
+}
+
 /**
  * Main entry point for user tasks.
  */
 void
 Main()
 {
-  char c = '4';
-
   Usart_Init();
-
   Usart_PutChar('\r');
   Usart_PutChar('\n');
 
-  Usart_PutChar('!');
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_u8(0xca);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_u8(15);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_u8(16);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_u16(0xcafe);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_u32(0xcafebabe);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_Pointer(&_ramend);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_Pointer(&_brk);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-
-  Usart_HexaPrint_Pointer(&c);
-
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
+  Lz_Scheduler_RegisterTask(Task1);
+  Lz_Scheduler_Run();
 
   while(true);
 }

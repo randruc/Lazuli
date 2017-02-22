@@ -13,15 +13,18 @@
 
 _EXTERN_C_DECL_BEGIN
 
-/* TODO: Rename this file to task.h */
-
 /**
  * Represents a task.
  */
 typedef struct {
-  AllocationMap allocationMap; /** < Allocation map of the task           */
-  void (*entryPoint)();        /** < Entry point of execution of the task */
-  LinkedListElement stateList; /** < List to store the state of the task   */
+  /** Entry point of execution of the task     */
+  void (*entryPoint)();
+
+  /** The state queue on which of the task is stored */
+  LinkedListElement stateQueue;
+
+  /** The current stack pointer of the task    */
+  void *stackPointer;
 }Task;
 
 _EXTERN_C_DECL_END

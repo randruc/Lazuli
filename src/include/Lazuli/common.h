@@ -90,19 +90,36 @@
 #define POSITION(X) (1 << (X))
 
 /**
+ * Define an indirect read/write variable at an aboslute address.
+ * i.e. A variable that is accessed through a pointer.
+ *
+ * @param X The address of the variable.
+ * @param T The type of the variable.
+ */
+#define INDIRECT_T(X, T) ((volatile T *)(X))
+
+/**
  * Define an indirect read/write register at an aboslute address.
  * i.e. A register that is accessed through a pointer.
  *
  * @param X The address of the register.
  */
-#define INDIRECT(X) ((volatile u8 *)(X))
+#define INDIRECT(X) INDIRECT_T(X, u8)
+
+/**
+ * Define a direct read/write variable at an aboslute address.
+ *
+ * @param X The address of the variable.
+ * @param T The type of the variable.
+ */
+#define DIRECT_T(X, T) (*INDIRECT_T(X, T))
 
 /**
  * Define a direct read/write register at an aboslute address.
  *
  * @param X The address of the register.
  */
-#define DIRECT(X) (*INDIRECT(X))
+#define DIRECT(X) DIRECT_T(X, u8)
 
 /**
  * Take the low byte of a 16-bit value.
@@ -125,7 +142,7 @@
  * @param T The type of the structure.
  */
 #define OFFSET_OF(M, T)                         \
-  ((u8)(&(((T*)0)->M)))
+  ((u16)(&(((T*)0)->M)))
 
 /**
  * Get a pointer to the structure T containing the member M pointed by P.

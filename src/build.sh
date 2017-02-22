@@ -38,22 +38,26 @@ avr-gcc \
     -o $project_name.elf \
     kern/arch/AVR/interrupt_vectors_table.S \
     kern/arch/AVR/startup.S \
-    kern/arch/AVR/arch.c \
     kern/arch/AVR/timer_counter_0.c \
     kern/arch/AVR/usart.c \
     kern/kernel.c \
     kern/memory.c \
+    kern/scheduler.c \
+    kern/list.c \
     kern/main.c
 
-avr-objcopy \
-    -j .text \
-    -j .data \
-    -j .rodata \
-    -O ihex \
-    $project_name.elf \
-    $project_name.hex
-
-if [ $debug = true ]
+if [ -e $project_name.elf ]
 then
-    avr-objdump -hS $project_name.elf > sourcelist
+    avr-objcopy \
+        -j .text \
+        -j .data \
+        -j .rodata \
+        -O ihex \
+        $project_name.elf \
+        $project_name.hex
+
+    if [ $debug = true ]
+    then
+        avr-objdump -hS $project_name.elf > sourcelist
+    fi
 fi
