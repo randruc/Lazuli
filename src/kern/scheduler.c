@@ -5,7 +5,7 @@
  */
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/scheduler.h>
+#include <Lazuli/scheduler.h>
 #include <Lazuli/sys/task.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/kernel.h>

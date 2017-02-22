@@ -7,7 +7,7 @@
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/linker.h>
-#include <Lazuli/sys/scheduler.h>
+#include <Lazuli/scheduler.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 
 void
