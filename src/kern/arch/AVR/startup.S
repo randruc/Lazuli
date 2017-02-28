@@ -1,7 +1,8 @@
-    ;;
-    ;; startup.s
-    ;; Set up the runtime environment and run the kernel
-    ;;
+    /**
+     * @file startup.S
+     *
+     * Set up the runtime environment and run the kernel
+     */
 
     ;; Frequently used registers
 .equ spl,  0x3d                ; Stack pointer low byte
@@ -109,10 +110,8 @@ int1_handler:
 
     .global timer0_compare_match_A_handler
 timer0_compare_match_A_handler:
-    INTERRUPT_PROLOGUE
-    call Timer0CompareMatchAHandler
-    INTERRUPT_EPILOGUE
-    reti
+    call save_context_on_stack
+    jmp Timer0CompareMatchAHandler
 
     .global timer0_overflow_handler
 timer0_overflow_handler:
@@ -121,9 +120,127 @@ timer0_overflow_handler:
     INTERRUPT_EPILOGUE
     reti
 
-    ;;
-    ;; Main entry point of the whole system.
-    ;;
+    /**
+     * Save current running task execution context on task's stack.
+     *
+     * Consists in saving all registers (including the state register).
+     * The program counter is automaticaly saved by hardware when vectoring
+     * interrupt handler.
+     */
+save_context_on_stack:
+    ;; Push Y, r27 and r26 registers
+    push r29
+    push r28
+    push r27
+    push r26
+    ;; Store SP in Y register
+    in r29, sph
+    in r28, spl
+    ;; Compute new SP to point to the memory location just before calling this
+    ;; subroutine (4 previous pushes + 2 bytes to store return address)
+    adiw r28, 6
+    ;; Set the new SP
+    out sph, r29
+    out spl, r28
+    ;; Save the return address of this subroutine in r26 and r27
+    ld r26, Y
+    ldd r27, Y+1
+    ;; Push r31 and r30 registers
+    push r31
+    push r30
+    ;; Compute new SP to point to the memory location after pushing the 4
+    ;; registers at the beginning
+    sbiw r28, 6
+    ;; Set the new SP
+    out sph, r29
+    out spl, r28
+    ;; Push all other registers
+    push r25
+    push r24
+    push r23
+    push r22
+    push r21
+    push r20
+    push r19
+    push r18
+    push r17
+    push r16
+    push r15
+    push r14
+    push r13
+    push r12
+    push r11
+    push r10
+    push r9
+    push r8
+    push r7
+    push r6
+    push r5
+    push r4
+    push r3
+    push r2
+    push r1
+    push r0
+    ;; Push state register
+    in r16, sreg
+    push r16
+    ;; Push subroutine return address
+    push r26
+    push r27
+    ret
+
+    /**
+     * Restore the context of a previoulsy saved task, and run it by returning
+     * from interrupt. The context of a task is saved on the task's stack.
+     *
+     * Consists in restoring all registers (including the state register) and
+     * continue execution of the task by performing "reti", as the program
+     * counter has previously been saved on the stack by hardware.
+    */
+    .global restore_context_from_stack_and_reti
+restore_context_from_stack_and_reti:
+    ;; Restore state register
+    pop r16
+    out sreg, r16
+    ;; Restore all registers
+    pop r0
+    pop r1
+    pop r2
+    pop r3
+    pop r4
+    pop r5
+    pop r6
+    pop r7
+    pop r8
+    pop r9
+    pop r10
+    pop r11
+    pop r12
+    pop r13
+    pop r14
+    pop r15
+    pop r16
+    pop r17
+    pop r18
+    pop r19
+    pop r20
+    pop r21
+    pop r22
+    pop r23
+    pop r24
+    pop r25
+    pop r26
+    pop r27
+    pop r28
+    pop r29
+    pop r30
+    pop r31
+    ;;  Return from interrupt
+    reti
+
+    /**
+     * Main entry point of the whole system.
+     */
     .global reset_system
 reset_system:
 
