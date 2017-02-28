@@ -1,18 +1,22 @@
-    ;; Set up the interrupt vectors table
+    /**
+     * @file interrupt_vectors_table.S
+     *
+     * Set up the interrupt vectors table.
+     */
 
-    ;;
-    ;; Compute the right placement of the interrupt vector, after the address
-    ;; specified in the datasheet.
-    ;;
-    ;; @param X The address with which to compute the placement.
-    ;;
+    /**
+     * Compute the right placement of the interrupt vector, after the address
+     * specified in the datasheet.
+     *
+     * @param X The address with which to compute the placement.
+     */
 #define INTERRUPT_ADDRESS(X) (X * 2)
 
-    ;;
-    ;; Specify the placement of the interrupt vector
-    ;;
-    ;; @param X The interrupt vector address.
-    ;;
+    /**
+     * Specify the placement of the interrupt vector
+     *
+     * @param X The interrupt vector address.
+     */
 #define AT(X) .org INTERRUPT_ADDRESS(X)
 
     .global interrupt_vectors_table

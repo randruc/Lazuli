@@ -4,8 +4,8 @@
  * Describes all types and functions related to tasks.
  */
 
-#ifndef LZ_TASK_H
-#define LZ_TASK_H
+#ifndef LZ_SYS_TASK_H
+#define LZ_SYS_TASK_H
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/memory.h>
@@ -29,4 +29,4 @@ typedef struct {
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_TASKS_H */
+#endif /* LZ_SYS_TASKS_H */

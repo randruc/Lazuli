@@ -4,8 +4,8 @@
  * Defines base types and operations for memory management.
  */
 
-#ifndef LZ_MEMORY_H
-#define LZ_MEMORY_H
+#ifndef LZ_SYS_MEMORY_H
+#define LZ_SYS_MEMORY_H
 
 #include <Lazuli/common.h>
 
@@ -51,4 +51,4 @@ KIncrementalMalloc(const size_t s);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_MEMORY_H */
+#endif /* LZ_SYS_MEMORY_H */

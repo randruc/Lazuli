@@ -84,6 +84,7 @@ enum {
                                    Flag                                      */
 };
 
+/* TODO: Transform that to a constant */
 /**
  * Obtain the memory mapped structure of the "8-bit timer/counter 0" driver.
  *

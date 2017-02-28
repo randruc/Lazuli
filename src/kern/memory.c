@@ -5,9 +5,9 @@
  * This can serve the kernel or the tasks.
  */
 
+#include <Lazuli/common.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/config.h>
-#include <Lazuli/common.h>
 #include <Lazuli/sys/arch/AVR/arch.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/arch/AVR/registers.h>

@@ -4,8 +4,8 @@
  * Macro aliases on compiler facilities.
  */
 
-#ifndef LZ_COMPILER_H
-#define LZ_COMPILER_H
+#ifndef LZ_SYS_COMPILER_H
+#define LZ_SYS_COMPILER_H
 
 #ifdef __GNUC__
 
@@ -20,4 +20,4 @@
 
 #endif/* __GNUC__ */
 
-#endif /* LZ_COMPILER_H */
+#endif /* LZ_SYS_COMPILER_H */

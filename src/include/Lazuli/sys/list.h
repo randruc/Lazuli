@@ -4,8 +4,8 @@
  * Describes types and function related to linked lists.
  */
 
-#ifndef LZ_LIST_H
-#define LZ_LIST_H
+#ifndef LZ_SYS_LIST_H
+#define LZ_SYS_LIST_H
 
 #include <Lazuli/common.h>
 
@@ -48,4 +48,4 @@ List_PickFirst(LinkedListHead * const listHead);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_LIST_H */
+#endif /* LZ_SYS_LIST_H */

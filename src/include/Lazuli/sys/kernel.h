@@ -4,8 +4,8 @@
  * Kernel symbols definition.
  */
 
-#ifndef LZ_KERNEL_H
-#define LZ_KERNEL_H
+#ifndef LZ_SYS_KERNEL_H
+#define LZ_SYS_KERNEL_H
 
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/common.h>
@@ -25,4 +25,4 @@ Panic();
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_KERNEL_H */
+#endif /* LZ_SYS_KERNEL_H */

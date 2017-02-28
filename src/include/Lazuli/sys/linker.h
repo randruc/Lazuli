@@ -4,8 +4,8 @@
  * Symbols defined by the linker.
  */
 
-#ifndef LZ_LINKER_H
-#define LZ_LINKER_H
+#ifndef LZ_SYS_LINKER_H
+#define LZ_SYS_LINKER_H
 
 #include <Lazuli/common.h>
 
@@ -44,4 +44,4 @@ extern u8 _brk;
  */
 extern u8 _ramend;
 
-#endif /* LZ_LINKER_H */
+#endif /* LZ_SYS_LINKER_H */
