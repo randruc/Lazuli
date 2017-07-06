@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Upload the binary image to the target.
+# The user must be root.
 
 avrdude \
     -p m328p \
