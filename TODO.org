@@ -1,0 +1,21 @@
+* Maybe switch to C99 (to allow inline).
+* Allow user to define its own Panic() function.
+* Be compatible with C++ user tasks.
+* Define a file header to add to each file for public distribution.
+** Like that :
+   #+BEGIN_SRC C
+   /*
+    * This file is part of the Lazuli project.
+    *
+    * This file is in the public domain, as well as all files of this project.
+    *
+    * Authors:
+    *      Remi Andruccioli (2017)
+    * 
+    */
+   #+END_SRC
+* Insert a raw string in the final binary to keep track of the kernel and version.
+  Somthing like "Lazuli 1.42.63 ", with delimiters, or fixed size.
+* Get a real Makefile, or build system, or whatever.
+* Resources file
+** With links and documentation over the Internet.
