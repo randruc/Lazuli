@@ -38,13 +38,4 @@
  */
 #define DEFAULT_TASK_STACK_SIZE (50)
 
-/**
- * When 1, reset the kernel stack to its original position when running the
- * scheduler. This can be set to 1 only if calling the Run() function of the
- * scheduler is not expected to return.
- *
- * When 0, don't touch the kernel stack.
- */
-#define RESET_KERNEL_STACK_ON_RUN (1)
-
 #endif /* LZ_SYS_CONFIG_H */
