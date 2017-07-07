@@ -17,7 +17,7 @@
 * Insert a raw string in the final binary to keep track of the kernel and version.
   Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
 * Get a real Makefile, or build system, or whatever.
-* Resources file
-** With links and documentation over the Internet.
+* Reference resources
+** Providing links and documentation over the Internet.
 * Add a README file.
 ** Get that excellent video I found on YouTube about that subject.
