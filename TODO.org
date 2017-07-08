@@ -1,7 +1,7 @@
 * Maybe switch to C99 (to allow inline).
 * Allow user to define its own Panic() function.
 * Be compatible with C++ user tasks.
-* Define a file header to add to each file for public distribution.
+* Add a license and define a file header to add to each file for public distribution.
 ** Like that :
    #+BEGIN_SRC C
    /*
@@ -20,4 +20,4 @@
 * Reference resources
 ** Providing links and documentation over the Internet.
 * Add a README file.
-** Get that excellent video I found on YouTube about that subject.
+** [[https://youtu.be/PC05prd2usY]]
