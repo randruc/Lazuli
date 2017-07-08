@@ -1,11 +1,9 @@
-Memory Layout
-=============
+# Memory Layout
 
 Here is documented the memory layout of the kernel and user tasks.
 
 
-Harvard architecture and static linking
----------------------------------------
+## Harvard architecture and static linking
 
 AVR MCUs use a Harvard architecure. Machine instructions and program data are
 stored in separate memories.
@@ -112,8 +110,7 @@ The arrows on the right specify addresses.
     +----------------+
 
 
-User tasks memory
------------------
+## User tasks memory
 
 User tasks share their .text, .bss and .data section with other tasks and the
 kernel as they are all fixed in size and can be determined at compile time.

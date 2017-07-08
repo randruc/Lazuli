@@ -1,17 +1,15 @@
-Startup
-=======
+# Startup
 
 Here is documented the startup process.
 
-This document explains more about the file startup.S which contains all
+This document explains more about the file `startup.S` which contains all
 necessary code to launch the kernel.
-The file startup.S is written is assembly language. Its goal is mainly to set
+The file `startup.S` is written in assembly language. Its goal is mainly to set
 up the runtime environement needed to run a C program.
 
 The entry point is defined as the reset interrupt handler.
 
-Steps
------
+## Steps
 
 1. Clear the .bss section. The .bss section is cleared using the _bss_size and
    _bss_start symbols defined by the linker.

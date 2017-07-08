@@ -1,22 +1,18 @@
-C style and conventions
-=======================
+# C style and conventions
 
 This file describes the programming style and conventions to apply on C code.
 
 
-C dialect
----------
+## C dialect
 
 The whole project is written in pure ANSI C 89.
 
-Line length
------------
+## Line length
 
 Line length is set to 80 characters. Each line of code shouldn't exceed 80
 columns.
 
-Comments
---------
+## Comments
 
 Only use C89 comments, no C/C++ comments.
 
@@ -33,8 +29,7 @@ This is not good:
     // This is a comment
 
 
-Types
------
+## Types
 
 The return type of a function must be on the previous line of the function name.
 
@@ -54,8 +49,7 @@ This is not good :
     }
 
 
-Brackets
---------
+## Brackets
 
 Brackets use the K&R style.
 
