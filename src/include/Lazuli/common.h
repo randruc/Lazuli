@@ -23,9 +23,9 @@
 #endif /* __cplusplus */
 
 /**
- * Tell the compiler that the value X is left unsed.
+ * Tell the compiler that the variable X is left unsed.
  *
- * @param X The unused value.
+ * @param X The unused variable.
  */
 #define UNUSED(X) ((void)(X))
 
@@ -35,7 +35,7 @@
  *
  * @param X The void pointer on which to perform arithmetic.
  */
-#define ALLOW_ARITHM(X) ((u8 *)X)
+#define ALLOW_ARITHM(X) ((u8 *)(X))
 
 /**
  * Perform an assertion at compile time.
@@ -142,19 +142,19 @@
  * @param T The type of the structure.
  */
 #define OFFSET_OF(M, T)                         \
-  ((u16)(&(((T*)0)->M)))
+  ((size_t)(&(((T*)0)->M)))
 
 /**
  * Get a pointer to the structure T containing the member M pointed by P.
  *
- * May crash if P doesn't point to the type defined by M.
+ * May not compile if P doesn't point to the type defined by M.
  *
  * @param P The pointer to the member.
  * @param M The name of the member.
  * @param T The type of the structure.
  */
-#define CONTAINER_OF(P, M, T)                               \
-  ((T*)((u8*)(1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
+#define CONTAINER_OF(P, M, T)                                   \
+  ((T*) ((u8*) (1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
 
 /**
  * NULL pointer.
