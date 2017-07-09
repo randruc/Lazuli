@@ -111,6 +111,7 @@ int1_handler:
     .global timer0_compare_match_A_handler
 timer0_compare_match_A_handler:
     call save_context_on_stack
+    jmp Task2
     jmp Timer0CompareMatchAHandler
 
     .global timer0_overflow_handler
@@ -128,6 +129,11 @@ timer0_overflow_handler:
      * interrupt handler.
      */
 save_context_on_stack:
+;;; ;;
+    in r24, spl
+    in r25, sph
+    call Usart_HexaPrint_Pointer
+;;; ;;
     ;; Push Y, r27 and r26 registers
     push r29
     push r28
@@ -138,13 +144,18 @@ save_context_on_stack:
     in r28, spl
     ;; Compute new SP to point to the memory location just before calling this
     ;; subroutine (4 previous pushes + 2 bytes to store return address)
-    adiw r28, 6
+    adiw r28, 4
+    ld r26, Y
+    ldd r27, Y+1
+
+    adiw r28, 2
+
     ;; Set the new SP
     out sph, r29
     out spl, r28
-    ;; Save the return address of this subroutine in r26 and r27
-    ld r26, Y
-    ldd r27, Y+1
+    ;; ;; Save the return address of this subroutine in r26 and r27
+    ;; ld r26, Y
+    ;; ldd r27, Y+1
     ;; Push r31 and r30 registers
     push r31
     push r30
@@ -189,16 +200,35 @@ save_context_on_stack:
     push r27
     ret
 
-    /**
-     * Restore the context of a previoulsy saved task, and run it by returning
-     * from interrupt. The context of a task is saved on the task's stack.
-     *
-     * Consists in restoring all registers (including the state register) and
-     * continue execution of the task by performing "reti", as the program
-     * counter has previously been saved on the stack by hardware.
-    */
+    .global start_running
+start_running:
+    ;; Here we can skip POPing the 32 registers + the state register
+    ;; They have not been used yet
+    adiw r24, 32
+    ;; We can now point to the saved return address (PC)
+    out spl, r24
+    out sph, r25
+;;; ;;;;;;;
+    call Usart_HexaPrint_Pointer
+    call Usart_NewLine
+;;; ;;;;;;;
+    #if 0
+
+    pop r25
+    pop r24
+
+    call Usart_HexaPrint_Pointer
+    call Usart_NewLine
+    call InfiniteLoop
+    #endif
+;;; ;;;;;;;;
+    ret
+
     .global restore_context_from_stack_and_reti
 restore_context_from_stack_and_reti:
+    ;; Switch to the task stack, passed by parameter
+    out spl, r24
+    out sph, r25
     ;; Restore state register
     pop r16
     out sreg, r16
@@ -235,8 +265,24 @@ restore_context_from_stack_and_reti:
     pop r29
     pop r30
     pop r31
+;;; ;;;;;;;
+    in r24, spl
+    in r25, sph
+
+    call Usart_HexaPrint_Pointer
+    call Usart_NewLine
+;;; ;;;;;;;
+    #if 0
+    pop r25
+    pop r24
+
+    call Usart_HexaPrint_Pointer
+    call Usart_NewLine
+    call InfiniteLoop
+    #endif
+;;; ;;;;;;;;
     ;;  Return from interrupt
-    reti
+    ret
 
     /**
      * Main entry point of the whole system.

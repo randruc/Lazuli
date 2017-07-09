@@ -18,15 +18,17 @@ List_Append(LinkedListHead * const listHead, LinkedListElement * const item)
 
   if (NULL == listHead->first) {
     listHead->first = item;
-  } else {
-    current = listHead->first;
 
-    while (NULL != current->next) {
-      current = current->next;
-    }
-
-    current->next = item;
+    return;
   }
+
+  current = listHead->first;
+
+  while (NULL != current->next) {
+    current = current->next;
+  }
+
+  current->next = item;
 }
 
 LinkedListElement *

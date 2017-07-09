@@ -18,7 +18,7 @@
  * @param increment The number of bytes to increment the break.
  * @param map A pointer to the concerned allocation map.
  *
- * @return A pointer to the beginning of the added memory block,
+ * @return A pointer to the beginning of the allocated memory block,
  *         or NULL if can't set break,
  *         or the current break position if increment is zero.
  */
@@ -48,7 +48,7 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
 
   map->brk = ALLOW_ARITHM(map->brk) + increment;
 
-  return ALLOW_ARITHM(map->brk) - increment;
+  return ALLOW_ARITHM(map->brk) - increment + 1;
 }
 
 /**

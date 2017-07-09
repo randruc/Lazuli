@@ -30,6 +30,7 @@ avr-gcc \
     -Werror \
     -Iinclude \
     -mmcu=atmega328p \
+    -O2 \
     -nostartfiles \
     -nostdlib \
     -nodefaultlibs \
@@ -44,6 +45,7 @@ avr-gcc \
     kern/memory.c \
     kern/scheduler.c \
     kern/list.c \
+    kern/swap.c \
     kern/main.c
 
 if [ -e $project_name.elf ]

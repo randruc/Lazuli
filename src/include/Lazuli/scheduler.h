@@ -7,6 +7,8 @@
 #ifndef LZ_SCHEDULER_H
 #define LZ_SCHEDULER_H
 
+#include <Lazuli/common.h>
+
 _EXTERN_C_DECL_BEGIN
 
 /**

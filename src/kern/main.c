@@ -30,15 +30,13 @@ Task2()
 {
   char c;
 
-  Usart_Init();
-
   while (true) {
     for (c = 'a'; c <= 'z'; c++) {
       Usart_PutChar(c);
     }
 
-    Usart_PutChar('\r');
-    Usart_PutChar('\n');
+    Usart_NewLine();
+    while(true); /* Remove that */
   }
 }
 
@@ -50,17 +48,72 @@ Task1()
   DDRB = (u8)0xff;
 
   while (true) {
-    while (i++ < 20000);
+    while (i++ < 60000);
     i = 0;
 
     PORTB = u8_MIN;
 
-    while (i++ < 20000);
+    while (i++ < 60000);
     i = 0;
 
     PORTB = u8_MAX;
   }
 }
+
+void
+Task3()
+{
+  Usart_HexaPrint_Pointer((void * const)SP);
+  Usart_NewLine();
+  while(true) {
+    Usart_PutChar('Y');
+    Usart_HexaPrint_FunctionPointer(Task3);
+    Usart_NewLine();
+    while(1);
+  }
+}
+
+void
+Task4()
+{
+  /* while(true) { */
+    Usart_PutChar('W');
+    /*
+     * Usart_HexaPrint_FunctionPointer(Task4);
+     * Usart_NewLine();
+     */
+    while(1);
+  /* } */
+}
+
+void
+Task5()
+{
+  /* while(true) { */
+    Usart_PutChar('T');
+    Usart_PutChar('r');
+    Usart_PutChar('y');
+    /*
+     * Usart_HexaPrint_FunctionPointer(Task5);
+     * Usart_NewLine();
+     */
+    while(1);
+  /* } */
+}
+
+void
+Task6()
+{
+  /* while(true) { */
+    Usart_PutChar('K');
+    /*
+     * Usart_HexaPrint_FunctionPointer(Task4);
+     * Usart_NewLine();
+     */
+    while(1);
+  /* } */
+}
+
 
 /**
  * Main entry point for user tasks.
@@ -68,8 +121,27 @@ Task1()
 void
 Main()
 {
-  Lz_Scheduler_RegisterTask(Task1);
-  Lz_Scheduler_RegisterTask(Task2);
+  Usart_Init();
+  Usart_PutChar('-');
+  Usart_PutChar('-');
+  Usart_PutChar('>');
+  Usart_NewLine();
+
+  Usart_HexaPrint_FunctionPointer(Task4);
+  Usart_NewLine();
+  Usart_HexaPrint_FunctionPointer(Task5);
+  Usart_NewLine();
+  /*
+   * Usart_HexaPrint_FunctionPointer(Task6);
+   * Usart_NewLine();
+   */
+
+  Usart_PutChar('*');
+  Usart_NewLine();
+
+  Lz_Scheduler_RegisterTask(Task4);
+  Lz_Scheduler_RegisterTask(Task5);
+  /* Lz_Scheduler_RegisterTask(Task6); */
 
   Lz_Scheduler_Run();
 

@@ -29,6 +29,33 @@ GlobalInterruptsDisable();
 extern void
 InfiniteLoop();
 
+/**
+ * Restore the context of a previoulsy saved task, and run it by returning
+ * from interrupt. The context of a task is saved on the task's stack.
+ *
+ * Consists in restoring all registers (including the state register) and
+ * continue execution of the task by performing "reti", as the program
+ * counter has previously been saved on the stack by hardware.
+ *
+ * @param stackPointer The stack pointer of the task to restore, containing its
+ *                     saved context.
+ */
+extern void
+restore_context_from_stack_and_reti(void *stackPointer);
+
+/**
+ * Start running the scheduler for the first time with the specified context.
+ *
+ * This function simply ignores all the registers in the context, and jumps
+ * directly to the saved return address.
+ *
+ * @param stackPointer The stack pointer of the task to run, containing its
+ *                     prepared context.
+ */
+extern void
+start_running(void *stackPointer);
+
+
 _EXTERN_C_DECL_END
 
 #endif /* LZ_ARCH_H */

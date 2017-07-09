@@ -14,6 +14,7 @@
 #include <Lazuli/sys/arch/AVR/arch.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/compiler.h>
+#include <Lazuli/sys/scheduler.h>
 
 /**
  * Main entry point for user tasks.
@@ -37,6 +38,8 @@ KMain()
   kernelAllocationMap.brk = &_brk;
   kernelAllocationMap.endMem = &_ramend;
   kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
+
+  Scheduler_Init();
 
   /* Give hand to user */
   Main();
