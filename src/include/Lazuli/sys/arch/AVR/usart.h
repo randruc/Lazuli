@@ -97,6 +97,12 @@ void
 Usart_PutChar(char c);
 
 /**
+ * Transmit a new line sequence.
+ */
+void
+Usart_NewLine();
+
+/**
  * Print an u32 value in hexadecimal.
  *
  * @param value The u32 value to print.
@@ -127,6 +133,10 @@ Usart_HexaPrint_u8(const u8 value);
  */
 void
 Usart_HexaPrint_Pointer(void * const pointer);
+
+
+void
+Usart_HexaPrint_FunctionPointer(void (*functionPointer)());
 
 _EXTERN_C_DECL_END
 

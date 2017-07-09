@@ -39,6 +39,13 @@ Usart_PutChar(char c)
   usart->udr0 = c;
 }
 
+void
+Usart_NewLine()
+{
+  Usart_PutChar('\r');
+  Usart_PutChar('\n');
+}
+
 /* TODO: Store this is program memory */
 /**
  * Array used to get the character representation of a hexadecimal digit
@@ -67,11 +74,12 @@ static const char hexachars[] = {
  * 32 bits).
  */
 typedef union {
-  void *pointer;  /** < Holds the pointer value              */
-  u8    u8Value;  /** < Holds the 8-bits value               */
-  u16   u16Value; /** < Holds the 16-bits value              */
-  u32   u32Value; /** < Holds the 32-bits value              */
-  char  bytes[4]; /** < Easily access each byte of the value */
+  void *pointer;             /** < Holds the pointer value              */
+  void (*functionPointer)(); /** < Hold the function pointer value      */
+  u8    u8Value;             /** < Holds the 8-bits value               */
+  u16   u16Value;            /** < Holds the 16-bits value              */
+  u32   u32Value;            /** < Holds the 32-bits value              */
+  char  bytes[4];            /** < Easily access each byte of the value */
 }IntegerBytes;
 
 /**
@@ -79,7 +87,7 @@ typedef union {
  * form, accordig to the correct length.
  *
  * This serves as the base implementation for all specialized
- * Usart_HexaPrint_<*>() functions.
+ * Usart_HexaPrint_*() functions.
  *
  * @param intergerBytes A pointer to the IntergerBytes union to print.
  * @param size The size in bytes of the value to print.
@@ -140,3 +148,11 @@ Usart_HexaPrint_Pointer(void * const pointer)
   Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(void *));
 }
 
+void
+Usart_HexaPrint_FunctionPointer(void (*functionPointer)())
+{
+  IntegerBytes integerBytes;
+  integerBytes.functionPointer = functionPointer;
+
+  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(void (*)()));
+}
