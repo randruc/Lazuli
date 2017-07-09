@@ -6,6 +6,8 @@
 
 #include <Lazuli/common.h>
 
+#include <Lazuli/sys/swap.h>
+
 _EXTERN_C_DECL_BEGIN
 
 /**
