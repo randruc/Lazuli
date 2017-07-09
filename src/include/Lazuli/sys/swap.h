@@ -4,6 +4,9 @@
  * This file defines the interface for byte swap routines.
  */
 
+#ifndef LZ_SYS_SWAP_H
+#define LZ_SYS_SWAP_H
+
 #include <Lazuli/common.h>
 
 #include <Lazuli/sys/swap.h>
@@ -21,3 +24,5 @@ u16
 Swap16(u16 u);
 
 _EXTERN_C_DECL_END
+
+#endif /* LZ_SYS_SWAP_H */
