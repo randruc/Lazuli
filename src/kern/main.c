@@ -65,54 +65,39 @@ Task3()
 {
   Usart_HexaPrint_Pointer((void * const)SP);
   Usart_NewLine();
-  while(true) {
+
+  while (true) {
     Usart_PutChar('Y');
     Usart_HexaPrint_FunctionPointer(Task3);
     Usart_NewLine();
-    while(1);
+    while (1);
   }
 }
 
 void
 Task4()
 {
-  /* while(true) { */
+  while (true) {
     Usart_PutChar('W');
-    /*
-     * Usart_HexaPrint_FunctionPointer(Task4);
-     * Usart_NewLine();
-     */
-    while(1);
-  /* } */
+  }
 }
 
 void
 Task5()
 {
-  /* while(true) { */
+  while (true) {
     Usart_PutChar('T');
-    Usart_PutChar('r');
-    Usart_PutChar('y');
-    /*
-     * Usart_HexaPrint_FunctionPointer(Task5);
-     * Usart_NewLine();
-     */
-    while(1);
-  /* } */
+  }
 }
 
 void
 Task6()
 {
-  /* while(true) { */
-    Usart_PutChar('K');
-    /*
-     * Usart_HexaPrint_FunctionPointer(Task4);
-     * Usart_NewLine();
-     */
-    while(1);
-  /* } */
+  while (true) {
+    Usart_PutChar('F');
+  }
 }
+
 
 
 /**
@@ -122,26 +107,10 @@ void
 Main()
 {
   Usart_Init();
-  Usart_PutChar('-');
-  Usart_PutChar('-');
-  Usart_PutChar('>');
-  Usart_NewLine();
-
-  Usart_HexaPrint_FunctionPointer(Task4);
-  Usart_NewLine();
-  Usart_HexaPrint_FunctionPointer(Task5);
-  Usart_NewLine();
-  /*
-   * Usart_HexaPrint_FunctionPointer(Task6);
-   * Usart_NewLine();
-   */
-
-  Usart_PutChar('*');
-  Usart_NewLine();
 
   Lz_Scheduler_RegisterTask(Task4);
   Lz_Scheduler_RegisterTask(Task5);
-  /* Lz_Scheduler_RegisterTask(Task6); */
+  Lz_Scheduler_RegisterTask(Task6);
 
   Lz_Scheduler_Run();
 

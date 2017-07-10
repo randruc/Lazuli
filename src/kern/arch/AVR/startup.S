@@ -128,11 +128,6 @@ timer0_overflow_handler:
      * interrupt handler.
      */
 save_context_on_stack:
-;;; ;;
-    in r24, spl
-    in r25, sph
-    call Usart_HexaPrint_Pointer
-;;; ;;
     ;; Push Y, r27 and r26 registers
     push r29
     push r28
@@ -142,20 +137,19 @@ save_context_on_stack:
     in r29, sph
     in r28, spl
     ;; Compute new SP to point to the memory location just before calling this
-    ;; subroutine (4 previous pushes + 2 bytes to store return address)
-    adiw r28, 4
+    ;; subroutine (4 previous pushes)
+    adiw r28, 5
+    ;; Save the return address of this subroutine in r26 and r27
     ld r26, Y
     ldd r27, Y+1
 
-    adiw r28, 2
+    adiw r28, 1
 
     ;; Set the new SP
     out sph, r29
     out spl, r28
-    ;; ;; Save the return address of this subroutine in r26 and r27
-    ;; ld r26, Y
-    ;; ldd r27, Y+1
-    ;; Push r31 and r30 registers
+
+    ;; We can now push r31 and r30 registers
     push r31
     push r30
     ;; Compute new SP to point to the memory location after pushing the 4
@@ -195,8 +189,8 @@ save_context_on_stack:
     in r16, sreg
     push r16
     ;; Push subroutine return address
-    push r26
     push r27
+    push r26
     ret
 
     .global start_running
@@ -209,6 +203,7 @@ start_running:
     ;; We can now point to the saved return address (PC)
     out spl, r24
     out sph, r25
+    sei
     ret
 
     .global restore_context_from_stack_and_reti
@@ -252,24 +247,8 @@ restore_context_from_stack_and_reti:
     pop r29
     pop r30
     pop r31
-;;; ;;;;;;;
-    #if 0
-    in r24, spl
-    in r25, sph
-
-    call Usart_HexaPrint_Pointer
-    call Usart_NewLine
-;;; ;;;;;;;
-    pop r25
-    pop r24
-
-    call Usart_HexaPrint_Pointer
-    call Usart_NewLine
-    call InfiniteLoop
-    #endif
-;;; ;;;;;;;;
     ;;  Return from interrupt
-    ret
+    reti
 
     /**
      * Main entry point of the whole system.

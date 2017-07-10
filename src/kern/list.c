@@ -16,6 +16,8 @@ List_Append(LinkedListHead * const listHead, LinkedListElement * const item)
     return;
   }
 
+  item->next = NULL;
+
   if (NULL == listHead->first) {
     listHead->first = item;
 
