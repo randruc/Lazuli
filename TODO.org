@@ -23,5 +23,4 @@
 ** [[https://youtu.be/PC05prd2usY]]
 * Add a description the the GitHub repository.
 * Write documentation about header files organization.
-* In 'start_running' routine, pass the offset of the PC member in the struct.
 

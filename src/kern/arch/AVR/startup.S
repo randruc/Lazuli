@@ -202,26 +202,14 @@ save_context_on_stack:
 
     .global start_running
 start_running:
-    ;; Here we can skip POPing the 32 registers + the state register
-    ;; They have not been used yet
-    adiw r24, 32
+    ;; Here we can skip POPing the 32 registers + the state register since they
+    ;; have not been used yet. So we add the offset of the PC member of the
+    ;; TaskContextConfiguration struct.
+    add r24, r22
+    adc r25, r23
     ;; We can now point to the saved return address (PC)
     out spl, r24
     out sph, r25
-;;; ;;;;;;;
-    call Usart_HexaPrint_Pointer
-    call Usart_NewLine
-;;; ;;;;;;;
-    #if 0
-
-    pop r25
-    pop r24
-
-    call Usart_HexaPrint_Pointer
-    call Usart_NewLine
-    call InfiniteLoop
-    #endif
-;;; ;;;;;;;;
     ret
 
     .global restore_context_from_stack_and_reti

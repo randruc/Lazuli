@@ -16,7 +16,6 @@
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/arch.h>
-#include <Lazuli/sys/arch/AVR/usart.h>
 
 /**
  * Keeps a pointer to the current running task.
@@ -93,26 +92,8 @@ PrepareTaskContext(Task * const task)
     = (TaskContextConfiguration *)(ALLOW_ARITHM(task->stackPointer)
                                    - sizeof(TaskContextConfiguration) + 1);
 
-  Usart_PutChar('p');
-  Usart_NewLine();
-
-  Usart_HexaPrint_Pointer(task);
-  Usart_NewLine();
-
   contextConfiguration->pc = (VoidVoid)swap16((u16)task->entryPoint);
-  task->stackPointer = contextConfiguration;
-
-  Usart_HexaPrint_Pointer(contextConfiguration);
-  Usart_NewLine();
-
-  Usart_HexaPrint_Pointer((void*)(&(contextConfiguration->pc)));
-  Usart_NewLine();
-
-  Usart_HexaPrint_FunctionPointer(contextConfiguration->pc);
-  Usart_NewLine();
-
-  Usart_HexaPrint_Pointer(task->stackPointer);
-  Usart_NewLine();
+  task->stackPointer = ALLOW_ARITHM((void*)contextConfiguration) - 1;
 }
 
 STATIC_ASSERT(DEFAULT_TASK_STACK_SIZE > sizeof(TaskContextConfiguration),
@@ -124,31 +105,19 @@ Lz_Scheduler_RegisterTask(void (*taskEntryPoint)())
   Task *newTask;
   void *taskStack;
 
-  Usart_PutChar('r');
-  Usart_NewLine();
-
   newTask = KIncrementalMalloc(sizeof(Task));
   if (NULL == newTask) {
     Panic();
   }
-
-  Usart_HexaPrint_Pointer(newTask);
-  Usart_NewLine();
 
   taskStack = KIncrementalMalloc(DEFAULT_TASK_STACK_SIZE);
   if (NULL == taskStack) {
     Panic();
   }
 
-  Usart_HexaPrint_Pointer(taskStack);
-  Usart_NewLine();
-
   newTask->entryPoint = taskEntryPoint;
   newTask->stateQueue.next = NULL;
   newTask->stackPointer = ALLOW_ARITHM(taskStack) + DEFAULT_TASK_STACK_SIZE - 1;
-
-  Usart_HexaPrint_Pointer(newTask->stackPointer);
-  Usart_NewLine();
 
   PrepareTaskContext(newTask);
 
@@ -160,29 +129,12 @@ Lz_Scheduler_Run()
 {
   LinkedListElement *first = List_PickFirst(&readyQueue);
 
-  Usart_PutChar('L');
-  Usart_NewLine();
-
   if (NULL == first) {
     Panic();
   }
 
   currentTask = CONTAINER_OF(first, stateQueue, Task);
 
-  Usart_HexaPrint_Pointer(currentTask);
-  Usart_NewLine();
-
-  Usart_HexaPrint_Pointer(currentTask->stackPointer);
-  Usart_NewLine();
-
-  Usart_HexaPrint_FunctionPointer(
-    ((TaskContextConfiguration *)currentTask->stackPointer)->pc);
-  Usart_NewLine();
-
-  Usart_HexaPrint_Pointer(
-        ((void*)&((TaskContextConfiguration *)currentTask->stackPointer)->pc));
-  Usart_NewLine();
-
-
-  start_running(currentTask->stackPointer);
+  start_running(currentTask->stackPointer,
+                OFFSET_OF(pc, TaskContextConfiguration));
 }

@@ -162,11 +162,6 @@
 #define NULL ((void *)0)
 
 /**
- * Represents the size of an object.
- */
-typedef unsigned int size_t;
-
-/**
  * Represents the difference between two pointers.
  */
 typedef int ptrdiff_t;
@@ -212,6 +207,11 @@ STATIC_ASSERT(sizeof(s32) == 4, "s32 MUST be 4 bytes long.");
  */
 typedef u8 bool;
 STATIC_ASSERT(sizeof(bool) == 1, "bool MUST be 1 byte long.");
+
+/**
+ * Represents the size of an object.
+ */
+typedef u16 size_t;
 
 /**
  * Maximum value of u8.
