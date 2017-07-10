@@ -53,7 +53,7 @@ void
 Panic()
 {
   if (ON_PANIC_INFINITE_LOOP) {
-    InfiniteLoop();
+    infinite_loop();
   } else if (ON_PANIC_SOFTWARE_RESET) {
     /* TODO: Change this by a watchdog software reset */
     reset_system();

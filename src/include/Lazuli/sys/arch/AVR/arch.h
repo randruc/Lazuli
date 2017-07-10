@@ -15,19 +15,19 @@ _EXTERN_C_DECL_BEGIN
  * Enable global interrupts.
  */
 extern void
-GlobalInterruptsEnable();
+global_interrupts_enable();
 
 /**
  * Disable global interrupts.
  */
 extern void
-GlobalInterruptsDisable();
+global_interrupts_disable();
 
 /**
  * Function that loops forever, never returns.
  */
 extern void
-InfiniteLoop();
+infinite_loop();
 
 /**
  * Restore the context of a previoulsy saved task, and run it by returning

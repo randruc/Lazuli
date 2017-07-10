@@ -111,7 +111,6 @@ int1_handler:
     .global timer0_compare_match_A_handler
 timer0_compare_match_A_handler:
     call save_context_on_stack
-    jmp Task2
     jmp Timer0CompareMatchAHandler
 
     .global timer0_overflow_handler
@@ -204,7 +203,7 @@ save_context_on_stack:
 start_running:
     ;; Here we can skip POPing the 32 registers + the state register since they
     ;; have not been used yet. So we add the offset of the PC member of the
-    ;; TaskContextConfiguration struct.
+    ;; TaskContextConfiguration struct to the task stack pointer.
     add r24, r22
     adc r25, r23
     ;; We can now point to the saved return address (PC)
@@ -254,13 +253,13 @@ restore_context_from_stack_and_reti:
     pop r30
     pop r31
 ;;; ;;;;;;;
+    #if 0
     in r24, spl
     in r25, sph
 
     call Usart_HexaPrint_Pointer
     call Usart_NewLine
 ;;; ;;;;;;;
-    #if 0
     pop r25
     pop r24
 
@@ -342,17 +341,17 @@ rodata_loop_end:
     jmp KMain
 
     ;; Parachute trap, infinite loop, should never be reached
-    .global InfiniteLoop
-InfiniteLoop:
-    rjmp InfiniteLoop
+    .global infinite_loop
+infinite_loop:
+    rjmp infinite_loop
 
-    .global GlobalInterruptsEnable
-GlobalInterruptsEnable:
+    .global global_interrupts_enable
+global_interrupts_enable:
     sei
     ret
 
-    .global GlobalInterruptsDisable
-GlobalInterruptsDisable:
+    .global global_interrupts_disable
+global_interrupts_disable:
     cli
     ret
 
