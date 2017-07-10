@@ -13,7 +13,6 @@
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/linker.h>
-#include <Lazuli/sys/swap.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/arch.h>
@@ -100,7 +99,7 @@ PrepareTaskContext(Task * const task)
   Usart_HexaPrint_Pointer(task);
   Usart_NewLine();
 
-  contextConfiguration->pc = (VoidVoid)Swap16((u16)task->entryPoint);
+  contextConfiguration->pc = (VoidVoid)swap16((u16)task->entryPoint);
   task->stackPointer = contextConfiguration;
 
   Usart_HexaPrint_Pointer(contextConfiguration);

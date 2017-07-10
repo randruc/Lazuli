@@ -55,6 +55,16 @@ restore_context_from_stack_and_reti(void *stackPointer);
 extern void
 start_running(void *stackPointer);
 
+/**
+ * Swap bytes of a 16-bits value.
+ *
+ * @param value The value to swap (passed by copying its value).
+ *
+ * @return The swapped value.
+ */
+extern u16
+swap16(u16 value);
+
 
 _EXTERN_C_DECL_END
 

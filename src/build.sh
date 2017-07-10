@@ -45,7 +45,6 @@ avr-gcc \
     kern/memory.c \
     kern/scheduler.c \
     kern/list.c \
-    kern/swap.c \
     kern/main.c
 
 if [ -e $project_name.elf ]

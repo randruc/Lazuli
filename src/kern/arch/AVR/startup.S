@@ -367,3 +367,10 @@ GlobalInterruptsEnable:
 GlobalInterruptsDisable:
     cli
     ret
+
+    .global swap16
+swap16:
+    push r24
+    mov r24, r25
+    pop r25
+    ret
