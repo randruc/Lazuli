@@ -27,6 +27,7 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
 {
   ptrdiff_t newGap;
   void *newBreak;
+  void *oldBreak;
 
   if (NULL == map) {
     return NULL;
@@ -36,17 +37,17 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
     return map->brk;
   }
 
-  newBreak = ALLOW_ARITHM(map->brk) + increment;
-
+  oldBreak = map->brk;
+  newBreak = ALLOW_ARITHM(oldBreak) + increment;
   newGap = ALLOW_ARITHM(SP) - ALLOW_ARITHM(newBreak);
 
   if (newGap < BREAK_STACK_GAP) {
     return NULL;
   }
 
-  map->brk = ALLOW_ARITHM(map->brk) + increment;
+  map->brk = newBreak;
 
-  return ALLOW_ARITHM(map->brk) - increment + 1;
+  return oldBreak;
 }
 
 /**
