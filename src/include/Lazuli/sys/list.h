@@ -20,31 +20,34 @@ typedef struct _LinkedListElement {
 }LinkedListElement;
 
 /**
- * Represents the head of a simply linked list.
+ * Represents the main container for simply linked elements.
  */
 typedef struct {
   /** A pointer to the first element of the linked list */
   LinkedListElement *first;
-}LinkedListHead;
+
+  /** A pointer to the last element of the linked list */
+  LinkedListElement *last;
+}LinkedList;
 
 /**
  * Append a LinkedListElement to the end of an existing simply linked list.
  *
- * @param listHead A pointer to the linked list head.
+ * @param linkedList A pointer to the linked list head.
  * @param item A pointer to the item to append to the list.
  */
 void
-List_Append(LinkedListHead * const listHead, LinkedListElement * const item);
+List_Append(LinkedList * const linkedList, LinkedListElement * const item);
 
 /**
  * Return the first element of an existing simply linked list.
  *
- * @param listHead A pointer to the linked list head.
+ * @param linkedList A pointer to the linked list head.
  *
  * @return A pointer to the the first element of the list.
  */
 LinkedListElement *
-List_PickFirst(LinkedListHead * const listHead);
+List_PickFirst(LinkedList * const linkedList);
 
 _EXTERN_C_DECL_END
 

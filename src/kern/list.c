@@ -8,46 +8,47 @@
 #include <Lazuli/sys/list.h>
 
 void
-List_Append(LinkedListHead * const listHead, LinkedListElement * const item)
+List_Append(LinkedList * const linkedList, LinkedListElement * const item)
 {
-  LinkedListElement *current;
-
-  if (NULL == listHead || NULL == item) {
+  if (NULL == linkedList || NULL == item) {
     return;
   }
 
   item->next = NULL;
 
-  if (NULL == listHead->first) {
-    listHead->first = item;
+  if (NULL == linkedList->first) {
+    linkedList->first = item;
+    linkedList->last = item;
 
     return;
   }
 
-  current = listHead->first;
-
-  while (NULL != current->next) {
-    current = current->next;
-  }
-
-  current->next = item;
+  linkedList->last->next = item;
+  linkedList->last = item;
 }
 
 LinkedListElement *
-List_PickFirst(LinkedListHead * const listHead)
+List_PickFirst(LinkedList * const linkedList)
 {
-  LinkedListElement *firstElement;
+  LinkedListElement *item;
 
-  if (NULL == listHead) {
+  if (NULL == linkedList) {
     return NULL;
   }
 
-  firstElement = listHead->first;
-  if (NULL == firstElement) {
+  if (NULL == linkedList->first) {
     return NULL;
   }
 
-  listHead->first = firstElement->next;
+  item = linkedList->first;
 
-  return firstElement;
+  linkedList->first = linkedList->first->next;
+
+  if (NULL == linkedList->first) {
+    linkedList->last = NULL;
+  }
+
+  item->next = NULL;
+
+  return item;
 }

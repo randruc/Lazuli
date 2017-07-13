@@ -25,7 +25,7 @@ static Task *currentTask;
 /**
  * The queue of ready tasks.
  */
-static LinkedListHead readyQueue = { NULL };
+static LinkedList readyQueue = { NULL };
 
 void
 Scheduler_Init()
