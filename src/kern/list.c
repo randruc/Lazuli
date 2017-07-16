@@ -27,6 +27,30 @@ List_Append(LinkedList * const linkedList, LinkedListElement * const item)
   linkedList->last = item;
 }
 
+void
+List_AppendList(LinkedList * const linkedListDestination,
+                LinkedList * const linkedListToMove)
+{
+  if (NULL == linkedListDestination || NULL == linkedListToMove) {
+    return;
+  }
+
+  if (NULL == linkedListToMove->first) {
+    return;
+  }
+
+  if (NULL == linkedListDestination->first) {
+    linkedListDestination->first = linkedListToMove->first;
+  } else {
+    linkedListDestination->last->next = linkedListToMove->first;
+  }
+
+  linkedListDestination->last = linkedListToMove->last;
+
+  linkedListToMove->first = NULL;
+  linkedListToMove->last = NULL;
+}
+
 LinkedListElement *
 List_PickFirst(LinkedList * const linkedList)
 {

@@ -31,13 +31,28 @@ typedef struct {
 }LinkedList;
 
 /**
- * Append a LinkedListElement to the end of an existing simply linked list.
+ * Define the initialization value for the type LinkedList.
+ */
+#define LINKED_LIST_INIT { NULL, NULL }
+
+/**
+ * Append a LinkedListElement to the end of an existing LinkedList.
  *
  * @param linkedList A pointer to the linked list head.
  * @param item A pointer to the item to append to the list.
  */
 void
 List_Append(LinkedList * const linkedList, LinkedListElement * const item);
+
+/**
+ * Move the content of a LinkedList to the end of an existing LinkedList.
+ *
+ * @param linkedListDestination A pointer to the LinkedList on which to append.
+ * @param linkedListToMove A pointer to the LinkedList to move.
+ */
+void
+List_AppendList(LinkedList * const linkedListDestination,
+                LinkedList * const linkedListToMove);
 
 /**
  * Return the first element of an existing simply linked list.

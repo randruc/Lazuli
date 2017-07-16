@@ -5,100 +5,56 @@
  */
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/arch/AVR/usart.h>
-#include <Lazuli/sys/linker.h>
 #include <Lazuli/scheduler.h>
+
+#include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 
 void
-Int0Handler()
+Task1()
 {
-}
+  u16 i = u16_MAX;
 
-void
-Int1Handler()
-{
-}
+  while (true) {
+    Usart_PutChar('W');
 
-void
-TimerCounter0OverflowHandler()
-{
+    while (i--);
+    i = u16_MAX;
+  }
 }
 
 void
 Task2()
 {
-  char c;
+  u16 i = u16_MAX;
 
   while (true) {
-    for (c = 'a'; c <= 'z'; c++) {
-      Usart_PutChar(c);
-    }
+    Usart_PutChar('T');
 
-    Usart_NewLine();
-    while(true); /* Remove that */
-  }
-}
-
-void
-Task1()
-{
-  u16 i = 0;
-
-  DDRB = (u8)0xff;
-
-  while (true) {
-    while (i++ < 60000);
-    i = 0;
-
-    PORTB = u8_MIN;
-
-    while (i++ < 60000);
-    i = 0;
-
-    PORTB = u8_MAX;
+    while (i--);
+    i = u16_MAX;
   }
 }
 
 void
 Task3()
 {
-  Usart_HexaPrint_Pointer((void * const)SP);
-  Usart_NewLine();
-
   while (true) {
-    Usart_PutChar('Y');
-    Usart_HexaPrint_FunctionPointer(Task3);
-    Usart_NewLine();
-    while (1);
+    Usart_PutChar('F');
   }
 }
 
 void
 Task4()
 {
+  EICRA = 0x03;
+  EIMSK = 0x01;
+
   while (true) {
-    Usart_PutChar('W');
+    Lz_WaitInt0();
+    Usart_PutChar('0');
   }
 }
-
-void
-Task5()
-{
-  while (true) {
-    Usart_PutChar('T');
-  }
-}
-
-void
-Task6()
-{
-  while (true) {
-    Usart_PutChar('F');
-  }
-}
-
-
 
 /**
  * Main entry point for user tasks.
@@ -108,9 +64,9 @@ Main()
 {
   Usart_Init();
 
+  Lz_Scheduler_RegisterTask(Task1);
+  Lz_Scheduler_RegisterTask(Task2);
   Lz_Scheduler_RegisterTask(Task4);
-  Lz_Scheduler_RegisterTask(Task5);
-  Lz_Scheduler_RegisterTask(Task6);
 
   Lz_Scheduler_Run();
 

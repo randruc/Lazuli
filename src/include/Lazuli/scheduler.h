@@ -26,6 +26,13 @@ Lz_Scheduler_RegisterTask(void (*taskEntryPoint)());
 void
 Lz_Scheduler_Run();
 
+/**
+ * Wait for the interrupt "External Interrupt Request 0".
+ * Blocks the calling task until "External Interrupt Request 0" occurs.
+ */
+void
+Lz_WaitInt0();
+
 _EXTERN_C_DECL_END
 
 #endif /* LZ_SCHEDULER_H */

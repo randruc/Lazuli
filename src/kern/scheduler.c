@@ -25,7 +25,12 @@ static Task *currentTask;
 /**
  * The queue of ready tasks.
  */
-static LinkedList readyQueue = { NULL };
+static LinkedList readyQueue = LINKED_LIST_INIT;
+
+/**
+ * The queue of tasks waiting for interrupt INT0.
+ */
+static LinkedList waitingInt0Queue = LINKED_LIST_INIT;
 
 void
 Scheduler_Init()
@@ -47,8 +52,6 @@ static void
 Schedule()
 {
   LinkedListElement *firstElement;
-
-  List_Append(&readyQueue, &(currentTask->stateQueue));
 
   firstElement = List_PickFirst(&readyQueue);
   if (NULL != firstElement) {
@@ -73,10 +76,42 @@ Timer0CompareMatchAHandler()
    * move the stack pointer. We arrived here by a JUMP, not a CALL!
    * We can thus save the current task's stack.
    */
-  currentTask->stackPointer = (void*)SP;
+  currentTask->stackPointer = (void *)SP;
   SP = &_ramend;
 
+  List_Append(&readyQueue, &(currentTask->stateQueue));
   Schedule();
+}
+
+void
+CurrentTaskWaitInt0()
+{
+  currentTask->stackPointer = (void *)SP;
+  SP = &_ramend;
+
+  List_Append(&waitingInt0Queue, &(currentTask->stateQueue));
+  Schedule();
+}
+
+/**
+ * Handle "External Interrupt Request 0".
+ *
+ * This function is called by jumping, so the stack isn't touched.
+ */
+void
+Int0Handler()
+{
+  /*
+   * Important! No local variables in this function, so the compiler doesn't
+   * move the stack pointer. We arrived here by a JUMP, not a CALL!
+   * We can thus save the current task's stack.
+   */
+  currentTask->stackPointer = (void *)SP;
+  SP = &_ramend;
+
+  List_AppendList(&readyQueue, &waitingInt0Queue);
+
+  restore_context_from_stack_and_reti(currentTask->stackPointer);
 }
 
 /**

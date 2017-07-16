@@ -5,7 +5,7 @@
      */
 
     /**
-     * Compute the right placement of the interrupt vector, after the address
+     * Compute the right address of the interrupt vector, after the address
      * specified in the datasheet.
      *
      * @param X The address with which to compute the placement.
@@ -13,7 +13,7 @@
 #define INTERRUPT_ADDRESS(X) (X * 2)
 
     /**
-     * Specify the placement of the interrupt vector
+     * Specify the placement of the interrupt vector.
      *
      * @param X The interrupt vector address.
      */
@@ -32,7 +32,7 @@ interrupt_vectors_table:
 
     ;; INT1 - External interrupt request 1
     AT(0x0004)
-    jmp int1_handler
+    reti
 
     reti                         ; PCINT0       Pin change interrupt request 0
     reti                         ; PCINT1       Pin change interrupt request 1
@@ -54,7 +54,7 @@ interrupt_vectors_table:
 
     ;; TIMER0OVF - Timer/counter0 overflow
     AT(0x0020)
-    jmp timer0_overflow_handler
+    reti
 
     reti                         ; SPISTC       SPI serial transfer complete
     reti                         ; USARTRX      USART Rx complete
