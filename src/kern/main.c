@@ -47,12 +47,28 @@ Task3()
 void
 Task4()
 {
-  EICRA = 0x03;
-  EIMSK = 0x01;
+  /*
+   * EICRA = 0x03;
+   * EIMSK = 0x01;
+   */
 
   while (true) {
     Lz_WaitInt0();
     Usart_PutChar('0');
+  }
+}
+
+void
+Task5()
+{
+  /*
+   * EICRA = 0x03;
+   * EIMSK = 0x01;
+   */
+
+  while (true) {
+    Lz_WaitInt0();
+    Usart_PutChar('1');
   }
 }
 
@@ -67,6 +83,10 @@ Main()
   Lz_Scheduler_RegisterTask(Task1);
   Lz_Scheduler_RegisterTask(Task2);
   Lz_Scheduler_RegisterTask(Task4);
+  Lz_Scheduler_RegisterTask(Task5);
+
+  EICRA = 0x03;
+  EIMSK = 0x01;
 
   Lz_Scheduler_Run();
 

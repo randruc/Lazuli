@@ -29,6 +29,7 @@ AllocationMap kernelAllocationMap;
 
 /**
  * This is the kernel entry point.
+ * This function must never return.
  */
 noreturn void
 KMain()
