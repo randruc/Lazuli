@@ -172,7 +172,7 @@ reset_system:
     ;; Clear bss section
     ;; TODO: Find a way to omit this code if no .bss
     ldi r16, _bss_size
-    cpi r16, 0
+    tst r16
     breq bss_loop_end
     ldi r26, lo8(_bss_start)
     ldi r27, hi8(_bss_start)
@@ -180,14 +180,13 @@ reset_system:
 bss_loop_start:
     st X+, r17
     dec r16
-    cpi r16, 0
     brne bss_loop_start
 bss_loop_end:
 
     ;; Load data section
     ;; TODO: Find a way to omit this code if no .data
     ldi r16, _data_size
-    cpi r16, 0
+    tst r16
     breq data_loop_end
     ldi r30, lo8(_data_load_start)
     ldi r31, hi8(_data_load_start)
@@ -197,14 +196,13 @@ data_loop_start:
     lpm r17, Z+
     st X+, r17
     dec r16
-    cpi r16, 0
     brne data_loop_start
 data_loop_end:
 
     ;; Load rodata section
     ;;  TODO: Find a way to omit this code if no .rodata
     ldi r16, _rodata_size
-    cpi r16, 0
+    tst r16
     breq rodata_loop_end
     ldi r30, lo8(_rodata_load_start)
     ldi r31, hi8(_rodata_load_start)
@@ -214,7 +212,6 @@ rodata_loop_start:
     lpm r17, Z+
     st X+, r17
     dec r16
-    cpi r16, 0
     brne rodata_loop_start
 rodata_loop_end:
 
