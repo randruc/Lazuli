@@ -6,6 +6,8 @@
 
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/config.h>
+#include <Lazuli/sys/compiler.h>
+#include <Lazuli/sys/arch/AVR/arch.h>
 
 /**
  * The baud rate value to set in UBRR0.
@@ -46,11 +48,10 @@ Usart_NewLine()
   Usart_PutChar('\n');
 }
 
-/* TODO: Store this is program memory */
 /**
  * Array used to get the character representation of a hexadecimal digit
  */
-static const char hexachars[] = {
+progmem static const char hexachars[] = {
   '0',
   '1',
   '2',
@@ -103,12 +104,12 @@ Usart_HexaPrint_IntegerBytes(IntegerBytes const * const integerBytes,
   Usart_PutChar('0');
   Usart_PutChar('x');
 
-  for (i = size; i != 0; i--) {
+  for (i = size; 0 != i; i--) {
     upperPart = (integerBytes->bytes[i - 1] >> 4) & 0x0f;
     lowerPart = integerBytes->bytes[i - 1] & 0x0f;
 
-    Usart_PutChar(hexachars[upperPart]);
-    Usart_PutChar(hexachars[lowerPart]);
+    Usart_PutChar(load_u8_from_progmem(&hexachars[upperPart]));
+    Usart_PutChar(load_u8_from_progmem(&hexachars[lowerPart]));
   }
 }
 

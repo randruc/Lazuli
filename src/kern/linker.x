@@ -32,6 +32,13 @@ SECTIONS
     _rodata_size = SIZEOF(.rodata);
     _rodata_load_start = LOADADDR(.rodata);
 
+    .progmem :
+    {
+        KEEP(*(.progmem))
+    } > REGION_PROGMEM
+    _progmem_size = SIZEOF(.progmem);
+    _progmem_load_start = LOADADDR(.progmem);
+
     .bss :
     {
         _bss_start = .;

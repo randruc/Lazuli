@@ -14,9 +14,16 @@
  */
 #define noreturn __attribute__((noreturn))
 
+/**
+ * Declare a variable to be stored in program memory.
+ * i.e. usualy in ROM.
+ */
+#define progmem __attribute__((section(".progmem")))
+
 #else /* __GNUC__ */
 
 #define noreturn
+#define progmem
 
 #endif/* __GNUC__ */
 

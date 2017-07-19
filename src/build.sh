@@ -53,6 +53,7 @@ then
         -j .text \
         -j .data \
         -j .rodata \
+        -j .progmem \
         -O ihex \
         $project_name.elf \
         $project_name.hex

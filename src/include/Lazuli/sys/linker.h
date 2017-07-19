@@ -44,4 +44,9 @@ extern u8 _brk;
  */
 extern u8 _ramend;
 
+/**
+ * Start address of the loaded .progmem section.
+ */
+extern u8 _progmem_load_start;
+
 #endif /* LZ_SYS_LINKER_H */

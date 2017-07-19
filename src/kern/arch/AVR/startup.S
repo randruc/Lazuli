@@ -159,6 +159,37 @@ restore_context_from_stack_and_reti:
     reti
 
     /**
+     * Copy bytes from program memory into RAM.
+     *
+     * @param r16 (8 bits)      The number of bytes to copy.
+     * @param r30,r31 (16 bits) The source address in program memory of the
+     *                          stored bytes.
+     * @param r26,r27 (16 bits) The destination address in RAM.
+     */
+copy_from_program_memory:
+    tst r16
+    breq copy_from_program_memory_loop_end
+    push r17
+copy_from_program_memory_loop_start:
+    lpm r17, Z+
+    st X+, r17
+    dec r16
+    brne copy_from_program_memory_loop_start
+    pop r17
+copy_from_program_memory_loop_end:
+    ret
+
+    .global load_u8_from_progmem
+load_u8_from_progmem:
+    push r30
+    push r31
+    movw r30, r24
+    lpm r24, Z
+    pop r31
+    pop r30
+    ret
+
+    /**
      * Main entry point of the whole system.
      */
     .global reset_system
@@ -168,6 +199,12 @@ reset_system:
 
     ;; Disable interrupts
     cli
+
+    ;; Set kernel stack pointer
+    ldi r16, lo8(_ramend)
+    ldi r17, hi8(_ramend)
+    out spl, r16
+    out sph, r17
 
     ;; Clear bss section
     ;; TODO: Find a way to omit this code if no .bss
@@ -187,39 +224,25 @@ bss_loop_end:
     ;; TODO: Find a way to omit this code if no .data
     ldi r16, _data_size
     tst r16
-    breq data_loop_end
+    breq load_data_end
     ldi r30, lo8(_data_load_start)
     ldi r31, hi8(_data_load_start)
     ldi r26, lo8(_data_start)
     ldi r27, hi8(_data_start)
-data_loop_start:
-    lpm r17, Z+
-    st X+, r17
-    dec r16
-    brne data_loop_start
-data_loop_end:
+    call copy_from_program_memory
+load_data_end:
 
     ;; Load rodata section
     ;;  TODO: Find a way to omit this code if no .rodata
     ldi r16, _rodata_size
     tst r16
-    breq rodata_loop_end
+    breq load_rodata_end
     ldi r30, lo8(_rodata_load_start)
     ldi r31, hi8(_rodata_load_start)
     ldi r26, lo8(_rodata_start)
     ldi r27, hi8(_rodata_start)
-rodata_loop_start:
-    lpm r17, Z+
-    st X+, r17
-    dec r16
-    brne rodata_loop_start
-rodata_loop_end:
-
-    ;; Set kernel stack pointer
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
+    call copy_from_program_memory
+load_rodata_end:
 
     ;; Start the kernel
     jmp KMain

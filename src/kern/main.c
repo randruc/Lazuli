@@ -54,7 +54,8 @@ Task4()
 
   while (true) {
     Lz_WaitInt0();
-    Usart_PutChar('0');
+    /* Usart_PutChar('0'); */
+    Usart_HexaPrint_u32(0x1234fdea);
   }
 }
 
@@ -68,7 +69,8 @@ Task5()
 
   while (true) {
     Lz_WaitInt0();
-    Usart_PutChar('1');
+    /* Usart_PutChar('1'); */
+    Usart_HexaPrint_u16(0xabcd);
   }
 }
 

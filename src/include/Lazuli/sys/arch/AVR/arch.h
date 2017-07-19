@@ -68,6 +68,13 @@ start_running(void *stackPointer, size_t offsetOfPc);
 extern u16
 swap16(u16 value);
 
+/**
+ * Return a byte stored in program memory.
+ *
+ * @param source A pointer to the address of the byte in program memory.
+ */
+extern u8
+load_u8_from_progmem(char const * const source);
 
 _EXTERN_C_DECL_END
 
