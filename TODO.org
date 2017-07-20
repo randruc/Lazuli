@@ -26,3 +26,5 @@
 * Refactor "Load data section" and "Load rodata section" in ASM code.
 * For context saving: Allow the user to define a task with no context saving.
 * Write doc about progmem.
+* Add a CONTRIBUTING file and update README.md about that.
+** [[https://help.github.com/articles/setting-guidelines-for-repository-contributors/]]
