@@ -105,7 +105,7 @@ save_context_on_stack:
 start_running:
     ;; Here we can skip POPing the 32 registers + the state register since they
     ;; have not been used yet. So we add the offset of the PC member of the
-    ;; TaskContextConfiguration struct to the task stack pointer.
+    ;; TaskContextLayout struct to the task stack pointer.
     add r24, r22
     adc r25, r23
     ;; We can now point to the saved return address (PC)

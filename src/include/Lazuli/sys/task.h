@@ -34,7 +34,10 @@ typedef struct {
 typedef void (*VoidVoid)();
 
 /**
- * Represents the configuration of the stack when saving the context of a task.
+ * Represents the layout of the stack when saving the context of a task.
+ *
+ * The context of a task consists in saving all of the registers and the program
+ * counter.
  */
 typedef struct {
   volatile u8 sreg;      /** < State register               */
@@ -71,7 +74,7 @@ typedef struct {
   volatile u8 r30;       /** < Register 30                  */
   volatile u8 r31;       /** < Register 31                  */
   volatile VoidVoid pc;  /** < Program counter for the task */
-}TaskContextConfiguration;
+}TaskContextLayout;
 
 _EXTERN_C_DECL_END
 

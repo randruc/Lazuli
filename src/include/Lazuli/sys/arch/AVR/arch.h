@@ -52,7 +52,7 @@ restore_context_from_stack_and_reti(void *stackPointer);
  * @param stackPointer The stack pointer of the task to run, containing its
  *                     prepared context.
  * @param offsetOfPc   The offset of the PC member in the
- *                     TaskContextConfiguration structure (i.e. the context of
+ *                     TaskContextLayout structure (i.e. the saved context of
  *                     the task).
  */
 extern void

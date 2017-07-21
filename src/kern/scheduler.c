@@ -123,15 +123,15 @@ Int0Handler()
 static void
 PrepareTaskContext(Task * const task)
 {
-  TaskContextConfiguration * const contextConfiguration
-    = (TaskContextConfiguration *)(ALLOW_ARITHM(task->stackPointer)
-                                   - sizeof(TaskContextConfiguration) + 1);
+  TaskContextLayout * const contextLayout
+    = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
+                                   - sizeof(TaskContextLayout) + 1);
 
-  contextConfiguration->pc = (VoidVoid)swap16((u16)task->entryPoint);
-  task->stackPointer = ALLOW_ARITHM((void*)contextConfiguration) - 1;
+  contextLayout->pc = (VoidVoid)swap16((u16)task->entryPoint);
+  task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 
-STATIC_ASSERT(DEFAULT_TASK_STACK_SIZE > sizeof(TaskContextConfiguration),
+STATIC_ASSERT(DEFAULT_TASK_STACK_SIZE > sizeof(TaskContextLayout),
               "The task's stack must be big enough to hold its context.");
 
 void
@@ -170,6 +170,5 @@ Lz_Scheduler_Run()
 
   currentTask = CONTAINER_OF(first, stateQueue, Task);
 
-  start_running(currentTask->stackPointer,
-                OFFSET_OF(pc, TaskContextConfiguration));
+  start_running(currentTask->stackPointer, OFFSET_OF(pc, TaskContextLayout));
 }
