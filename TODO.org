@@ -29,3 +29,4 @@
 * Add a CONTRIBUTING file and update README.md about that.
 ** [[https://help.github.com/articles/setting-guidelines-for-repository-contributors/]]
 * _EXTERN_C_DECL_BEGIN is missing in some header files (scheduler.h).
+* Provide a way to perform unit tests from the target machine.
