@@ -8,43 +8,41 @@ ENTRY(interrupt_vectors_table)
 
 SECTIONS
 {
-    . = 0x0;
-
     .text :
     {
         *(.text)
-        _text_end = .;
     } > REGION_TEXT
 
-    .data : AT(_text_end)
-    {
-        _data_start = .;
-        *(.data)
-    } > REGION_DATA
-    _data_size = SIZEOF(.data);
-    _data_load_start = LOADADDR(.data);
-
-    .rodata :
-    {
-        _rodata_start = .;
-        *(.rodata)
-    } > REGION_DATA
-    _rodata_size = SIZEOF(.rodata);
-    _rodata_load_start = LOADADDR(.rodata);
-
-    .progmem :
+    .progmem : AT(LOADADDR(.text) + SIZEOF(.text))
     {
         KEEP(*(.progmem))
     } > REGION_PROGMEM
     _progmem_size = SIZEOF(.progmem);
     _progmem_load_start = LOADADDR(.progmem);
 
+    .data : AT(LOADADDR(.progmem) + SIZEOF(.progmem))
+    {
+        *(.data)
+    } > REGION_DATA
+    _data_start = ADDR(.data);
+    _data_load_start = LOADADDR(.data);
+    _data_size = SIZEOF(.data);
+
+    .rodata : AT(LOADADDR(.data) + SIZEOF(.data))
+    {
+        *(.rodata)
+    } > REGION_RODATA
+    _rodata_start = ADDR(.rodata);
+    _rodata_load_start = LOADADDR(.rodata);
+    _rodata_size = SIZEOF(.rodata);
+
     .bss :
     {
-        _bss_start = .;
         *(.bss)
     } > REGION_BSS
+    _bss_start = ADDR(.bss);
     _bss_size = SIZEOF(.bss);
-    _brk = .;
+
+    _brk = ADDR(.bss) + SIZEOF(.bss);
     _ramend = LENGTH(ram) - 1;
 }
