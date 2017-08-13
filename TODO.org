@@ -1,5 +1,5 @@
-* Maybe switch to C99 (to allow inline).
-* Allow user to define its own Panic() function.
+* Maybe switch to C99 (to allow inline). (or maybe not!)
+* Allow the user to define its own Panic() function.
 * Be compatible with C++ user tasks.
 * Add a license and define a file header to add to each file for public distribution.
 ** Like that :
@@ -23,10 +23,9 @@
 ** [[https://youtu.be/PC05prd2usY]]
 * Add a description the the GitHub repository.
 * Write documentation about header files organization.
-* Refactor "Load data section" and "Load rodata section" in ASM code.
 * For context saving: Allow the user to define a task with no context saving.
 * Write doc about progmem.
 * Add a CONTRIBUTING file and update README.md about that.
 ** [[https://help.github.com/articles/setting-guidelines-for-repository-contributors/]]
-* Provide a way to perform unit tests from the target machine.
-* Code review on kernel.c.
+* Provide a way to perform unit tests onto the target machine.
+* Prefix Lazuli structs in userspace with "Lz_"

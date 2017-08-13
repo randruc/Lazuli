@@ -11,13 +11,15 @@ The project is hosted on GitHub at https://github.com/randruc/Lazuli
 
 
 ### Features
+* Multitasking of user defined tasks
+* A "wait for event" programming model
 
 
 ### Challenge
 
 The Lazuli project has very specific goals that make it unique. These are:
 * __Pure C89__ - Lazuli is coded in pure C89 for all of its C parts.
-  It means that no compiler-specific code or extensions to the C language are
+  It means that no compiler-specific code nor extensions to the C language are
   used. This choice has been made the allow to code to be ported easily (if
   needed in the future) to many platforms and architecures, and to be compiled
   by the largest number of compilers. Another reason is that C89 is understood
@@ -36,12 +38,27 @@ Lazuli has no dependency on other piece of software.
 You can simply build it, link it to your own tasks, upload it and it just
 runs!
 
+The software currently used is:
+* __avr-gcc__ to compile
+* __avr-objcopy__ to produce hex binary image
+* __avr-objdump__ to visualize C source code mixed with resulting asm (in debug)
+* __avrdude__ to upload hex binary image to the target MCU
+
+
 ## Documentation
 
 The documentation for the project can be found in the `doc/` directory.
 
 
 ## Building
+
+Building is done by invoking the `build.sh` command in the `src/` directory.
+There is no makefile for the moment (it's in the TODO list...).
+The debug configuration is statically set in the `build.sh` file.
+Invoking `build.sh` produces 2 files:
+* An ELF file: `Lazuli.elf` which contains the resulting binary in ELF format.
+* An HEX file: `Lazuli.hex` which is produced from `Lazuli.elf` and which
+  contains binary code to be uplaoded to the target MCU.
 
 
 ## Configuration
@@ -84,6 +101,3 @@ The `Issues` tab of the project must be used to report troubleshooting.
 
 
 ## Licensing
-
-
-## Changelog

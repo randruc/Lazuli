@@ -1,8 +1,8 @@
-    /**
-     * @file startup.S
-     *
-     * Set up the runtime environment and run the kernel
-     */
+/**
+* @file startup.S
+*
+* Set up the runtime environment and run the kernel.
+*/
 
     ;; Frequently used registers
 .equ spl,  0x3d                ; Stack pointer low byte
@@ -22,6 +22,9 @@ timer0_compare_match_A_handler:
     call save_context_on_stack
     jmp Timer0CompareMatchAHandler
 
+    ;; Lz_Wait* routines
+    ;;
+    ;; These are the routines called by user tasks to wait for an event.
     .global Lz_WaitInt0
 Lz_WaitInt0:
     cli
@@ -247,7 +250,10 @@ load_rodata_end:
     ;; Start the kernel
     jmp KMain
 
-    ;; Parachute trap, infinite loop, should never be reached
+    ;; Parachute trap
+    ;; This should never be reached. It is only here is case of KMain returns.
+    call Panic
+
     .global infinite_loop
 infinite_loop:
     rjmp infinite_loop

@@ -1,9 +1,8 @@
 /**
  * @file kernel.
  *
- * Contains all symbols of the kernel, and routines such as:
- * - Kernel main entry point
- * - System initialization
+ * Defines routines such as:
+ * - Kernel main entry point after startup, system initialization
  * - Kernel panic
  */
 
@@ -18,13 +17,15 @@
 
 /**
  * Main entry point for user tasks.
+ *
+ * This is the function the user has to define to register his own tasks.
  */
 noreturn void
 Main();
 
-extern void
-reset_system();
-
+/**
+ * The allocation map for the whole kernel.
+ */
 AllocationMap kernelAllocationMap;
 
 /**

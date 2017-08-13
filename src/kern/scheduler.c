@@ -60,9 +60,7 @@ Scheduler_Init()
 static void
 Schedule()
 {
-  LinkedListElement *firstElement;
-
-  firstElement = List_PickFirst(&readyQueue);
+  LinkedListElement *firstElement = List_PickFirst(&readyQueue);
   if (NULL != firstElement) {
     currentTask = CONTAINER_OF(firstElement, stateQueue, Task);
 
@@ -134,7 +132,7 @@ PrepareTaskContext(Task * const task)
 {
   TaskContextLayout * const contextLayout
     = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
-                                   - sizeof(TaskContextLayout) + 1);
+                            - sizeof(TaskContextLayout) + 1);
 
   contextLayout->pc = (FuncVoidVoid)swap16((u16)task->entryPoint);
   task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;

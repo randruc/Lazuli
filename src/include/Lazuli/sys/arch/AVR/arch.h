@@ -8,6 +8,7 @@
 #define LZ_ARCH_H
 
 #include <Lazuli/common.h>
+#include <Lazuli/sys/compiler.h>
 
 _EXTERN_C_DECL_BEGIN
 
@@ -26,8 +27,14 @@ global_interrupts_disable();
 /**
  * Function that loops forever, never returns.
  */
-extern void
+noreturn extern void
 infinite_loop();
+
+/**
+ * Reset the whole system.
+ */
+extern void
+reset_system();
 
 /**
  * Restore the context of a previoulsy saved task, and run it by returning
