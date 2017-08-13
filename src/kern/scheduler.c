@@ -32,6 +32,15 @@ static LinkedList readyQueue = LINKED_LIST_INIT;
  */
 static LinkedList waitingInt0Queue = LINKED_LIST_INIT;
 
+/* TODO: Maybe think about storing default task configuration in progmem */
+/**
+ * Contains default values for TaskConfiguration.
+ */
+static const TaskConfiguration defaultTaskConfiguration = {
+  /** member: stackSize */
+  DEFAULT_TASK_STACK_SIZE
+};
+
 void
 Scheduler_Init()
 {
@@ -127,36 +136,60 @@ PrepareTaskContext(Task * const task)
     = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
                                    - sizeof(TaskContextLayout) + 1);
 
-  contextLayout->pc = (VoidVoid)swap16((u16)task->entryPoint);
+  contextLayout->pc = (FuncVoidVoid)swap16((u16)task->entryPoint);
   task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 
-STATIC_ASSERT(DEFAULT_TASK_STACK_SIZE > sizeof(TaskContextLayout),
-              "The task's stack must be big enough to hold its context.");
-
 void
-Lz_Scheduler_RegisterTask(void (*taskEntryPoint)())
+Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
+                          TaskConfiguration * const taskConfiguration)
 {
   Task *newTask;
   void *taskStack;
+  size_t desiredStackSize;
+  const TaskConfiguration * configuration;
+
+  if (NULL != taskConfiguration) {
+    configuration = taskConfiguration;
+  } else {
+    configuration = &defaultTaskConfiguration;
+  }
 
   newTask = KIncrementalMalloc(sizeof(Task));
   if (NULL == newTask) {
     Panic();
   }
 
-  taskStack = KIncrementalMalloc(DEFAULT_TASK_STACK_SIZE);
+  desiredStackSize = configuration->stackSize
+    /* We add enough space to contain the context of a task on the stack */
+    + sizeof(TaskContextLayout)
+    /* Plus 1 call to save_context_on_stack (in startup.S) */
+    + sizeof(void*);
+
+  taskStack = KIncrementalMalloc(desiredStackSize);
   if (NULL == taskStack) {
     Panic();
   }
 
   newTask->entryPoint = taskEntryPoint;
   newTask->stateQueue.next = NULL;
-  newTask->stackPointer = ALLOW_ARITHM(taskStack) + DEFAULT_TASK_STACK_SIZE - 1;
+  newTask->stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
 
   PrepareTaskContext(newTask);
 
   List_Append(&readyQueue, &(newTask->stateQueue));
+}
+
+void
+Lz_Scheduler_InitTaskConfiguration(TaskConfiguration * const taskConfiguration)
+{
+  if (NULL == taskConfiguration) {
+    return;
+  }
+
+  MemoryCopy(&defaultTaskConfiguration,
+             taskConfiguration,
+             sizeof(TaskConfiguration));
 }
 
 void

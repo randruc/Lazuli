@@ -36,6 +36,6 @@
 /**
  * Default stack size in bytes for a new task.
  */
-#define DEFAULT_TASK_STACK_SIZE (50)
+#define DEFAULT_TASK_STACK_SIZE (20)
 
 #endif /* LZ_SYS_CONFIG_H */

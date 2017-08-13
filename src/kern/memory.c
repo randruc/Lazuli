@@ -80,3 +80,15 @@ KIncrementalMalloc(const size_t s)
 {
   return BaseIncrementalMalloc(s, &kernelAllocationMap);
 }
+
+void
+MemoryCopy(const void *source, void *destination, const size_t length)
+{
+  u16 i;
+  const u8 *sourceBytes = source;
+  u8 *destinationBytes = destination;
+
+  for (i = 0; i < length; i++) {
+    destinationBytes[i] = sourceBytes[i];
+  }
+}

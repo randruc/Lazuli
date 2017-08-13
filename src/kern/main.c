@@ -54,8 +54,7 @@ Task4()
 
   while (true) {
     Lz_WaitInt0();
-    /* Usart_PutChar('0'); */
-    Usart_HexaPrint_u32(0x1234fdea);
+    Usart_PutChar('0');
   }
 }
 
@@ -69,8 +68,7 @@ Task5()
 
   while (true) {
     Lz_WaitInt0();
-    /* Usart_PutChar('1'); */
-    Usart_HexaPrint_u16(0xabcd);
+    Usart_PutChar('1');
   }
 }
 
@@ -82,10 +80,10 @@ Main()
 {
   Usart_Init();
 
-  Lz_Scheduler_RegisterTask(Task1);
-  Lz_Scheduler_RegisterTask(Task2);
-  Lz_Scheduler_RegisterTask(Task4);
-  Lz_Scheduler_RegisterTask(Task5);
+  Lz_Scheduler_RegisterTask(Task1, NULL);
+  Lz_Scheduler_RegisterTask(Task2, NULL);
+  Lz_Scheduler_RegisterTask(Task4, NULL);
+  Lz_Scheduler_RegisterTask(Task5, NULL);
 
   EICRA = 0x03;
   EIMSK = 0x01;

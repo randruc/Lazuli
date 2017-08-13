@@ -49,6 +49,16 @@ typedef struct {
 void *
 KIncrementalMalloc(const size_t s);
 
+/**
+ * Copy bytes from one location to another in main memory.
+ *
+ * @param source A pointer to the source address in RAM.
+ * @param destination A pointer to the destination address in RAM.
+ * @param length The number of bytes to copy.
+ */
+void
+MemoryCopy(const void * source, void * destination, const size_t length);
+
 _EXTERN_C_DECL_END
 
 #endif /* LZ_SYS_MEMORY_H */
