@@ -1,5 +1,5 @@
 /**
- * @file scheduler.h
+ * @file src/include/Lazuli/scheduler.h
  *
  * This file describes the interface of the scheduler.
  */
@@ -15,7 +15,7 @@ _EXTERN_C_DECL_BEGIN
  * Represents the configuration of a task being registered in the scheduler.
  */
 typedef struct {
-  size_t stackSize; /** < The size of the stack needed by the task */
+  size_t stackSize; /**< The size of the stack needed by the task */
 }TaskConfiguration;
 
 /**

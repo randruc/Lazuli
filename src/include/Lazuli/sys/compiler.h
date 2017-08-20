@@ -1,5 +1,5 @@
 /**
- * @file compiler.h
+ * @file src/include/Lazuli/sys/compiler.h
  *
  * Macro aliases on compiler facilities.
  */

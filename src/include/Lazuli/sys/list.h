@@ -1,5 +1,5 @@
 /**
- * @file list.h
+ * @file src/include/Lazuli/sys/list.h
  *
  * Describes types and function related to linked lists.
  */
@@ -12,7 +12,7 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Represents an element of a simply linked list.
+ * Represents an element of a singly linked list.
  */
 typedef struct _LinkedListElement {
   /** A pointer to the next element on the list */
@@ -20,7 +20,7 @@ typedef struct _LinkedListElement {
 }LinkedListElement;
 
 /**
- * Represents the main container for simply linked elements.
+ * Represents the main container for singly linked elements.
  */
 typedef struct {
   /** A pointer to the first element of the linked list */
@@ -55,7 +55,7 @@ List_AppendList(LinkedList * const linkedListDestination,
                 LinkedList * const linkedListToMove);
 
 /**
- * Return the first element of an existing simply linked list.
+ * Return the first element of an existing singly linked list.
  *
  * @param linkedList A pointer to the linked list head.
  *

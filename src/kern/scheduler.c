@@ -1,7 +1,7 @@
 /**
- * @file scheduler.c
+ * @file src/kern/scheduler.c
  *
- * The file describes the implementation of the tasks scheduler.
+ * This file describes the implementation of the tasks scheduler.
  */
 
 #include <Lazuli/common.h>
@@ -37,8 +37,7 @@ static LinkedList waitingInt0Queue = LINKED_LIST_INIT;
  * Contains default values for TaskConfiguration.
  */
 static const TaskConfiguration defaultTaskConfiguration = {
-  /** member: stackSize */
-  DEFAULT_TASK_STACK_SIZE
+  DEFAULT_TASK_STACK_SIZE /**< member: stackSize */
 };
 
 void
@@ -90,6 +89,13 @@ Timer0CompareMatchAHandler()
   Schedule();
 }
 
+/**
+ * Set the current running task to wait for interrupt "INT0".
+ *
+ * This is done by putting the current task on the appropriate wainting queue.
+ * This function is called from the ASM routine Lz_WaitInt0 after saving the
+ * context.
+ */
 void
 CurrentTaskWaitInt0()
 {
@@ -145,7 +151,7 @@ Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
   Task *newTask;
   void *taskStack;
   size_t desiredStackSize;
-  const TaskConfiguration * configuration;
+  const TaskConfiguration *configuration;
 
   if (NULL != taskConfiguration) {
     configuration = taskConfiguration;

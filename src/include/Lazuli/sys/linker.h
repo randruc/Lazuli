@@ -1,5 +1,5 @@
 /**
- * @file linker.h
+ * @file src/include/Lazuli/sys/linker.h
  *
  * Symbols defined by the linker.
  */

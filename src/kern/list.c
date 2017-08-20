@@ -1,5 +1,5 @@
 /**
- * @file.c
+ * @file src/kern/list.c
  *
  * This file describes the operations related to lists.
  */

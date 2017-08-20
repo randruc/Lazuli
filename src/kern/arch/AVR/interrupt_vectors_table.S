@@ -1,8 +1,8 @@
-    /**
-     * @file interrupt_vectors_table.S
-     *
-     * Set up the interrupt vectors table.
-     */
+/**
+ * @file interrupt_vectors_table.S
+ *
+ * Set up the interrupt vectors table.
+ */
 
     /**
      * Compute the right address of the interrupt vector, after the address

@@ -1,5 +1,5 @@
 /**
- * @file timer_counter_0.c
+ * @file src/kern/arch/AVR/timer_counter_0.c
  *
  * Describes the driver implementation for the "8-bit timer/counter 0" of the
  * ATMega328p.

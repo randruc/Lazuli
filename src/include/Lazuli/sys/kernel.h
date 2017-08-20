@@ -1,5 +1,5 @@
 /**
- * @file kernel.h
+ * @file src/include/Lazuli/sys/kernel.h
  *
  * Kernel symbols definition.
  */

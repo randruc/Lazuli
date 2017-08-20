@@ -1,5 +1,5 @@
 /**
- * @file memory.h
+ * @file src/include/Lazuli/sys/memory.h
  *
  * Defines base types and operations for memory management.
  */

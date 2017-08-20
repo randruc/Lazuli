@@ -1,5 +1,5 @@
 /**
- * @file usart.c
+ * @file src/kern/arch/AVR/usart.c
  *
  * Describe the driver implementation for the USART of the ATMega328p.
  */
@@ -75,12 +75,12 @@ progmem static const char hexachars[] = {
  * 32 bits).
  */
 typedef union {
-  void *pointer;             /** < Holds the pointer value              */
-  void (*functionPointer)(); /** < Hold the function pointer value      */
-  u8    u8Value;             /** < Holds the 8-bits value               */
-  u16   u16Value;            /** < Holds the 16-bits value              */
-  u32   u32Value;            /** < Holds the 32-bits value              */
-  char  bytes[4];            /** < Easily access each byte of the value */
+  void *pointer;             /**< Holds the pointer value              */
+  void (*functionPointer)(); /**< Hold the function pointer value      */
+  u8    u8Value;             /**< Holds the 8-bits value               */
+  u16   u16Value;            /**< Holds the 16-bits value              */
+  u32   u32Value;            /**< Holds the 32-bits value              */
+  char  bytes[4];            /**< Easily access each byte of the value */
 }IntegerBytes;
 
 /**
@@ -90,7 +90,7 @@ typedef union {
  * This serves as the base implementation for all specialized
  * Usart_HexaPrint_*() functions.
  *
- * @param intergerBytes A pointer to the IntergerBytes union to print.
+ * @param integerBytes A pointer to the IntergerBytes union to print.
  * @param size The size in bytes of the value to print.
  */
 static void

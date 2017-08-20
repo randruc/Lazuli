@@ -1,5 +1,5 @@
 /**
- * @file scheduler.h
+ * @file src/include/Lazuli/sys/scheduler.h
  *
  * This file describes the kernel interface for the scheduler.
  */

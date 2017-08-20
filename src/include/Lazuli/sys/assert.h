@@ -1,5 +1,5 @@
 /**
- * @file assert.h
+ * @file src/include/Lazuli/sys/assert.h
  *
  * Describes the macros needed to perform assertions at runtime.
  */

@@ -1,5 +1,5 @@
 /**
- * @file common.h
+ * @file src/include/Lazuli/common.h
  *
  * This file describes basic types and useful macros used in the Lazuli project.
  * This file can be used within kernel code or within user code.
@@ -10,11 +10,11 @@
 
 #ifdef __cplusplus
 /**
- * Open C++ header file declarations
+ * Open C++ header file declarations.
  */
 #define _EXTERN_C_DECL_BEGIN extern "C" {
 /**
- * Close C++ header file declarations
+ * Close C++ header file declarations.
  */
 #define _EXTERN_C_DECL_END }
 #else /* __cplusplus */
@@ -30,14 +30,6 @@
 #define UNUSED(X) ((void)(X))
 
 /**
- * Allow arithmetic on a void pointer.
- * Arithmetic on void pointers isn't allowed in standard C.
- *
- * @param X The void pointer on which to perform arithmetic.
- */
-#define ALLOW_ARITHM(X) ((u8 *)(X))
-
-/**
  * Perform an assertion at compile time.
  * Won't compile if the assertion is false.
  *
@@ -46,115 +38,7 @@
  *          is not actualy used, it's only here to display an informative
  *          message directly in the source code in case of a failure.
  */
-#define STATIC_ASSERT(C, M) extern u8 _static_assertion[(C) ? 1 : -1]
-
-/**
- * Check that the lvalue V is of type T at compile time.
- *
- * @param V The lvalue to check.
- * @param T The supposed type of the lvalue.
- */
-#define STATIC_CHECK_TYPE(V, T) UNUSED(1 ? &V : (T*)0)
-
-/**
- * Set the corresponding bits of X in the value V of type T.
- *
- * @param V The value to set bits.
- * @param T The type of the value V.
- * @param X A value containing the bits (at logical 1) to set.
- */
-#define SET_BITS(V, T, X)                           \
-  do {                                              \
-    STATIC_CHECK_TYPE(V, T);                        \
-    V |= (T)(X);                                    \
-  } while (0)
-
-/**
- * Clear the corresponding bits of X in the value V of type T.
- *
- * @param V The value to set bits.
- * @param T The type of the value V.
- * @param X A value containing the bits (at logical 1) to clear.
- */
-#define CLEAR_BITS(V, T, X)                     \
-  do {                                          \
-    STATIC_CHECK_TYPE(V, T);                    \
-    V &= (T)(~(X));                             \
-  } while (0)
-
-/**
- * Define a constant bit at position X.
- *
- * @param X An integer representing the position of the bit.
- */
-#define POSITION(X) (1 << (X))
-
-/**
- * Define an indirect read/write variable at an aboslute address.
- * i.e. A variable that is accessed through a pointer.
- *
- * @param X The address of the variable.
- * @param T The type of the variable.
- */
-#define INDIRECT_T(X, T) ((volatile T *)(X))
-
-/**
- * Define an indirect read/write register at an aboslute address.
- * i.e. A register that is accessed through a pointer.
- *
- * @param X The address of the register.
- */
-#define INDIRECT(X) INDIRECT_T(X, u8)
-
-/**
- * Define a direct read/write variable at an aboslute address.
- *
- * @param X The address of the variable.
- * @param T The type of the variable.
- */
-#define DIRECT_T(X, T) (*INDIRECT_T(X, T))
-
-/**
- * Define a direct read/write register at an aboslute address.
- *
- * @param X The address of the register.
- */
-#define DIRECT(X) DIRECT_T(X, u8)
-
-/**
- * Take the low byte of a 16-bit value.
- *
- * @param X The 16-bit value.
- */
-#define LO8(X) ((u8)X)
-
-/**
- * Take the high byte of a 16-bit value.
- *
- * @param X The 16-bit value.
- */
-#define HI8(X) LO8(X >> 8)
-
-/**
- * Get the offset of a member in a structure.
- *
- * @param M The name of the member.
- * @param T The type of the structure.
- */
-#define OFFSET_OF(M, T)                         \
-  ((size_t)(&(((T*)0)->M)))
-
-/**
- * Get a pointer to the structure T containing the member M pointed by P.
- *
- * May not compile if P doesn't point to the type defined by M.
- *
- * @param P The pointer to the member.
- * @param M The name of the member.
- * @param T The type of the structure.
- */
-#define CONTAINER_OF(P, M, T)                                   \
-  ((T*) ((u8*) (1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
+#define STATIC_ASSERT(C, M) extern char _static_assertion[(C) ? 1 : -1]
 
 /**
  * NULL pointer.
@@ -282,5 +166,128 @@ typedef u16 size_t;
  * Boolean FALSE constant value.
  */
 #define false ((bool)0);
+
+/**
+ * Allow arithmetic on a void pointer.
+ * Arithmetic on void pointers isn't allowed in standard C.
+ *
+ * @param X The void pointer on which to perform arithmetic.
+ */
+#define ALLOW_ARITHM(X) ((u8 *)(X))
+
+/*
+ * This assertion is mandatory for ALLOW_ARITHM macro.
+ * ALLOW_ARITHM can work with any type whose size is 1 byte.
+ */
+STATIC_ASSERT(sizeof(u8) == 1,
+              "u8 MUST be 1 byte long to allow arithmetic on void pointers.");
+
+/**
+ * Check that the lvalue V is of type T at compile time.
+ *
+ * @param V The lvalue to check.
+ * @param T The supposed type of the lvalue.
+ */
+#define STATIC_CHECK_TYPE(V, T) UNUSED(1 ? &V : (T*)0)
+
+/**
+ * Set the corresponding bits of X in the value V of type T.
+ *
+ * @param V The value to set bits.
+ * @param T The type of the value V.
+ * @param X A value containing the bits (at logical 1) to set.
+ */
+#define SET_BITS(V, T, X)                           \
+  do {                                              \
+    STATIC_CHECK_TYPE(V, T);                        \
+    V |= (T)(X);                                    \
+  } while (0)
+
+/**
+ * Clear the corresponding bits of X in the value V of type T.
+ *
+ * @param V The value to set bits.
+ * @param T The type of the value V.
+ * @param X A value containing the bits (at logical 1) to clear.
+ */
+#define CLEAR_BITS(V, T, X)                     \
+  do {                                          \
+    STATIC_CHECK_TYPE(V, T);                    \
+    V &= (T)(~(X));                             \
+  } while (0)
+
+/**
+ * Define a constant bit at position X.
+ *
+ * @param X An integer representing the position of the bit.
+ */
+#define POSITION(X) (1 << (X))
+
+/**
+ * Define an indirect read/write variable at an aboslute address.
+ * i.e. A variable that is accessed through a pointer.
+ *
+ * @param X The address of the variable.
+ * @param T The type of the variable.
+ */
+#define INDIRECT_T(X, T) ((volatile T *)(X))
+
+/**
+ * Define an indirect read/write register at an aboslute address.
+ * i.e. A register that is accessed through a pointer.
+ *
+ * @param X The address of the register.
+ */
+#define INDIRECT(X) INDIRECT_T(X, u8)
+
+/**
+ * Define a direct read/write variable at an aboslute address.
+ *
+ * @param X The address of the variable.
+ * @param T The type of the variable.
+ */
+#define DIRECT_T(X, T) (*INDIRECT_T(X, T))
+
+/**
+ * Define a direct read/write register at an aboslute address.
+ *
+ * @param X The address of the register.
+ */
+#define DIRECT(X) DIRECT_T(X, u8)
+
+/**
+ * Take the low byte of a 16-bit value.
+ *
+ * @param X The 16-bit value.
+ */
+#define LO8(X) ((u8)X)
+
+/**
+ * Take the high byte of a 16-bit value.
+ *
+ * @param X The 16-bit value.
+ */
+#define HI8(X) LO8(X >> 8)
+
+/**
+ * Get the offset of a member in a structure.
+ *
+ * @param M The name of the member.
+ * @param T The type of the structure.
+ */
+#define OFFSET_OF(M, T)                         \
+  ((size_t)(&(((T*)0)->M)))
+
+/**
+ * Get a pointer to the structure T containing the member M pointed by P.
+ *
+ * May not compile if P doesn't point to the type defined by M.
+ *
+ * @param P The pointer to the member.
+ * @param M The name of the member.
+ * @param T The type of the structure.
+ */
+#define CONTAINER_OF(P, M, T)                                   \
+  ((T*) ((u8*) (1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
 
 #endif /* LZ_COMMON_H */

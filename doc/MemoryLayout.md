@@ -2,6 +2,8 @@
 
 Here is documented the memory layout of the kernel and user tasks.
 
+In the context of AVR MCUs the term RAM used in this document refers to the MCU 
+SRAM, and the term ROM refers to the MCU flash memory.
 
 ## Harvard architecture and static linking
 
@@ -20,13 +22,23 @@ subdivised according to the sections needed at runtime.
 
 ### ROM:
 
-The ROM contains 2 sections: .text and .data.  
-The .text section contains the interrupt vectors table and the machine
-instructions of the user tasks and the kernel.
+The following sections are loaded in ROM: __.text__, __.progmem__, __.data__
+and __.rodata__.  
+The __.text__ section contains all the executable code, i.e. the interrupt
+vectors table and the machine instructions of the user tasks and the kernel.
 On the AVR architecture the interrupt vectors table must be located at address
 0x0.  
-The .data section contains all global variables that are initialized in C.
-This .data section doesn't contains machine code but program data so it needs
+The __.progmem__ section contains all constants that are stored in ROM. These
+constants can be any type of data (strings, structs, ...). In C code, a constant
+is marked to be stored in ROM using the `progmem` macro. When a constant is
+needed during execution, it is loaded in RAM at runtime using special AVR `lpm`
+instruction.  
+The __.data__ section contains all global variables that are initialized in C.
+The .data section doesn't contains machine code but program data so it needs
+to be loaded in RAM at startup (see Startup.md).  
+The __.rodata__ section contains all global variables that are initialized in C
+and marked as readonly using the keyword `const`.
+The .rodata section doesn't contains machine code but program data so it needs
 to be loaded in RAM at startup (see Startup.md).
 
 This graph shows how these sections are loaded into ROM:  
@@ -35,15 +47,25 @@ The arrows on the right specify addresses.
     +----------------+
     |. . . . . . . . |<- SIZEOF(ROM) - 1
     | . . . . . . . .|
-    |. . . . . . . . |
-    | . . . . . . . .|
     |. (unused). . . |
-    | . . . . . . . .|<- SIZEOF(.text) + SIZEOF(.data)
+    | . . . . . . . .|
+    |. . . . . . . . |
+    | . . . . . . . .|<- _rodata_load_start + SIZEOF(.rodata)
     +----------------+
-    |                |<- SIZEOF(.text) + SIZEOF(.data) - 1
+    |                |<- _rodata_load_start + SIZEOF(.rodata) - 1
+    |  .rodata       |
+    |  section       |   _data_load_start + SIZEOF(.data)
+    |                |<-(_rodata_load_start in the linker)
+    +----------------+
+    |                |<- _data_load_start + SIZEOF(.data) - 1
     |  .data         |
+    |  section       |   _progmem_load_start + SIZEOF(.progmem)
+    |                |<- (_data_load_start) in the linker)
+    +----------------+
+    |                |<- _progmem_load_start + SIZEOF(.progmem) - 1
+    |  .progmem      |
     |  section       |
-    |                |<- SIZEOF(.text) (_data_load_start in the linker)
+    |                |<- SIZEOF(.text) (_progmem_load_start in the linker)
     +----------------+
     |                |<- SIZEOF(.text) - 1
     |                |
@@ -66,13 +88,16 @@ runtime of the C language.
 A small part of the RAM is mapped to machine registers and I/O registers.
 The usable memory part starts at address 0x100 and contains the following
 regions:
-* .data section: This section is fixed in size and is copied from ROM during
+* __.data__ section: This section is fixed in size and is copied from ROM during
   startup.
-* .bss section: This section is fixed in size and contains all uninitialized
+* __.rodata__ section: This section is fixed in size and is copied from ROM
+  during startup.
+* __.bss__ section: This section is fixed in size and contains all uninitialized
   global variables in C. It is set to zero during startup.
 * The heap: This is the kernel heap. On startup the heap size is 0.
 * The stack: This is the kernel stack. On the AVR architecture the stack grows
-  downward.
+  downward. The stack pointer points to the next free memory location that'll be
+  used when performing a `push`.
 * The space between the heap and the stack is left unused. This space isn't
   fixed in size because both the heap and the stack can grow downward or
   upward at runtime.
@@ -84,21 +109,24 @@ The arrows on the right specify addresses.
     |                |<- SIZEOF(RAM) - 1 (_ramend in the linker)
     | stack          |
     |                |
-    |                |<- stack pointer (known at runtime)
     +----------------+
-    |. . . . . . . . |
+    |. . . . . . . . |<- stack pointer (known at runtime)
     | (unused). . . .|
     |. . . . . . . . |
     | . . . . . . . .|<- break (known at runtime)
     +----------------+
     |                |
     | heap           |
-    |                |
     |                |<- heap_start (_brk in the linker)
     +----------------+ 
     | .bss section   |<- 0x100 + SIZEOF(.data) + SIZEOF(.bss) - 1
     | (zero'd at     |
-    | startup)       |<- 0x100 + SIZEOF(.data) (_bss_start in the linker)
+    | startup)       |   0x100 + SIZEOF(.data) + SIZEOF(.rodata)
+    |                |<- (_bss_start in the linker)
+    +----------------+
+    | .rodata section|<- 0x100 + SIZEOF(.data) + SIZEOF(.rodata) - 1
+    | (loaded from   |
+    | ROM)           |<- 0x100 + SIZEOF(.data) (_rodata_start in the linker)
     +----------------+
     | .data section  |<- 0x100 + SIZEOF(.data) - 1
     | (loaded from   |
@@ -110,12 +138,12 @@ The arrows on the right specify addresses.
     +----------------+
 
 
-## User tasks memory
+## Allocating user tasks
 
-User tasks share their .text, .bss and .data section with other tasks and the
-kernel as they are all fixed in size and can be determined at compile time.
-Dynamic regions of user tasks include heap and stack.
-When launching a task the kernel must therefore allocate into its own heap a
-memory region that will contain both the heap and the stack for the user task.
-The kernel needs to allocate sufficient memory in prevision to the usage of
-dynamic memory allocation and stack by the user task.
+The allocation of new user tasks is done in the function
+Lz_Scheduler_RegisterTask().
+When registering a new user task the kernel must allocate enough space to
+contain the `Task` object that represents a task. The kernel then allocates
+enough space for the task's stack.
+The reserved space for a task's stack is fixed in size, so a user task cannot
+grow its stack bigger than the size asked when registering.

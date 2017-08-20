@@ -1,5 +1,5 @@
 /**
- * @file malloc.c
+ * @file src/kern/memory.c
  *
  * Implementation of dynamic memory allocation.
  * This can serve the kernel or the tasks.

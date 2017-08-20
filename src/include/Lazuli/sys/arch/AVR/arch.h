@@ -1,5 +1,5 @@
 /**
- * @file arch.h
+ * @file src/include/Lazuli/sys/arch/AVR/arch.h
  *
  * Defines architecture specific functions for AVR.
  */
@@ -79,6 +79,8 @@ swap16(u16 value);
  * Return a byte stored in program memory.
  *
  * @param source A pointer to the address of the byte in program memory.
+ *
+ * @return The byte stored a the address contained in source parameter.
  */
 extern u8
 load_u8_from_progmem(char const * const source);

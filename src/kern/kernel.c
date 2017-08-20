@@ -1,5 +1,5 @@
 /**
- * @file kernel.
+ * @file src/kern/kernel.c
  *
  * Defines routines such as:
  * - Kernel main entry point after startup, system initialization

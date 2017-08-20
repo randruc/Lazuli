@@ -1,5 +1,5 @@
 /**
- * @file config.h
+ * @file src/include/Lazuli/sys/config.h
  *
  * This file contains all configuration for the kernel.
  * These are only constants.
