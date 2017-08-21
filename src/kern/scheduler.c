@@ -1,5 +1,8 @@
 /**
  * @file src/kern/scheduler.c
+ * @brief Tasks scheduler.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
  * This file describes the implementation of the tasks scheduler.
  */

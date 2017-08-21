@@ -51,7 +51,7 @@ Usart_NewLine()
 /**
  * Array used to get the character representation of a hexadecimal digit
  */
-progmem static const char hexachars[] = {
+__progmem static const char hexachars[] = {
   '0',
   '1',
   '2',

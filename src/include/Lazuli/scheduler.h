@@ -1,7 +1,14 @@
 /**
  * @file src/include/Lazuli/scheduler.h
+ * @brief The public API of the scheduler.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
- * This file describes the interface of the scheduler.
+ * This file describes the public API of the scheduler.
+ * It defines function called by the user to:
+ * - Register tasks
+ * - Run the scheduler
+ * - Synchronize tasks with Lz_Wait* routines
  */
 
 #ifndef LZ_SCHEDULER_H

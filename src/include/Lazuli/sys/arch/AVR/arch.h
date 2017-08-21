@@ -27,7 +27,7 @@ global_interrupts_disable();
 /**
  * Function that loops forever, never returns.
  */
-noreturn extern void
+__noreturn extern void
 infinite_loop();
 
 /**
@@ -37,11 +37,12 @@ extern void
 reset_system();
 
 /**
- * Restore the context of a previoulsy saved task, and run it by returning
- * from interrupt. The context of a task is saved on the task's stack.
+ * @brief Restore the context of a previously saved task, and run it by
+ * returning from interrupt.
  *
- * Consists in restoring all registers (including the state register) and
- * continue execution of the task by performing "reti", as the program
+ * The context of a task is saved on its stack.
+ * Consists in restoring all of the registers (including the state register) and
+ * continue execution of the task by performing `reti`, as the program
  * counter has previously been saved on the stack by hardware.
  *
  * @param stackPointer The stack pointer of the task to restore, containing its

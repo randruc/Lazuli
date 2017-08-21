@@ -1,9 +1,14 @@
 /**
  * @file src/kern/kernel.c
+ * @brief Kernel entry point.
+ * @date Jul 2016
+ * @author Remi Andruccioli
  *
- * Defines routines such as:
+ * This file describes all the kernel routines such as:
  * - Kernel main entry point after startup, system initialization
  * - Kernel panic
+ *
+ * It also holds the kernel memory allocation map.
  */
 
 #include <Lazuli/common.h>
@@ -12,7 +17,6 @@
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/arch/AVR/arch.h>
 #include <Lazuli/sys/config.h>
-#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/scheduler.h>
 
 /**
@@ -20,7 +24,7 @@
  *
  * This is the function the user has to define to register his own tasks.
  */
-noreturn void
+void
 Main();
 
 /**
@@ -32,7 +36,7 @@ AllocationMap kernelAllocationMap;
  * This is the kernel entry point.
  * This function must never return.
  */
-noreturn void
+void
 KMain()
 {
   /* Initialize the allocation map for the kernel */

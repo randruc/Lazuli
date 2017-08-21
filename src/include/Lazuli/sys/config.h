@@ -1,8 +1,11 @@
 /**
  * @file src/include/Lazuli/sys/config.h
+ * @brief Kernel configuration.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
- * This file contains all configuration for the kernel.
- * These are only constants.
+ * This file contains all the configuration for the kernel.
+ * These are only macro constants.
  * Does not contain any arch-specific configuration.
  */
 

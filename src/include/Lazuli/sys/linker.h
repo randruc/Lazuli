@@ -1,7 +1,11 @@
 /**
  * @file src/include/Lazuli/sys/linker.h
+ * @brief Symbols defined by the linker.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
- * Symbols defined by the linker.
+ * This file contains all the symbols defined by the linker.
+ * They only consist of addresses and are always accessed with the & operator.
  */
 
 #ifndef LZ_SYS_LINKER_H

@@ -1,7 +1,11 @@
 /**
  * @file src/include/Lazuli/sys/scheduler.h
+ * @brief The private API of the scheduler.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
- * This file describes the kernel interface for the scheduler.
+ * This file describes the private API of the scheduler.
+ * All the symbols described here are only accessible from the kernel.
  */
 
 #ifndef LZ_SYS_SCHEDULER_H
