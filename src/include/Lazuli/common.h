@@ -1,8 +1,13 @@
 /**
  * @file src/include/Lazuli/common.h
+ * @brief Basic type definitions and useful macros.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
- * This file describes basic types and useful macros used in the Lazuli project.
- * This file can be used within kernel code or within user code.
+ * This file describes basic type definitions and useful macros used in the
+ * Lazuli project.
+ * This file can be used within kernel code or within user code without any
+ * dependency.
  */
 
 #ifndef LZ_COMMON_H
@@ -165,10 +170,11 @@ typedef u16 size_t;
 /**
  * Boolean FALSE constant value.
  */
-#define false ((bool)0);
+#define false ((bool)0)
 
 /**
- * Allow arithmetic on a void pointer.
+ * @brief Allow arithmetic on a void pointer.
+ *
  * Arithmetic on void pointers isn't allowed in standard C.
  *
  * @param X The void pointer on which to perform arithmetic.
