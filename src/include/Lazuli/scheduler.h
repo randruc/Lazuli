@@ -5,7 +5,7 @@
  * @author Remi Andruccioli
  *
  * This file describes the public API of the scheduler.
- * It defines function called by the user to:
+ * It defines functions called by the user to:
  * - Register tasks
  * - Run the scheduler
  * - Synchronize tasks with Lz_Wait* routines
@@ -40,7 +40,7 @@ Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
                           TaskConfiguration * const taskConfiguration);
 
 /**
- * Initialize a TaskConfiguration with default values for all parameters.
+ * @brief Initialize a TaskConfiguration with default values for all parameters.
  *
  * No function is provided for allocating a new TaskConfiguration. The user is
  * responsible of the creation of a new TaskConfiguration.
