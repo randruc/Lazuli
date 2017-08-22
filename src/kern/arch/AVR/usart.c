@@ -36,7 +36,7 @@ Usart_Init()
 void
 Usart_PutChar(char c)
 {
-  while(!(usart->ucsr0a & UCSR0A_UDRE0));
+  while (!(usart->ucsr0a & UCSR0A_UDRE0));
 
   usart->udr0 = c;
 }
@@ -85,7 +85,7 @@ typedef union {
 
 /**
  * Print a numerical value stored in an IntegerBytes union to its hexadecimal
- * form, accordig to the correct length.
+ * form, accordig to the correct size.
  *
  * This serves as the base implementation for all specialized
  * Usart_HexaPrint_*() functions.
@@ -113,6 +113,7 @@ Usart_HexaPrint_IntegerBytes(IntegerBytes const * const integerBytes,
   }
 }
 
+/* TODO: Use sizeof on the object */
 void
 Usart_HexaPrint_u32(const u32 value)
 {
@@ -122,6 +123,7 @@ Usart_HexaPrint_u32(const u32 value)
   Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(u32));
 }
 
+/* TODO: Use sizeof on the object */
 void
 Usart_HexaPrint_u16(const u16 value)
 {
@@ -131,6 +133,7 @@ Usart_HexaPrint_u16(const u16 value)
   Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(u16));
 }
 
+/* TODO: Use sizeof on the object */
 void
 Usart_HexaPrint_u8(const u8 value)
 {
@@ -140,6 +143,7 @@ Usart_HexaPrint_u8(const u8 value)
   Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(u8));
 }
 
+/* TODO: Use sizeof on the object */
 void
 Usart_HexaPrint_Pointer(void * const pointer)
 {
@@ -149,6 +153,7 @@ Usart_HexaPrint_Pointer(void * const pointer)
   Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(void *));
 }
 
+/* TODO: Use sizeof on the object */
 void
 Usart_HexaPrint_FunctionPointer(void (*functionPointer)())
 {
