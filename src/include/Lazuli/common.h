@@ -230,7 +230,7 @@ STATIC_ASSERT(sizeof(u8) == 1,
 #define POSITION(X) (1 << (X))
 
 /**
- * Define an indirect read/write variable at an aboslute address.
+ * Define an indirect read/write variable at an absolute address.
  * i.e. A variable that is accessed through a pointer.
  *
  * @param X The address of the variable.
@@ -239,7 +239,7 @@ STATIC_ASSERT(sizeof(u8) == 1,
 #define INDIRECT_T(X, T) ((volatile T *)(X))
 
 /**
- * Define an indirect read/write register at an aboslute address.
+ * Define an indirect read/write register at an absolute address.
  * i.e. A register that is accessed through a pointer.
  *
  * @param X The address of the register.
@@ -247,7 +247,7 @@ STATIC_ASSERT(sizeof(u8) == 1,
 #define INDIRECT(X) INDIRECT_T(X, u8)
 
 /**
- * Define a direct read/write variable at an aboslute address.
+ * Define a direct read/write variable at an absolute address.
  *
  * @param X The address of the variable.
  * @param T The type of the variable.
@@ -255,7 +255,7 @@ STATIC_ASSERT(sizeof(u8) == 1,
 #define DIRECT_T(X, T) (*INDIRECT_T(X, T))
 
 /**
- * Define a direct read/write register at an aboslute address.
+ * Define a direct read/write register at an absolute address.
  *
  * @param X The address of the register.
  */
