@@ -1,7 +1,7 @@
 /**
  * @file src/include/Lazuli/sys/list.h
  *
- * Describes types and function related to linked lists.
+ * Describes types and functions related to linked lists.
  */
 
 #ifndef LZ_SYS_LIST_H
