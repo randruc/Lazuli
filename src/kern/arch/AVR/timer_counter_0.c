@@ -8,6 +8,7 @@
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 
+/* TODO: Check if we can return a const object. */
 TimerCounter0 *
 GetTimerCounter0()
 {
