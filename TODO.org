@@ -15,13 +15,14 @@
     */
    #+END_SRC
 * Insert a raw string in the final binary to keep track of the kernel and version.
-  Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
+** Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
+** This information (kernel name, version number(s)) might be accessible to the code.
 * Get a real Makefile, or build system, or whatever.
 * Reference resources
 ** Providing links and documentation over the Internet.
 * Add a README file.
 ** [[https://youtu.be/PC05prd2usY]]
-* Add a description the the GitHub repository.
+* Add a description to the GitHub repository.
 * Write documentation about header files organization.
 * For context saving: Allow the user to define a task with no context saving.
 * Write doc about progmem.
