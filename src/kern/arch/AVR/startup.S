@@ -114,6 +114,7 @@ start_running:
     ;; We can now point to the saved return address (PC)
     out spl, r24
     out sph, r25
+    ;; TODO: Cant we use reti instead of sei then ret ?
     sei
     ret
 
