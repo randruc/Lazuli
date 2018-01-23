@@ -25,7 +25,7 @@ Files must be named using UpperCamelCase (as in `AboutDocumentation.md`).
 
 When writing a document each line must not exceed 80 columns in length.
 Documents must be easily readable without scrolling in a console (e.g. with
-`less`), in simple text editors, in a file diff utility ,or with browsers that
+`less`), in simple text editors, in a file diff utility, or with browsers that
 doesn't support the Markdown syntax.  
 This limit isn't a problem when viewing the file in a modern browser since
 Mardown ignores simple line breaks.
