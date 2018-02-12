@@ -1,5 +1,8 @@
 /**
  * @file src/include/Lazuli/sys/assert.h
+ * @brief Perform assertions at runtime.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
  * Describes the macros needed to perform assertions at runtime.
  */
@@ -16,30 +19,30 @@
  *
  * If the assertion fails, invoke a kernel panic.
  *
- * @param C The assertion to check.
+ * @param assertion The assertion to check.
+ * @param active A boolean to indicate if the assert is active.
  */
-#define _BASE_ASSERT(C)                         \
-  if(C)                                         \
+#define _BASE_ASSERT(assertion, active)         \
+  if(!(active))                                 \
     {}                                          \
   else                                          \
-    Panic()
+    if(assertion)                               \
+      {}                                        \
+    else                                        \
+      Panic()
 
-#if LZ_DEBUG
 /**
  * Perform an assertion a runtime, only in debug configuration.
  *
- * @param C The assertion to check.
+ * @param assertion The assertion to check.
  */
-#define DEBUG_ASSERT(C) _BASE_ASSERT(C)
-#else
-#define DEBUG_ASSERT(C)
-#endif /* LZ_DEBUG */
+#define DEBUG_ASSERT(assertion) _BASE_ASSERT(assertion, LZ_DEBUG)
 
 /**
  * Perform an assertion a runtime, wether the configuration is in debug or not.
  *
- * @param C The assertion to check.
+ * @param assertion The assertion to check.
  */
-#define ALWAYS_ASSERT(C) _BASE_ASSERT(C)
+#define ALWAYS_ASSERT(assertion) _BASE_ASSERT(assertion, 1)
 
 #endif /* LZ_SYS_ASSERT_H */
