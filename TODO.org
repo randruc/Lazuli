@@ -32,3 +32,6 @@
 * Provide a way to perform unit tests onto the target machine.
 * Prefix Lazuli structs in userspace with "Lz_"
 * Find a logo
+* Eliminate #if in assert.h
+** Introduce an if() with debug constant symbol.
+* Move assert.h in user API
