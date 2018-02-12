@@ -1,7 +1,7 @@
 * Maybe switch to C99 (to allow inline). (or maybe not!)
 * Allow the user to define its own Panic() function.
 * Be compatible with C++ user tasks.
-* Add a license and define a file header to add to each file for public distribution.
+* TODO Add a license and define a file header to add to each file for public distribution.
 ** Like that :
    #+BEGIN_SRC C
    /*
@@ -14,7 +14,7 @@
     * 
     */
    #+END_SRC
-* Insert a raw string in the final binary to keep track of the kernel and version.
+* TODO Insert a raw string in the final binary to keep track of the kernel and version.
 ** Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
 ** This information (kernel name, version number(s)) might be accessible to the code.
 ** Pick a version numbering model.
@@ -23,10 +23,10 @@
 ** Providing links and documentation over the Internet.
 * Add a README file.
 ** [[https://youtu.be/PC05prd2usY]]
-* Add a description to the GitHub repository.
+* TODO Add a description to the GitHub repository.
 * Write documentation about header files organization.
 * For context saving: Allow the user to define a task with no context saving.
-* Write doc about progmem.
+* TODO Write doc about progmem.
 * Add a CONTRIBUTING file and update README.md about that.
 ** [[https://help.github.com/articles/setting-guidelines-for-repository-contributors/]]
 * Provide a way to perform unit tests onto the target machine.
