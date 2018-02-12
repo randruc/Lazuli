@@ -11,7 +11,7 @@ if [ $debug = true ]
 then
     cflags='-g -DLZ_DEBUG=1'
 else
-    cflags=''
+    cflags='-DLZ_DEBUG=0'
 fi
 
 rm -f sourcelist
