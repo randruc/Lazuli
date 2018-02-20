@@ -10,6 +10,7 @@ SECTIONS
 {
     .text :
     {
+        KEEP(*(.ivt))
         *(.text)
     } > REGION_TEXT
 

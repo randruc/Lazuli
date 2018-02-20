@@ -10,15 +10,16 @@
      *
      * @param X The address with which to compute the placement.
      */
-#define INTERRUPT_ADDRESS(X) (X * 2)
+#define INTERRUPT_VECTOR_ADDRESS(X) (X * 2)
 
     /**
      * Specify the placement of the interrupt vector.
      *
      * @param X The interrupt vector address.
      */
-#define AT(X) .org INTERRUPT_ADDRESS(X)
+#define AT(X) .org INTERRUPT_VECTOR_ADDRESS(X)
 
+    .section .ivt, "x"
     .global interrupt_vectors_table
 interrupt_vectors_table:
 

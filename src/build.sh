@@ -17,8 +17,37 @@ fi
 rm -f sourcelist
 rm -f $project_name.elf
 rm -f $project_name.hex
+rm -f *.o
+rm -f *.a
 
 ../checklines.sh
+
+avr-gcc \
+    -c \
+    $cflags \
+    -ansi \
+    -std=c89 \
+    -pedantic \
+    -Wall \
+    -Wextra \
+    -Werror \
+    -Iinclude \
+    -mmcu=atmega328p \
+    -O2 \
+    -nostartfiles \
+    -nostdlib \
+    -nodefaultlibs \
+    -fshort-enums \
+    kern/arch/AVR/interrupt_vectors_table.S \
+    kern/arch/AVR/startup.S \
+    kern/arch/AVR/timer_counter_0.c \
+    kern/arch/AVR/usart.c \
+    kern/kernel.c \
+    kern/memory.c \
+    kern/scheduler.c \
+    kern/list.c
+
+ar rcs libLazuli.a *.o
 
 avr-gcc \
     $cflags \
@@ -37,15 +66,8 @@ avr-gcc \
     -fshort-enums \
     -T kern/linker.x \
     -o $project_name.elf \
-    kern/arch/AVR/interrupt_vectors_table.S \
-    kern/arch/AVR/startup.S \
-    kern/arch/AVR/timer_counter_0.c \
-    kern/arch/AVR/usart.c \
-    kern/kernel.c \
-    kern/memory.c \
-    kern/scheduler.c \
-    kern/list.c \
-    kern/main.c
+    kern/main.c \
+    libLazuli.a
 
 if [ -e $project_name.elf ]
 then
