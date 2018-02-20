@@ -1,8 +1,18 @@
 #!/bin/bash
 
-# Main build file.
+##
+# @brief Main build file.
+#
+# The role of this file is to:
 # Build the executable and copy it as intel hex format binary image.
+# * Compile kernel code to object files
+# * Generate the Lazuli kernel from object files as a static library
+# * Compile user code and statically link it with Lazuli kernel to create an
+#   executable ELF file
+# * Extract HEX image from ELF file to upload to target
+#
 # No Makefile for the moment.
+#
 
 project_name=Lazuli
 debug=true
@@ -47,7 +57,7 @@ avr-gcc \
     kern/scheduler.c \
     kern/list.c
 
-ar rcs libLazuli.a *.o
+ar rcs lib$project_name.a *.o
 
 avr-gcc \
     $cflags \
@@ -67,7 +77,7 @@ avr-gcc \
     -T kern/linker.x \
     -o $project_name.elf \
     kern/main.c \
-    libLazuli.a
+    lib$project_name.a
 
 if [ -e $project_name.elf ]
 then
