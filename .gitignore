@@ -1,4 +1,6 @@
 Lazuli.elf
 Lazuli.hex
+*.o
+*.a
 sourcelist
 doxygen
