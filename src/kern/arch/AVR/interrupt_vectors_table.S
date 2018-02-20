@@ -10,7 +10,7 @@
      *
      * @param X The address with which to compute the placement.
      */
-#define INTERRUPT_VECTOR_ADDRESS(X) (X * 2)
+#define INTERRUPT_VECTOR_ADDRESS(X) ((X) * 2)
 
     /**
      * Specify the placement of the interrupt vector.
