@@ -9,7 +9,7 @@ MEMORY
 
     /*
      * The origin of RAM must be offset by 0x800000 because that's how ld deals
-     * with Harvard architecure.
+     * with RAM and ROM memories in Harvard architecture configuration.
      * We add 0x100 to skip memory-mapped registers.
      */
     ram : ORIGIN = 0x800000 + 0x100, LENGTH = 2K + 0x100
