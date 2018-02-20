@@ -16,10 +16,11 @@
    #+END_SRC
 * TODO Insert a raw string in the final binary to keep track of the kernel and version
 ** Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
+*** Maybe make it 'richer' by adding information about the compiler name and version used to compile.
 ** This information (kernel name, version number(s)) might be accessible to the code.
 ** Pick a version numbering model.
 * Get a real Makefile, or build system, or whatever
-* Reference resources
+* TODO Reference resources
 ** Providing links and documentation over the Internet.
 * Add a README file
 ** [[https://youtu.be/PC05prd2usY]]
