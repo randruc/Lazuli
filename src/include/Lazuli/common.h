@@ -296,4 +296,11 @@ STATIC_ASSERT(sizeof(u8) == 1,
 #define CONTAINER_OF(P, M, T)                                   \
   ((T*) ((u8*) (1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
 
+/**
+ * Convert the name of a symbol to a string.
+ *
+ * @param X The symbol name to convert.
+ */
+#define NAMEOF(X) #X
+
 #endif /* LZ_COMMON_H */

@@ -17,6 +17,9 @@ _EXTERN_C_DECL_BEGIN
  * Represents a task.
  */
 typedef struct {
+  /** The name of the task */
+  char const *name;
+
   /** Entry point of execution of the task */
   void (*entryPoint)();
 

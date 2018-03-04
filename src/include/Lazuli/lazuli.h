@@ -1,18 +1,15 @@
 /**
- * @file src/include/Lazuli/scheduler.h
- * @brief The public API of the scheduler.
+ * @file src/include/Lazuli/lazuli.h
+ * @brief The public API of the Lazuli kernel.
  * @date Feb 2017
  * @author Remi Andruccioli
  *
- * This file describes the public API of the scheduler.
- * It defines functions called by the user to:
- * - Register tasks
- * - Run the scheduler
- * - Synchronize tasks with Lz_Wait* routines
+ * This file describes the public API of the Lazuli kernel.
+ * It defines public types and functions that can by used by user tasks.
  */
 
-#ifndef LZ_SCHEDULER_H
-#define LZ_SCHEDULER_H
+#ifndef LZ_LAZULI_H
+#define LZ_LAZULI_H
 
 #include <Lazuli/common.h>
 
@@ -22,8 +19,18 @@ _EXTERN_C_DECL_BEGIN
  * Represents the configuration of a task being registered in the scheduler.
  */
 typedef struct {
-  size_t stackSize; /**< The size of the stack needed by the task */
-}TaskConfiguration;
+  /**
+   * A pointer to an allocated  const string containing the name to give to the
+   * task.
+   * That string must not be deallocated after registering the task.
+   */
+  char const *name;
+
+  /**
+   * The size of the stack needed by the task
+   */
+  size_t stackSize;
+}Lz_TaskConfiguration;
 
 /**
  * Register a new task.
@@ -36,11 +43,12 @@ typedef struct {
  *                          for all parameters.
  */
 void
-Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
-                          TaskConfiguration * const taskConfiguration);
+Lz_RegisterTask(void (*taskEntryPoint)(),
+                Lz_TaskConfiguration * const taskConfiguration);
 
 /**
- * @brief Initialize a TaskConfiguration with default values for all parameters.
+ * @brief Initialize an Lz_TaskConfiguration with default values for all
+ *        parameters.
  *
  * No function is provided for allocating a new TaskConfiguration. The user is
  * responsible of the creation of a new TaskConfiguration.
@@ -48,13 +56,15 @@ Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
  * @param taskConfiguration A pointer to the TaskConfiguration to initialize.
  */
 void
-Lz_Scheduler_InitTaskConfiguration(TaskConfiguration * const taskConfiguration);
+Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration);
 
 /**
  * Run the scheduler.
+ *
+ * Start scheduling tasks.
  */
 void
-Lz_Scheduler_Run();
+Lz_Run();
 
 /**
  * Wait for the interrupt "External Interrupt Request 0".
@@ -63,6 +73,15 @@ Lz_Scheduler_Run();
 void
 Lz_WaitInt0();
 
+/**
+ * Get the name of the calling task.
+ *
+ * @return A pointer to a string containing the name of the current running
+ *         task, or NULL if the task has no name.
+ */
+char const*
+Lz_GetTaskName();
+
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SCHEDULER_H */
+#endif /* LZ_LAZULI_H */

@@ -8,7 +8,7 @@
  */
 
 #include <Lazuli/common.h>
-#include <Lazuli/scheduler.h>
+#include <Lazuli/lazuli.h>
 
 #include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/task.h>
@@ -39,7 +39,8 @@ static LinkedList waitingInt0Queue = LINKED_LIST_INIT;
 /**
  * Contains default values for TaskConfiguration.
  */
-static const TaskConfiguration defaultTaskConfiguration = {
+static const Lz_TaskConfiguration defaultTaskConfiguration = {
+  NULL                    /**< member: name      */,
   DEFAULT_TASK_STACK_SIZE /**< member: stackSize */
 };
 
@@ -148,13 +149,13 @@ PrepareTaskContext(Task * const task)
 }
 
 void
-Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
-                          TaskConfiguration * const taskConfiguration)
+Lz_RegisterTask(void (*taskEntryPoint)(),
+                Lz_TaskConfiguration * const taskConfiguration)
 {
   Task *newTask;
   void *taskStack;
   size_t desiredStackSize;
-  const TaskConfiguration *configuration;
+  const Lz_TaskConfiguration *configuration;
 
   if (NULL != taskConfiguration) {
     configuration = taskConfiguration;
@@ -178,6 +179,7 @@ Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
     Panic();
   }
 
+  newTask->name = configuration->name;
   newTask->entryPoint = taskEntryPoint;
   newTask->stateQueue.next = NULL;
   newTask->stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
@@ -188,7 +190,7 @@ Lz_Scheduler_RegisterTask(void (*taskEntryPoint)(),
 }
 
 void
-Lz_Scheduler_InitTaskConfiguration(TaskConfiguration * const taskConfiguration)
+Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration)
 {
   if (NULL == taskConfiguration) {
     return;
@@ -196,11 +198,11 @@ Lz_Scheduler_InitTaskConfiguration(TaskConfiguration * const taskConfiguration)
 
   MemoryCopy(&defaultTaskConfiguration,
              taskConfiguration,
-             sizeof(TaskConfiguration));
+             sizeof(Lz_TaskConfiguration));
 }
 
 void
-Lz_Scheduler_Run()
+Lz_Run()
 {
   LinkedListElement *first = List_PickFirst(&readyQueue);
 
@@ -211,4 +213,11 @@ Lz_Scheduler_Run()
   currentTask = CONTAINER_OF(first, stateQueue, Task);
 
   start_running(currentTask->stackPointer, OFFSET_OF(pc, TaskContextLayout));
+}
+
+/* TODO: Maybe move this somewhere else */
+char const*
+Lz_GetTaskName()
+{
+  return currentTask->name;
 }

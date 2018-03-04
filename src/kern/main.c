@@ -5,7 +5,7 @@
  */
 
 #include <Lazuli/common.h>
-#include <Lazuli/scheduler.h>
+#include <Lazuli/lazuli.h>
 
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
@@ -47,14 +47,17 @@ Task3()
 void
 Task4()
 {
-  /*
-   * EICRA = 0x03;
-   * EIMSK = 0x01;
-   */
+  char const *c;
 
   while (true) {
     Lz_WaitInt0();
-    Usart_PutChar('0');
+
+    c = Lz_GetTaskName();
+
+    while (NULL != c && '\0' != *c) {
+      Usart_PutChar(*c);
+      c++;
+    }
   }
 }
 
@@ -78,17 +81,30 @@ Task5()
 void
 Main()
 {
+  Lz_TaskConfiguration taskConfiguration;
+
   Usart_Init();
 
-  Lz_Scheduler_RegisterTask(Task1, NULL);
-  Lz_Scheduler_RegisterTask(Task2, NULL);
-  Lz_Scheduler_RegisterTask(Task4, NULL);
-  Lz_Scheduler_RegisterTask(Task5, NULL);
+  Lz_InitTaskConfiguration(&taskConfiguration);
+  taskConfiguration.name = NAMEOF(Task1);
+  Lz_RegisterTask(Task1, &taskConfiguration);
+
+  Lz_InitTaskConfiguration(&taskConfiguration);
+  taskConfiguration.name = NAMEOF(Task2);
+  Lz_RegisterTask(Task2, &taskConfiguration);
+
+  Lz_InitTaskConfiguration(&taskConfiguration);
+  taskConfiguration.name = NAMEOF(Task4);
+  Lz_RegisterTask(Task4, &taskConfiguration);
+
+  Lz_InitTaskConfiguration(&taskConfiguration);
+  taskConfiguration.name = NAMEOF(Task5);
+  Lz_RegisterTask(Task5, &taskConfiguration);
 
   EICRA = 0x03;
   EIMSK = 0x01;
 
-  Lz_Scheduler_Run();
+  Lz_Run();
 
   while (true);
 }
