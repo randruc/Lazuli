@@ -301,6 +301,6 @@ STATIC_ASSERT(sizeof(u8) == 1,
  *
  * @param X The symbol name to convert.
  */
-#define NAMEOF(X) #X
+#define NAME_OF(X) #X
 
 #endif /* LZ_COMMON_H */

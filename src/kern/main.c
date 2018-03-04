@@ -86,19 +86,19 @@ Main()
   Usart_Init();
 
   Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAMEOF(Task1);
+  taskConfiguration.name = NAME_OF(Task1);
   Lz_RegisterTask(Task1, &taskConfiguration);
 
   Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAMEOF(Task2);
+  taskConfiguration.name = NAME_OF(Task2);
   Lz_RegisterTask(Task2, &taskConfiguration);
 
   Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAMEOF(Task4);
+  taskConfiguration.name = NAME_OF(Task4);
   Lz_RegisterTask(Task4, &taskConfiguration);
 
   Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAMEOF(Task5);
+  taskConfiguration.name = NAME_OF(Task5);
   Lz_RegisterTask(Task5, &taskConfiguration);
 
   EICRA = 0x03;
