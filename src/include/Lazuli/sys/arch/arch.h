@@ -1,7 +1,10 @@
 /**
- * @file src/include/Lazuli/sys/arch/AVR/arch.h
+ * @file src/include/Lazuli/sys/arch/arch.h
+ * @brief Architecture specific functions.
+ * @date Feb 2017
+ * @author Remi Andruccioli
  *
- * Defines architecture specific functions for AVR.
+ * Defines architecture specific functions.
  */
 
 #ifndef LZ_ARCH_H

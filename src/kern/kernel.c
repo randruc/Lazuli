@@ -15,9 +15,9 @@
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/sys/arch/AVR/arch.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/scheduler.h>
+#include <Lazuli/sys/arch/arch.h>
 
 /**
  * Main entry point for user tasks.

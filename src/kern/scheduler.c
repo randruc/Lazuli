@@ -16,9 +16,9 @@
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/linker.h>
+#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
-#include <Lazuli/sys/arch/AVR/arch.h>
 
 /**
  * Keeps a pointer to the current running task.

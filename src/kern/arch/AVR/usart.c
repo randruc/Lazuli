@@ -4,10 +4,10 @@
  * Describe the driver implementation for the USART of the ATMega328p.
  */
 
-#include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/compiler.h>
-#include <Lazuli/sys/arch/AVR/arch.h>
+#include <Lazuli/sys/arch/AVR/usart.h>
+#include <Lazuli/sys/arch/arch.h>
 
 /**
  * The baud rate value to set in UBRR0.
