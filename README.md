@@ -39,9 +39,12 @@ You can simply build it, link it to your own tasks, upload it and it just
 runs!
 
 The software currently used is:
+* __bash__ to run scripts
+* __grep__ to process source files
 * __avr-gcc__ to compile
 * __avr-objcopy__ to produce hex binary image
 * __avr-objdump__ to visualize C source code mixed with resulting asm (in debug)
+* __ar__ to build the static library
 * __avrdude__ to upload hex binary image to the target MCU
 
 
