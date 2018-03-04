@@ -259,16 +259,6 @@ load_rodata_end:
 infinite_loop:
     rjmp infinite_loop
 
-    .global global_interrupts_enable
-global_interrupts_enable:
-    sei
-    ret
-
-    .global global_interrupts_disable
-global_interrupts_disable:
-    cli
-    ret
-
     .global swap16
 swap16:
     push r24

@@ -13,18 +13,6 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Enable global interrupts.
- */
-extern void
-global_interrupts_enable();
-
-/**
- * Disable global interrupts.
- */
-extern void
-global_interrupts_disable();
-
-/**
  * Function that loops forever, never returns.
  */
 __noreturn extern void
