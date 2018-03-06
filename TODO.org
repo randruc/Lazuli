@@ -24,7 +24,6 @@
 ** Providing links and documentation over the Internet.
 * Add a README file
 ** [[https://youtu.be/PC05prd2usY]]
-* TODO Add a description to the GitHub repository
 * Write documentation about header files organization
 * For context saving: Allow the user to define a task with no context saving
 * TODO Write doc about progmem
@@ -33,9 +32,11 @@
 * Provide a way to perform unit tests onto the target machine
 * Prefix Lazuli structs in userspace with "Lz_"
 * Find a logo
+* Move assert.h in user API
+* TODO Document build chain
 * DONE Eliminate #if in assert.h
   CLOSED: [2018-02-13 Tue 00:32]
 ** DONE Introduce an if() with debug constant symbol.
    CLOSED: [2018-02-13 Tue 00:33]
-* Move assert.h in user API
-* TODO Document build chain
+* DONE Add a description to the GitHub repository
+  CLOSED: [2018-03-06 Tue 19:32]
