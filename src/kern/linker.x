@@ -23,7 +23,7 @@ SECTIONS
 
     .data : AT(LOADADDR(.progmem) + SIZEOF(.progmem))
     {
-        *(.data)
+        KEEP(*(.data))
     } > REGION_DATA
     _data_start = ADDR(.data);
     _data_load_start = LOADADDR(.data);
@@ -31,7 +31,10 @@ SECTIONS
 
     .rodata : AT(LOADADDR(.data) + SIZEOF(.data))
     {
-        *(.rodata)
+        /* Read-only data first */
+        KEEP(*(.rodata))
+        /* Then constant strings */
+        KEEP(*(.rodata.str*))
     } > REGION_RODATA
     _rodata_start = ADDR(.rodata);
     _rodata_load_start = LOADADDR(.rodata);

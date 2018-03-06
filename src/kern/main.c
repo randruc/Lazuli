@@ -13,7 +13,7 @@
 void
 Task1()
 {
-  u16 i = u16_MAX;
+  volatile u16 i = u16_MAX;
 
   while (true) {
     Usart_PutChar('W');
@@ -26,7 +26,7 @@ Task1()
 void
 Task2()
 {
-  u16 i = u16_MAX;
+  volatile u16 i = u16_MAX;
 
   while (true) {
     Usart_PutChar('T');
@@ -64,14 +64,17 @@ Task4()
 void
 Task5()
 {
-  /*
-   * EICRA = 0x03;
-   * EIMSK = 0x01;
-   */
+  char const *c;
 
   while (true) {
     Lz_WaitInt0();
-    Usart_PutChar('1');
+
+    c = Lz_GetTaskName();
+
+    while (NULL != c && '\0' != *c) {
+      Usart_PutChar(*c);
+      c++;
+    }
   }
 }
 
@@ -85,13 +88,8 @@ Main()
 
   Usart_Init();
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAME_OF(Task1);
-  Lz_RegisterTask(Task1, &taskConfiguration);
-
-  Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAME_OF(Task2);
-  Lz_RegisterTask(Task2, &taskConfiguration);
+  Lz_RegisterTask(Task1, NULL);
+  Lz_RegisterTask(Task2, NULL);
 
   Lz_InitTaskConfiguration(&taskConfiguration);
   taskConfiguration.name = NAME_OF(Task4);
