@@ -41,7 +41,10 @@ static LinkedList waitingInt0Queue = LINKED_LIST_INIT;
  */
 static const Lz_TaskConfiguration defaultTaskConfiguration = {
   NULL                    /**< member: name      */,
-  DEFAULT_TASK_STACK_SIZE /**< member: stackSize */
+  DEFAULT_TASK_STACK_SIZE /**< member: stackSize */,
+  (u16)0                  /**< member: T         */,
+  (u16)0                  /**< member: C         */,
+  (u16)0                  /**< member: D         */
 };
 
 void

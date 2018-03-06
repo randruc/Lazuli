@@ -16,11 +16,11 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Represents the configuration of a task being registered in the scheduler.
+ * Represents the configuration of a task.
  */
 typedef struct {
   /**
-   * A pointer to an allocated  const string containing the name to give to the
+   * A pointer to an allocated const string containing the name to give to the
    * task.
    * That string must not be deallocated after registering the task.
    */
@@ -30,6 +30,24 @@ typedef struct {
    * The size of the stack needed by the task
    */
   size_t stackSize;
+
+  /**
+   * Period.
+   * Used for real-time scheduling.
+   */
+  u16 T;
+
+  /**
+   * Computational time.
+   * Used for real-time scheduling.
+   */
+  u16 C;
+
+  /**
+   * Deadline.
+   * Used for real-time scheduling.
+   */
+  u16 D;
 }Lz_TaskConfiguration;
 
 /**

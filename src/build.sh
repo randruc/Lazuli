@@ -55,9 +55,18 @@ avr-gcc \
     kern/kernel.c \
     kern/memory.c \
     kern/scheduler.c \
-    kern/list.c
+    kern/list.c \
+    kern/sizeof_objects.c
 
-ar rcs lib$project_name.a *.o
+ar rcs lib$project_name.a \
+    interrupt_vectors_table.o \
+    startup.o \
+    timer_counter_0.o \
+    usart.o \
+    kernel.o \
+    memory.o \
+    scheduler.o \
+    list.o \
 
 avr-gcc \
     $cflags \
