@@ -207,35 +207,134 @@ Lz_GetTaskName()
 }
 
 /**
- * Jump table to interrupt handlers
+ * Jump table to interrupt handlers.
  *
  * This jump table MUST be ordered by interrupt code values.
  */
 static void (* const JumpToHandler[])() = {
+  /**
+   * INT_RESET: Reset, Entry point at boot.
+   */
   Panic,
+
+  /**
+   * INT_INT0: External interrupt request 0.
+   */
   Int0Handler,
+
+  /**
+   * INT_INT1: External interrupt request 1.
+   */
   Panic,
+
+  /**
+   * INT_PCINT0: Pin change interrupt request 0.
+   */
   Panic,
+
+  /**
+   * INT_PCINT1: Pin change interrupt request 1.
+   */
   Panic,
+
+  /**
+   * INT_PCINT2: Pin change interrupt request 2.
+   */
   Panic,
+
+  /**
+   * INT_WDT: Watchdog time-out interrupt.
+   */
   Panic,
+
+  /**
+   * INT_TIMER2COMPA: Timer/counter2 compare match A.
+   */
   Panic,
+
+  /**
+   * INT_TIMER2COMPB: Timer/counter2 compare match B.
+   */
   Panic,
+
+  /**
+   * INT_TIMER2OVF: Timer/counter2 overflow.
+   */
   Panic,
+
+  /**
+   * INT_TIMER1CAPT: Timer/counter1 capture event.
+   */
   Panic,
+
+  /**
+   * INT_TIMER1COMPA: Timer/counter1 compare match A.
+   */
   Panic,
+
+  /**
+   * INT_TIMER1COMPB: Timer/counter1 compare match B.
+   */
   Panic,
+
+  /**
+   * INT_TIMER1OVF: Timer/counter1 overflow.
+   */
   Panic,
+
+  /**
+   * INT_TIMER0COMPA: Timer/counter0 compare match A.
+   */
   Timer0CompareMatchAHandler,
+
+  /**
+   * INT_TIMER0COMPB: Timer/counter0 compare match B.
+   */
   Panic,
+
+  /**
+   * INT_SPISTC: SPI serial transfer complete.
+   */
   Panic,
+
+  /**
+   * INT_USARTRX: USART Rx complete.
+   */
   Panic,
+
+  /**
+   * INT_USARTUDRE: USART data register empty.
+   */
   Panic,
+
+  /**
+   * INT_USARTTX: USART Tx complete.
+   */
   Panic,
+
+  /**
+   * INT_ADC: ADC conversion complete.
+   */
   Panic,
+
+  /**
+   * INT_EEREADY: EEPROM ready.
+   */
   Panic,
+
+  /**
+   * INT_ANALOGCOMP: Analog comparator.
+   */
   Panic,
+
+  /**
+   * INT_TWI: 2-wire serial interface.
+   */
   Panic,
+
+  /**
+   * INT_SPMREADY: Store program memory ready.
+   */
   Panic
 };
 

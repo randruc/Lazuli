@@ -1,15 +1,17 @@
 /**
  * @file src/include/Lazuli/sys/arch/AVR/interrupts.h
- * @brief Interrupts codes.
+ * @brief Interrupt codes.
  * @date Mar 2018
  * @author Remi Andruccioli
  * @warning Used in both C and ASM code.
  *
- * This file describes the codes associated to each interrupts of the AVR
+ * This file describes the codes associated to each interrupt of the AVR
  * platform.
  * They are mainly used to perform a jump in a function pointer table in the
  * scheduler.
  * Hence, the first entry MUST be 0, and the following incremented by 1.
+ * We can't use a C enum here because these interrupt codes need to be
+ * manipulated in ASM code.
  */
 
 #ifndef LZ_SYS_ARCH_AVR_INTERRUPTS_H
@@ -121,7 +123,7 @@
 #define INT_ADC (20)
 
 /**
- * Code for interrupt: EEPROM ready
+ * Code for interrupt: EEPROM ready.
  */
 #define INT_EEREADY (21)
 
