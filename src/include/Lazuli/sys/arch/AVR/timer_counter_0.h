@@ -5,8 +5,8 @@
  * ATMega328p.
  */
 
-#ifndef LZ_AVR_TIMER_COUNTER_0_H
-#define LZ_AVR_TIMER_COUNTER_0_H
+#ifndef LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H
+#define LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H
 
 #include <Lazuli/common.h>
 
@@ -127,4 +127,4 @@ TimerCounter0InterruptsDisable(const u8 interruptsMask);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_AVR_TIMER_COUNTER_0_H */
+#endif /* LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H */

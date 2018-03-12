@@ -4,8 +4,8 @@
  * Describes the interface of the USART driver for the ATMega328p.
  */
 
-#ifndef LZ_AVR_USART_H
-#define LZ_AVR_USART_H
+#ifndef LZ_SYS_ARCH_AVR_USART_H
+#define LZ_SYS_ARCH_AVR_USART_H
 
 #include <Lazuli/common.h>
 
@@ -156,4 +156,4 @@ Usart_HexaPrint_FunctionPointer(void (*functionPointer)());
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_AVR_USART_H */
+#endif /* LZ_SYS_ARCH_AVR_USART_H */
