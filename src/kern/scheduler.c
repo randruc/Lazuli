@@ -19,6 +19,7 @@
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
+#include <Lazuli/sys/arch/AVR/interrupts.h>
 
 /**
  * Keeps a pointer to the current running task.
@@ -78,20 +79,10 @@ Schedule()
 
 /**
  * Handle "compare match A" interrupts from timer 0.
- *
- * This function is called by jumping, so the stack isn't touched.
  */
 void
 Timer0CompareMatchAHandler()
 {
-  /*
-   * Important! No local variables in this function, so the compiler doesn't
-   * move the stack pointer. We arrived here by a JUMP, not a CALL!
-   * We can thus save the current task's stack.
-   */
-  currentTask->stackPointer = (void *)SP;
-  SP = &_ramend;
-
   List_Append(&readyQueue, &(currentTask->stateQueue));
   Schedule();
 }
@@ -115,20 +106,10 @@ CurrentTaskWaitInt0()
 
 /**
  * Handle "External Interrupt Request 0".
- *
- * This function is called by jumping, so the stack isn't touched.
  */
 void
 Int0Handler()
 {
-  /*
-   * Important! No local variables in this function, so the compiler doesn't
-   * move the stack pointer. We arrived here by a JUMP, not a CALL!
-   * We can thus save the current task's stack.
-   */
-  currentTask->stackPointer = (void *)SP;
-  SP = &_ramend;
-
   List_AppendList(&readyQueue, &waitingInt0Queue);
 
   restore_context_from_stack_and_reti(currentTask->stackPointer);
@@ -223,4 +204,59 @@ char const*
 Lz_GetTaskName()
 {
   return currentTask->name;
+}
+
+/**
+ * Jump table to interrupt handlers
+ *
+ * This jump table MUST be ordered by interrupt code values.
+ */
+static void (* const JumpToHandler[])() = {
+  Panic,
+  Int0Handler,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Timer0CompareMatchAHandler,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic,
+  Panic
+};
+
+STATIC_ASSERT(ELEMENTS_COUNT(JumpToHandler) == (INT_SPMREADY + 1),
+              The_handlers_jump_table_MUST_reference_all_possible_interrupts);
+
+/**
+ * Entry point of the interrupt handler for this scheduler.
+ *
+ * @param sp The stack pointer of the task being executed before the interrupt.
+ *           This is used to save the task's context address.
+ * @param interruptCode The code of the interrupt that occured.
+ */
+void
+HandleInterrupt(void * const sp, const u8 interruptCode)
+{
+  currentTask->stackPointer = sp;
+
+  if (interruptCode < ELEMENTS_COUNT(JumpToHandler)) {
+    JumpToHandler[interruptCode]();
+  } else {
+    Panic();
+  }
 }

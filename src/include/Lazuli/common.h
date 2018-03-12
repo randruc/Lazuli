@@ -43,7 +43,7 @@
  *          is not actualy used, it's only here to display an informative
  *          message directly in the source code in case of a failure.
  */
-#define STATIC_ASSERT(C, M) extern char _static_assertion[(C) ? 1 : -1]
+#define STATIC_ASSERT(C, M) extern char _static_assertion_##M[(C) ? 1 : -1]
 
 /**
  * NULL pointer.
@@ -59,43 +59,43 @@ typedef int ptrdiff_t;
  * Unsigned integer of 1 byte long.
  */
 typedef unsigned char u8;
-STATIC_ASSERT(sizeof(u8) == 1, "u8 MUST be 1 byte long.");
+STATIC_ASSERT(sizeof(u8) == 1, u8_MUST_be_1_byte_long);
 
 /**
  * Signed integer of 1 byte long.
  */
 typedef signed char s8;
-STATIC_ASSERT(sizeof(s8) == 1, "s8 MUST be 1 byte long.");
+STATIC_ASSERT(sizeof(s8) == 1, s8_MUST_be_1_byte_long);
 
 /**
  * Unsigned integer of 2 bytes long.
  */
 typedef unsigned int u16;
-STATIC_ASSERT(sizeof(u16) == 2, "u16 MUST be 2 bytes long.");
+STATIC_ASSERT(sizeof(u16) == 2, u16_MUST_be_2_bytes_long);
 
 /**
  * Signed integer of 2 bytes long.
  */
 typedef signed int s16;
-STATIC_ASSERT(sizeof(s16) == 2, "s16 MUST be 2 bytes long.");
+STATIC_ASSERT(sizeof(s16) == 2, s16_MUST_be_2_bytes_long);
 
 /**
  * Unsigned integer of 4 bytes long.
  */
 typedef unsigned long int u32;
-STATIC_ASSERT(sizeof(u32) == 4, "u32 MUST be 4 bytes long.");
+STATIC_ASSERT(sizeof(u32) == 4, u32_MUST_be_4_bytes_long);
 
 /**
  * Signed integer of 4 bytes long.
  */
 typedef signed long int s32;
-STATIC_ASSERT(sizeof(s32) == 4, "s32 MUST be 4 bytes long.");
+STATIC_ASSERT(sizeof(s32) == 4, s32_MUST_be_4_bytes_long);
 
 /**
  * Boolean type.
  */
 typedef u8 bool;
-STATIC_ASSERT(sizeof(bool) == 1, "bool MUST be 1 byte long.");
+STATIC_ASSERT(sizeof(bool) == 1, bool_MUST_be_1_byte_long);
 
 /**
  * Represents the size of an object.
@@ -186,7 +186,7 @@ typedef u16 size_t;
  * ALLOW_ARITHM can work with any type whose size is 1 byte.
  */
 STATIC_ASSERT(sizeof(u8) == 1,
-              "u8 MUST be 1 byte long to allow arithmetic on void pointers.");
+              u8_MUST_be_1_byte_long_to_allow_arithmetic_on_void_pointers);
 
 /**
  * Check that the lvalue V is of type T at compile time.
@@ -302,5 +302,12 @@ STATIC_ASSERT(sizeof(u8) == 1,
  * @param X The symbol name to convert.
  */
 #define NAME_OF(X) #X
+
+/**
+ * Get the number of elements in a statically initialized array.
+ *
+ * @param The array variable.
+ */
+#define ELEMENTS_COUNT(X) (sizeof(X) / sizeof(X[0]))
 
 #endif /* LZ_COMMON_H */
