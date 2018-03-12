@@ -4,8 +4,8 @@
  * This file contains general registers definitions for the ATmega 328P.
  */
 
-#ifndef LZ_REGISTERS_H
-#define LZ_REGISTERS_H
+#ifndef LZ_SYS_ARCH_AVR_REGISTERS_H
+#define LZ_SYS_ARCH_AVR_REGISTERS_H
 
 #include <Lazuli/common.h>
 
@@ -82,4 +82,4 @@ enum {
   PRR_PRTWI    = POSITION(7)  /**< Power Reduction TWI                       */
 };
 
-#endif /* LZ_REGISTERS_H */
+#endif /* LZ_SYS_ARCH_AVR_REGISTERS_H */

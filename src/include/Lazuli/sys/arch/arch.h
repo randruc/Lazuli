@@ -7,8 +7,8 @@
  * Defines architecture specific functions.
  */
 
-#ifndef LZ_ARCH_H
-#define LZ_ARCH_H
+#ifndef LZ_SYS_ARCH_ARCH_H
+#define LZ_SYS_ARCH_ARCH_H
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/compiler.h>
@@ -79,4 +79,4 @@ load_u8_from_progmem(char const * const source);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_ARCH_H */
+#endif /* LZ_SYS_ARCH_ARCH_H */
