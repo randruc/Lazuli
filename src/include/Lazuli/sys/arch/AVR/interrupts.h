@@ -12,8 +12,8 @@
  * Hence, the first entry MUST be 0, and the following incremented by 1.
  */
 
-#ifndef LZ_INTERRUPTS_H
-#define LZ_INTERRUPTS_H
+#ifndef LZ_SYS_ARCH_AVR_INTERRUPTS_H
+#define LZ_SYS_ARCH_AVR_INTERRUPTS_H
 
 /**
  * Code for interrupt: Reset, Entry point at boot.
@@ -140,4 +140,4 @@
  */
 #define INT_SPMREADY (24)
 
-#endif /* LZ_INTERRUPTS_H */
+#endif /* LZ_SYS_ARCH_AVR_INTERRUPTS_H */
