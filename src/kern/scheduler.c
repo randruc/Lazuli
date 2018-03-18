@@ -17,7 +17,6 @@
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/arch/arch.h>
-#include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 
@@ -70,7 +69,6 @@ Schedule()
   LinkedListElement *firstElement = List_PickFirst(&readyQueue);
   if (NULL != firstElement) {
     currentTask = CONTAINER_OF(firstElement, stateQueue, Task);
-
     restore_context_from_stack_and_reti(currentTask->stackPointer);
   } else {
     /* Nothing to do! Idle. */
@@ -88,31 +86,32 @@ Timer0CompareMatchAHandler()
 }
 
 /**
- * Set the current running task to wait for interrupt "INT0".
- *
- * This is done by putting the current task on the appropriate wainting queue.
- * This function is called from the ASM routine Lz_WaitInt0 after saving the
- * context.
- */
-void
-CurrentTaskWaitInt0()
-{
-  currentTask->stackPointer = (void *)SP;
-  SP = &_ramend;
-
-  List_Append(&waitingInt0Queue, &(currentTask->stateQueue));
-  Schedule();
-}
-
-/**
  * Handle "External Interrupt Request 0".
  */
 void
 Int0Handler()
 {
   List_AppendList(&readyQueue, &waitingInt0Queue);
-
   restore_context_from_stack_and_reti(currentTask->stackPointer);
+}
+
+/**
+ * Set the current running task to wait for interrupt "INT0".
+ *
+ * This is done by putting the current task on the appropriate wainting queue.
+ * This function is called from the ASM routine Lz_WaitInt0 after saving the
+ * context, and setting the stack pointer in "kernel mode".
+ *
+ * @param sp The stack pointer of the task that wants to wait.
+ *           This is used to save the task's context address.
+ */
+void
+CurrentTaskWaitInt0(void *sp)
+{
+  currentTask->stackPointer = sp;
+
+  List_Append(&waitingInt0Queue, &(currentTask->stateQueue));
+  Schedule();
 }
 
 /**

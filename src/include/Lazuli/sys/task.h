@@ -8,7 +8,6 @@
 #define LZ_SYS_TASK_H
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/list.h>
 
 _EXTERN_C_DECL_BEGIN

@@ -51,6 +51,14 @@ enter_kernel:
 Lz_WaitInt0:
     cli
     call save_context_on_stack
+    ;; Save current stack pointer in registers
+    in r24, spl
+    in r25, sph
+    ;; Reset kernel stack pointer
+    ldi r16, lo8(_ramend)
+    ldi r17, hi8(_ramend)
+    out spl, r16
+    out sph, r17
     jmp CurrentTaskWaitInt0
 
     /**
