@@ -99,6 +99,10 @@ then
         $project_name.elf \
         $project_name.hex
 
+    size -Adt Lazuli.elf | ./sizeof_sections.awk
+    echo
+    avr-objdump -j .data -D sizeof_objects.o | ./sizeof_objects.awk
+
     if [ $debug = true ]
     then
         avr-objdump -hS $project_name.elf > sourcelist

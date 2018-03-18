@@ -12,10 +12,10 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/task.h>
-#include <Lazuli/lazuli.h>
 
 static const volatile size_t
 __sizeof_Task = sizeof(Task);
 
 static const volatile size_t
-__sizeof_Lz_TaskConfiguration = sizeof(Lz_TaskConfiguration);
+__sizeof_TaskContextLayout = sizeof(TaskContextLayout);
+
