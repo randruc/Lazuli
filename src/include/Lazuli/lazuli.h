@@ -5,7 +5,8 @@
  * @author Remi Andruccioli
  *
  * This file describes the public API of the Lazuli kernel.
- * It defines public types and functions that can by used by user tasks.
+ * It defines public types and functions that can by used by user main code
+ * and tasks.
  */
 
 #ifndef LZ_LAZULI_H
@@ -22,7 +23,7 @@ typedef struct {
   /**
    * A pointer to an allocated const string containing the name to give to the
    * task.
-   * That string must not be deallocated after registering the task.
+   * That string must NOT be deallocated after registering the task.
    */
   char const *name;
 
@@ -55,7 +56,7 @@ typedef struct {
  *
  * @param taskEntryPoint The entry point of the task to register.
  *                       i.e. A pointer to the function representing the task.
- * @param taskConfiguration A pointer to a TaskConfiguration containing the
+ * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing the
  *                          configuration of the task being registered.
  *                          If NULL is passed, then default values are applied
  *                          for all parameters.
@@ -68,10 +69,11 @@ Lz_RegisterTask(void (*taskEntryPoint)(),
  * @brief Initialize an Lz_TaskConfiguration with default values for all
  *        parameters.
  *
- * No function is provided for allocating a new TaskConfiguration. The user is
- * responsible of the creation of a new TaskConfiguration.
+ * No function is provided for allocating a new Lz_TaskConfiguration.
+ * It is strongly advised to allocate the Lz_TaskConfiguration to use on the
+ * stack before calling this function.
  *
- * @param taskConfiguration A pointer to the TaskConfiguration to initialize.
+ * @param taskConfiguration A pointer to the Lz_TaskConfiguration to initialize.
  */
 void
 Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration);
