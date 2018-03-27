@@ -81,8 +81,8 @@ Task5()
 /**
  * Main entry point for user tasks.
  */
-void
-Main()
+int
+main()
 {
   Lz_TaskConfiguration taskConfiguration;
 

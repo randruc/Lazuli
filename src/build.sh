@@ -54,7 +54,8 @@ avr-gcc \
     kern/arch/AVR/usart.c \
     kern/kernel.c \
     kern/memory.c \
-    kern/scheduler.c \
+    kern/scheduler_base.c \
+    kern/scheduler_rr.c \
     kern/list.c \
     kern/sizeof_objects.c
 
@@ -65,7 +66,8 @@ ar rcs lib$project_name.a \
     usart.o \
     kernel.o \
     memory.o \
-    scheduler.o \
+    scheduler_base.o \
+    scheduler_rr.o \
     list.o \
 
 avr-gcc \
@@ -99,6 +101,7 @@ then
         $project_name.elf \
         $project_name.hex
 
+    # TODO: This doesn't seem to display correct sizes (rodata...)
     size -Adt Lazuli.elf | ./sizeof_sections.awk
     echo
     avr-objdump -j .data -D sizeof_objects.o | ./sizeof_objects.awk

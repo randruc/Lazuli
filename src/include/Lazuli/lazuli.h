@@ -17,6 +17,22 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
+ * Represents a scheduling policy to run.
+ */
+typedef enum {
+  /**
+   * Round-Robin scheduling
+   */
+  LZ_SCHED_RR = 0,
+
+  /*
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the last one.
+   */
+  __LZ_SCHEDULERCLASS_ENUM_END
+}Lz_SchedulerClass;
+
+/**
  * Represents the configuration of a task.
  */
 typedef struct {
@@ -52,6 +68,15 @@ typedef struct {
 }Lz_TaskConfiguration;
 
 /**
+ * Set the scheduler class.
+ *
+ * @param schedulerClass A value of Lz_SchedulerClass to define the scheduling
+ *        policy.
+ */
+void
+Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass);
+
+/**
  * Register a new task.
  *
  * @param taskEntryPoint The entry point of the task to register.
@@ -62,7 +87,7 @@ typedef struct {
  *                          for all parameters.
  */
 void
-Lz_RegisterTask(void (*taskEntryPoint)(),
+Lz_RegisterTask(void (* const taskEntryPoint)(),
                 Lz_TaskConfiguration * const taskConfiguration);
 
 /**
