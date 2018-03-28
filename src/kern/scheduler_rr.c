@@ -1,6 +1,6 @@
 /**
  * @file src/kern/scheduler_rr.c
- * @brief Round-Robin tasks scheduler.
+ * @brief Round-Robin tasks scheduler implementation.
  * @date Feb 2017
  * @author Remi Andruccioli
  *
@@ -18,7 +18,6 @@
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
-#include <Lazuli/sys/regions.h>
 
 /**
  * The queue of ready tasks.
@@ -62,7 +61,8 @@ PrepareTaskContext(Task * const task)
   task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 
-BEGIN_REGION(Interrupt handling)
+/** @name Interrupt handling */
+/** @{                       */
 
 /**
  * Handle "compare match A" interrupts from timer 0.
@@ -120,9 +120,10 @@ static void (* const JumpToInterruptHandler[])() = {
 STATIC_ASSERT(ELEMENTS_COUNT(JumpToInterruptHandler) == (INT_SPMREADY + 1),
               The_handlers_jump_table_MUST_reference_all_possible_interrupts);
 
-END_REGION()
+/** @} */
 
-BEGIN_REGION(scheduler_base implementation)
+/** @name scheduler_base implementation */
+/** @{                                  */
 
 static void
 Init()
@@ -139,7 +140,7 @@ Init()
 
 static void
 RegisterTask(void (* const taskEntryPoint)(),
-                Lz_TaskConfiguration * const taskConfiguration)
+             Lz_TaskConfiguration * const taskConfiguration)
 {
   Task *newTask;
   void *taskStack;
@@ -240,4 +241,4 @@ const SchedulerOperations RRSchedulerOperations = {
   WaitEvent        /**< member: waitEvent           */
 };
 
-END_REGION()
+/** @} */

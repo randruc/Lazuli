@@ -1,3 +1,12 @@
+/**
+ * @file src/include/Lazuli/sys/scheduler_rr.h
+ * @brief Round-Robin tasks scheduler symbols.
+ * @date Mar 2018
+ * @author Remi Andruccioli
+ *
+ * This file defines the externally-visible symbols from RR scheduler.
+ */
+
 #ifndef LZ_SYS_SCHEDULER_RR_H
 #define LZ_SYS_SCHEDULER_RR_H
 

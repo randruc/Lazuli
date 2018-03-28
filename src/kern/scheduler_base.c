@@ -1,3 +1,13 @@
+/**
+ * @file src/kern/scheduler_base.c
+ * @brief Base scheduler implementation.
+ * @date Mar 2018
+ * @author Remi Andruccioli
+ *
+ * This files describes the common implementation of every scheduler classes in
+ * Lazuli.
+ */
+
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
