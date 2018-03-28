@@ -49,6 +49,27 @@ STATIC_ASSERT
 Task *currentTask;
 
 void
+BaseSchedulerInit()
+{
+  JumpToScheduler[schedulerClass]->init();
+}
+
+void
+BaseSchedulerHandleInterrupt(void * const sp, const u8 interruptCode)
+{
+  JumpToScheduler[schedulerClass]->handleInterrupt(sp, interruptCode);
+}
+
+void
+BaseSchedulerWaitEvent(void * const sp, const u8 eventCode)
+{
+  JumpToScheduler[schedulerClass]->waitEvent(sp, eventCode);
+}
+
+/** @name User API */
+/** @{             */
+
+void
 Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass)
 {
   schedulerClass = userSchedulerClass;
@@ -80,26 +101,10 @@ Lz_Run()
   JumpToScheduler[schedulerClass]->run();
 }
 
-void
-BaseSchedulerInit()
-{
-  JumpToScheduler[schedulerClass]->init();
-}
-
-void
-BaseSchedulerHandleInterrupt(void * const sp, const u8 interruptCode)
-{
-  JumpToScheduler[schedulerClass]->handleInterrupt(sp, interruptCode);
-}
-
-void
-BaseSchedulerWaitEvent(void * const sp, const u8 eventCode)
-{
-  JumpToScheduler[schedulerClass]->waitEvent(sp, eventCode);
-}
-
 const char *
 Lz_GetTaskName()
 {
   return currentTask->name;
 }
+
+/** @} */

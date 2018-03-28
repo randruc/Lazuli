@@ -84,6 +84,32 @@ extern const Lz_TaskConfiguration DefaultTaskConfiguration;
 void
 BaseSchedulerInit();
 
+/*
+ * TODO: Maybe rename interruptCode and eventCode to xxxxxId or something like
+ * that...
+ */
+/**
+ * This function is called by arch-specific interrupt handling routine, after
+ * saving the context of the current running task.
+ *
+ * @param sp The stack pointer of the current running task after saving its
+ *           context.
+ * @param interruptCode The code of the interrupt being handled.
+ */
+void
+BaseSchedulerHandleInterrupt(void * const sp, const u8 interruptCode);
+
+/**
+ * This function is called from arch-specific Wait routine in order to get the
+ * current running task wait for a particular event, after saving its context.
+ *
+ * @param sp The stack pointer of the current running task after saving its
+ *           context.
+ * @param eventCode The code of the event the task is waiting for.
+ */
+void
+BaseSchedulerWaitEvent(void * const sp, const u8 eventCode);
+
 _EXTERN_C_DECL_END
 
 #endif /* LZ_SYS_SCHEDULER_BASE_H */
