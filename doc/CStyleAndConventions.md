@@ -21,16 +21,18 @@ columns.
 Only use C89 comments, no C/C++ comments.
 
 This is good:
+```C
+/* This is a comment */
 
-    /* This is a comment */
-
-    /*
-     * This is a comment
-     */
+/*
+ * This is a comment
+ */
+```
 
 This is not good:
-
-    // This is a comment
+```C
+// This is a comment
+```
 
 > This is to be compliant with C89.
 
@@ -39,19 +41,21 @@ This is not good:
 The return type of a function must be on the previous line of the function name.
 
 This is good :
-
-    int
-    sum(int a, int b)
-    {
-      return a + b;
-    }
+```C
+int
+sum(int a, int b)
+{
+  return a + b;
+}
+```
 
 This is not good :
-
-    int sum(int a, int b)
-    {
-      return a + b;
-    }
+```C
+int sum(int a, int b)
+{
+  return a + b;
+}
+```
 
 > C code must be easily readable in console or with editors that don't support
 > syntax highlighting.
@@ -64,51 +68,53 @@ For functions, the opening braces are always on a new line and the closing
 braces are always on a new line too.
 
 This is good:
-
-    int main(void)
-    {
-      printf("Hello world\n");
+```C
+int main(void)
+{
+  printf("Hello world\n");
      
-      return EXIT_SUCCESS;
-    }
+  return EXIT_SUCCESS;
+}
+```
 
 This is not good:
+```C
+int main(void) {
+  printf("Hello world\n");
 
-    int main(void) {
-      printf("Hello world\n");
+  return EXIT_SUCCESS;
+}
     
-      return EXIT_SUCCESS;
-    }
-    
-    int main(void)
-    {
-      printf("Hello world\n");
-    
-      return EXIT_SUCCESS; }
-    
+int main(void)
+{
+  printf("Hello world\n");
+
+  return EXIT_SUCCESS; }
+```
 
 For control statements the opening braces are always on the same line than the
 statement and the closing braces are always on a new line.
 
 This is good:
-
-    if (n == 4) {
-      printf("Bye");
-      return 0;
-    }
+```C
+if (n == 4) {
+  printf("Bye");
+  return 0;
+}
+```
 
 This is not good:
-
-    if (n == 4)
-    {
-      printf("Bye");
-      return 0;
-    }
+```C
+if (n == 4)
+{
+  printf("Bye");
+  return 0;
+}
     
-    if (n == 4) {
-      printf("Bye");
-      return 0; }
-
+if (n == 4) {
+  printf("Bye");
+  return 0; }
+```
 
 This applies for all control statements that involve code sections:
 if, else, for, while, do
@@ -116,46 +122,50 @@ if, else, for, while, do
 For if-else blocks, the else keyword must be on the same line than the braces.
 
 This is good:
-
-    if (n == 4) {
-      j += 8;
-      printf("Bye");
-    } else {
-      j = 0;
-      i++;
-    }
+```C
+if (n == 4) {
+  j += 8;
+  printf("Bye");
+} else {
+  j = 0;
+  i++;
+}
+```
 
 This is not good:
-
-    if (n == 4) {
-      j += 8;
-      printf("Bye");
-    }
-    else {
-      j = 0;
-      i++;
-    }
+```C
+if (n == 4) {
+  j += 8;
+  printf("Bye");
+}
+else {
+  j = 0;
+  i++;
+}
+```
 
 For control statements that involve code section, braces must always be
 present.
 
 This is good:
+```C
+if (map == NULL) {
+  return NULL;
+}
 
-    if (map == NULL) {
-      return NULL;
-    }
-
-    for (i = 0; i < LENGTH; i++) {
-      t[i] = NULL;
-    }
+for (i = 0; i < LENGTH; i++) {
+  t[i] = NULL;
+}
+```
 
 This is not good:
+````C
+if (map == NULL)
+  return NULL;
 
-    if (map == NULL)
-      return NULL;
-
-    for (i = 0; i < LENGTH; i++)
-      t[i] = NULL;
+for (i = 0; i < LENGTH; i++)
+  t[i] = NULL;
+```
 
 > Always putting the braces helps to avoid some bugs.
 > As an example, you can read this article about the famous case of Apple's
