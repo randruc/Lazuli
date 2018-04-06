@@ -12,6 +12,10 @@ The whole project is written in pure ANSI C 89.
 Line length is set to 80 characters. Each line of code shouldn't exceed 80
 columns.
 
+> Documents must be easily readable without scrolling in a console (e.g. with
+> `less` or `cat`), in simple text editors, or when comparing two versions in
+> a file diff utility.
+
 ## Comments
 
 Only use C89 comments, no C/C++ comments.
@@ -28,6 +32,7 @@ This is not good:
 
     // This is a comment
 
+> This is to be compliant with C89.
 
 ## Types
 
@@ -48,13 +53,15 @@ This is not good :
       return a + b;
     }
 
+> C code must be easily readable in console or with editors that don't support
+> syntax highlighting.
 
-## Brackets
+## Curly braces
 
-Brackets use the K&R style.
+Curly braces use the K&R style.
 
-For functions, the opening bracket is always on a new line and the closing
-bracket is always on a new line too.
+For functions, the opening braces are always on a new line and the closing
+braces are always on a new line too.
 
 This is good:
 
@@ -80,8 +87,8 @@ This is not good:
       return EXIT_SUCCESS; }
     
 
-For control statements the opening bracket is always on the same line than the
-statement and the closing bracket is always on a new line.
+For control statements the opening braces are always on the same line than the
+statement and the closing braces are always on a new line.
 
 This is good:
 
@@ -106,7 +113,7 @@ This is not good:
 This applies for all control statements that involve code sections:
 if, else, for, while, do
 
-For if-else blocks, the else keyword must be on the same line than the brackets.
+For if-else blocks, the else keyword must be on the same line than the braces.
 
 This is good:
 
@@ -129,7 +136,7 @@ This is not good:
       i++;
     }
 
-For control statements that involve code section brackets must always be
+For control statements that involve code section, braces must always be
 present.
 
 This is good:
@@ -150,3 +157,18 @@ This is not good:
     for (i = 0; i < LENGTH; i++)
       t[i] = NULL;
 
+> Always putting the braces helps to avoid some bugs.
+> As an example, you can read this article about the famous case of Apple's
+> SSL/TLS bug: https://www.imperialviolet.org/2014/02/22/applebug.html
+
+## Whitespaces, tabs and newlines
+
+Never use tabs to indent C code. C code must use 2 spaces for indentation.
+
+> This is to ensure every editor displays the code the same way.
+
+Lines musn't have trailing whitespaces.
+
+Files must end with a newline character.
+
+> The code file must print correctly when using tools like `cat` in console.
