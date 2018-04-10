@@ -5,7 +5,8 @@
  * @author Remi Andruccioli
  *
  * This file describes the public API of the Lazuli kernel.
- * It defines public types and functions that can by used by user tasks.
+ * It defines public types and functions that can by used by user main code
+ * and tasks.
  */
 
 #ifndef LZ_LAZULI_H
@@ -16,13 +17,29 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Represents the configuration of a task being registered in the scheduler.
+ * Represents a scheduling policy to run.
+ */
+typedef enum {
+  /**
+   * Round-Robin scheduling
+   */
+  LZ_SCHED_RR = 0,
+
+  /*
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the last one.
+   */
+  __LZ_SCHEDULERCLASS_ENUM_END
+}Lz_SchedulerClass;
+
+/**
+ * Represents the configuration of a task.
  */
 typedef struct {
   /**
-   * A pointer to an allocated  const string containing the name to give to the
+   * A pointer to an allocated const string containing the name to give to the
    * task.
-   * That string must not be deallocated after registering the task.
+   * That string must NOT be deallocated after registering the task.
    */
   char const *name;
 
@@ -30,30 +47,58 @@ typedef struct {
    * The size of the stack needed by the task
    */
   size_t stackSize;
+
+  /**
+   * Period.
+   * Used for real-time scheduling.
+   */
+  u16 T;
+
+  /**
+   * Computational time.
+   * Used for real-time scheduling.
+   */
+  u16 C;
+
+  /**
+   * Deadline.
+   * Used for real-time scheduling.
+   */
+  u16 D;
 }Lz_TaskConfiguration;
+
+/**
+ * Set the scheduler class.
+ *
+ * @param schedulerClass A value of Lz_SchedulerClass to define the scheduling
+ *        policy.
+ */
+void
+Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass);
 
 /**
  * Register a new task.
  *
  * @param taskEntryPoint The entry point of the task to register.
  *                       i.e. A pointer to the function representing the task.
- * @param taskConfiguration A pointer to a TaskConfiguration containing the
+ * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing the
  *                          configuration of the task being registered.
  *                          If NULL is passed, then default values are applied
  *                          for all parameters.
  */
 void
-Lz_RegisterTask(void (*taskEntryPoint)(),
+Lz_RegisterTask(void (* const taskEntryPoint)(),
                 Lz_TaskConfiguration * const taskConfiguration);
 
 /**
  * @brief Initialize an Lz_TaskConfiguration with default values for all
  *        parameters.
  *
- * No function is provided for allocating a new TaskConfiguration. The user is
- * responsible of the creation of a new TaskConfiguration.
+ * No function is provided for allocating a new Lz_TaskConfiguration.
+ * It is strongly advised to allocate the Lz_TaskConfiguration to use on the
+ * stack before calling this function.
  *
- * @param taskConfiguration A pointer to the TaskConfiguration to initialize.
+ * @param taskConfiguration A pointer to the Lz_TaskConfiguration to initialize.
  */
 void
 Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration);

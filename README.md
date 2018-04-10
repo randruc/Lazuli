@@ -27,7 +27,8 @@ The Lazuli project has very specific goals that make it unique. These are:
 * __Public Domain__ - All the project is in the public domain.
 * __Well documented__ - The Lazuli project aims to be a well-documented project.
   All the code is carrefully documented and comes with good documentation about
-  how it works and how to use it.
+  how it works and how to use it. If the documentation doesn't match the actual
+  code or behavior, this is considered as a bug.
 * __Free software__ - This project is developed and can be built using only
   free software.
 
@@ -35,7 +36,7 @@ The Lazuli project has very specific goals that make it unique. These are:
 ## Prerequisites
 
 Lazuli has no dependency on other piece of software.
-You can simply build it, link it to your own tasks, upload it and it just
+You can simply build it, link it to your own code, upload it and it just
 runs!
 
 The software currently used is:
@@ -46,6 +47,10 @@ The software currently used is:
 * __avr-objdump__ to visualize C source code mixed with resulting asm (in debug)
 * __ar__ to build the static library
 * __avrdude__ to upload hex binary image to the target MCU
+* __doxygen__ to build the documentation
+* __awk__ to format ouput in the build process
+* __size__ to display the size of sections in final binary image
+* __git__ to manage source code
 
 
 ## Documentation
@@ -82,10 +87,10 @@ GitHub is used to manage it all, including issues and contributions.
 It doesn't matter if you want to correct a bug, suggest
 new features or correct a spelling mistake, _feel free to contribute!_
 
-Before contributing, make sure you're read the `doc/AboutDocumentation.md` file.
-if you wish to contribute to the code, make sure you've read the
+Before contributing, make sure you've read the `doc/AboutDocumentation.md` file.
+If you wish to contribute to the code, make sure you've read the
 `doc/CStyleAndConventions.md` file. Make also sure you've updated all the
-appropriate files and lines of text apart from the code itself , including
+appropriate files and lines of text apart from the code itself, including
 comments, documentation, even this README file, or anything else.
 
 To contribute:

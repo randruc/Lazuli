@@ -13,7 +13,7 @@
 void
 Task1()
 {
-  volatile u16 i = u16_MAX;
+  /* volatile */ u16 i = u16_MAX >> 1;
 
   while (true) {
     Usart_PutChar('W');
@@ -26,7 +26,7 @@ Task1()
 void
 Task2()
 {
-  volatile u16 i = u16_MAX;
+  /* volatile */ u16 i = u16_MAX >> 1;
 
   while (true) {
     Usart_PutChar('T');
@@ -81,8 +81,8 @@ Task5()
 /**
  * Main entry point for user tasks.
  */
-void
-Main()
+int
+main()
 {
   Lz_TaskConfiguration taskConfiguration;
 

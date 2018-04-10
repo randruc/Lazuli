@@ -4,6 +4,8 @@
 * Set up the runtime environment and run the kernel.
 */
 
+#include <Lazuli/sys/arch/AVR/interrupts.h>
+
     ;; Frequently used registers
 .equ spl,  0x3d                ; Stack pointer low byte
 .equ sph,  0x3e                ; Stack pointer high byte
@@ -15,12 +17,32 @@
     .global int0_handler
 int0_handler:
     call save_context_on_stack
-    jmp Int0Handler
+    ldi r22, INT_INT0
+    jmp enter_kernel_handle_interrupt
 
     .global timer0_compare_match_A_handler
 timer0_compare_match_A_handler:
     call save_context_on_stack
-    jmp Timer0CompareMatchAHandler
+    ldi r22, INT_TIMER0COMPA
+    jmp enter_kernel_handle_interrupt
+
+/**
+ * Switch to kernel stack and give hand to the scheduler to handle the
+ * interrupt.
+ *
+ * Before calling this subroutine, you first need to fill r22 with the
+ * interrupt code.
+ */
+enter_kernel_handle_interrupt:
+    ;; Save current stack pointer in registers
+    in r24, spl
+    in r25, sph
+    ;; Reset kernel stack pointer
+    ldi r16, lo8(_ramend)
+    ldi r17, hi8(_ramend)
+    out spl, r16
+    out sph, r17
+    jmp BaseSchedulerHandleInterrupt
 
     ;; Lz_Wait* routines
     ;;
@@ -29,7 +51,26 @@ timer0_compare_match_A_handler:
 Lz_WaitInt0:
     cli
     call save_context_on_stack
-    jmp CurrentTaskWaitInt0
+    ldi r22, INT_INT0
+    jmp enter_kernel_wait_event
+
+/**
+ * Switch to kernel stack and give hand to the scheduler to handle the
+ * waiting.
+ *
+ * Before calling this subroutine, you first need to fill r22 with the
+ * event code.
+ */
+enter_kernel_wait_event:
+    ;; Save current stack pointer in registers
+    in r24, spl
+    in r25, sph
+    ;; Reset kernel stack pointer
+    ldi r16, lo8(_ramend)
+    ldi r17, hi8(_ramend)
+    out spl, r16
+    out sph, r17
+    jmp BaseSchedulerWaitEvent
 
     /**
      * Save current running task execution context on task's stack.

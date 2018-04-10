@@ -12,11 +12,12 @@
  */
 
 #include <Lazuli/common.h>
+
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/config.h>
-#include <Lazuli/sys/scheduler.h>
+#include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/arch/arch.h>
 
 /**
@@ -24,8 +25,8 @@
  *
  * This is the function the user has to define to register his own tasks.
  */
-void
-Main();
+int
+main();
 
 /**
  * The allocation map for the whole kernel.
@@ -45,12 +46,13 @@ KMain()
   kernelAllocationMap.endMem = &_ramend;
   kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
 
-  Scheduler_Init();
+  BaseSchedulerInit();
 
   /* Give hand to user */
-  Main();
+  main();
 }
 
+/* TODO: Find something better to perform this verification... */
 #if (ON_PANIC_INFINITE_LOOP + ON_PANIC_SOFTWARE_RESET) != 1
 #error "Only one kernel panic configuration must be defined in config.h."
 #endif

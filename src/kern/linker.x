@@ -12,6 +12,7 @@ SECTIONS
     {
         KEEP(*(.ivt))
         *(.text)
+        *(.text.*)
     } > REGION_TEXT
 
     .progmem : AT(LOADADDR(.text) + SIZEOF(.text))
