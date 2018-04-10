@@ -3,8 +3,9 @@
 This file describes the programming style and conventions to apply on C code.
 
 As a general rule, the code must be clear and readable. Reading it must be a
-pleasant experience.
-It must not contain useless or redundant things.
+pleasant experience.  
+The code must not contain useless or redundant things.
+
 
 ## C dialect
 
@@ -21,9 +22,9 @@ All C code files are encoded in raw 7-bit ASCII.
 Line length is set to 80 characters. Each line of code shouldn't exceed 80
 columns.
 
-> Documents must be easily readable without scrolling in a console (e.g. with
-> `less` or `cat`), in simple text editors, or when comparing two versions in
-> a file diff utility.
+> Documents must be easily readable without horizontal scrolling in a console
+> (e.g. with `less` or `cat`), in simple text editors, or when comparing two
+> versions in a file diff utility.
 
 
 ## Comments
@@ -32,18 +33,20 @@ Only use C89 comments, no C99/C++ comments.
 
 > This is to be compliant with C89.
 
-Use only one of the 2 following styles.
-1-line comments can use both allowed forms, while multiple line comments must
-use the second form only.
-
 Never write nested comments. Never write "pretty typos".
 Never comment out code unless you want to document something.
 
+Use only one of the 2 following forms.
+1-line comments can use both allowed forms, while multiple line comments must
+use the second form only.
+
 This is good:
 ```C
-/* This is a comment */
+/* First form. This is a comment */
 
 /*
+ * Second form.
+ *
  * This is a comment
  * that spans over
  * multiple lines.
@@ -64,7 +67,7 @@ multiple lines */
  */
  
 /***************************************************
- *         Hey, look! I'm an artist !!!!           *
+ *         Hey, look! I'm an artist!!!!            *
  ***************************************************/
 ```
 
@@ -172,7 +175,7 @@ if (n == 4) {
 ```
 
 This applies for all control statements that involve code sections:
-if, else, for, while, do
+if, else, for, while, do.
 
 For if-else blocks, the else keyword must be on the same line than the braces.
 
@@ -237,6 +240,8 @@ for (i = 0; i < LENGTH; i++)
 > SSL/TLS bug:
 > https://embeddedgurus.com/barr-code/2014/03/apples-gotofail-ssl-security-bug-was-easily-preventable/
 
+TODO: one-line ifs...
+
 
 ## Whitespaces, tabs and newlines
 
@@ -250,3 +255,5 @@ Lines musn't have trailing whitespaces.
 Files must end with a newline character.
 
 > The code file must print correctly when using tools like `cat` in console.
+
+TODO: spaces before () in if, for, while
