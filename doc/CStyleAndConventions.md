@@ -2,10 +2,19 @@
 
 This file describes the programming style and conventions to apply on C code.
 
+As a general rule, the code must be clear and readable. Reading it must be a
+pleasant experience.
+It must not contain useless or redundant things.
 
 ## C dialect
 
 The whole project is written in pure ANSI C 89.
+All C code files are encoded in raw ASCII.
+
+> This is to the allow C code to be ported easily to many platforms and
+> architectures by being compiled by the largest number of compilers.
+> Another reason is that C89 is understood by all C code-checking tools.
+
 
 ## Line length
 
@@ -16,9 +25,19 @@ columns.
 > `less` or `cat`), in simple text editors, or when comparing two versions in
 > a file diff utility.
 
+
 ## Comments
 
-Only use C89 comments, no C/C++ comments.
+Only use C89 comments, no C99/C++ comments.
+
+> This is to be compliant with C89.
+
+Use only one of the 2 following styles.
+1-line comments can use both allowed forms, while multiple line comments must
+use the second form only.
+
+Never write nested comments. Never write "pretty typos".
+Never comment out code unless you want to document something.
 
 This is good:
 ```C
@@ -26,19 +45,55 @@ This is good:
 
 /*
  * This is a comment
+ * that spans over
+ * multiple lines.
  */
 ```
 
 This is not good:
 ```C
-// This is a comment
+// This is a comment.
+
+/* This is a comment
+that spans over
+multiple lines */
+
+/*
+ * This is a comment.
+ * And now this is /* a nested comment */
+ */
+ 
+/***************************************************
+ *         Hey, look! I'm an artist !!!!           *
+ ***************************************************/
 ```
 
-> This is to be compliant with C89.
+### Where to put comments
+
+Good code shouldn't need comments.
+Good code could should express by itself.
+
+
+As a general rule:
+* Avoid comments inside functions
+* Only comment the API
+
+Use comments inside functions very carefully only to explain something not
+obvious for the reader.
+
+Every function must be documented using Doxygen tags.
+For static functions, this is done above the function itself.
+For public functions, this is done above the function prototype in the header
+file only.
+
+
+### Inline documentation
+
+
 
 ## Types
 
-The return type of a function must be on the previous line of the function name.
+The return type of a function must be on the line preceding the function name.
 
 This is good :
 ```C
@@ -60,12 +115,12 @@ int sum(int a, int b)
 > C code must be easily readable in console or with editors that don't support
 > syntax highlighting.
 
+
 ## Curly braces
 
 Curly braces use the K&R style.
 
-For functions, the opening braces are always on a new line and the closing
-braces are always on a new line too.
+For functions, opening and closing braces are always on their own line.
 
 This is good:
 ```C
@@ -142,6 +197,16 @@ else {
   j = 0;
   i++;
 }
+
+if (n == 4) {
+  j += 8;
+  printf("Bye");
+}
+else
+{
+  j = 0;
+  i++;
+}
 ```
 
 For control statements that involve code section, braces must always be
@@ -159,7 +224,7 @@ for (i = 0; i < LENGTH; i++) {
 ```
 
 This is not good:
-````C
+```C
 if (map == NULL)
   return NULL;
 
@@ -169,13 +234,16 @@ for (i = 0; i < LENGTH; i++)
 
 > Always putting the braces helps to avoid some bugs.
 > As an example, you can read this article about the famous case of Apple's
-> SSL/TLS bug: https://www.imperialviolet.org/2014/02/22/applebug.html
+> SSL/TLS bug:
+> https://embeddedgurus.com/barr-code/2014/03/apples-gotofail-ssl-security-bug-was-easily-preventable/
+
 
 ## Whitespaces, tabs and newlines
 
 Never use tabs to indent C code. C code must use 2 spaces for indentation.
 
-> This is to ensure every editor displays the code the same way.
+> Every editor must display the code the same way.
+
 
 Lines musn't have trailing whitespaces.
 
