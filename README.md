@@ -21,9 +21,9 @@ The Lazuli project has very specific goals that make it unique. These are:
 * __Pure C89__ - Lazuli is coded in pure C89 for all of its C parts.
   It means that no compiler-specific code nor extensions to the C language are
   used. This choice has been made the allow to code to be ported easily (if
-  needed in the future) to many platforms and architecures, and to be compiled
+  needed in the future) to many platforms and architectures, and to be compiled
   by the largest number of compilers. Another reason is that C89 is understood
-  by nearly all C code-checking tools.
+  by all C code-checking tools.
 * __Public Domain__ - All the project is in the public domain.
 * __Well documented__ - The Lazuli project aims to be a well-documented project.
   All the code is carrefully documented and comes with good documentation about
