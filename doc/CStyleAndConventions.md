@@ -9,10 +9,10 @@ It must not contain useless or redundant things.
 ## C dialect
 
 The whole project is written in pure ANSI C 89.
-All C code files are encoded in raw ASCII.
+All C code files are encoded in raw 7-bit ASCII.
 
 > This is to the allow C code to be ported easily to many platforms and
-> architectures by being compiled by the largest number of compilers.
+> architectures, by being compiled by the largest number of compilers.
 > Another reason is that C89 is understood by all C code-checking tools.
 
 
