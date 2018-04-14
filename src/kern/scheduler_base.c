@@ -11,18 +11,18 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
+#include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/scheduler_rr.h>
+#include <Lazuli/sys/scheduler_hpf.h>
 
 /* TODO: Maybe think about storing default task configuration in progmem */
 const Lz_TaskConfiguration DefaultTaskConfiguration = {
   NULL                    /**< member: name      */,
   DEFAULT_TASK_STACK_SIZE /**< member: stackSize */,
-  (u16)0                  /**< member: T         */,
-  (u16)0                  /**< member: C         */,
-  (u16)0                  /**< member: D         */
+  (Lz_TaskPriority)64     /**< member: priority  */
 };
 
 /**
@@ -34,12 +34,13 @@ static Lz_SchedulerClass schedulerClass;
  * Jump table used to jump to the right scheduler, by way of the SchedulerClass
  * value.
  *
- * This table MUST be order by value of enum Lz_SchedulerClass.
+ * This table MUST be ordered by value of enum Lz_SchedulerClass.
  *
  * Here we statically register operations for all register classes.
  */
 static const SchedulerOperations *JumpToScheduler[] = {
-  &RRSchedulerOperations /**< index: LZ_SCHED_RR */
+  &RRSchedulerOperations,  /**< index: LZ_SCHED_RR  */
+  &HPFSchedulerOperations, /**< index: LZ_SCHED_HPF */
 };
 
 STATIC_ASSERT
@@ -64,6 +65,17 @@ void
 BaseSchedulerWaitEvent(void * const sp, const u8 eventCode)
 {
   JumpToScheduler[schedulerClass]->waitEvent(sp, eventCode);
+}
+
+void
+BaseSchedulerPrepareTaskContext(Task * const task)
+{
+  TaskContextLayout * const contextLayout
+    = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
+                            - sizeof(TaskContextLayout) + 1);
+
+  contextLayout->pc = (FuncVoidVoid)swap16((u16)task->entryPoint);
+  task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 
 /** @name User API */

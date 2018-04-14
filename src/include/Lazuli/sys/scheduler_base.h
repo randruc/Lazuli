@@ -80,6 +80,7 @@ extern const Lz_TaskConfiguration DefaultTaskConfiguration;
 
 /**
  * Initialize the scheduler prior to running it.
+ * This function is called by kernel initialization.
  */
 void
 BaseSchedulerInit();
@@ -109,6 +110,15 @@ BaseSchedulerHandleInterrupt(void * const sp, const u8 interruptCode);
  */
 void
 BaseSchedulerWaitEvent(void * const sp, const u8 eventCode);
+
+/**
+ * Prepare the first context of the task so it will be ready when switching
+ * context for the first time (i.e. run the scheduler).
+ *
+ * @param task A pointer to the Task to prepare.
+ */
+void
+BaseSchedulerPrepareTaskContext(Task * const task);
 
 _EXTERN_C_DECL_END
 

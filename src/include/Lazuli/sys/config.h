@@ -41,4 +41,13 @@
  */
 #define DEFAULT_TASK_STACK_SIZE (20)
 
+/**
+ * When 1, always check for NULL function parameters in linked lists
+ * implementation.
+ *
+ * When 0, never check for NULL parameters.
+ * This is a way to obtain better performances, but it's also less safe.
+ */
+#define CHECK_NULL_PARAMETERS_IN_LISTS (1)
+
 #endif /* LZ_SYS_CONFIG_H */

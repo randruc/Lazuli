@@ -19,11 +19,12 @@ typedef struct {
   /** The name of the task */
   const char *name;
 
+  /*
+   * TODO: See if we can eliminate this member.
+   * After all, the PC is set on the task's stack when registering it...
+   */
   /** Entry point of execution of the task */
   void (*entryPoint)();
-
-  /** The state queue (for scheduling) on which the task is stored */
-  LinkedListElement stateQueue;
 
   /** The saved stack pointer of the task */
   void *stackPointer;

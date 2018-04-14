@@ -1,10 +1,10 @@
 /**
  * @file src/kern/scheduler_rr.c
- * @brief Round-Robin tasks scheduler implementation.
+ * @brief Round-Robin scheduler implementation.
  * @date Feb 2017
  * @author Remi Andruccioli
  *
- * This file describes the implementation of the Round-Robin task scheduler.
+ * This file describes the implementation of the Round-Robin tasks scheduler.
  */
 
 #include <Lazuli/common.h>
@@ -14,7 +14,6 @@
 #include <Lazuli/sys/scheduler_rr.h>
 #include <Lazuli/sys/task.h>
 #include <Lazuli/sys/kernel.h>
-#include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
@@ -37,28 +36,11 @@ Schedule()
 {
   LinkedListElement *firstElement = List_PickFirst(&readyQueue);
   if (NULL != firstElement) {
-    currentTask = CONTAINER_OF(firstElement, stateQueue, Task);
+    currentTask = (Task *)CONTAINER_OF(firstElement, stateQueue, RrTask);
     restore_context_from_stack_and_reti(currentTask->stackPointer);
   } else {
     /* Nothing to do! Idle. */
   }
-}
-
-/**
- * Prepare the first context of the task so it will be ready when switching
- * context for the first time (i.e. run the scheduler).
- *
- * @param task A pointer to the Task to prepare.
- */
-static void
-PrepareTaskContext(Task * const task)
-{
-  TaskContextLayout * const contextLayout
-    = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
-                            - sizeof(TaskContextLayout) + 1);
-
-  contextLayout->pc = (FuncVoidVoid)swap16((u16)task->entryPoint);
-  task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 
 /** @name Interrupt handling */
@@ -70,7 +52,7 @@ PrepareTaskContext(Task * const task)
 static void
 Timer0CompareMatchAHandler()
 {
-  List_Append(&readyQueue, &(currentTask->stateQueue));
+  List_Append(&readyQueue, &(((RrTask *)currentTask)->stateQueue));
   Schedule();
 }
 
@@ -142,7 +124,7 @@ static void
 RegisterTask(void (* const taskEntryPoint)(),
              Lz_TaskConfiguration * const taskConfiguration)
 {
-  Task *newTask;
+  RrTask *newTask;
   void *taskStack;
   size_t desiredStackSize;
   const Lz_TaskConfiguration *configuration;
@@ -153,7 +135,7 @@ RegisterTask(void (* const taskEntryPoint)(),
     configuration = &DefaultTaskConfiguration;
   }
 
-  newTask = KIncrementalMalloc(sizeof(Task));
+  newTask = KIncrementalMalloc(sizeof(RrTask));
   if (NULL == newTask) {
     Panic();
   }
@@ -169,12 +151,12 @@ RegisterTask(void (* const taskEntryPoint)(),
     Panic();
   }
 
-  newTask->name = configuration->name;
-  newTask->entryPoint = taskEntryPoint;
+  newTask->base.name = configuration->name;
+  newTask->base.entryPoint = taskEntryPoint;
+  newTask->base.stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
   newTask->stateQueue.next = NULL;
-  newTask->stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
 
-  PrepareTaskContext(newTask);
+  BaseSchedulerPrepareTaskContext((Task *)newTask);
 
   List_Append(&readyQueue, &(newTask->stateQueue));
 }
@@ -188,7 +170,7 @@ Run()
     Panic();
   }
 
-  currentTask = CONTAINER_OF(first, stateQueue, Task);
+  currentTask = (Task *)CONTAINER_OF(first, stateQueue, RrTask);
 
   start_running(currentTask->stackPointer, OFFSET_OF(pc, TaskContextLayout));
 }
@@ -226,7 +208,7 @@ WaitEvent(void * const sp, const u8 eventCode)
 
   UNUSED(eventCode);
 
-  List_Append(&waitingInt0Queue, &(currentTask->stateQueue));
+  List_Append(&waitingInt0Queue, &(((RrTask *)currentTask)->stateQueue));
   Schedule();
 }
 

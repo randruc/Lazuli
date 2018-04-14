@@ -20,10 +20,21 @@ _EXTERN_C_DECL_BEGIN
  * Represents a scheduling policy to run.
  */
 typedef enum {
-  /**
-   * Round-Robin scheduling
+  /*
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the first one.
    */
-  LZ_SCHED_RR = 0,
+  __LZ_SCHEDULERCLASS_ENUM_BEGIN = -1,
+
+  /**
+   * Round-Robin scheduling.
+   */
+  LZ_SCHED_RR,
+
+  /**
+   * Highest Priority First scheduling.
+   */
+  LZ_SCHED_HPF,
 
   /*
    * Undocumented to user: only here for static verification.
@@ -31,6 +42,11 @@ typedef enum {
    */
   __LZ_SCHEDULERCLASS_ENUM_END
 }Lz_SchedulerClass;
+
+/**
+ * Represents the priority of a task.
+ */
+typedef s8 Lz_TaskPriority;
 
 /**
  * Represents the configuration of a task.
@@ -49,22 +65,10 @@ typedef struct {
   size_t stackSize;
 
   /**
-   * Period.
-   * Used for real-time scheduling.
+   * The priority of the task.
+   * Used for HPF scheduling.
    */
-  u16 T;
-
-  /**
-   * Computational time.
-   * Used for real-time scheduling.
-   */
-  u16 C;
-
-  /**
-   * Deadline.
-   * Used for real-time scheduling.
-   */
-  u16 D;
+  Lz_TaskPriority priority;
 }Lz_TaskConfiguration;
 
 /**
