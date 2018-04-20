@@ -46,7 +46,7 @@ KMain()
   kernelAllocationMap.endMem = &_ramend;
   kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
 
-  BaseSchedulerInit();
+  BaseScheduler_Init();
 
   /* Give hand to user */
   main();

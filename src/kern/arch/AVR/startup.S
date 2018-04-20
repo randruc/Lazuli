@@ -42,7 +42,7 @@ enter_kernel_handle_interrupt:
     ldi r17, hi8(_ramend)
     out spl, r16
     out sph, r17
-    jmp BaseSchedulerHandleInterrupt
+    jmp BaseScheduler_HandleInterrupt
 
     ;; Lz_Wait* routines
     ;;
@@ -70,7 +70,7 @@ enter_kernel_wait_event:
     ldi r17, hi8(_ramend)
     out spl, r16
     out sph, r17
-    jmp BaseSchedulerWaitEvent
+    jmp BaseScheduler_WaitEvent
 
     /**
      * Save current running task execution context on task's stack.

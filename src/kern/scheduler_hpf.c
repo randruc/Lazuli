@@ -108,7 +108,7 @@ RegisterTask(void (* const taskEntryPoint)(),
   newTask->stateQueue.next = NULL;
   newTask->priority = configuration->priority;
 
-  BaseSchedulerPrepareTaskContext((Task *)newTask);
+  BaseScheduler_PrepareTaskContext((Task *)newTask);
 
   List_Push(&readyTasks, &(newTask->stateQueue));
 }

@@ -11,12 +11,12 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/sys/arch/arch.h>
-#include <Lazuli/sys/scheduler_rr.h>
+#include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_hpf.h>
+#include <Lazuli/sys/scheduler_rr.h>
 
 /* TODO: Maybe think about storing default task configuration in progmem */
 const Lz_TaskConfiguration DefaultTaskConfiguration = {
@@ -50,25 +50,25 @@ STATIC_ASSERT
 Task *currentTask;
 
 void
-BaseSchedulerInit()
+BaseScheduler_Init()
 {
   JumpToScheduler[schedulerClass]->init();
 }
 
 void
-BaseSchedulerHandleInterrupt(void * const sp, const u8 interruptCode)
+BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode)
 {
   JumpToScheduler[schedulerClass]->handleInterrupt(sp, interruptCode);
 }
 
 void
-BaseSchedulerWaitEvent(void * const sp, const u8 eventCode)
+BaseScheduler_WaitEvent(void * const sp, const u8 eventCode)
 {
   JumpToScheduler[schedulerClass]->waitEvent(sp, eventCode);
 }
 
 void
-BaseSchedulerPrepareTaskContext(Task * const task)
+BaseScheduler_PrepareTaskContext(Task * const task)
 {
   TaskContextLayout * const contextLayout
     = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
