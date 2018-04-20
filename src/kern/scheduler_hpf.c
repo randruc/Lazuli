@@ -11,10 +11,10 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
-#include <Lazuli/sys/scheduler_hpf.h>
-#include <Lazuli/sys/scheduler_base.h>
-#include <Lazuli/sys/list.h>
 #include <Lazuli/sys/kernel.h>
+#include <Lazuli/sys/list.h>
+#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler_hpf.h>
 
 /**
  * The list of tasks ready to run, treated as a stack.
@@ -27,40 +27,23 @@ static LinkedList readyTasks = LINKED_LIST_INIT;
 /* static */ void
 InsertByPriority(HpfTask * const taskToInsert)
 {
-  LinkedListElement *item;
-  HpfTask *nextTask;
+  HpfTask *task;
 
   if (NULL == taskToInsert) {
     return;
   }
 
-  if (List_IsEmpty(&readyTasks)) {
-    List_Append(&readyTasks, &(taskToInsert->stateQueue));
-
-    return;
-  }
-
-  nextTask = CONTAINER_OF(readyTasks.first, stateQueue, HpfTask);
-  if (taskToInsert->priority > nextTask->priority) {
-    List_Push(&readyTasks, &(taskToInsert->stateQueue));
-
-    return;
-  }
-
-  List_ForEach (item, &readyTasks) {
-    nextTask = CONTAINER_OF(item->next, stateQueue, HpfTask);
-    if (nextTask->priority < taskToInsert->priority) {
-      List_InsertAfter(&readyTasks, item, &(taskToInsert->stateQueue));
-
-      return;
-    }
-
-    if (List_IsLastElement(&readyTasks, item->next)) {
-      List_InsertAfter(&readyTasks, item, &(taskToInsert->stateQueue));
+  List_ForEach (&readyTasks, HpfTask, task, stateQueue) {
+    if (task->priority < taskToInsert->priority) {
+      List_InsertBefore(&readyTasks,
+                        &(task->stateQueue),
+                        &(taskToInsert->stateQueue));
 
       return;
     }
   }
+
+  List_Append(&readyTasks, &(taskToInsert->stateQueue));
 }
 
 /** @name scheduler_base implementation */
@@ -105,8 +88,8 @@ RegisterTask(void (* const taskEntryPoint)(),
   newTask->base.name = configuration->name;
   newTask->base.entryPoint = taskEntryPoint;
   newTask->base.stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
-  newTask->stateQueue.next = NULL;
   newTask->priority = configuration->priority;
+  List_InitLinkedListElement(&(newTask->stateQueue));
 
   BaseScheduler_PrepareTaskContext((Task *)newTask);
 
