@@ -104,9 +104,9 @@ then
         $project_name.hex
 
     # TODO: This doesn't seem to display correct sizes (rodata...)
-    size -Adt Lazuli.elf | ./sizeof_sections.awk
+    size -Adt Lazuli.elf | ./sizeof_sections.awk > /dev/tty
     echo
-    avr-objdump -j .data -D sizeof_types.o | ./sizeof_types.awk
+    avr-objdump -j .data -D sizeof_types.o | ./sizeof_types.awk > /dev/tty
 
     if [ $debug = true ]
     then
