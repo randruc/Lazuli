@@ -30,9 +30,6 @@
 SIZEOF_TYPE(TaskContextLayout,
             "RAM needed to save the context of a task.");
 
-SIZEOF_TYPE(Task,
-            "Basic size of a task.");
-
 SIZEOF_TYPE(RrTask,
             "RAM needed for an RR task.");
 
