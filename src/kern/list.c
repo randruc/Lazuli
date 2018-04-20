@@ -6,8 +6,9 @@
 
 #include <Lazuli/common.h>
 
-#include <Lazuli/sys/list.h>
 #include <Lazuli/sys/config.h>
+#include <Lazuli/sys/list.h>
+#include <Lazuli/sys/memory.h>
 
 void
 List_Append(LinkedList * const linkedList, LinkedListElement * const item)
@@ -21,12 +22,14 @@ List_Append(LinkedList * const linkedList, LinkedListElement * const item)
   item->next = NULL;
 
   if (NULL == linkedList->first) {
+    item->prev = NULL;
     linkedList->first = item;
     linkedList->last = item;
 
     return;
   }
 
+  item->prev = linkedList->last;
   linkedList->last->next = item;
   linkedList->last = item;
 }
@@ -40,6 +43,8 @@ List_Prepend(LinkedList * const linkedList, LinkedListElement * const item)
     }
   }
 
+  item->prev = NULL;
+
   if (NULL == linkedList->first) {
     item->next = NULL;
     linkedList->first = item;
@@ -49,6 +54,7 @@ List_Prepend(LinkedList * const linkedList, LinkedListElement * const item)
   }
 
   item->next = linkedList->first;
+  linkedList->first->prev = item;
   linkedList->first = item;
 }
 
@@ -70,6 +76,7 @@ List_AppendList(LinkedList * const linkedListDestination,
     linkedListDestination->first = linkedListToMove->first;
   } else {
     linkedListDestination->last->next = linkedListToMove->first;
+    linkedListToMove->first->prev = linkedListDestination->last;
   }
 
   linkedListDestination->last = linkedListToMove->last;
@@ -99,9 +106,12 @@ List_PickFirst(LinkedList * const linkedList)
 
   if (NULL == linkedList->first) {
     linkedList->last = NULL;
+  } else {
+    linkedList->first->prev = NULL;
   }
 
   item->next = NULL;
+  item->prev = NULL;
 
   return item;
 }
@@ -134,7 +144,28 @@ List_InsertAfter(LinkedList * const linkedList,
   }
 
   itemToInsert->next = listItem->next;
+  itemToInsert->prev = listItem;
   listItem->next = itemToInsert;
+}
+
+void
+List_InsertBefore(LinkedList * const linkedList,
+                  LinkedListElement * const listItem,
+                  LinkedListElement * const itemToInsert)
+{
+  if (CHECK_NULL_PARAMETERS_IN_LISTS) {
+    if (NULL == linkedList || NULL == listItem || NULL == itemToInsert) {
+      return;
+    }
+  }
+
+  if (linkedList->first == listItem) {
+    linkedList->first = itemToInsert;
+  }
+
+  itemToInsert->next = listItem;
+  itemToInsert->prev = listItem->prev;
+  listItem->prev = itemToInsert;
 }
 
 bool
@@ -148,4 +179,32 @@ List_IsLastElement(LinkedList * const linkedList,
   }
 
   return linkedList->last == item;
+}
+
+void
+List_InitLinkedList(LinkedList * const linkedList)
+{
+  const LinkedList linkedListInit = LINKED_LIST_INIT;
+
+  if (CHECK_NULL_PARAMETERS_IN_LISTS) {
+    if (NULL == linkedList) {
+      return;
+    }
+  }
+
+  MemoryCopy(&linkedListInit, linkedList, sizeof(linkedListInit));
+}
+
+void
+List_InitLinkedListElement(LinkedListElement * const item)
+{
+  const LinkedListElement linkedListElementInit = LINKED_LIST_ELEMENT_INIT;
+
+  if (CHECK_NULL_PARAMETERS_IN_LISTS) {
+    if (NULL == item) {
+      return;
+    }
+  }
+
+  MemoryCopy(&linkedListElementInit, item, sizeof(linkedListElementInit));
 }

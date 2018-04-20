@@ -154,7 +154,7 @@ RegisterTask(void (* const taskEntryPoint)(),
   newTask->base.name = configuration->name;
   newTask->base.entryPoint = taskEntryPoint;
   newTask->base.stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
-  newTask->stateQueue.next = NULL;
+  List_InitLinkedListElement(&(newTask->stateQueue));
 
   BaseScheduler_PrepareTaskContext((Task *)newTask);
 
