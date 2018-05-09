@@ -66,17 +66,6 @@ void
 List_Prepend(LinkedList * const linkedList, LinkedListElement * const item);
 
 /**
- * When treating a LinkedList as a stack, push an element on top of the stack.
- * This function can be used in conjunction with List_Pop() when treating a
- * LinkedList as a stack.
- * This is nothing more than a macro alias of the List_Prepend() function.
- *
- * @param linkedList A pointer to the linked list head.
- * @param item A pointer to the item to append to the list.
- */
-#define List_Push(linkedList, item) List_Prepend(linkedList, item)
-
-/**
  * Move the content of a LinkedList to the end of an existing LinkedList.
  *
  * @param linkedListDestination A pointer to the LinkedList on which to append.
@@ -97,21 +86,6 @@ List_AppendList(LinkedList * const linkedListDestination,
  */
 LinkedListElement *
 List_PickFirst(LinkedList * const linkedList);
-
-/**
- * When treating a LinkedList as a stack, pop the element on top af the stack,
- * and return a pointer to it.
- * This function can be used in conjunction with List_Push() when treating a
- * LinkedList as a stack.
- * This is nothing more than a macro alias of the List_PickFirst() function.
- *
- * @param linkedList A pointer to the linked list head.
- *
- * @return A pointer to the pop'd element, or NULL if:
- *         - The linkedList is empty
- *         - The parameter linkedList is NULL
- */
-#define List_Pop(linkedList) List_PickFirst(linkedList)
 
 /**
  * Test if a LinkedList is empty.

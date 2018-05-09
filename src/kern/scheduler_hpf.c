@@ -11,6 +11,7 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
+#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>
 #include <Lazuli/sys/scheduler_base.h>
@@ -23,9 +24,21 @@
  */
 static LinkedList readyTasks = LINKED_LIST_INIT;
 
-/* TODO: Comment that */
-/* static */ void
-InsertByPriority(HpfTask * const taskToInsert)
+/**
+ * The task waiting for interrupt INT0.
+ */
+static HpfTask *waitingInt0Task = NULL;
+
+/**
+ * Insert a ready-to-run task in the list of ready tasks, keeping priorities
+ * ordered.
+ * This function is called if a task with a lower priority than the current
+ * running task is ready to run (e.g. after waking-up by an interrupt).
+ *
+ * @param taskToInsert The task to insert in the list of ready-to-run tasks.
+ */
+static void
+InsertTaskByPriority(HpfTask * const taskToInsert)
 {
   HpfTask *task;
 
@@ -93,25 +106,64 @@ RegisterTask(void (* const taskEntryPoint)(),
 
   BaseScheduler_PrepareTaskContext((Task *)newTask);
 
-  List_Push(&readyTasks, &(newTask->stateQueue));
+  InsertTaskByPriority(newTask);
 }
 
 static void
 Run()
 {
+  LinkedListElement *first = List_PickFirst(&readyTasks);
+
+  if (NULL == first) {
+    Panic();
+  }
+
+  currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);
+
+  start_running(currentTask->stackPointer, OFFSET_OF(pc, TaskContextLayout));
 }
 
 static void
 HandleInterrupt(void * const sp, const u8 interruptCode)
 {
-  UNUSED(sp);
+  if (NULL == waitingInt0Task) {
+    restore_context_from_stack_and_reti(sp);
+  }
+
+  if (waitingInt0Task->priority <= ((HpfTask*)currentTask)->priority) {
+    InsertTaskByPriority(waitingInt0Task);
+    restore_context_from_stack_and_reti(sp);
+  }
+
+  currentTask->stackPointer = sp;
+
+  List_Prepend(&readyTasks, &(((HpfTask*)currentTask)->stateQueue));
+
+  currentTask = (Task*)waitingInt0Task;
+
+  restore_context_from_stack_and_reti(currentTask->stackPointer);
+
   UNUSED(interruptCode);
 }
 
 static void
 WaitEvent(void * const sp, const u8 eventCode)
 {
-  UNUSED(sp);
+  LinkedListElement *first;
+
+  currentTask->stackPointer = sp;
+
+  waitingInt0Task = (HpfTask*)currentTask;
+
+  first = List_PickFirst(&readyTasks);
+  if (NULL == first) {
+    Panic();
+  }
+
+  currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);
+
+  restore_context_from_stack_and_reti(currentTask->stackPointer);
+
   UNUSED(eventCode);
 }
 
