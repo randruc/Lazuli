@@ -196,8 +196,6 @@ WaitEvent(void * const sp, const u8 eventCode)
   currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);
 
   restore_context_from_stack_and_reti(currentTask->stackPointer);
-
-  UNUSED(eventCode);
 }
 
 /**
