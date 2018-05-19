@@ -11,20 +11,119 @@
 .equ sph,  0x3e                ; Stack pointer high byte
 .equ sreg, 0x3f                ; State register
 
+/**
+ * Declare the generic code for an interrupt handler.
+ *
+ * @param @0 The interrupt code defined in interrupts.h.
+ */
+.macro INTERRUPT_HANDLER code
+    call save_context_on_stack
+    ldi r22, \code
+    jmp enter_kernel_handle_interrupt
+.endm
+
     ;;
     ;; Interrupts handlers
     ;;
     .global int0_handler
 int0_handler:
-    call save_context_on_stack
-    ldi r22, INT_INT0
-    jmp enter_kernel_handle_interrupt
+    INTERRUPT_HANDLER INT_INT0
 
-    .global timer0_compare_match_A_handler
-timer0_compare_match_A_handler:
-    call save_context_on_stack
-    ldi r22, INT_TIMER0COMPA
-    jmp enter_kernel_handle_interrupt
+    .global int1_handler
+int1_handler:
+    INTERRUPT_HANDLER INT_INT1
+
+    .global pcint0_handler
+pcint0_handler:
+    INTERRUPT_HANDLER INT_PCINT0
+
+    .global pcint1_handler
+pcint1_handler:
+    INTERRUPT_HANDLER INT_PCINT1
+
+    .global pcint2_handler
+pcint2_handler:
+    INTERRUPT_HANDLER INT_PCINT2
+
+    .global wdt_handler
+wdt_handler:
+    INTERRUPT_HANDLER INT_WDT
+
+    .global timer2compA_handler
+timer2compA_handler:
+    INTERRUPT_HANDLER INT_TIMER2COMPA
+
+    .global timer2compB_handler
+timer2compB_handler:
+    INTERRUPT_HANDLER INT_TIMER2COMPB
+
+    .global timer2ovf_handler
+timer2ovf_handler:
+    INTERRUPT_HANDLER INT_TIMER2OVF
+
+    .global timer1capt_handler
+timer1capt_handler:
+    INTERRUPT_HANDLER INT_TIMER1CAPT
+
+    .global timer1compA_handler
+timer1compA_handler:
+    INTERRUPT_HANDLER INT_TIMER1COMPA
+
+    .global timer1compB_handler
+timer1compB_handler:
+    INTERRUPT_HANDLER INT_TIMER1COMPB
+
+    .global timer1ovf_handler
+timer1ovf_handler:
+    INTERRUPT_HANDLER INT_TIMER1OVF
+
+    .global timer0compA_handler
+timer0compA_handler:
+    INTERRUPT_HANDLER INT_TIMER0COMPA
+
+    .global timer0compB_handler
+timer0compB_handler:
+    INTERRUPT_HANDLER INT_TIMER0COMPB
+
+    .global timer0ovf_handler
+timer0ovf_handler:
+    INTERRUPT_HANDLER INT_TIMER0OVF
+
+    .global spistc_handler
+spistc_handler:
+    INTERRUPT_HANDLER INT_SPISTC
+
+    .global usartrx_handler
+usartrx_handler:
+    INTERRUPT_HANDLER INT_USARTRX
+
+    .global usartudre_handler
+usartudre_handler:
+    INTERRUPT_HANDLER INT_USARTUDRE
+
+    .global usarttx_handler
+usarttx_handler:
+    INTERRUPT_HANDLER INT_USARTTX
+
+    .global adc_handler
+adc_handler:
+    INTERRUPT_HANDLER INT_ADC
+
+    .global eeready_handler
+eeready_handler:
+    INTERRUPT_HANDLER INT_EEREADY
+
+    .global analogcomp_handler
+analogcomp_handler:
+    INTERRUPT_HANDLER INT_ANALOGCOMP
+
+    .global twi_handler
+twi_handler:
+    INTERRUPT_HANDLER INT_TWI
+
+    .global spmready_handler
+spmready_handler:
+    INTERRUPT_HANDLER INT_SPMREADY
 
 /**
  * Switch to kernel stack and give hand to the scheduler to handle the
@@ -44,24 +143,27 @@ enter_kernel_handle_interrupt:
     out sph, r17
     jmp BaseScheduler_HandleInterrupt
 
-    ;; Lz_Wait* routines
-    ;;
-    ;; These are the routines called by user tasks to wait for an event.
-    .global Lz_WaitInt0
-Lz_WaitInt0:
+/**
+ * Wait for a specific interrupt to occur.
+ *
+ * Technically:
+ * - Disable interrupts
+ * - Save the context of the current task
+ * - Reset the stack to switch to kernel stack
+ * - Give hand to the base scheduler by passing it the stack pointer of the
+ *   current task and the interrupt code
+ *
+ * @param r24 A value of Lz_InterruptCode representing the interrupt
+ *            to wait for.
+ *
+ * WARNING!!! This routine only works as long as r24 is left untouched until the
+ *            line "mov r22, r24".
+ */
+    .global Lz_WaitInterrupt
+Lz_WaitInterrupt:
     cli
     call save_context_on_stack
-    ldi r22, INT_INT0
-    jmp enter_kernel_wait_event
-
-/**
- * Switch to kernel stack and give hand to the scheduler to handle the
- * waiting.
- *
- * Before calling this subroutine, you first need to fill r22 with the
- * event code.
- */
-enter_kernel_wait_event:
+    mov r22, r24
     ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph

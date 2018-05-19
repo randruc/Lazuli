@@ -10,23 +10,44 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
-#include <Lazuli/sys/scheduler_base.h>
-#include <Lazuli/sys/scheduler_rr.h>
-#include <Lazuli/sys/task.h>
-#include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/kernel.h>
+#include <Lazuli/sys/list.h>
+#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler_rr.h>
+#include <Lazuli/sys/task.h>
 
 /**
  * The queue of ready tasks.
  */
-static LinkedList readyQueue = LINKED_LIST_INIT;
+static LinkedList readyTasks = LINKED_LIST_INIT;
 
 /**
- * The queue of tasks waiting for interrupt INT0.
+ * The table of waiting queues for interrupts.
+ *
+ * This table contains one entry per interrupt type.
+ * In each entry is the queue of tasks waiting for that particular interrupt.
+ * This table is indexed by the codes defined in interrupts.h.
  */
-static LinkedList waitingInt0Queue = LINKED_LIST_INIT;
+static LinkedList waitingInterruptTasks[INT_TOTAL];
+
+/**
+ * Initialize each entry of the waitingInterruptTasks table.
+ */
+static void
+InitWaitingInterruptTasksTable()
+{
+  u8 i;
+  const LinkedList initValue = LINKED_LIST_INIT;
+
+  for (i = 0; i < INT_TOTAL; i++) {
+    MemoryCopy(&initValue,
+               &waitingInterruptTasks[i],
+               sizeof(initValue));
+  }
+}
 
 /**
  * Perform a scheduling.
@@ -34,7 +55,7 @@ static LinkedList waitingInt0Queue = LINKED_LIST_INIT;
 static void
 Schedule()
 {
-  LinkedListElement *firstElement = List_PickFirst(&readyQueue);
+  LinkedListElement *firstElement = List_PickFirst(&readyTasks);
   if (NULL != firstElement) {
     currentTask = (Task *)CONTAINER_OF(firstElement, stateQueue, RrTask);
     restore_context_from_stack_and_reti(currentTask->stackPointer);
@@ -43,66 +64,15 @@ Schedule()
   }
 }
 
-/** @name Interrupt handling */
-/** @{                       */
-
 /**
  * Handle "compare match A" interrupts from timer 0.
  */
 static void
 Timer0CompareMatchAHandler()
 {
-  List_Append(&readyQueue, &(((RrTask *)currentTask)->stateQueue));
+  List_Append(&readyTasks, &(((RrTask *)currentTask)->stateQueue));
   Schedule();
 }
-
-/**
- * Handle "External Interrupt Request 0".
- */
-static void
-Int0Handler()
-{
-  List_AppendList(&readyQueue, &waitingInt0Queue);
-  restore_context_from_stack_and_reti(currentTask->stackPointer);
-}
-
-/**
- * Jump table to interrupt handlers.
- *
- * This jump table MUST be ordered by interrupt code values.
- */
-static void (* const JumpToInterruptHandler[])() = {
-  Panic,                      /**< index: INT_RESET       */
-  Int0Handler,                /**< index: INT_INT0        */
-  Panic,                      /**< index: INT_INT1        */
-  Panic,                      /**< index: INT_PCINT0      */
-  Panic,                      /**< index: INT_PCINT1      */
-  Panic,                      /**< index: INT_PCINT2      */
-  Panic,                      /**< index: INT_WDT         */
-  Panic,                      /**< index: INT_TIMER2COMPA */
-  Panic,                      /**< index: INT_TIMER2COMPB */
-  Panic,                      /**< index: INT_TIMER2OVF   */
-  Panic,                      /**< index: INT_TIMER1CAPT  */
-  Panic,                      /**< index: INT_TIMER1COMPA */
-  Panic,                      /**< index: INT_TIMER1COMPB */
-  Panic,                      /**< index: INT_TIMER1OVF   */
-  Timer0CompareMatchAHandler, /**< index: INT_TIMER0COMPA */
-  Panic,                      /**< index: INT_TIMER0COMPB */
-  Panic,                      /**< index: INT_SPISTC      */
-  Panic,                      /**< index: INT_USARTRX     */
-  Panic,                      /**< index: INT_USARTUDRE   */
-  Panic,                      /**< index: INT_USARTTX     */
-  Panic,                      /**< index: INT_ADC         */
-  Panic,                      /**< index: INT_EEREADY     */
-  Panic,                      /**< index: INT_ANALOGCOMP  */
-  Panic,                      /**< index: INT_TWI         */
-  Panic                       /**< index: INT_SPMREADY    */
-};
-
-STATIC_ASSERT(ELEMENTS_COUNT(JumpToInterruptHandler) == (INT_SPMREADY + 1),
-              The_handlers_jump_table_MUST_reference_all_possible_interrupts);
-
-/** @} */
 
 /** @name scheduler_base implementation */
 /** @{                                  */
@@ -118,6 +88,8 @@ Init()
   timer0->tcnt0 = (u8)0;
 
   TimerCounter0InterruptsEnable(TIMSK0_OCIE0A);
+
+  InitWaitingInterruptTasksTable();
 }
 
 static void
@@ -158,13 +130,13 @@ RegisterTask(void (* const taskEntryPoint)(),
 
   BaseScheduler_PrepareTaskContext((Task *)newTask);
 
-  List_Append(&readyQueue, &(newTask->stateQueue));
+  List_Append(&readyTasks, &(newTask->stateQueue));
 }
 
 static void
 Run()
 {
-  LinkedListElement *first = List_PickFirst(&readyQueue);
+  LinkedListElement *first = List_PickFirst(&readyTasks);
 
   if (NULL == first) {
     Panic();
@@ -187,10 +159,11 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
 {
   currentTask->stackPointer = sp;
 
-  if (interruptCode < ELEMENTS_COUNT(JumpToInterruptHandler)) {
-    JumpToInterruptHandler[interruptCode]();
+  if (INT_TIMER0COMPA == interruptCode) {
+    Timer0CompareMatchAHandler();
   } else {
-    Panic();
+    List_AppendList(&readyTasks, &waitingInterruptTasks[interruptCode]);
+    restore_context_from_stack_and_reti(currentTask->stackPointer);
   }
 }
 
@@ -203,12 +176,11 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
 static void
 WaitEvent(void * const sp, const u8 eventCode)
 {
-  /* TODO: Manage all possible wait operations... */
   currentTask->stackPointer = sp;
 
-  UNUSED(eventCode);
+  List_Append(&waitingInterruptTasks[eventCode],
+              &(((RrTask *)currentTask)->stateQueue));
 
-  List_Append(&waitingInt0Queue, &(((RrTask *)currentTask)->stateQueue));
   Schedule();
 }
 

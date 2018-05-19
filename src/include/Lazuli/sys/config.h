@@ -50,4 +50,20 @@
  */
 #define CHECK_NULL_PARAMETERS_IN_LISTS (1)
 
+/**
+ * Use Round-Robin scheduler.
+ */
+#define USE_SCHEDULER_RR (1)
+
+/**
+ * Use Highest Priority First scheduler.
+ */
+#define USE_SCHEDULER_HPF (1)
+
+/**
+ * Check if the interrupt code sent by the ASM interrupt handler to the base
+ * scheduler interrupt handler is an admissible value.
+ */
+#define CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
+
 #endif /* LZ_SYS_CONFIG_H */

@@ -9,6 +9,7 @@
 
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
+#include <Lazuli/sys/arch/AVR/interrupts.h>
 
 void
 Task1()
@@ -50,7 +51,7 @@ Task4()
   char const *c;
 
   while (true) {
-    Lz_WaitInt0();
+    Lz_WaitInterrupt(INT_INT0);
 
     c = Lz_GetTaskName();
 
@@ -67,7 +68,7 @@ Task5()
   char const *c;
 
   while (true) {
-    Lz_WaitInt0();
+    Lz_WaitInterrupt(INT_INT0);
 
     c = Lz_GetTaskName();
 

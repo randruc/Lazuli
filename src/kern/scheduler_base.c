@@ -12,7 +12,9 @@
 #include <Lazuli/lazuli.h>
 
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/config.h>
+#include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_hpf.h>
@@ -39,8 +41,15 @@ static Lz_SchedulerClass schedulerClass;
  * Here we statically register operations for all register classes.
  */
 static const SchedulerOperations *JumpToScheduler[] = {
+
+#if USE_SCHEDULER_RR
   &RRSchedulerOperations,  /**< index: LZ_SCHED_RR  */
+#endif /* USE_SCHEDULER_RR */
+
+#if USE_SCHEDULER_HPF
   &HPFSchedulerOperations, /**< index: LZ_SCHED_HPF */
+#endif /* USE_SCHEDULER_HPF */
+
 };
 
 STATIC_ASSERT
@@ -58,9 +67,16 @@ BaseScheduler_Init()
 void
 BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode)
 {
+  if (CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
+    if (interruptCode > INT_LAST_ENTRY) {
+      Panic();
+    }
+  }
+
   JumpToScheduler[schedulerClass]->handleInterrupt(sp, interruptCode);
 }
 
+/* TODO: Maybe think about rename this one to WaitInterrupt */
 void
 BaseScheduler_WaitEvent(void * const sp, const u8 eventCode)
 {

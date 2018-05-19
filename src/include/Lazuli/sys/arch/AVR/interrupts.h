@@ -1,15 +1,11 @@
 /**
  * @file src/include/Lazuli/sys/arch/AVR/interrupts.h
- * @brief Interrupt codes.
+ * @brief Interrupt codes of ATmega328P.
  * @date Mar 2018
  * @author Remi Andruccioli
- * @warning Used in both C and ASM code.
+ * @warning Can be used in both C and ASM code.
  *
- * This file describes the codes associated to each interrupt of the AVR
- * platform.
- * They are mainly used to perform a jump in a function pointer table in the
- * scheduler.
- * Hence, the first entry MUST be 0, and the following incremented by 1.
+ * This file describes the codes associated to each interrupt of the ATmega328P.
  * We can't use a C enum here because these interrupt codes need to be
  * manipulated in ASM code.
  */
@@ -98,48 +94,63 @@
 #define INT_TIMER0COMPB (15)
 
 /**
+ * Code for interrupt: Timer/counter0 overflow.
+ */
+#define INT_TIMER0OVF (16)
+
+/**
  * Code for interrupt: SPI serial transfer complete.
  */
-#define INT_SPISTC (16)
+#define INT_SPISTC (17)
 
 /**
  * Code for interrupt: USART Rx complete.
  */
-#define INT_USARTRX (17)
+#define INT_USARTRX (18)
 
 /**
  * Code for interrupt: USART data register empty.
  */
-#define INT_USARTUDRE (18)
+#define INT_USARTUDRE (19)
 
 /**
  * Code for interrupt: USART Tx complete.
  */
-#define INT_USARTTX (19)
+#define INT_USARTTX (20)
 
 /**
  * Code for interrupt: ADC conversion complete.
  */
-#define INT_ADC (20)
+#define INT_ADC (21)
 
 /**
  * Code for interrupt: EEPROM ready.
  */
-#define INT_EEREADY (21)
+#define INT_EEREADY (22)
 
 /**
  * Code for interrupt: Analog comparator.
  */
-#define INT_ANALOGCOMP (22)
+#define INT_ANALOGCOMP (23)
 
 /**
  * Code for interrupt: 2-wire serial interface.
  */
-#define INT_TWI (23)
+#define INT_TWI (24)
 
 /**
  * Code for interrupt: Store program memory ready.
  */
-#define INT_SPMREADY (24)
+#define INT_SPMREADY (25)
+
+/**
+ * Alias for the last code used.
+ */
+#define INT_LAST_ENTRY INT_SPMREADY
+
+/**
+ * Total interrupt codes used.
+ */
+#define INT_TOTAL (INT_LAST_ENTRY + 1)
 
 #endif /* LZ_SYS_ARCH_AVR_INTERRUPTS_H */

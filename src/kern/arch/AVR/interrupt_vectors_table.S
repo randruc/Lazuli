@@ -33,36 +33,96 @@ interrupt_vectors_table:
 
     ;; INT1 - External interrupt request 1
     AT(0x0004)
-    reti
+    jmp int1_handler
 
-    reti                         ; PCINT0       Pin change interrupt request 0
-    reti                         ; PCINT1       Pin change interrupt request 1
-    reti                         ; PCINT2       Pin change interrupt request 2
-    reti                         ; WDT          Watchdog time-out interrupt
-    reti                         ; TIMER2COMPA  Timer/counter2 compare match A
-    reti                         ; TIMER2COMPB  Timer/counter2 compare match B
-    reti                         ; TIMER2OVF    Timer/counter2 overflow
-    reti                         ; TIMER1CAPT   Timer/counter1 capture event
-    reti                         ; TIMER1COMPA  Timer/counter1 compare match A
-    reti                         ; TIMER1COMPB  Timer/counter1 compare match B
-    reti                         ; TIMER1OVF    Timer/counter1 overflow
+    ;; PCINT0 - Pin change interrupt request 0
+    AT(0x0006)
+    jmp pcint0_handler
+
+    ;; PCINT1 - Pin change interrupt request 1
+    AT(0x0008)
+    jmp pcint1_handler
+
+    ;; PCINT2 - Pin change interrupt request 2
+    AT(0x000A)
+    jmp pcint2_handler
+
+    ;; WDT - Watchdog time-out interrupt
+    AT(0x000C)
+    jmp wdt_handler
+
+    ;; TIMER2COMPA - Timer/counter2 compare match A
+    AT(0x000E)
+    jmp timer2compA_handler
+
+    ;; TIMER2COMPB - Timer/counter2 compare match B
+    AT(0x0010)
+    jmp timer2compB_handler
+
+    ;; TIMER2OVF - Timer/counter2 overflow
+    AT(0x0012)
+    jmp timer2ovf_handler
+
+    ;; TIMER1CAPT - Timer/counter1 capture event
+    AT(0x0014)
+    jmp timer1capt_handler
+
+    ;; TIMER1COMPA - Timer/counter1 compare match A
+    AT(0x0016)
+    jmp timer1compA_handler
+
+    ;; TIMER1COMPB - Timer/counter1 compare match B
+    AT(0x0018)
+    jmp timer1compB_handler
+
+    ;; TIMER1OVF - Timer/counter1 overflow
+    AT(0x001A)
+    jmp timer1ovf_handler
 
     ;; TIMER0COMPA - Timer/counter0 compare match A
-    AT(0x001c)
-    jmp timer0_compare_match_A_handler
+    AT(0x001C)
+    jmp timer0compA_handler
 
-    reti                         ; TIMER0COMPB  Timer/counter0 compare match B
+    ;; TIMER0COMPB - Timer/counter0 compare match B
+    AT(0x001E)
+    jmp timer0compB_handler
 
     ;; TIMER0OVF - Timer/counter0 overflow
     AT(0x0020)
-    reti
+    jmp timer0ovf_handler
 
-    reti                         ; SPISTC       SPI serial transfer complete
-    reti                         ; USARTRX      USART Rx complete
-    reti                         ; USARTUDRE    USART data register empty
-    reti                         ; USARTTX      USART Tx complete
-    reti                         ; ADC          ADC conversion complete
-    reti                         ; EEREADY      EEPROM ready
-    reti                         ; ANALOGCOMP   Analog comparator
-    reti                         ; TWI          2-wire serial interface
-    reti                         ; SPMREADY     Store program memory ready
+    ;; SPISTC - SPI serial transfer complete
+    AT(0x0022)
+    jmp spistc_handler
+
+    ;; USARTRX - USART Rx complete
+    AT(0x024)
+    jmp usartrx_handler
+
+    ;; USARTUDRE - USART data register empty
+    AT(0x0026)
+    jmp usartudre_handler
+
+    ;; USARTTX - USART Tx complete
+    AT(0x0028)
+    jmp usarttx_handler
+
+    ;; ADC - ADC conversion complete
+    AT(0x002A)
+    jmp adc_handler
+
+    ;; EEREADY - EEPROM ready
+    AT(0x002C)
+    jmp eeready_handler
+
+    ;; ANALOGCOMP - Analog comparator
+    AT(0x002E)
+    jmp analogcomp_handler
+
+    ;; TWI - 2-wire serial interface
+    AT(0x0030)
+    jmp twi_handler
+
+    ;; SPMREADY - Store program memory ready
+    AT(0x0032)
+    jmp spmready_handler

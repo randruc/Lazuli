@@ -9,10 +9,12 @@
  * and tasks.
  */
 
-#ifndef LZ_LAZULI_H
-#define LZ_LAZULI_H
+#ifndef LAZULI_LAZULI_H
+#define LAZULI_LAZULI_H
 
 #include <Lazuli/common.h>
+#include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/config.h>
 
 _EXTERN_C_DECL_BEGIN
 
@@ -26,15 +28,19 @@ typedef enum {
    */
   __LZ_SCHEDULERCLASS_ENUM_BEGIN = -1,
 
+#if USE_SCHEDULER_RR
   /**
    * Round-Robin scheduling.
    */
   LZ_SCHED_RR,
+#endif /* USE_SCHEDULER_RR */
 
+#if USE_SCHEDULER_HPF
   /**
    * Highest Priority First scheduling.
    */
   LZ_SCHED_HPF,
+#endif /* USE_SCHEDULER_HPF */
 
   /*
    * Undocumented to user: only here for static verification.
@@ -116,11 +122,13 @@ void
 Lz_Run();
 
 /**
- * Wait for the interrupt "External Interrupt Request 0".
- * Blocks the calling task until "External Interrupt Request 0" occurs.
+ * Wait for a specific interrupt to occur.
+ * Puts the calling task to sleep until the specified interrupt occurs.
+ *
+ * @param interruptCode The code of the interrupt to wait for.
  */
 void
-Lz_WaitInt0();
+Lz_WaitInterrupt(u8 interruptCode);
 
 /**
  * Get the name of the calling task.
@@ -133,4 +141,4 @@ Lz_GetTaskName();
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_LAZULI_H */
+#endif /* LAZULI_LAZULI_H */

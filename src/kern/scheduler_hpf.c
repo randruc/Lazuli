@@ -12,10 +12,13 @@
 #include <Lazuli/lazuli.h>
 
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>
+#include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_hpf.h>
+#include <Lazuli/sys/task.h>
 
 /**
  * The list of tasks ready to run, treated as a stack.
@@ -25,30 +28,49 @@
 static LinkedList readyTasks = LINKED_LIST_INIT;
 
 /**
- * The task waiting for interrupt INT0.
+ * The table of tasks waiting for interrupts.
+ *
+ * This table contains one entry per interrupt type.
+ * In each entry is the queue of tasks waiting for that particular interrupt,
+ * keep ordered by priority.
+ * This table is indexed by the codes defined in interrupts.h.
  */
-static HpfTask *waitingInt0Task = NULL;
+static LinkedList waitingInterruptTasks[INT_TOTAL];
 
 /**
- * Insert a ready-to-run task in the list of ready tasks, keeping priorities
- * ordered.
- * This function is called if a task with a lower priority than the current
- * running task is ready to run (e.g. after waking-up by an interrupt).
- *
- * @param taskToInsert The task to insert in the list of ready-to-run tasks.
+ * Initialize each entry of the waitingInterruptTasks table.
  */
 static void
-InsertTaskByPriority(HpfTask * const taskToInsert)
+InitWaitingInterruptTasksTable()
+{
+  u8 i;
+  const LinkedList initValue = LINKED_LIST_INIT;
+
+  for (i = 0; i < INT_TOTAL; i++) {
+    MemoryCopy(&initValue,
+               &waitingInterruptTasks[i],
+               sizeof(initValue));
+  }
+}
+
+/**
+ * Insert a task in a list, keeping priorities ordered.
+ *
+ * @param list The list in which to insert the task.
+ * @param taskToInsert The task to insert in the list.
+ */
+static void
+InsertTaskByPriority(LinkedList * const list, HpfTask * const taskToInsert)
 {
   HpfTask *task;
 
-  if (NULL == taskToInsert) {
+  if (NULL == list || NULL == taskToInsert) {
     return;
   }
 
-  List_ForEach (&readyTasks, HpfTask, task, stateQueue) {
+  List_ForEach (list, HpfTask, task, stateQueue) {
     if (task->priority < taskToInsert->priority) {
-      List_InsertBefore(&readyTasks,
+      List_InsertBefore(list,
                         &(task->stateQueue),
                         &(taskToInsert->stateQueue));
 
@@ -56,7 +78,7 @@ InsertTaskByPriority(HpfTask * const taskToInsert)
     }
   }
 
-  List_Append(&readyTasks, &(taskToInsert->stateQueue));
+  List_Append(list, &(taskToInsert->stateQueue));
 }
 
 /** @name scheduler_base implementation */
@@ -65,6 +87,7 @@ InsertTaskByPriority(HpfTask * const taskToInsert)
 static void
 Init()
 {
+  InitWaitingInterruptTasksTable();
 }
 
 static void
@@ -106,7 +129,7 @@ RegisterTask(void (* const taskEntryPoint)(),
 
   BaseScheduler_PrepareTaskContext((Task *)newTask);
 
-  InsertTaskByPriority(newTask);
+  InsertTaskByPriority(&readyTasks, newTask);
 }
 
 static void
@@ -126,12 +149,19 @@ Run()
 static void
 HandleInterrupt(void * const sp, const u8 interruptCode)
 {
-  if (NULL == waitingInt0Task) {
+  LinkedListElement *first;
+  HpfTask *waitingTask;
+
+  first = List_PickFirst(&waitingInterruptTasks[interruptCode]);
+
+  if (NULL == first) {
     restore_context_from_stack_and_reti(sp);
   }
 
-  if (waitingInt0Task->priority <= ((HpfTask*)currentTask)->priority) {
-    InsertTaskByPriority(waitingInt0Task);
+  waitingTask = (HpfTask*)CONTAINER_OF(first, stateQueue, HpfTask);
+
+  if (waitingTask->priority <= ((HpfTask*)currentTask)->priority) {
+    InsertTaskByPriority(&readyTasks, waitingTask);
     restore_context_from_stack_and_reti(sp);
   }
 
@@ -139,11 +169,13 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
 
   List_Prepend(&readyTasks, &(((HpfTask*)currentTask)->stateQueue));
 
-  currentTask = (Task*)waitingInt0Task;
+  currentTask = (Task*)waitingTask;
 
+  /*
+   * TODO: Maybe rename restore_context_from_stack_and_reti to be more
+   * plateform-indepedent
+   */
   restore_context_from_stack_and_reti(currentTask->stackPointer);
-
-  UNUSED(interruptCode);
 }
 
 static void
@@ -153,7 +185,8 @@ WaitEvent(void * const sp, const u8 eventCode)
 
   currentTask->stackPointer = sp;
 
-  waitingInt0Task = (HpfTask*)currentTask;
+  InsertTaskByPriority(&waitingInterruptTasks[eventCode],
+                       (HpfTask*)currentTask);
 
   first = List_PickFirst(&readyTasks);
   if (NULL == first) {
