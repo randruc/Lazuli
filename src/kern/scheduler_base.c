@@ -13,6 +13,7 @@
 
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
@@ -40,7 +41,7 @@ static Lz_SchedulerClass schedulerClass;
  *
  * Here we statically register operations for all register classes.
  */
-static const SchedulerOperations *JumpToScheduler[] = {
+static const __progmem SchedulerOperations *JumpToScheduler[] = {
 
 #if USE_SCHEDULER_RR
   &RRSchedulerOperations,  /**< index: LZ_SCHED_RR  */

@@ -13,6 +13,7 @@
 
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>
 #include <Lazuli/sys/memory.h>
@@ -201,7 +202,7 @@ WaitEvent(void * const sp, const u8 eventCode)
 /**
  * Defines the operations of the Highest Priority First scheduler.
  */
-const SchedulerOperations HPFSchedulerOperations = {
+const __progmem SchedulerOperations HPFSchedulerOperations = {
   Init,            /**< member: init                */
   RegisterTask,    /**< member: registerTask        */
   Run,             /**< member: run                 */
