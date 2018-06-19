@@ -13,7 +13,6 @@
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
-#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>
 #include <Lazuli/sys/scheduler_base.h>
@@ -188,7 +187,7 @@ WaitEvent(void * const sp, const u8 eventCode)
 /**
  * Defines the operations of the Round-Robin scheduler.
  */
-const __progmem SchedulerOperations RRSchedulerOperations = {
+const SchedulerOperations RRSchedulerOperations = {
   Init,            /**< member: init                */
   RegisterTask,    /**< member: registerTask        */
   Run,             /**< member: run                 */
