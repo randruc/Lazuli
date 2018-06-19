@@ -10,21 +10,26 @@
  * dependency.
  */
 
-#ifndef LZ_COMMON_H
-#define LZ_COMMON_H
+#ifndef LAZULI_COMMON_H
+#define LAZULI_COMMON_H
 
 #ifdef __cplusplus
+
 /**
  * Open C++ header file declarations.
  */
 #define _EXTERN_C_DECL_BEGIN extern "C" {
+
 /**
  * Close C++ header file declarations.
  */
 #define _EXTERN_C_DECL_END }
+
 #else /* __cplusplus */
+
 #define _EXTERN_C_DECL_BEGIN
 #define _EXTERN_C_DECL_END
+
 #endif /* __cplusplus */
 
 /**
@@ -96,6 +101,18 @@ STATIC_ASSERT(sizeof(s32) == 4, s32_MUST_be_4_bytes_long);
  */
 typedef u8 bool;
 STATIC_ASSERT(sizeof(bool) == 1, bool_MUST_be_1_byte_long);
+
+/**
+ * Machine word (unsigned).
+ *
+ * Represents an unsigned integer that has the length of the data word
+ * manipulated by the processor.
+ * i.e. 8 bits on an 8-bit machine, 16 bits on a 16-bit machine, and so on.
+ *
+ * The equivalent for an address word is the type void*.
+ */
+typedef u8 mword;
+STATIC_ASSERT(sizeof(mword) == 1, mword_MUST_be_1_byte_long);
 
 /**
  * Represents the size of an object.
@@ -310,4 +327,4 @@ STATIC_ASSERT(sizeof(u8) == 1,
  */
 #define ELEMENTS_COUNT(X) (sizeof(X) / sizeof(X[0]))
 
-#endif /* LZ_COMMON_H */
+#endif /* LAZULI_COMMON_H */

@@ -80,9 +80,10 @@ extern const Lz_TaskConfiguration DefaultTaskConfiguration;
 
 /**
  * Initialize the scheduler prior to running it.
+ * This function is called by kernel initialization.
  */
 void
-BaseSchedulerInit();
+BaseScheduler_Init();
 
 /*
  * TODO: Maybe rename interruptCode and eventCode to xxxxxId or something like
@@ -97,7 +98,7 @@ BaseSchedulerInit();
  * @param interruptCode The code of the interrupt being handled.
  */
 void
-BaseSchedulerHandleInterrupt(void * const sp, const u8 interruptCode);
+BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode);
 
 /**
  * This function is called from arch-specific Wait routine in order to get the
@@ -108,7 +109,16 @@ BaseSchedulerHandleInterrupt(void * const sp, const u8 interruptCode);
  * @param eventCode The code of the event the task is waiting for.
  */
 void
-BaseSchedulerWaitEvent(void * const sp, const u8 eventCode);
+BaseScheduler_WaitEvent(void * const sp, const u8 eventCode);
+
+/**
+ * Prepare the first context of the task so it will be ready when switching
+ * context for the first time (i.e. run the scheduler).
+ *
+ * @param task A pointer to the Task to prepare.
+ */
+void
+BaseScheduler_PrepareTaskContext(Task * const task);
 
 _EXTERN_C_DECL_END
 

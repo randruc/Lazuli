@@ -33,14 +33,13 @@ reset_system();
  *
  * The context of a task is saved on its stack.
  * Consists in restoring all of the registers (including the state register) and
- * continue execution of the task by performing `reti`, as the program
- * counter has previously been saved on the stack by hardware.
+ * continue execution of the task by performing a `return from interrupt`, as
+ * the program counter has previously been saved on the stack by hardware.
  *
- * @param stackPointer The stack pointer of the task to restore, containing its
- *                     saved context.
+ * @param stackPointer The stack pointer of the task to restore.
  */
 extern void
-restore_context_from_stack_and_reti(void *stackPointer);
+restore_context_and_return_from_interrupt(void *stackPointer);
 
 /**
  * Start running the scheduler for the first time with the specified context.
@@ -56,16 +55,6 @@ restore_context_from_stack_and_reti(void *stackPointer);
  */
 extern void
 start_running(void *stackPointer, size_t offsetOfPc);
-
-/**
- * Swap bytes of a 16-bits value.
- *
- * @param value The value to swap (passed by copying its value).
- *
- * @return The swapped value.
- */
-extern u16
-swap16(u16 value);
 
 /**
  * Return a byte stored in program memory.

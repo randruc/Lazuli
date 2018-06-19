@@ -14,10 +14,10 @@
 void
 Task1()
 {
-  /* volatile */ u16 i = u16_MAX >> 1;
+  u16 i = u16_MAX >> 1;
 
   while (true) {
-    Usart_PutChar('W');
+    Usart_PutChar('.');
 
     while (i--);
     i = u16_MAX;
@@ -27,7 +27,7 @@ Task1()
 void
 Task2()
 {
-  /* volatile */ u16 i = u16_MAX >> 1;
+  u16 i = u16_MAX >> 1;
 
   while (true) {
     Usart_PutChar('T');
@@ -48,16 +48,16 @@ Task3()
 void
 Task4()
 {
-  char const *c;
+  volatile u16 i;
+  char c;
 
   while (true) {
     Lz_WaitInterrupt(INT_INT0);
 
-    c = Lz_GetTaskName();
-
-    while (NULL != c && '\0' != *c) {
-      Usart_PutChar(*c);
-      c++;
+    for (c = 'a'; c <= 'z'; c++) {
+      Usart_PutChar(c);
+      i = u16_MAX >> 1;
+      while (i--);
     }
   }
 }
@@ -65,16 +65,16 @@ Task4()
 void
 Task5()
 {
-  char const *c;
+  volatile u16 i;
+  char c;
 
   while (true) {
-    Lz_WaitInterrupt(INT_INT0);
+    Lz_WaitInterrupt(INT_INT1);
 
-    c = Lz_GetTaskName();
-
-    while (NULL != c && '\0' != *c) {
-      Usart_PutChar(*c);
-      c++;
+    for (c = 'A'; c <= 'Z'; c++) {
+      Usart_PutChar(c);
+      i = u16_MAX >> 1;
+      while (i--);
     }
   }
 }
@@ -89,21 +89,22 @@ main()
 
   Usart_Init();
 
-  /* Lz_SetSchedulerClass(LZ_SCHED_RR); */
-
-  Lz_RegisterTask(Task1, NULL);
-  Lz_RegisterTask(Task2, NULL);
+  Lz_SetSchedulerClass(LZ_SCHED_HPF);
 
   Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAME_OF(Task4);
+  taskConfiguration.priority = 5;
+  Lz_RegisterTask(Task1, &taskConfiguration);
+
+  Lz_InitTaskConfiguration(&taskConfiguration);
+  taskConfiguration.priority = 10;
   Lz_RegisterTask(Task4, &taskConfiguration);
 
   Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.name = NAME_OF(Task5);
+  taskConfiguration.priority = 15;
   Lz_RegisterTask(Task5, &taskConfiguration);
 
-  EICRA = 0x03;
-  EIMSK = 0x01;
+  EICRA = 0x0f;
+  EIMSK = 0x03;
 
   Lz_Run();
 

@@ -1,6 +1,6 @@
 /**
  * @file src/include/Lazuli/sys/scheduler_rr.h
- * @brief Round-Robin tasks scheduler symbols.
+ * @brief Round-Robin tasks scheduler global symbols.
  * @date Mar 2018
  * @author Remi Andruccioli
  *
@@ -19,6 +19,22 @@ _EXTERN_C_DECL_BEGIN
  * Jump table to the operations of the Round-Robin scheduler.
  */
 extern const SchedulerOperations RRSchedulerOperations;
+
+/**
+ * Represents a task registered by the RR scheduler.
+ */
+typedef struct {
+  /* WARNING: This MUST be the first member of the struct */
+  /** The base definition of a task */
+  Task base;
+
+  /** The scheduling queue on which the task is stored */
+  LinkedListElement stateQueue;
+}RrTask;
+
+/* TODO: Find out why we have to write !XXX instead of XXX == 0 */
+STATIC_ASSERT(!OFFSET_OF(base, RrTask),
+              The_member_base_must_be_at_offset_0_in_struct_RrTask);
 
 _EXTERN_C_DECL_END
 

@@ -11,20 +11,130 @@
 .equ sph,  0x3e                ; Stack pointer high byte
 .equ sreg, 0x3f                ; State register
 
+/**
+ * Reset the kernel stack pointer to point to the end of RAM.
+ * Uses r16 and r17.
+ */
+.macro RESET_KERNEL_STACK_POINTER
+    ldi r16, lo8(_ramend)
+    ldi r17, hi8(_ramend)
+    out spl, r16
+    out sph, r17
+.endm
+
+/**
+ * Declare the generic code for an interrupt handler.
+ *
+ * @param @0 The interrupt code defined in interrupts.h.
+ */
+.macro INTERRUPT_HANDLER code
+    call save_context_on_stack
+    ldi r22, \code
+    jmp enter_kernel_handle_interrupt
+.endm
+
     ;;
     ;; Interrupts handlers
     ;;
     .global int0_handler
 int0_handler:
-    call save_context_on_stack
-    ldi r22, INT_INT0
-    jmp enter_kernel_handle_interrupt
+    INTERRUPT_HANDLER INT_INT0
 
-    .global timer0_compare_match_A_handler
-timer0_compare_match_A_handler:
-    call save_context_on_stack
-    ldi r22, INT_TIMER0COMPA
-    jmp enter_kernel_handle_interrupt
+    .global int1_handler
+int1_handler:
+    INTERRUPT_HANDLER INT_INT1
+
+    .global pcint0_handler
+pcint0_handler:
+    INTERRUPT_HANDLER INT_PCINT0
+
+    .global pcint1_handler
+pcint1_handler:
+    INTERRUPT_HANDLER INT_PCINT1
+
+    .global pcint2_handler
+pcint2_handler:
+    INTERRUPT_HANDLER INT_PCINT2
+
+    .global wdt_handler
+wdt_handler:
+    INTERRUPT_HANDLER INT_WDT
+
+    .global timer2compA_handler
+timer2compA_handler:
+    INTERRUPT_HANDLER INT_TIMER2COMPA
+
+    .global timer2compB_handler
+timer2compB_handler:
+    INTERRUPT_HANDLER INT_TIMER2COMPB
+
+    .global timer2ovf_handler
+timer2ovf_handler:
+    INTERRUPT_HANDLER INT_TIMER2OVF
+
+    .global timer1capt_handler
+timer1capt_handler:
+    INTERRUPT_HANDLER INT_TIMER1CAPT
+
+    .global timer1compA_handler
+timer1compA_handler:
+    INTERRUPT_HANDLER INT_TIMER1COMPA
+
+    .global timer1compB_handler
+timer1compB_handler:
+    INTERRUPT_HANDLER INT_TIMER1COMPB
+
+    .global timer1ovf_handler
+timer1ovf_handler:
+    INTERRUPT_HANDLER INT_TIMER1OVF
+
+    .global timer0compA_handler
+timer0compA_handler:
+    INTERRUPT_HANDLER INT_TIMER0COMPA
+
+    .global timer0compB_handler
+timer0compB_handler:
+    INTERRUPT_HANDLER INT_TIMER0COMPB
+
+    .global timer0ovf_handler
+timer0ovf_handler:
+    INTERRUPT_HANDLER INT_TIMER0OVF
+
+    .global spistc_handler
+spistc_handler:
+    INTERRUPT_HANDLER INT_SPISTC
+
+    .global usartrx_handler
+usartrx_handler:
+    INTERRUPT_HANDLER INT_USARTRX
+
+    .global usartudre_handler
+usartudre_handler:
+    INTERRUPT_HANDLER INT_USARTUDRE
+
+    .global usarttx_handler
+usarttx_handler:
+    INTERRUPT_HANDLER INT_USARTTX
+
+    .global adc_handler
+adc_handler:
+    INTERRUPT_HANDLER INT_ADC
+
+    .global eeready_handler
+eeready_handler:
+    INTERRUPT_HANDLER INT_EEREADY
+
+    .global analogcomp_handler
+analogcomp_handler:
+    INTERRUPT_HANDLER INT_ANALOGCOMP
+
+    .global twi_handler
+twi_handler:
+    INTERRUPT_HANDLER INT_TWI
+
+    .global spmready_handler
+spmready_handler:
+    INTERRUPT_HANDLER INT_SPMREADY
 
 /**
  * Switch to kernel stack and give hand to the scheduler to handle the
@@ -37,40 +147,35 @@ enter_kernel_handle_interrupt:
     ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph
-    ;; Reset kernel stack pointer
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
-    jmp BaseSchedulerHandleInterrupt
-
-    ;; Lz_Wait* routines
-    ;;
-    ;; These are the routines called by user tasks to wait for an event.
-    .global Lz_WaitInt0
-Lz_WaitInt0:
-    cli
-    call save_context_on_stack
-    ldi r22, INT_INT0
-    jmp enter_kernel_wait_event
+    RESET_KERNEL_STACK_POINTER
+    jmp BaseScheduler_HandleInterrupt
 
 /**
- * Switch to kernel stack and give hand to the scheduler to handle the
- * waiting.
+ * Wait for a specific interrupt to occur.
  *
- * Before calling this subroutine, you first need to fill r22 with the
- * event code.
+ * Technically:
+ * - Disable interrupts
+ * - Save the context of the current task
+ * - Reset the stack to switch to kernel stack
+ * - Give hand to the base scheduler by passing it the stack pointer of the
+ *   current task and the interrupt code
+ *
+ * @param r24 A value of Lz_InterruptCode representing the interrupt
+ *            to wait for.
+ *
+ * WARNING!!! This routine only works as long as r24 is left untouched until the
+ *            line "mov r22, r24".
  */
-enter_kernel_wait_event:
+    .global Lz_WaitInterrupt
+Lz_WaitInterrupt:
+    cli
+    call save_context_on_stack
+    mov r22, r24
     ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph
-    ;; Reset kernel stack pointer
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
-    jmp BaseSchedulerWaitEvent
+    RESET_KERNEL_STACK_POINTER
+    jmp BaseScheduler_WaitEvent
 
     /**
      * Save current running task execution context on task's stack.
@@ -159,8 +264,8 @@ start_running:
     sei
     ret
 
-    .global restore_context_from_stack_and_reti
-restore_context_from_stack_and_reti:
+    .global restore_context_and_return_from_interrupt
+restore_context_and_return_from_interrupt:
     ;; Switch to the task stack, passed by parameter
     out spl, r24
     out sph, r25
@@ -245,11 +350,7 @@ reset_system:
     ;; Disable interrupts
     cli
 
-    ;; Set kernel stack pointer
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
+    RESET_KERNEL_STACK_POINTER
 
     ;; Clear bss section
     ;; TODO: Find a way to omit this code if no .bss
@@ -278,7 +379,7 @@ bss_loop_end:
 load_data_end:
 
     ;; Load rodata section
-    ;;  TODO: Find a way to omit this code if no .rodata
+    ;; TODO: Find a way to omit this code if no .rodata
     ldi r16, _rodata_size
     tst r16
     breq load_rodata_end
@@ -299,10 +400,3 @@ load_rodata_end:
     .global infinite_loop
 infinite_loop:
     rjmp infinite_loop
-
-    .global swap16
-swap16:
-    push r24
-    mov r24, r25
-    pop r25
-    ret

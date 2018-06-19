@@ -9,10 +9,12 @@
  * and tasks.
  */
 
-#ifndef LZ_LAZULI_H
-#define LZ_LAZULI_H
+#ifndef LAZULI_LAZULI_H
+#define LAZULI_LAZULI_H
 
 #include <Lazuli/common.h>
+#include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/config.h>
 
 _EXTERN_C_DECL_BEGIN
 
@@ -20,10 +22,25 @@ _EXTERN_C_DECL_BEGIN
  * Represents a scheduling policy to run.
  */
 typedef enum {
-  /**
-   * Round-Robin scheduling
+  /*
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the first one.
    */
-  LZ_SCHED_RR = 0,
+  __LZ_SCHEDULERCLASS_ENUM_BEGIN = -1,
+
+#if USE_SCHEDULER_RR
+  /**
+   * Round-Robin scheduling.
+   */
+  LZ_SCHED_RR,
+#endif /* USE_SCHEDULER_RR */
+
+#if USE_SCHEDULER_HPF
+  /**
+   * Highest Priority First scheduling.
+   */
+  LZ_SCHED_HPF,
+#endif /* USE_SCHEDULER_HPF */
 
   /*
    * Undocumented to user: only here for static verification.
@@ -31,6 +48,12 @@ typedef enum {
    */
   __LZ_SCHEDULERCLASS_ENUM_END
 }Lz_SchedulerClass;
+
+/**
+ * Represents the priority of a task.
+ * The higher the value, the higher the priority.
+ */
+typedef s8 Lz_TaskPriority;
 
 /**
  * Represents the configuration of a task.
@@ -49,22 +72,10 @@ typedef struct {
   size_t stackSize;
 
   /**
-   * Period.
-   * Used for real-time scheduling.
+   * The priority of the task.
+   * Used for HPF scheduling.
    */
-  u16 T;
-
-  /**
-   * Computational time.
-   * Used for real-time scheduling.
-   */
-  u16 C;
-
-  /**
-   * Deadline.
-   * Used for real-time scheduling.
-   */
-  u16 D;
+  Lz_TaskPriority priority;
 }Lz_TaskConfiguration;
 
 /**
@@ -112,11 +123,13 @@ void
 Lz_Run();
 
 /**
- * Wait for the interrupt "External Interrupt Request 0".
- * Blocks the calling task until "External Interrupt Request 0" occurs.
+ * Wait for a specific interrupt to occur.
+ * Puts the calling task to sleep until the specified interrupt occurs.
+ *
+ * @param interruptCode The code of the interrupt to wait for.
  */
 void
-Lz_WaitInt0();
+Lz_WaitInterrupt(u8 interruptCode);
 
 /**
  * Get the name of the calling task.
@@ -129,4 +142,4 @@ Lz_GetTaskName();
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_LAZULI_H */
+#endif /* LAZULI_LAZULI_H */
