@@ -24,7 +24,7 @@
 const Lz_TaskConfiguration DefaultTaskConfiguration = {
   NULL                    /**< member: name      */,
   DEFAULT_TASK_STACK_SIZE /**< member: stackSize */,
-  (Lz_TaskPriority)64     /**< member: priority  */
+  (Lz_TaskPriority)0      /**< member: priority  */
 };
 
 /**
@@ -109,6 +109,12 @@ void
 Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass)
 {
   schedulerClass = userSchedulerClass;
+
+  /*
+   * TODO: This can't stay here.
+   * Find the appropriate place to call BaseScheduler_Init();
+   */
+  BaseScheduler_Init();
 }
 
 void
@@ -125,7 +131,7 @@ Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration)
 
 void
 Lz_RegisterTask(void (* const taskEntryPoint)(),
-                 Lz_TaskConfiguration * const taskConfiguration)
+                Lz_TaskConfiguration * const taskConfiguration)
 {
   JumpToScheduler[schedulerClass]->registerTask(taskEntryPoint,
                                                 taskConfiguration);

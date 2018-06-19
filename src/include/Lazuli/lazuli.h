@@ -51,6 +51,7 @@ typedef enum {
 
 /**
  * Represents the priority of a task.
+ * The higher the value, the higher the priority.
  */
 typedef s8 Lz_TaskPriority;
 
