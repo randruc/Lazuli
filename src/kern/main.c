@@ -89,6 +89,8 @@ main()
 
   Usart_Init();
 
+  /* Lz_SetSchedulerClass(LZ_SCHED_RR); */
+
   Lz_RegisterTask(Task1, NULL);
   Lz_RegisterTask(Task2, NULL);
 

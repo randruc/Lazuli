@@ -58,7 +58,7 @@ Schedule()
   LinkedListElement *firstElement = List_PickFirst(&readyTasks);
   if (NULL != firstElement) {
     currentTask = (Task *)CONTAINER_OF(firstElement, stateQueue, RrTask);
-    restore_context_from_stack_and_reti(currentTask->stackPointer);
+    restore_context_and_return_from_interrupt(currentTask->stackPointer);
   } else {
     /* Nothing to do! Idle. */
   }
@@ -163,7 +163,7 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
     Timer0CompareMatchAHandler();
   } else {
     List_AppendList(&readyTasks, &waitingInterruptTasks[interruptCode]);
-    restore_context_from_stack_and_reti(currentTask->stackPointer);
+    restore_context_and_return_from_interrupt(currentTask->stackPointer);
   }
 }
 

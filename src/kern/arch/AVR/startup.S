@@ -12,6 +12,17 @@
 .equ sreg, 0x3f                ; State register
 
 /**
+ * Reset the kernel stack pointer to point to the end of RAM.
+ * Uses r16 and r17.
+ */
+.macro RESET_KERNEL_STACK_POINTER
+    ldi r16, lo8(_ramend)
+    ldi r17, hi8(_ramend)
+    out spl, r16
+    out sph, r17
+.endm
+
+/**
  * Declare the generic code for an interrupt handler.
  *
  * @param @0 The interrupt code defined in interrupts.h.
@@ -136,11 +147,7 @@ enter_kernel_handle_interrupt:
     ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph
-    ;; Reset kernel stack pointer
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
+    RESET_KERNEL_STACK_POINTER
     jmp BaseScheduler_HandleInterrupt
 
 /**
@@ -167,11 +174,7 @@ Lz_WaitInterrupt:
     ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph
-    ;; Reset kernel stack pointer
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
+    RESET_KERNEL_STACK_POINTER
     jmp BaseScheduler_WaitEvent
 
     /**
@@ -261,8 +264,8 @@ start_running:
     sei
     ret
 
-    .global restore_context_from_stack_and_reti
-restore_context_from_stack_and_reti:
+    .global restore_context_and_return_from_interrupt
+restore_context_and_return_from_interrupt:
     ;; Switch to the task stack, passed by parameter
     out spl, r24
     out sph, r25
@@ -347,11 +350,7 @@ reset_system:
     ;; Disable interrupts
     cli
 
-    ;; Set kernel stack pointer
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
+    RESET_KERNEL_STACK_POINTER
 
     ;; Clear bss section
     ;; TODO: Find a way to omit this code if no .bss
@@ -380,7 +379,7 @@ bss_loop_end:
 load_data_end:
 
     ;; Load rodata section
-    ;;  TODO: Find a way to omit this code if no .rodata
+    ;; TODO: Find a way to omit this code if no .rodata
     ldi r16, _rodata_size
     tst r16
     breq load_rodata_end
@@ -401,10 +400,3 @@ load_rodata_end:
     .global infinite_loop
 infinite_loop:
     rjmp infinite_loop
-
-    .global swap16
-swap16:
-    push r24
-    mov r24, r25
-    pop r25
-    ret

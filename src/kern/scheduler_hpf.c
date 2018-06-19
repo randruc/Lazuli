@@ -155,14 +155,14 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
   first = List_PickFirst(&waitingInterruptTasks[interruptCode]);
 
   if (NULL == first) {
-    restore_context_from_stack_and_reti(sp);
+    restore_context_and_return_from_interrupt(sp);
   }
 
   waitingTask = (HpfTask*)CONTAINER_OF(first, stateQueue, HpfTask);
 
   if (waitingTask->priority <= ((HpfTask*)currentTask)->priority) {
     InsertTaskByPriority(&readyTasks, waitingTask);
-    restore_context_from_stack_and_reti(sp);
+    restore_context_and_return_from_interrupt(sp);
   }
 
   currentTask->stackPointer = sp;
@@ -171,11 +171,7 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
 
   currentTask = (Task*)waitingTask;
 
-  /*
-   * TODO: Maybe rename restore_context_from_stack_and_reti to be more
-   * plateform-indepedent
-   */
-  restore_context_from_stack_and_reti(currentTask->stackPointer);
+  restore_context_and_return_from_interrupt(currentTask->stackPointer);
 }
 
 static void
@@ -195,7 +191,7 @@ WaitEvent(void * const sp, const u8 eventCode)
 
   currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);
 
-  restore_context_from_stack_and_reti(currentTask->stackPointer);
+  restore_context_and_return_from_interrupt(currentTask->stackPointer);
 }
 
 /**

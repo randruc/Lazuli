@@ -67,3 +67,23 @@ Panic()
     reset_system();
   }
 }
+
+/* TODO: Move the ReverseByte utilities somewhere else */
+/**
+ * Provides a way to manipulate a 16-bit word as an array of bytes.
+ */
+union WordAsBytesArray
+{
+  u16 u16Value;   /**< The 16-bit word to manipulate as a bytes array. */
+  u8 u8Values[2]; /**< The bytes array to manipulate the 16-bit word.  */
+};
+
+void
+ReverseBytes16(void * const value)
+{
+  union WordAsBytesArray reverse;
+
+  reverse.u16Value = *(u16*)value;
+  ((u8 *)value)[0] = reverse.u8Values[1];
+  ((u8 *)value)[1] = reverse.u8Values[0];
+}
