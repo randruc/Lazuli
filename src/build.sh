@@ -47,6 +47,7 @@ avr-gcc \
     -nostartfiles \
     -nostdlib \
     -nodefaultlibs \
+    -ffreestanding \
     -fshort-enums \
     kern/arch/AVR/interrupt_vectors_table.S \
     kern/arch/AVR/startup.S \
@@ -86,6 +87,7 @@ avr-gcc \
     -nostartfiles \
     -nostdlib \
     -nodefaultlibs \
+    -ffreestanding \
     -fshort-enums \
     -T kern/linker.x \
     -o $project_name.elf \
