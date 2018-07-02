@@ -38,6 +38,18 @@ static LinkedList readyTasks = LINKED_LIST_INIT;
 static LinkedList waitingInterruptTasks[INT_TOTAL];
 
 /**
+ * The idle task to be executed when no user task is ready for execution.
+ *
+ * This task has the lowest possible priority, so the user tasks are always
+ * executed before the idle task if one is ready to run.
+ */
+static void
+IdleTask()
+{
+  while (1);
+}
+
+/**
  * Initialize each entry of the waitingInterruptTasks table.
  */
 static void
@@ -133,10 +145,30 @@ RegisterTask(void (* const taskEntryPoint)(),
 }
 
 static void
+RegisterIdleTask()
+{
+  Lz_TaskConfiguration taskConfiguration;
+
+  Lz_InitTaskConfiguration(&taskConfiguration);
+
+  taskConfiguration.stackSize = 10;
+  taskConfiguration.priority = -1;
+
+  if (IDLE_TASK_HAS_NAME) {
+    taskConfiguration.name = "idle";
+  }
+
+  RegisterTask(IdleTask, &taskConfiguration);
+}
+
+static void
 Run()
 {
-  LinkedListElement *first = List_PickFirst(&readyTasks);
+  LinkedListElement *first;
 
+  RegisterIdleTask();
+
+  first = List_PickFirst(&readyTasks);
   if (NULL == first) {
     Panic();
   }

@@ -66,4 +66,16 @@
  */
 #define CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
 
+/**
+ * Configure if the idle task must have a name.
+ *
+ * If set to 1, the idle task will have the name "idle" attached to it, and 5
+ * bytes will be used to store the name in read-only data section (4 bytes for
+ * the string + 1 byte for the string termination NUL character).
+ *
+ * If set to 0, the idle task will have no name attached to it. Thus it can save
+ * 5 bytes in the read-only data section.
+ */
+#define IDLE_TASK_HAS_NAME (1)
+
 #endif /* LZ_SYS_CONFIG_H */
