@@ -168,7 +168,7 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
     Arch_RestoreContextAndReturnFromInterrupt(sp);
   }
 
-  waitingTask = (HpfTask*)CONTAINER_OF(first, stateQueue, HpfTask);
+  waitingTask = CONTAINER_OF(first, stateQueue, HpfTask);
 
   if (waitingTask->priority <= ((HpfTask*)currentTask)->priority) {
     /*
