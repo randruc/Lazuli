@@ -78,4 +78,42 @@
  */
 #define IDLE_TASK_HAS_NAME (1)
 
+/**
+ * If set to 1, put the CPU to sleep when it's idle.
+ * If set to 0, the CPU will actively infinite loop when it's idle.
+ */
+#define ON_IDLE_SLEEP (0)
+
+/**
+ * Enter "Idle Mode" when sleeping.
+ *
+ * This is the default value no sleep mode is selected.
+ */
+#define SLEEP_WITH_IDLE_MODE (1)
+
+/**
+ * Enter "ADC Noise Reduction Mode" when sleeping.
+ */
+#define SLEEP_WITH_ADC_NOISE_REDUCTION_MODE (0)
+
+/**
+ * Enter "Power-down Mode" when sleeping.
+ */
+#define SLEEP_WITH_POWER_DOWN_MODE (0)
+
+/**
+ * Enter "Power-save Mode" when sleeping.
+ */
+#define SLEEP_WITH_POWER_SAVE_MODE (0)
+
+/**
+ * Enter "Standby Mode" when sleeping.
+ */
+#define SLEEP_WITH_STANDBY_MODE (0)
+
+/**
+ * Enter "Extended Standby Mode" when sleeping.
+ */
+#define SLEEP_WITH_EXTENDED_STANDBY_MODE (0)
+
 #endif /* LZ_SYS_CONFIG_H */

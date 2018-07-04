@@ -58,7 +58,7 @@ Schedule()
   LinkedListElement *firstElement = List_PickFirst(&readyTasks);
   if (NULL != firstElement) {
     currentTask = (Task *)CONTAINER_OF(firstElement, stateQueue, RrTask);
-    restore_context_and_return_from_interrupt(currentTask->stackPointer);
+    Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
   } else {
     /* Nothing to do! Idle. */
   }
@@ -92,45 +92,20 @@ Init()
   InitWaitingInterruptTasksTable();
 }
 
-static void
-RegisterTask(void (* const taskEntryPoint)(),
-             Lz_TaskConfiguration * const taskConfiguration)
+static Task *
+RegisterTask(Lz_TaskConfiguration * const taskConfiguration)
 {
-  RrTask *newTask;
-  void *taskStack;
-  size_t desiredStackSize;
-  const Lz_TaskConfiguration *configuration;
-
-  if (NULL != taskConfiguration) {
-    configuration = taskConfiguration;
-  } else {
-    configuration = &DefaultTaskConfiguration;
-  }
-
-  newTask = KIncrementalMalloc(sizeof(RrTask));
+  RrTask *newTask = KIncrementalMalloc(sizeof(RrTask));
   if (NULL == newTask) {
     Panic();
   }
 
-  desiredStackSize = configuration->stackSize
-    /* We add enough space to contain the context of a task on the stack */
-    + sizeof(TaskContextLayout)
-    /* Plus 1 call to save_context_on_stack (in startup.S) */
-    + sizeof(void*);
-
-  taskStack = KIncrementalMalloc(desiredStackSize);
-  if (NULL == taskStack) {
-    Panic();
-  }
-
-  newTask->base.name = configuration->name;
-  newTask->base.entryPoint = taskEntryPoint;
-  newTask->base.stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
   List_InitLinkedListElement(&(newTask->stateQueue));
-
-  BaseScheduler_PrepareTaskContext((Task *)newTask);
-
   List_Append(&readyTasks, &(newTask->stateQueue));
+
+  UNUSED(taskConfiguration);
+
+  return &newTask->base;
 }
 
 static void
@@ -144,7 +119,8 @@ Run()
 
   currentTask = (Task *)CONTAINER_OF(first, stateQueue, RrTask);
 
-  start_running(currentTask->stackPointer, OFFSET_OF(pc, TaskContextLayout));
+  Arch_StartRunning(currentTask->stackPointer,
+                    OFFSET_OF(pc, TaskContextLayout));
 }
 
 /**
@@ -163,7 +139,7 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
     Timer0CompareMatchAHandler();
   } else {
     List_AppendList(&readyTasks, &waitingInterruptTasks[interruptCode]);
-    restore_context_and_return_from_interrupt(currentTask->stackPointer);
+    Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
   }
 }
 

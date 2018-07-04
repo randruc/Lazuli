@@ -24,11 +24,7 @@ else
     cflags='-DLZ_DEBUG=0'
 fi
 
-rm -f sourcelist
-rm -f $project_name.elf
-rm -f $project_name.hex
-rm -f *.o
-rm -f *.a
+./clean.sh > /dev/null
 
 ../checklines.sh
 
@@ -49,6 +45,7 @@ avr-gcc \
     -nodefaultlibs \
     -ffreestanding \
     -fshort-enums \
+    kern/arch/AVR/arch.c \
     kern/arch/AVR/interrupt_vectors_table.S \
     kern/arch/AVR/startup.S \
     kern/arch/AVR/timer_counter_0.c \
@@ -62,16 +59,17 @@ avr-gcc \
     kern/sizeof_types.c
 
 ar rcs lib$project_name.a \
-    interrupt_vectors_table.o \
-    startup.o \
-    timer_counter_0.o \
-    usart.o \
-    kernel.o \
-    memory.o \
-    scheduler_base.o \
-    scheduler_rr.o \
-    scheduler_hpf.o \
-    list.o \
+   arch.o \
+   interrupt_vectors_table.o \
+   startup.o \
+   timer_counter_0.o \
+   usart.o \
+   kernel.o \
+   memory.o \
+   scheduler_base.o \
+   scheduler_rr.o \
+   scheduler_hpf.o \
+   list.o \
 
 avr-gcc \
     $cflags \
@@ -91,7 +89,7 @@ avr-gcc \
     -fshort-enums \
     -T kern/linker.x \
     -o $project_name.elf \
-    kern/main.c \
+    kern/main_hpf.c \
     lib$project_name.a
 
 if [ -e $project_name.elf ]

@@ -32,15 +32,17 @@ typedef struct {
   /**
    * Register a new task.
    *
-   * @param taskEntryPoint The entry point of the task to register.
-   *                       i.e. A pointer to the function representing the task.
+   * This function must basically allocate the space to store the specific Task
+   * structure in memory and initialize its specific fields.
+   *
    * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing
    *                          the configuration of the task being registered.
    *                          If NULL is passed, then default values are applied
    *                          for all parameters.
+   *
+   * @return A pointer to the newly allocated and initialized Task.
    */
-  void (*registerTask)(void (* const taskEntryPoint)(),
-                       Lz_TaskConfiguration * const taskConfiguration);
+  Task * (*registerTask)(Lz_TaskConfiguration * const taskConfiguration);
 
   /**
    * Run the scheduler.
@@ -74,11 +76,6 @@ typedef struct {
 extern Task *currentTask;
 
 /**
- * Contains default values for Lz_TaskConfiguration.
- */
-extern const Lz_TaskConfiguration DefaultTaskConfiguration;
-
-/**
  * Initialize the scheduler prior to running it.
  * This function is called by kernel initialization.
  */
@@ -110,15 +107,6 @@ BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode);
  */
 void
 BaseScheduler_WaitEvent(void * const sp, const u8 eventCode);
-
-/**
- * Prepare the first context of the task so it will be ready when switching
- * context for the first time (i.e. run the scheduler).
- *
- * @param task A pointer to the Task to prepare.
- */
-void
-BaseScheduler_PrepareTaskContext(Task * const task);
 
 _EXTERN_C_DECL_END
 

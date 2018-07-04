@@ -54,7 +54,7 @@ Task4()
   while (true) {
     Lz_WaitInterrupt(INT_INT0);
 
-    for (c = 'a'; c <= 'z'; c++) {
+    for (c = 'a'; c <= 'j'; c++) {
       Usart_PutChar(c);
       i = u16_MAX >> 1;
       while (i--);
@@ -71,7 +71,7 @@ Task5()
   while (true) {
     Lz_WaitInterrupt(INT_INT1);
 
-    for (c = 'A'; c <= 'Z'; c++) {
+    for (c = 'A'; c <= 'J'; c++) {
       Usart_PutChar(c);
       i = u16_MAX >> 1;
       while (i--);
@@ -91,9 +91,11 @@ main()
 
   Lz_SetSchedulerClass(LZ_SCHED_HPF);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
-  taskConfiguration.priority = 5;
-  Lz_RegisterTask(Task1, &taskConfiguration);
+  /*
+   * Lz_InitTaskConfiguration(&taskConfiguration);
+   * taskConfiguration.priority = 5;
+   * Lz_RegisterTask(Task1, &taskConfiguration);
+   */
 
   Lz_InitTaskConfiguration(&taskConfiguration);
   taskConfiguration.priority = 10;

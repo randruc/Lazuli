@@ -250,8 +250,8 @@ save_context_on_stack:
     push r26
     ret
 
-    .global start_running
-start_running:
+    .global Arch_StartRunning
+Arch_StartRunning:
     ;; Here we can skip POPing the 32 registers + the state register since they
     ;; have not been used yet. So we add the offset of the PC member of the
     ;; TaskContextLayout struct to the task stack pointer.
@@ -264,8 +264,8 @@ start_running:
     sei
     ret
 
-    .global restore_context_and_return_from_interrupt
-restore_context_and_return_from_interrupt:
+    .global Arch_RestoreContextAndReturnFromInterrupt
+Arch_RestoreContextAndReturnFromInterrupt:
     ;; Switch to the task stack, passed by parameter
     out spl, r24
     out sph, r25
@@ -329,8 +329,8 @@ copy_from_program_memory_loop_start:
 copy_from_program_memory_loop_end:
     ret
 
-    .global load_u8_from_progmem
-load_u8_from_progmem:
+    .global Arch_LoadU8FromProgmem
+Arch_LoadU8FromProgmem:
     push r30
     push r31
     movw r30, r24
@@ -339,9 +339,17 @@ load_u8_from_progmem:
     pop r30
     ret
 
+    .global cpu_sleep
+cpu_sleep:
+    sleep
+    ret
+
     /**
      * Main entry point of the whole system.
      */
+    /* TODO: Implement Arch_ResetSystem with a watchdog reset */
+    .global Arch_ResetSystem
+Arch_ResetSystem:
     .global reset_system
 reset_system:
 
@@ -397,6 +405,6 @@ load_rodata_end:
     ;; This should never be reached. It is only here is case of KMain returns.
     call Panic
 
-    .global infinite_loop
-infinite_loop:
-    rjmp infinite_loop
+    .global Arch_InfiniteLoop
+Arch_InfiniteLoop:
+    rjmp Arch_InfiniteLoop
