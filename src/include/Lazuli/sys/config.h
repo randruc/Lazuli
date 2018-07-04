@@ -84,6 +84,9 @@
  */
 #define ON_IDLE_SLEEP (0)
 
+/** @name AVR-specific configuration */
+/** @{                               */
+
 /**
  * Enter "Idle Mode" when sleeping.
  *
@@ -115,5 +118,7 @@
  * Enter "Extended Standby Mode" when sleeping.
  */
 #define SLEEP_WITH_EXTENDED_STANDBY_MODE (0)
+
+/** @} */
 
 #endif /* LZ_SYS_CONFIG_H */
