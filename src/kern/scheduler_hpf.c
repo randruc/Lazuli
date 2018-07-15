@@ -8,6 +8,8 @@
  * scheduler.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
@@ -43,7 +45,7 @@ static LinkedList waitingInterruptTasks[INT_TOTAL];
 static void
 InitWaitingInterruptTasksTable()
 {
-  u8 i;
+  uint8_t i;
   const LinkedList initValue = LINKED_LIST_INIT;
 
   for (i = 0; i < INT_TOTAL; i++) {
@@ -147,7 +149,7 @@ Run()
 }
 
 static void
-HandleInterrupt(void * const sp, const u8 interruptCode)
+HandleInterrupt(void * const sp, const uint8_t interruptCode)
 {
   LinkedListElement *first;
   HpfTask *waitingTask;
@@ -175,7 +177,7 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
 }
 
 static void
-WaitEvent(void * const sp, const u8 eventCode)
+WaitEvent(void * const sp, const uint8_t eventCode)
 {
   LinkedListElement *first;
 

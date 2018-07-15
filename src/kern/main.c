@@ -4,9 +4,10 @@
  * Entry point for user tasks.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
-
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
@@ -14,26 +15,26 @@
 void
 Task1()
 {
-  /* volatile */ u16 i = u16_MAX >> 1;
+  /* volatile */ uint16_t i = UINT16_MAX >> 1;
 
   while (true) {
     Usart_PutChar('W');
 
     while (i--);
-    i = u16_MAX;
+    i = UINT16_MAX;
   }
 }
 
 void
 Task2()
 {
-  /* volatile */ u16 i = u16_MAX >> 1;
+  /* volatile */ uint16_t i = UINT16_MAX >> 1;
 
   while (true) {
     Usart_PutChar('T');
 
     while (i--);
-    i = u16_MAX;
+    i = UINT16_MAX;
   }
 }
 

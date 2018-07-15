@@ -12,6 +12,8 @@
 #ifndef LAZULI_LAZULI_H
 #define LAZULI_LAZULI_H
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/config.h>
@@ -53,7 +55,7 @@ typedef enum {
  * Represents the priority of a task.
  * The higher the value, the higher the priority.
  */
-typedef s8 Lz_TaskPriority;
+typedef int8_t Lz_TaskPriority;
 
 /**
  * Represents the configuration of a task.
@@ -129,7 +131,7 @@ Lz_Run();
  * @param interruptCode The code of the interrupt to wait for.
  */
 void
-Lz_WaitInterrupt(u8 interruptCode);
+Lz_WaitInterrupt(uint8_t interruptCode);
 
 /**
  * Get the name of the calling task.

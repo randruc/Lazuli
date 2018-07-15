@@ -5,6 +5,8 @@
  * ATMega328p.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 
@@ -16,13 +18,13 @@ GetTimerCounter0()
 }
 
 void
-TimerCounter0InterruptsEnable(const u8 interruptsMask)
+TimerCounter0InterruptsEnable(const uint8_t interruptsMask)
 {
-  SET_BITS(TIMSK0, u8, interruptsMask);
+  SET_BITS(TIMSK0, uint8_t, interruptsMask);
 }
 
 void
-TimerCounter0InterruptsDisable(const u8 interruptsMask)
+TimerCounter0InterruptsDisable(const uint8_t interruptsMask)
 {
-  CLEAR_BITS(TIMSK0, u8, interruptsMask);
+  CLEAR_BITS(TIMSK0, uint8_t, interruptsMask);
 }

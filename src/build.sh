@@ -42,6 +42,7 @@ avr-gcc \
     -Wextra \
     -Werror \
     -Iinclude \
+    -Ilibc-headers/arch-dependent/AVR \
     -mmcu=atmega328p \
     -O2 \
     -nostartfiles \
@@ -59,7 +60,8 @@ avr-gcc \
     kern/scheduler_rr.c \
     kern/scheduler_hpf.c \
     kern/list.c \
-    kern/sizeof_types.c
+    kern/sizeof_types.c \
+    libc/stdint_assertions.c
 
 ar rcs lib$project_name.a \
     interrupt_vectors_table.o \
@@ -82,6 +84,7 @@ avr-gcc \
     -Wextra \
     -Werror \
     -Iinclude \
+    -Ilibc-headers/arch_dependent/AVR \
     -mmcu=atmega328p \
     -O2 \
     -nostartfiles \

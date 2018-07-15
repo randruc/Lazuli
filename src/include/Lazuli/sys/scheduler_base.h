@@ -13,6 +13,8 @@
 #ifndef LZ_SYS_SCHEDULER_BASE_H
 #define LZ_SYS_SCHEDULER_BASE_H
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
@@ -57,7 +59,7 @@ typedef struct {
    *           This is used to save the task's context address.
    * @param interruptCode The code of the interrupt that occured.
    */
-  void (*handleInterrupt)(void * const sp, const u8 interruptCode);
+  void (*handleInterrupt)(void * const sp, const uint8_t interruptCode);
 
   /**
    * Entry point of the wait handler for this scheduler.
@@ -65,7 +67,7 @@ typedef struct {
    * @param sp The stack pointer of the task calling the wait routine.
    * @param eventCode The code of the wait event.
    */
-  void (*waitEvent)(void * const sp, const u8 eventCode);
+  void (*waitEvent)(void * const sp, const uint8_t eventCode);
 }SchedulerOperations;
 
 /**
@@ -98,7 +100,7 @@ BaseScheduler_Init();
  * @param interruptCode The code of the interrupt being handled.
  */
 void
-BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode);
+BaseScheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode);
 
 /**
  * This function is called from arch-specific Wait routine in order to get the
@@ -109,7 +111,7 @@ BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode);
  * @param eventCode The code of the event the task is waiting for.
  */
 void
-BaseScheduler_WaitEvent(void * const sp, const u8 eventCode);
+BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode);
 
 /**
  * Prepare the first context of the task so it will be ready when switching

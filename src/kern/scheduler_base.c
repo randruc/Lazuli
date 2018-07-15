@@ -8,6 +8,8 @@
  * Lazuli.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
@@ -65,7 +67,7 @@ BaseScheduler_Init()
 }
 
 void
-BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode)
+BaseScheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode)
 {
   if (CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
     if (interruptCode > INT_LAST_ENTRY) {
@@ -78,7 +80,7 @@ BaseScheduler_HandleInterrupt(void * const sp, const u8 interruptCode)
 
 /* TODO: Maybe think about rename this one to WaitInterrupt */
 void
-BaseScheduler_WaitEvent(void * const sp, const u8 eventCode)
+BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode)
 {
   JumpToScheduler[schedulerClass]->waitEvent(sp, eventCode);
 }

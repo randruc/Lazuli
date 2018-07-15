@@ -10,6 +10,8 @@
 #ifndef LZ_SYS_ARCH_ARCH_H
 #define LZ_SYS_ARCH_ARCH_H
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/sys/compiler.h>
 
@@ -63,7 +65,7 @@ start_running(void *stackPointer, size_t offsetOfPc);
  *
  * @return The byte stored a the address contained in source parameter.
  */
-extern u8
+extern uint8_t
 load_u8_from_progmem(char const * const source);
 
 _EXTERN_C_DECL_END
