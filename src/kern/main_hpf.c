@@ -17,12 +17,12 @@ void
 Task1()
 {
   uint16_t i = UINT16_MAX >> 1;
-  
+
   while (true) {
     Usart_PutChar('.');
-    
+
     while (i--);
-    
+
     i = UINT16_MAX;
   }
 }
@@ -36,7 +36,7 @@ Task2()
     Usart_PutChar('T');
 
     while (i--);
-    
+
     i = UINT16_MAX;
   }
 }
@@ -61,7 +61,7 @@ Task4()
     for (c = 'a'; c <= 'z'; c++) {
       Usart_PutChar(c);
       i = UINT16_MAX >> 1;
-      
+
       while (i--);
     }
   }
@@ -79,7 +79,7 @@ Task5()
     for (c = 'A'; c <= 'Z'; c++) {
       Usart_PutChar(c);
       i = UINT16_MAX >> 1;
-      
+
       while (i--);
     }
   }

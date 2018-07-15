@@ -22,7 +22,7 @@ Task1()
     Usart_PutChar('W');
 
     while (i--);
-    
+
     i = UINT16_MAX;
   }
 }
@@ -36,7 +36,7 @@ Task2()
     Usart_PutChar('T');
 
     while (i--);
-    
+
     i = UINT16_MAX;
   }
 }
