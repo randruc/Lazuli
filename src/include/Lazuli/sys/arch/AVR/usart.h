@@ -7,6 +7,8 @@
 #ifndef LZ_SYS_ARCH_AVR_USART_H
 #define LZ_SYS_ARCH_AVR_USART_H
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -38,13 +40,13 @@ _EXTERN_C_DECL_BEGIN
  * Describes the memory mapping for the USART.
  */
 typedef struct {
-  volatile u8 ucsr0a;    /**< USART Control and Status Register A */
-  volatile u8 ucsr0b;    /**< USART Control and Status Register B */
-  volatile u8 ucsr0c;    /**< USART Control and Status Register C */
-  volatile u8 _reserved; /**< Unsed                               */
-  volatile u8 ubrr0l;    /**< USART Baud Rate Register low        */
-  volatile u8 ubrr0h;    /**< USART Baud Rate Register high       */
-  volatile u8 udr0;      /**< USART I/O Data Register             */
+  volatile uint8_t ucsr0a;    /**< USART Control and Status Register A */
+  volatile uint8_t ucsr0b;    /**< USART Control and Status Register B */
+  volatile uint8_t ucsr0c;    /**< USART Control and Status Register C */
+  volatile uint8_t _reserved; /**< Unsed                               */
+  volatile uint8_t ubrr0l;    /**< USART Baud Rate Register low        */
+  volatile uint8_t ubrr0h;    /**< USART Baud Rate Register high       */
+  volatile uint8_t udr0;      /**< USART I/O Data Register             */
 }Usart;
 
 /**
@@ -115,28 +117,28 @@ void
 Usart_NewLine();
 
 /**
- * Print an u32 value in hexadecimal.
+ * Print a uint32_t value in hexadecimal.
  *
- * @param value The u32 value to print.
+ * @param value The uint32_t value to print.
  */
 void
-Usart_HexaPrint_u32(const u32 value);
+Usart_HexaPrint_u32(const uint32_t value);
 
 /**
- * Print an u16 value in hexadecimal.
+ * Print a uint16_t value in hexadecimal.
  *
- * @param value The u16 value to print.
+ * @param value The uint16_t value to print.
  */
 void
-Usart_HexaPrint_u16(const u16 value);
+Usart_HexaPrint_u16(const uint16_t value);
 
 /**
- * Print an u8 value in hexadecimal.
+ * Print a uint8_t value in hexadecimal.
  *
- * @param value The u8 value to print.
+ * @param value The uint8_t value to print.
  */
 void
-Usart_HexaPrint_u8(const u8 value);
+Usart_HexaPrint_u8(const uint8_t value);
 
 /**
  * Print an pointer value in hexadecimal.

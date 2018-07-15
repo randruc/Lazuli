@@ -8,6 +8,8 @@
 #ifndef LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H
 #define LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -42,11 +44,11 @@ _EXTERN_C_DECL_BEGIN
  * Describes the memory mapping for timer/counter 0.
  */
 typedef struct {
-  volatile u8 tccr0a; /**< Timer/Counter Control Register A        */
-  volatile u8 tccr0b; /**< Timer/Counter Control Register B        */
-  volatile u8 tcnt0;  /**< Timer/Counter Register                  */
-  volatile u8 ocr0a;  /**< Output Compare register A               */
-  volatile u8 ocr0b;  /**< Output Compare register B               */
+  volatile uint8_t tccr0a; /**< Timer/Counter Control Register A        */
+  volatile uint8_t tccr0b; /**< Timer/Counter Control Register B        */
+  volatile uint8_t tcnt0;  /**< Timer/Counter Register                  */
+  volatile uint8_t ocr0a;  /**< Output Compare register A               */
+  volatile uint8_t ocr0b;  /**< Output Compare register B               */
 }TimerCounter0;
 
 /**
@@ -114,7 +116,7 @@ GetTimerCounter0();
  *                       possible values of TIMSK0 register.
  */
 void
-TimerCounter0InterruptsEnable(const u8 interruptsMask);
+TimerCounter0InterruptsEnable(const uint8_t interruptsMask);
 
 /**
  * Disable interrupts for timer/counter 0.
@@ -123,7 +125,7 @@ TimerCounter0InterruptsEnable(const u8 interruptsMask);
  *                       possible values of TIMSK0 register.
  */
 void
-TimerCounter0InterruptsDisable(const u8 interruptsMask);
+TimerCounter0InterruptsDisable(const uint8_t interruptsMask);
 
 _EXTERN_C_DECL_END
 

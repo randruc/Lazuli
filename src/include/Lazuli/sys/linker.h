@@ -11,46 +11,48 @@
 #ifndef LZ_SYS_LINKER_H
 #define LZ_SYS_LINKER_H
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 
 /**
  * Start address of the .data section.
  */
-extern u8 _data_start;
+extern uint8_t _data_start;
 
 /**
  * Start address of the loaded .data section.
  */
-extern u8 _data_load_start;
+extern uint8_t _data_load_start;
 
 /**
  * Start address of the .rodata section.
  */
-extern u8 _rodata_start;
+extern uint8_t _rodata_start;
 
 /**
  * Start address of the loaded .rodata section.
  */
-extern u8 _rodata_load_start;
+extern uint8_t _rodata_load_start;
 
 /**
  * Start address of the .bss section.
  */
-extern u8 _bss_start;
+extern uint8_t _bss_start;
 
 /**
  * Initial break address.
  */
-extern u8 _brk;
+extern uint8_t _brk;
 
 /**
  * Last address of RAM.
  */
-extern u8 _ramend;
+extern uint8_t _ramend;
 
 /**
  * Start address of the loaded .progmem section.
  */
-extern u8 _progmem_load_start;
+extern uint8_t _progmem_load_start;
 
 #endif /* LZ_SYS_LINKER_H */

@@ -4,6 +4,8 @@
  * Implementation of dynamic memory allocation.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/config.h>
@@ -82,9 +84,9 @@ KIncrementalMalloc(const size_t s)
 void
 MemoryCopy(const void *source, void *destination, const size_t length)
 {
-  u16 i;
-  const u8 *sourceBytes = source;
-  u8 *destinationBytes = destination;
+  size_t i;
+  const uint8_t *sourceBytes = source;
+  uint8_t *destinationBytes = destination;
 
   for (i = 0; i < length; i++) {
     destinationBytes[i] = sourceBytes[i];
