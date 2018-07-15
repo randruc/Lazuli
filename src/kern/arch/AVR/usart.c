@@ -4,6 +4,8 @@
  * Describe the driver implementation for the USART of the ATMega328p.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
@@ -77,9 +79,9 @@ __progmem static const char hexachars[] = {
 typedef union {
   void *pointer;             /**< Holds the pointer value              */
   void (*functionPointer)(); /**< Hold the function pointer value      */
-  u8    u8Value;             /**< Holds the 8-bits value               */
-  u16   u16Value;            /**< Holds the 16-bits value              */
-  u32   u32Value;            /**< Holds the 32-bits value              */
+  uint8_t    u8Value;        /**< Holds the 8-bits value               */
+  uint16_t   u16Value;       /**< Holds the 16-bits value              */
+  uint32_t   u32Value;       /**< Holds the 32-bits value              */
   char  bytes[4];            /**< Easily access each byte of the value */
 }IntegerBytes;
 
@@ -97,9 +99,9 @@ static void
 Usart_HexaPrint_IntegerBytes(IntegerBytes const * const integerBytes,
                              const size_t size)
 {
-  u8 i;
-  u8 upperPart;
-  u8 lowerPart;
+  uint8_t i;
+  uint8_t upperPart;
+  uint8_t lowerPart;
 
   Usart_PutChar('0');
   Usart_PutChar('x');
@@ -113,52 +115,47 @@ Usart_HexaPrint_IntegerBytes(IntegerBytes const * const integerBytes,
   }
 }
 
-/* TODO: Use sizeof on the object */
 void
-Usart_HexaPrint_u32(const u32 value)
+Usart_HexaPrint_u32(const uint32_t value)
 {
   IntegerBytes integerBytes;
   integerBytes.u32Value = value;
 
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(u32));
+  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(value));
 }
 
-/* TODO: Use sizeof on the object */
 void
-Usart_HexaPrint_u16(const u16 value)
+Usart_HexaPrint_u16(const uint16_t value)
 {
   IntegerBytes integerBytes;
   integerBytes.u16Value = value;
 
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(u16));
+  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(value));
 }
 
-/* TODO: Use sizeof on the object */
 void
-Usart_HexaPrint_u8(const u8 value)
+Usart_HexaPrint_u8(const uint8_t value)
 {
   IntegerBytes integerBytes;
   integerBytes.u8Value = value;
 
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(u8));
+  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(value));
 }
 
-/* TODO: Use sizeof on the object */
 void
 Usart_HexaPrint_Pointer(void * const pointer)
 {
   IntegerBytes integerBytes;
   integerBytes.pointer = pointer;
 
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(void *));
+  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(pointer));
 }
 
-/* TODO: Use sizeof on the object */
 void
 Usart_HexaPrint_FunctionPointer(void (*functionPointer)())
 {
   IntegerBytes integerBytes;
   integerBytes.functionPointer = functionPointer;
 
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(void (*)()));
+  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(functionPointer));
 }

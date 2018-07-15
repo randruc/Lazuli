@@ -6,12 +6,12 @@
  *
  * This file describes basic type definitions and useful macros used in the
  * Lazuli project.
- * This file can be used within kernel code or within user code without any
- * dependency.
  */
 
 #ifndef LAZULI_COMMON_H
 #define LAZULI_COMMON_H
+
+#include <stdint.h>
 
 #ifdef __cplusplus
 
@@ -61,123 +61,15 @@
 typedef int ptrdiff_t;
 
 /**
- * Unsigned integer of 1 byte long.
- */
-typedef unsigned char u8;
-STATIC_ASSERT(sizeof(u8) == 1, u8_MUST_be_1_byte_long);
-
-/**
- * Signed integer of 1 byte long.
- */
-typedef signed char s8;
-STATIC_ASSERT(sizeof(s8) == 1, s8_MUST_be_1_byte_long);
-
-/**
- * Unsigned integer of 2 bytes long.
- */
-typedef unsigned int u16;
-STATIC_ASSERT(sizeof(u16) == 2, u16_MUST_be_2_bytes_long);
-
-/**
- * Signed integer of 2 bytes long.
- */
-typedef signed int s16;
-STATIC_ASSERT(sizeof(s16) == 2, s16_MUST_be_2_bytes_long);
-
-/**
- * Unsigned integer of 4 bytes long.
- */
-typedef unsigned long int u32;
-STATIC_ASSERT(sizeof(u32) == 4, u32_MUST_be_4_bytes_long);
-
-/**
- * Signed integer of 4 bytes long.
- */
-typedef signed long int s32;
-STATIC_ASSERT(sizeof(s32) == 4, s32_MUST_be_4_bytes_long);
-
-/**
  * Boolean type.
  */
-typedef u8 bool;
+typedef uint8_t bool;
 STATIC_ASSERT(sizeof(bool) == 1, bool_MUST_be_1_byte_long);
-
-/**
- * Machine word (unsigned).
- *
- * Represents an unsigned integer that has the length of the data word
- * manipulated by the processor.
- * i.e. 8 bits on an 8-bit machine, 16 bits on a 16-bit machine, and so on.
- *
- * The equivalent for an address word is the type void*.
- */
-typedef u8 mword;
-STATIC_ASSERT(sizeof(mword) == 1, mword_MUST_be_1_byte_long);
 
 /**
  * Represents the size of an object.
  */
-typedef u16 size_t;
-
-/**
- * Maximum value of u8.
- */
-#define u8_MAX ((u8)0xff)
-
-/**
- * Minimum value of u8.
- */
-#define u8_MIN ((u8)0x00)
-
-/**
- * Maximum value of s8.
- */
-#define s8_MAX ((s8)0x7f)
-
-/**
- * Minimum value of s8.
- */
-#define s8_MIN ((s8)0x80)
-
-/**
- * Maximum value of u16.
- */
-#define u16_MAX ((u16)0xffff)
-
-/**
- * Minimum value of u16.
- */
-#define u16_MIN ((u16)0x0000)
-
-/**
- * Maximum value of s16.
- */
-#define s16_MAX ((s16)0x7fff)
-
-/**
- * Minimum value of s16.
- */
-#define s16_MIN ((s16)0x8000)
-
-/**
- * Maximum value of u32.
- */
-#define u32_MAX ((u32)0xffffffff)
-
-/**
- * Minimum value of u32.
- */
-#define u32_MIN ((u32)0x00000000)
-
-/**
- * Maximum value of s32.
- */
-#define s32_MAX ((s32)0x7fffffff)
-
-/**
- * Minimum value of s32.
- */
-#define s32_MIN ((s32)0x80000000)
+typedef uint16_t size_t;
 
 /**
  * Boolean TRUE constant value.
@@ -196,14 +88,14 @@ typedef u16 size_t;
  *
  * @param X The void pointer on which to perform arithmetic.
  */
-#define ALLOW_ARITHM(X) ((u8 *)(X))
+#define ALLOW_ARITHM(X) ((uint8_t *)(X))
 
 /*
  * This assertion is mandatory for ALLOW_ARITHM macro.
  * ALLOW_ARITHM can work with any type whose size is 1 byte.
  */
-STATIC_ASSERT(sizeof(u8) == 1,
-              u8_MUST_be_1_byte_long_to_allow_arithmetic_on_void_pointers);
+STATIC_ASSERT(sizeof(uint8_t) == 1,
+              uint8_t_MUST_be_1_byte_long_to_allow_arithmetic_on_void_pointers);
 
 /**
  * Check that the lvalue V is of type T at compile time.
@@ -262,7 +154,7 @@ STATIC_ASSERT(sizeof(u8) == 1,
  *
  * @param X The address of the register.
  */
-#define INDIRECT(X) INDIRECT_T(X, u8)
+#define INDIRECT(X) INDIRECT_T(X, uint8_t)
 
 /**
  * Define a direct read/write variable at an absolute address.
@@ -277,14 +169,14 @@ STATIC_ASSERT(sizeof(u8) == 1,
  *
  * @param X The address of the register.
  */
-#define DIRECT(X) DIRECT_T(X, u8)
+#define DIRECT(X) DIRECT_T(X, uint8_t)
 
 /**
  * Take the low byte of a 16-bit value.
  *
  * @param X The 16-bit value.
  */
-#define LO8(X) ((u8)X)
+#define LO8(X) ((uint8_t)X)
 
 /**
  * Take the high byte of a 16-bit value.
@@ -312,7 +204,7 @@ STATIC_ASSERT(sizeof(u8) == 1,
  * @param T The type of the structure.
  */
 #define CONTAINER_OF(P, M, T)                                   \
-  ((T*) ((u8*) (1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
+  ((T*) ((uint8_t*) (1 ? (P) : &(((T*)0)->M)) - OFFSET_OF(M, T)))
 
 /**
  * Convert the name of a symbol to a string.

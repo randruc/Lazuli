@@ -11,6 +11,8 @@
  * It also holds the kernel memory allocation map.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 
 #include <Lazuli/sys/arch/arch.h>
@@ -19,6 +21,7 @@
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/arch/arch.h>
 
 /**
  * Main entry point for user tasks.
@@ -74,8 +77,8 @@ Panic()
  */
 union WordAsBytesArray
 {
-  u16 u16Value;   /**< The 16-bit word to manipulate as a bytes array. */
-  u8 u8Values[2]; /**< The bytes array to manipulate the 16-bit word.  */
+  uint16_t u16Value;    /**< The 16-bit word to manipulate as a bytes array. */
+  uint8_t  u8Values[2]; /**< The bytes array to manipulate the 16-bit word.  */
 };
 
 void
@@ -83,7 +86,7 @@ ReverseBytes16(void * const value)
 {
   union WordAsBytesArray reverse;
 
-  reverse.u16Value = *(u16*)value;
-  ((u8 *)value)[0] = reverse.u8Values[1];
-  ((u8 *)value)[1] = reverse.u8Values[0];
+  reverse.u16Value = *(uint16_t*)value;
+  ((uint8_t *)value)[0] = reverse.u8Values[1];
+  ((uint8_t *)value)[1] = reverse.u8Values[0];
 }

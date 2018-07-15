@@ -4,9 +4,10 @@
  * Entry point for user tasks.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
-
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
@@ -14,26 +15,26 @@
 void
 Task1()
 {
-  u16 i = u16_MAX >> 1;
+  uint16_t i = UINT16_MAX >> 1;
 
   while (true) {
     Usart_PutChar('.');
 
     while (i--);
-    i = u16_MAX;
+    i = UINT16_MAX;
   }
 }
 
 void
 Task2()
 {
-  u16 i = u16_MAX >> 1;
+  uint16_t i = UINT16_MAX >> 1;
 
   while (true) {
     Usart_PutChar('T');
 
     while (i--);
-    i = u16_MAX;
+    i = UINT16_MAX;
   }
 }
 
@@ -48,7 +49,7 @@ Task3()
 void
 Task4()
 {
-  volatile u16 i;
+  volatile uint16_t i;
   char c;
 
   while (true) {
@@ -56,7 +57,7 @@ Task4()
 
     for (c = 'a'; c <= 'j'; c++) {
       Usart_PutChar(c);
-      i = u16_MAX >> 1;
+      i = UINT16_MAX >> 1;
       while (i--);
     }
   }
@@ -65,7 +66,7 @@ Task4()
 void
 Task5()
 {
-  volatile u16 i;
+  volatile uint16_t i;
   char c;
 
   while (true) {
@@ -73,7 +74,7 @@ Task5()
 
     for (c = 'A'; c <= 'J'; c++) {
       Usart_PutChar(c);
-      i = u16_MAX >> 1;
+      i = UINT16_MAX >> 1;
       while (i--);
     }
   }

@@ -8,6 +8,8 @@
  * functions.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
@@ -59,7 +61,7 @@ Arch_Init()
 void
 Arch_CpuSleep()
 {
-  SET_BITS(SMCR, u8, POSITION(0));
+  SET_BITS(SMCR, uint8_t, POSITION(0));
   cpu_sleep();
-  CLEAR_BITS(SMCR, u8, POSITION(0));
+  CLEAR_BITS(SMCR, uint8_t, POSITION(0));
 }

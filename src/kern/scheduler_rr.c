@@ -7,6 +7,8 @@
  * This file describes the implementation of the Round-Robin tasks scheduler.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
@@ -39,7 +41,7 @@ static LinkedList waitingInterruptTasks[INT_TOTAL];
 static void
 InitWaitingInterruptTasksTable()
 {
-  u8 i;
+  uint8_t i;
   const LinkedList initValue = LINKED_LIST_INIT;
 
   for (i = 0; i < INT_TOTAL; i++) {
@@ -84,8 +86,8 @@ Init()
 
   timer0->tccr0a = TCCR0A_WGM01;
   timer0->tccr0b = TCCR0B_CS02 | TCCR0B_CS00;
-  timer0->ocr0a = (u8)80;
-  timer0->tcnt0 = (u8)0;
+  timer0->ocr0a = (uint8_t)80;
+  timer0->tcnt0 = (uint8_t)0;
 
   TimerCounter0InterruptsEnable(TIMSK0_OCIE0A);
 
@@ -131,7 +133,7 @@ Run()
  * @param interruptCode The code of the interrupt that occured.
  */
 static void
-HandleInterrupt(void * const sp, const u8 interruptCode)
+HandleInterrupt(void * const sp, const uint8_t interruptCode)
 {
   currentTask->stackPointer = sp;
 
@@ -150,7 +152,7 @@ HandleInterrupt(void * const sp, const u8 interruptCode)
  * @param eventCode The code of the wait event.
  */
 static void
-WaitEvent(void * const sp, const u8 eventCode)
+WaitEvent(void * const sp, const uint8_t eventCode)
 {
   currentTask->stackPointer = sp;
 
