@@ -8,9 +8,10 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
-#include <Lazuli/sys/arch/AVR/usart.h>
-#include <Lazuli/sys/arch/AVR/registers.h>
+
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/arch/AVR/registers.h>
+#include <Lazuli/sys/arch/AVR/usart.h>
 
 void
 Task1()
@@ -21,6 +22,7 @@ Task1()
     Usart_PutChar('W');
 
     while (i--);
+    
     i = UINT16_MAX;
   }
 }
@@ -34,6 +36,7 @@ Task2()
     Usart_PutChar('T');
 
     while (i--);
+    
     i = UINT16_MAX;
   }
 }

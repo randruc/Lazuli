@@ -12,9 +12,9 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
-#include <Lazuli/sys/arch/arch.h>
-#include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/arch/AVR/timer_counter_0.h>
+#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>
 #include <Lazuli/sys/scheduler_base.h>

@@ -10,8 +10,8 @@
  * It also defines symbols that are accessible to any scheduler class.
  */
 
-#ifndef LZ_SYS_SCHEDULER_BASE_H
-#define LZ_SYS_SCHEDULER_BASE_H
+#ifndef LAZULI_SYS_SCHEDULER_BASE_H
+#define LAZULI_SYS_SCHEDULER_BASE_H
 
 #include <stdint.h>
 
@@ -124,4 +124,4 @@ BaseScheduler_PrepareTaskContext(Task * const task);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_SCHEDULER_BASE_H */
+#endif /* LAZULI_SYS_SCHEDULER_BASE_H */

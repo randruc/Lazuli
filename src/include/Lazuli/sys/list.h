@@ -7,8 +7,8 @@
  * Describes types and functions related to doubly linked lists.
  */
 
-#ifndef LZ_SYS_LIST_H
-#define LZ_SYS_LIST_H
+#ifndef LAZULI_SYS_LIST_H
+#define LAZULI_SYS_LIST_H
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/config.h>
@@ -227,4 +227,4 @@ List_InitLinkedListElement(LinkedListElement * const item);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_LIST_H */
+#endif /* LAZULI_SYS_LIST_H */

@@ -4,8 +4,8 @@
  * Defines base types and operations for memory management.
  */
 
-#ifndef LZ_SYS_MEMORY_H
-#define LZ_SYS_MEMORY_H
+#ifndef LAZULI_SYS_MEMORY_H
+#define LAZULI_SYS_MEMORY_H
 
 #include <Lazuli/common.h>
 
@@ -61,4 +61,4 @@ MemoryCopy(const void * source, void * destination, const size_t length);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_MEMORY_H */
+#endif /* LAZULI_SYS_MEMORY_H */

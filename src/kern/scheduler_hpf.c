@@ -13,8 +13,8 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
-#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>
 #include <Lazuli/sys/memory.h>
@@ -160,7 +160,7 @@ HandleInterrupt(void * const sp, const uint8_t interruptCode)
     restore_context_and_return_from_interrupt(sp);
   }
 
-  waitingTask = (HpfTask*)CONTAINER_OF(first, stateQueue, HpfTask);
+  waitingTask = CONTAINER_OF(first, stateQueue, HpfTask);
 
   if (waitingTask->priority <= ((HpfTask*)currentTask)->priority) {
     InsertTaskByPriority(&readyTasks, waitingTask);

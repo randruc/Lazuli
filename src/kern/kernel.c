@@ -14,12 +14,12 @@
 #include <stdint.h>
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/memory.h>
+
+#include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/scheduler_base.h>
-#include <Lazuli/sys/arch/arch.h>
 
 /**
  * Main entry point for user tasks.

@@ -9,8 +9,8 @@
  * Does not contain any arch-specific configuration.
  */
 
-#ifndef LZ_SYS_CONFIG_H
-#define LZ_SYS_CONFIG_H
+#ifndef LAZULI_SYS_CONFIG_H
+#define LAZULI_SYS_CONFIG_H
 
 /**
  * Size in bytes of the security gap between the break and the stack pointer.
@@ -66,4 +66,4 @@
  */
 #define CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
 
-#endif /* LZ_SYS_CONFIG_H */
+#endif /* LAZULI_SYS_CONFIG_H */
