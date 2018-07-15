@@ -10,8 +10,8 @@
  * icing on the cake.
  */
 
-#ifndef LZ_SYS_COMPILER_H
-#define LZ_SYS_COMPILER_H
+#ifndef LAZULI_SYS_COMPILER_H
+#define LAZULI_SYS_COMPILER_H
 
 #ifdef __GNUC__
 
@@ -33,4 +33,4 @@
 
 #endif/* __GNUC__ */
 
-#endif /* LZ_SYS_COMPILER_H */
+#endif /* LAZULI_SYS_COMPILER_H */

@@ -6,10 +6,10 @@
 
 #include <stdint.h>
 
-#include <Lazuli/sys/config.h>
-#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/compiler.h>
+#include <Lazuli/sys/config.h>
 
 /**
  * The baud rate value to set in UBRR0.

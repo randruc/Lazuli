@@ -7,10 +7,11 @@
 #include <stdint.h>
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/memory.h>
+
+#include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
-#include <Lazuli/sys/arch/AVR/registers.h>
+#include <Lazuli/sys/memory.h>
 
 /**
  * Set break position of a memory region.

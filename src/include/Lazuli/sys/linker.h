@@ -8,8 +8,8 @@
  * They only consist of addresses and are always accessed with the & operator.
  */
 
-#ifndef LZ_SYS_LINKER_H
-#define LZ_SYS_LINKER_H
+#ifndef LAZULI_SYS_LINKER_H
+#define LAZULI_SYS_LINKER_H
 
 #include <stdint.h>
 
@@ -55,4 +55,4 @@ extern uint8_t _ramend;
  */
 extern uint8_t _progmem_load_start;
 
-#endif /* LZ_SYS_LINKER_H */
+#endif /* LAZULI_SYS_LINKER_H */

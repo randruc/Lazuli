@@ -10,8 +10,8 @@
  * manipulated in ASM code.
  */
 
-#ifndef LZ_SYS_ARCH_AVR_INTERRUPTS_H
-#define LZ_SYS_ARCH_AVR_INTERRUPTS_H
+#ifndef LAZULI_SYS_ARCH_AVR_INTERRUPTS_H
+#define LAZULI_SYS_ARCH_AVR_INTERRUPTS_H
 
 /**
  * Code for interrupt: Reset, Entry point at boot.
@@ -153,4 +153,4 @@
  */
 #define INT_TOTAL (INT_LAST_ENTRY + 1)
 
-#endif /* LZ_SYS_ARCH_AVR_INTERRUPTS_H */
+#endif /* LAZULI_SYS_ARCH_AVR_INTERRUPTS_H */

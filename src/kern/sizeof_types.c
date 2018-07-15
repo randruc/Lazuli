@@ -11,9 +11,10 @@
  */
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/task.h>
-#include <Lazuli/sys/scheduler_rr.h>
+
 #include <Lazuli/sys/scheduler_hpf.h>
+#include <Lazuli/sys/scheduler_rr.h>
+#include <Lazuli/sys/task.h>
 
 /**
  * Declare a constant containing the size of a given type.

@@ -7,8 +7,8 @@
  * This file defines the externally-visible symbols from RR scheduler.
  */
 
-#ifndef LZ_SYS_SCHEDULER_RR_H
-#define LZ_SYS_SCHEDULER_RR_H
+#ifndef LAZULI_SYS_SCHEDULER_RR_H
+#define LAZULI_SYS_SCHEDULER_RR_H
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/scheduler_base.h>
@@ -38,4 +38,4 @@ STATIC_ASSERT(!OFFSET_OF(base, RrTask),
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_SCHEDULER_RR_H */
+#endif /* LAZULI_SYS_SCHEDULER_RR_H */

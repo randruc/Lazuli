@@ -7,8 +7,8 @@
  * This file defines the externally-visible symbols from the HPF scheduler.
  */
 
-#ifndef LZ_SYS_SCHEDULER_HPF_H
-#define LZ_SYS_SCHEDULER_HPF_H
+#ifndef LAZULI_SYS_SCHEDULER_HPF_H
+#define LAZULI_SYS_SCHEDULER_HPF_H
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/scheduler_base.h>
@@ -42,4 +42,4 @@ STATIC_ASSERT(!OFFSET_OF(base, HpfTask),
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_SCHEDULER_HPF_H */
+#endif /* LAZULI_SYS_SCHEDULER_HPF_H */
