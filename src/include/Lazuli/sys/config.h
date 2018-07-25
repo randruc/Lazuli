@@ -66,4 +66,59 @@
  */
 #define CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
 
+/**
+ * Configure if the idle task must have a name.
+ *
+ * If set to 1, the idle task will have the name "idle" attached to it, and 5
+ * bytes will be used to store the name in read-only data section (4 bytes for
+ * the string + 1 byte for the string termination NUL character).
+ *
+ * If set to 0, the idle task will have no name attached to it. Thus it can save
+ * 5 bytes in the read-only data section.
+ */
+#define IDLE_TASK_HAS_NAME (1)
+
+/**
+ * If set to 1, put the CPU to sleep when it's idle.
+ * If set to 0, the CPU will actively infinite loop when it's idle.
+ */
+#define ON_IDLE_SLEEP (0)
+
+/** @name AVR-specific configuration */
+/** @{                               */
+
+/**
+ * Enter "Idle Mode" when sleeping.
+ *
+ * This is the default value no sleep mode is selected.
+ */
+#define SLEEP_WITH_IDLE_MODE (1)
+
+/**
+ * Enter "ADC Noise Reduction Mode" when sleeping.
+ */
+#define SLEEP_WITH_ADC_NOISE_REDUCTION_MODE (0)
+
+/**
+ * Enter "Power-down Mode" when sleeping.
+ */
+#define SLEEP_WITH_POWER_DOWN_MODE (0)
+
+/**
+ * Enter "Power-save Mode" when sleeping.
+ */
+#define SLEEP_WITH_POWER_SAVE_MODE (0)
+
+/**
+ * Enter "Standby Mode" when sleeping.
+ */
+#define SLEEP_WITH_STANDBY_MODE (0)
+
+/**
+ * Enter "Extended Standby Mode" when sleeping.
+ */
+#define SLEEP_WITH_EXTENDED_STANDBY_MODE (0)
+
+/** @} */
+
 #endif /* LAZULI_SYS_CONFIG_H */

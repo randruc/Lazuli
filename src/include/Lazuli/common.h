@@ -132,9 +132,10 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
   } while (0)
 
 /**
- * Define a constant bit at position X.
+ * Define a constant bit at position X, starting from index 0.
  *
- * @param X An integer representing the position of the bit.
+ * @param X An integer representing the position of the bit, starting from index
+ *          0.
  */
 #define POSITION(X) (1 << (X))
 

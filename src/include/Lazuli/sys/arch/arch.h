@@ -1,10 +1,15 @@
 /**
  * @file src/include/Lazuli/sys/arch/arch.h
- * @brief Architecture specific functions.
+ * @brief Architecture Abstraction API.
  * @date Feb 2017
  * @author Remi Andruccioli
  *
- * Defines architecture specific functions.
+ * Provides a simple abstraction API to architecture specific functions.
+ * This is the API that must be re-implemented if porting to another platform.
+ *
+ * This one is taylored after the AVR platform and can be subject to change if
+ * porting.
+ * These functions are the only entry points to ASM code in the kernel.
  */
 
 #ifndef LAZULI_SYS_ARCH_ARCH_H
@@ -21,13 +26,13 @@ _EXTERN_C_DECL_BEGIN
  * Function that loops forever, never returns.
  */
 __noreturn extern void
-infinite_loop();
+Arch_InfiniteLoop();
 
 /**
  * Reset the whole system.
  */
 extern void
-reset_system();
+Arch_ResetSystem();
 
 /**
  * @brief Restore the context of a previously saved task, and run it by
@@ -41,7 +46,7 @@ reset_system();
  * @param stackPointer The stack pointer of the task to restore.
  */
 extern void
-restore_context_and_return_from_interrupt(void *stackPointer);
+Arch_RestoreContextAndReturnFromInterrupt(void *stackPointer);
 
 /**
  * Start running the scheduler for the first time with the specified context.
@@ -56,7 +61,7 @@ restore_context_and_return_from_interrupt(void *stackPointer);
  *                     the task).
  */
 extern void
-start_running(void *stackPointer, size_t offsetOfPc);
+Arch_StartRunning(void *stackPointer, size_t offsetOfPc);
 
 /**
  * Return a byte stored in program memory.
@@ -66,7 +71,19 @@ start_running(void *stackPointer, size_t offsetOfPc);
  * @return The byte stored a the address contained in source parameter.
  */
 extern uint8_t
-load_u8_from_progmem(char const * const source);
+Arch_LoadU8FromProgmem(char const * const source);
+
+/**
+ * Initialize all architecture-specific parameters.
+ */
+void
+Arch_Init();
+
+/**
+ * Put the CPU to sleep according to the sleep settings.
+ */
+void
+Arch_CpuSleep();
 
 _EXTERN_C_DECL_END
 

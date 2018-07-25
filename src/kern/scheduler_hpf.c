@@ -15,6 +15,7 @@
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/assert.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>
 #include <Lazuli/sys/memory.h>
@@ -38,6 +39,22 @@ static LinkedList readyTasks = LINKED_LIST_INIT;
  * This table is indexed by the codes defined in interrupts.h.
  */
 static LinkedList waitingInterruptTasks[INT_TOTAL];
+
+/**
+ * The idle task to be executed when no user task is ready for execution.
+ *
+ * This task has the lowest possible priority, so the user tasks are always
+ * executed before the idle task if one is ready to run.
+ */
+static void
+IdleTask()
+{
+  while (1) {
+    if (ON_IDLE_SLEEP) {
+      Arch_CpuSleep();
+    }
+  }
+}
 
 /**
  * Initialize each entry of the waitingInterruptTasks table.
@@ -83,6 +100,23 @@ InsertTaskByPriority(LinkedList * const list, HpfTask * const taskToInsert)
   List_Append(list, &(taskToInsert->stateQueue));
 }
 
+static void
+RegisterIdleTask()
+{
+  Lz_TaskConfiguration taskConfiguration;
+
+  Lz_InitTaskConfiguration(&taskConfiguration);
+
+  taskConfiguration.stackSize = 10;
+  taskConfiguration.priority = -1;
+
+  if (IDLE_TASK_HAS_NAME) {
+    taskConfiguration.name = "idle";
+  }
+
+  Lz_RegisterTask(IdleTask, &taskConfiguration);
+}
+
 /** @name scheduler_base implementation */
 /** @{                                  */
 
@@ -92,60 +126,36 @@ Init()
   InitWaitingInterruptTasksTable();
 }
 
-static void
-RegisterTask(void (* const taskEntryPoint)(),
-             Lz_TaskConfiguration * const taskConfiguration)
+static Task *
+RegisterTask(Lz_TaskConfiguration * const taskConfiguration)
 {
-  HpfTask *newTask;
-  void *taskStack;
-  size_t desiredStackSize;
-  const Lz_TaskConfiguration *configuration;
-
-  if (NULL == taskConfiguration) {
-    configuration = &DefaultTaskConfiguration;
-  } else {
-    configuration = taskConfiguration;
-  }
-
-  newTask = KIncrementalMalloc(sizeof(HpfTask));
+  HpfTask *newTask = KIncrementalMalloc(sizeof(HpfTask));
   if (NULL == newTask) {
     Panic();
   }
 
-  desiredStackSize = configuration->stackSize
-    /* We add enough space to contain the context of a task on the stack */
-    + sizeof(TaskContextLayout)
-    /* Plus 1 call to save_context_on_stack (in startup.S) */
-    + sizeof(void *);
-
-  taskStack = KIncrementalMalloc(desiredStackSize);
-  if (NULL == taskStack) {
-    Panic();
-  }
-
-  newTask->base.name = configuration->name;
-  newTask->base.entryPoint = taskEntryPoint;
-  newTask->base.stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
-  newTask->priority = configuration->priority;
+  newTask->priority = taskConfiguration->priority;
   List_InitLinkedListElement(&(newTask->stateQueue));
-
-  BaseScheduler_PrepareTaskContext((Task *)newTask);
-
   InsertTaskByPriority(&readyTasks, newTask);
+
+  return &newTask->base;
 }
 
 static void
 Run()
 {
-  LinkedListElement *first = List_PickFirst(&readyTasks);
+  LinkedListElement *first;
 
+  RegisterIdleTask();
+
+  first = List_PickFirst(&readyTasks);
   if (NULL == first) {
     Panic();
   }
 
   currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);
-
-  start_running(currentTask->stackPointer, OFFSET_OF(pc, TaskContextLayout));
+  Arch_StartRunning(currentTask->stackPointer,
+                    OFFSET_OF(pc, TaskContextLayout));
 }
 
 static void
@@ -155,25 +165,37 @@ HandleInterrupt(void * const sp, const uint8_t interruptCode)
   HpfTask *waitingTask;
 
   first = List_PickFirst(&waitingInterruptTasks[interruptCode]);
-
   if (NULL == first) {
-    restore_context_and_return_from_interrupt(sp);
+    /* No task is waiting for that interrupt, restore the running task. */
+    Arch_RestoreContextAndReturnFromInterrupt(sp);
   }
 
   waitingTask = CONTAINER_OF(first, stateQueue, HpfTask);
 
   if (waitingTask->priority <= ((HpfTask*)currentTask)->priority) {
+    /*
+     * A task is waiting for that interrupt, but at a lower priority that the
+     * running task.
+     * Set the waiting task to be ready to execute, according to its priority.
+     * Then restore the running task.
+     */
     InsertTaskByPriority(&readyTasks, waitingTask);
-    restore_context_and_return_from_interrupt(sp);
+    Arch_RestoreContextAndReturnFromInterrupt(sp);
   }
 
+  /*
+   * If we are here, the task waiting for that interrupt has a higher priority
+   * than the running task.
+   * We push the running task on top of the stack of waiting tasks, and we run
+   * the waiting task.
+   */
   currentTask->stackPointer = sp;
 
   List_Prepend(&readyTasks, &(((HpfTask*)currentTask)->stateQueue));
 
   currentTask = (Task*)waitingTask;
 
-  restore_context_and_return_from_interrupt(currentTask->stackPointer);
+  Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
 }
 
 static void
@@ -193,7 +215,7 @@ WaitEvent(void * const sp, const uint8_t eventCode)
 
   currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);
 
-  restore_context_and_return_from_interrupt(currentTask->stackPointer);
+  Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
 }
 
 /**

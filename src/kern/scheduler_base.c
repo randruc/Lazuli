@@ -22,8 +22,13 @@
 #include <Lazuli/sys/scheduler_hpf.h>
 #include <Lazuli/sys/scheduler_rr.h>
 
+Task *currentTask;
+
 /* TODO: Maybe think about storing default task configuration in progmem */
-const Lz_TaskConfiguration DefaultTaskConfiguration = {
+/**
+ * Contains default values for Lz_TaskConfiguration.
+ */
+static const Lz_TaskConfiguration DefaultTaskConfiguration = {
   NULL                    /**< member: name      */,
   DEFAULT_TASK_STACK_SIZE /**< member: stackSize */,
   (Lz_TaskPriority)0      /**< member: priority  */
@@ -58,7 +63,30 @@ STATIC_ASSERT
 (__LZ_SCHEDULERCLASS_ENUM_END == ELEMENTS_COUNT(JumpToScheduler),
  The_JumpToScheduler_table_must_refer_each_Lz_SchedulerClass_enum_entry);
 
-Task *currentTask;
+/**
+ * Prepare the first context of the task so it will be ready when switching
+ * context for the first time (i.e. run the scheduler).
+ *
+ * @param task A pointer to the Task to prepare.
+ */
+static void
+PrepareTaskContext(Task * const task)
+{
+  TaskContextLayout * const contextLayout
+    = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
+                            - sizeof(TaskContextLayout) + 1);
+  void (*entry)() = task->entryPoint;
+
+  /*
+   * WARNING: This is BAD! Machine-specific!
+   * We assume that a function pointer is 16-bit long.
+   * TODO: Call a hardware abstraction function to perform that.
+   */
+  ReverseBytes16(&entry);
+  contextLayout->pc = entry;
+
+  task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
+}
 
 void
 BaseScheduler_Init()
@@ -83,25 +111,6 @@ void
 BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode)
 {
   JumpToScheduler[schedulerClass]->waitEvent(sp, eventCode);
-}
-
-void
-BaseScheduler_PrepareTaskContext(Task * const task)
-{
-  TaskContextLayout * const contextLayout
-    = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
-                            - sizeof(TaskContextLayout) + 1);
-  void (*entry)() = task->entryPoint;
-
-  /*
-   * WARNING: This is BAD! Machine-specific!
-   * We assume that a function pointer is 16-bit long.
-   * TODO: Call a hardware abstraction function to perform that.
-   */
-  ReverseBytes16(&entry);
-  contextLayout->pc = entry;
-
-  task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 
 /** @name User API */
@@ -135,8 +144,35 @@ void
 Lz_RegisterTask(void (* const taskEntryPoint)(),
                 Lz_TaskConfiguration * const taskConfiguration)
 {
-  JumpToScheduler[schedulerClass]->registerTask(taskEntryPoint,
-                                                taskConfiguration);
+  Task *newTask;
+  const Lz_TaskConfiguration *configuration;
+  void *taskStack;
+  size_t desiredStackSize;
+
+  if (NULL == taskConfiguration) {
+    configuration = &DefaultTaskConfiguration;
+  } else {
+    configuration = taskConfiguration;
+  }
+
+  newTask = JumpToScheduler[schedulerClass]->registerTask(taskConfiguration);
+
+  desiredStackSize = configuration->stackSize
+    /* We add enough space to contain the context of a task on the stack */
+    + sizeof(TaskContextLayout)
+    /* Plus 1 call to save_context_on_stack (in startup.S) */
+    + sizeof(void *);
+
+  taskStack = KIncrementalMalloc(desiredStackSize);
+  if (NULL == taskStack) {
+    Panic();
+  }
+
+  newTask->name = configuration->name;
+  newTask->entryPoint = taskEntryPoint;
+  newTask->stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
+
+  PrepareTaskContext(newTask);
 }
 
 void

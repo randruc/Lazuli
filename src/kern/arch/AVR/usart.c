@@ -110,8 +110,8 @@ Usart_HexaPrint_IntegerBytes(IntegerBytes const * const integerBytes,
     upperPart = (integerBytes->bytes[i - 1] >> 4) & 0x0f;
     lowerPart = integerBytes->bytes[i - 1] & 0x0f;
 
-    Usart_PutChar(load_u8_from_progmem(&hexachars[upperPart]));
-    Usart_PutChar(load_u8_from_progmem(&hexachars[lowerPart]));
+    Usart_PutChar(Arch_LoadU8FromProgmem(&hexachars[upperPart]));
+    Usart_PutChar(Arch_LoadU8FromProgmem(&hexachars[lowerPart]));
   }
 }
 

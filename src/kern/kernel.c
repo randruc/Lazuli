@@ -19,7 +19,9 @@
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/memory.h>
+
 #include <Lazuli/sys/scheduler_base.h>
+
 
 /**
  * Main entry point for user tasks.
@@ -47,6 +49,8 @@ KMain()
   kernelAllocationMap.endMem = &_ramend;
   kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
 
+  Arch_Init();
+
   /* Give hand to user */
   main();
 }
@@ -60,10 +64,10 @@ void
 Panic()
 {
   if (ON_PANIC_INFINITE_LOOP) {
-    infinite_loop();
+    Arch_InfiniteLoop();
   } else if (ON_PANIC_SOFTWARE_RESET) {
     /* TODO: Change this by a watchdog software reset */
-    reset_system();
+    Arch_ResetSystem();
   }
 }
 
