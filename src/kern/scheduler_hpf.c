@@ -13,8 +13,8 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 
-#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/assert.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/list.h>

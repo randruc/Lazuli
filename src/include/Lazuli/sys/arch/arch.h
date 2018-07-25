@@ -12,8 +12,8 @@
  * These functions are the only entry points to ASM code in the kernel.
  */
 
-#ifndef LZ_SYS_ARCH_ARCH_H
-#define LZ_SYS_ARCH_ARCH_H
+#ifndef LAZULI_SYS_ARCH_ARCH_H
+#define LAZULI_SYS_ARCH_ARCH_H
 
 #include <stdint.h>
 
@@ -87,4 +87,4 @@ Arch_CpuSleep();
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_ARCH_ARCH_H */
+#endif /* LAZULI_SYS_ARCH_ARCH_H */

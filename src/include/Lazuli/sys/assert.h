@@ -7,8 +7,8 @@
  * Describes the macros needed to perform assertions at runtime.
  */
 
-#ifndef LZ_SYS_ASSERT_H
-#define LZ_SYS_ASSERT_H
+#ifndef LAZULI_SYS_ASSERT_H
+#define LAZULI_SYS_ASSERT_H
 
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
@@ -45,4 +45,4 @@
  */
 #define ALWAYS_ASSERT(assertion) _BASE_ASSERT(assertion, 1)
 
-#endif /* LZ_SYS_ASSERT_H */
+#endif /* LAZULI_SYS_ASSERT_H */

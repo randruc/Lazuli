@@ -14,8 +14,8 @@
  * pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdint.h.html
  */
 
-#ifndef ARCH_AVR_STDINT_H
-#define ARCH_AVR_STDINT_H
+#ifndef STDINT_H
+#define STDINT_H
 
 /**
  * Represents a signed integer type with width of exactly 8 bits.
@@ -300,50 +300,50 @@ typedef uint16_t uintptr_t;
  * Expands to an integer constant expression having the value specified by its
  * argument and the type int_least8_t.
  */
-#define INT8_C(X) ((int_least8_t)X)
+#define INT8_C(X) ((int_least8_t)(X))
 
 /**
  * Expands to an integer constant expression having the value specified by its
  * argument and the type int_least16_t.
  */
-#define INT16_C(X) ((int_least16_t)X)
+#define INT16_C(X) ((int_least16_t)(X))
 
 /**
  * Expands to an integer constant expression having the value specified by its
  * argument and the type int_least32_t.
  */
-#define INT32_C(X) ((int_least32_t)X)
+#define INT32_C(X) ((int_least32_t)(X))
 
 /**
  * Expands to an integer constant expression having the value specified by its
  * argument and the type intmax_t.
  */
-#define INTMAX_C(X) ((intmax_t)X)
+#define INTMAX_C(X) ((intmax_t)(X))
 
 /**
  * Expands to an integer constant expression having the value specified by its
  * argument and the type uint_least8_t.
  */
-#define UINT8_C(X) ((uint_least8_t)X)
+#define UINT8_C(X) ((uint_least8_t)(X))
 
 /**
  * Expands to an integer constant expression having the value specified by its
  * argument and the type uint_least16_t.
  */
-#define UINT16_C(X) ((uint_least16_t)X)
+#define UINT16_C(X) ((uint_least16_t)(X))
 
 /**
  * Expands to an integer constant expression having the value specified by its
  * argument and the type uint_least32_t.
  */
-#define UINT32_C(X) ((uint_least32_t)X)
+#define UINT32_C(X) ((uint_least32_t)(X))
 
 /**
  * Expands to an integer constant expression having the value specified by its
  * argument and the type uintmax_t.
  */
-#define UINTMAX_C(X) ((uintmax_t)X)
+#define UINTMAX_C(X) ((uintmax_t)(X))
 
 /* Format macro constants not defined */
 
-#endif /* ARCH_AVR_STDINT_H */
+#endif /* STDINT_H */

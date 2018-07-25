@@ -103,7 +103,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  * @param V The lvalue to check.
  * @param T The supposed type of the lvalue.
  */
-#define STATIC_CHECK_TYPE(V, T) UNUSED(1 ? &V : (T*)0)
+#define STATIC_CHECK_TYPE(V, T) UNUSED(1 ? &(V) : (T*)0)
 
 /**
  * Set the corresponding bits of X in the value V of type T.
@@ -115,7 +115,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
 #define SET_BITS(V, T, X)                           \
   do {                                              \
     STATIC_CHECK_TYPE(V, T);                        \
-    V |= (T)(X);                                    \
+    (V) |= (T)(X);                                  \
   } while (0)
 
 /**
@@ -128,7 +128,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
 #define CLEAR_BITS(V, T, X)                     \
   do {                                          \
     STATIC_CHECK_TYPE(V, T);                    \
-    V &= (T)(~(X));                             \
+    (V) &= (T)(~(X));                           \
   } while (0)
 
 /**
@@ -176,14 +176,14 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  *
  * @param X The 16-bit value.
  */
-#define LO8(X) ((uint8_t)X)
+#define LO8(X) ((uint8_t)(X))
 
 /**
  * Take the high byte of a 16-bit value.
  *
  * @param X The 16-bit value.
  */
-#define HI8(X) LO8(X >> 8)
+#define HI8(X) LO8((X) >> 8)
 
 /**
  * Get the offset of a member in a structure.
@@ -218,6 +218,6 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  *
  * @param The array variable.
  */
-#define ELEMENTS_COUNT(X) (sizeof(X) / sizeof(X[0]))
+#define ELEMENTS_COUNT(X) (sizeof(X) / sizeof((X)[0]))
 
 #endif /* LAZULI_COMMON_H */

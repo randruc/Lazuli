@@ -10,8 +10,8 @@
  * It also defines symbols that are accessible to any scheduler class.
  */
 
-#ifndef LZ_SYS_SCHEDULER_BASE_H
-#define LZ_SYS_SCHEDULER_BASE_H
+#ifndef LAZULI_SYS_SCHEDULER_BASE_H
+#define LAZULI_SYS_SCHEDULER_BASE_H
 
 #include <stdint.h>
 
@@ -112,4 +112,4 @@ BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_SCHEDULER_BASE_H */
+#endif /* LAZULI_SYS_SCHEDULER_BASE_H */

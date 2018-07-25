@@ -4,11 +4,12 @@
  * Kernel symbols definition.
  */
 
-#ifndef LZ_SYS_KERNEL_H
-#define LZ_SYS_KERNEL_H
+#ifndef LAZULI_SYS_KERNEL_H
+#define LAZULI_SYS_KERNEL_H
+
+#include <Lazuli/common.h>
 
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/common.h>
 
 _EXTERN_C_DECL_BEGIN
 
@@ -35,4 +36,4 @@ ReverseBytes16(void * const value);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_KERNEL_H */
+#endif /* LAZULI_SYS_KERNEL_H */

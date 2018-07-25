@@ -5,8 +5,8 @@
  * ATMega328p.
  */
 
-#ifndef LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H
-#define LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H
+#ifndef LAZULI_SYS_ARCH_AVR_TIMER_COUNTER_0_H
+#define LAZULI_SYS_ARCH_AVR_TIMER_COUNTER_0_H
 
 #include <stdint.h>
 
@@ -129,4 +129,4 @@ TimerCounter0InterruptsDisable(const uint8_t interruptsMask);
 
 _EXTERN_C_DECL_END
 
-#endif /* LZ_SYS_ARCH_AVR_TIMER_COUNTER_0_H */
+#endif /* LAZULI_SYS_ARCH_AVR_TIMER_COUNTER_0_H */
