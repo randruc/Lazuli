@@ -21,6 +21,6 @@ _EXTERN_C_DECL_BEGIN
 extern void
 cpu_sleep();
 
-#endif /* LAZULI_SRC_KERN_ARCH_AVR_ARCH_H */
-
 _EXTERN_C_DECL_END
+
+#endif /* LAZULI_SRC_KERN_ARCH_AVR_ARCH_H */
