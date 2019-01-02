@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/list.h>
+#include <Lazuli/list.h>
 
 _EXTERN_C_DECL_BEGIN
 

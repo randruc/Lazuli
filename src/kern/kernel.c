@@ -56,16 +56,16 @@ KMain()
 }
 
 /* TODO: Find something better to perform this verification... */
-#if (ON_PANIC_INFINITE_LOOP + ON_PANIC_SOFTWARE_RESET) != 1
+#if (CONFIG_ON_PANIC_INFINITE_LOOP + CONFIG_ON_PANIC_SOFTWARE_RESET) != 1
 #error "Only one kernel panic configuration must be defined in config.h."
 #endif
 
 void
 Panic()
 {
-  if (ON_PANIC_INFINITE_LOOP) {
+  if (CONFIG_ON_PANIC_INFINITE_LOOP) {
     Arch_InfiniteLoop();
-  } else if (ON_PANIC_SOFTWARE_RESET) {
+  } else if (CONFIG_ON_PANIC_SOFTWARE_RESET) {
     /* TODO: Change this by a watchdog software reset */
     Arch_ResetSystem();
   }

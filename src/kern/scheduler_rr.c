@@ -11,11 +11,11 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
+#include <Lazuli/list.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/kernel.h>
-#include <Lazuli/sys/list.h>
 #include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_rr.h>
 #include <Lazuli/sys/task.h>
@@ -43,7 +43,7 @@ InitWaitingInterruptTasksTable()
   uint8_t i;
   const LinkedList initValue = LINKED_LIST_INIT;
 
-  for (i = 0; i < INT_TOTAL; i++) {
+  for (i = 0; i < INT_TOTAL; ++i) {
     MemoryCopy(&initValue,
                &waitingInterruptTasks[i],
                sizeof(initValue));

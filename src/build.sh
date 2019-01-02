@@ -58,6 +58,7 @@ avr-gcc \
     kern/scheduler_hpf.c \
     kern/list.c \
     kern/sizeof_types.c \
+    kern/timers.c \
     libc/stdint_assertions.c
 
 ar rcs lib$project_name.a \

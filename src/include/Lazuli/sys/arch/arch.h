@@ -85,6 +85,16 @@ Arch_Init();
 void
 Arch_CpuSleep();
 
+/**
+ * Set the hardware timer to generate an interrupt in the duration specified, in
+ * microseconds.
+ *
+ * @param uSec the duration of the timer, in microseconds.
+ */
+void
+Arch_SetHardwareTimer(uint32_t uSec);
+
 _EXTERN_C_DECL_END
 
 #endif /* LAZULI_SYS_ARCH_ARCH_H */
+

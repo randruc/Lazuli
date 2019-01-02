@@ -1,5 +1,5 @@
 /**
- * @file src/include/Lazuli/sys/list.h
+ * @file src/include/Lazuli/list.h
  * @brief Doubly linked lists interface.
  * @date Feb 2017
  * @author Remi Andruccioli
@@ -7,8 +7,8 @@
  * Describes types and functions related to doubly linked lists.
  */
 
-#ifndef LAZULI_SYS_LIST_H
-#define LAZULI_SYS_LIST_H
+#ifndef LAZULI_LIST_H
+#define LAZULI_LIST_H
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/config.h>
@@ -76,7 +76,8 @@ List_AppendList(LinkedList * const linkedListDestination,
                 LinkedList * const linkedListToMove);
 
 /**
- * Return the first element of an existing linked list.
+ * Return the first element of an existing linked list. This function drops the
+ * first element of the list if it exists.
  *
  * @param linkedList A pointer to the linked list head.
  *
@@ -86,6 +87,19 @@ List_AppendList(LinkedList * const linkedListDestination,
  */
 LinkedListElement *
 List_PickFirst(LinkedList * const linkedList);
+
+/**
+ * Return a pointer to the first element of an existing linked list. This
+ * function does not drop the first element of the list.
+ *
+ * @param linkedList A pointer to an existing LinkedList.
+ *
+ * @return A pointer to the first element of the list, or NULL if:
+ *         - The linkedList is empty
+ *         - The parameter linkedList is NULL.
+ */
+LinkedListElement *
+List_PointFirst(const LinkedList * const linkedList);
 
 /**
  * Test if a LinkedList is empty.
@@ -99,7 +113,7 @@ List_PickFirst(LinkedList * const linkedList);
  *         - The linkedList contains at least 1 element
  */
 bool
-List_IsEmpty(LinkedList * const linkedList);
+List_IsEmpty(const LinkedList * const linkedList);
 
 /**
  * Run through a LinkedList like a for loop.
@@ -116,13 +130,13 @@ List_IsEmpty(LinkedList * const linkedList);
  *             item of each loop turn. This pointer will never be NULL.
  *
  */
-#define List_UntypedForEach(LINKEDLIST, ITEM)                           \
-  if ((CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) ||     \
-      (NULL == (LINKEDLIST)->first))                                    \
-    {}                                                                  \
-  else                                                                  \
-    for ((ITEM) = (LINKEDLIST)->first;                                  \
-         NULL != (ITEM);                                                \
+#define List_UntypedForEach(LINKEDLIST, ITEM)                              \
+  if ((CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
+      (NULL == (LINKEDLIST)->first))                                       \
+    {}                                                                     \
+  else                                                                     \
+    for ((ITEM) = (LINKEDLIST)->first;                                     \
+         NULL != (ITEM);                                                   \
          (ITEM) = (ITEM)->next)
 
 /**
@@ -146,16 +160,16 @@ List_IsEmpty(LinkedList * const linkedList);
  * @param MEMBER The name of the member in TYPE which bears the
  *               LinkedListElement.
  */
-#define List_ForEach(LINKEDLIST, TYPE, ITEM, MEMBER)                    \
-  if ((CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) ||     \
-      (NULL == (LINKEDLIST)->first))                                    \
-    {}                                                                  \
-  else                                                                  \
-    for ((ITEM) = CONTAINER_OF((LINKEDLIST)->first, MEMBER, TYPE);      \
-         NULL != (ITEM);                                                \
-         (ITEM) =                                                       \
-           (NULL == ((ITEM)->MEMBER).next)                              \
-           ? NULL                                                       \
+#define List_ForEach(LINKEDLIST, TYPE, ITEM, MEMBER)                       \
+  if ((CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
+      (NULL == (LINKEDLIST)->first))                                       \
+    {}                                                                     \
+  else                                                                     \
+    for ((ITEM) = CONTAINER_OF((LINKEDLIST)->first, MEMBER, TYPE);         \
+         NULL != (ITEM);                                                   \
+         (ITEM) =                                                          \
+           (NULL == ((ITEM)->MEMBER).next)                                 \
+           ? NULL                                                          \
            : CONTAINER_OF(((ITEM)->MEMBER).next, MEMBER, TYPE))
 
 /**
@@ -198,16 +212,35 @@ List_InsertBefore(LinkedList * const linkedList,
  * @param linkedList A pointer to a LinkedList.
  * @param item A pointer to the LinkedListElement to test.
  *
- * @return true if:
- *         - The item is the last element of the linkedList
- *         - One of the parameters is NULL
- *         false if:
- *         - The item is not the last element of the linkedList
- *         - The item is not part of the likedList
+ * @return * true if:
+ *             - The item is the last element of the linkedList
+ *             - One of the parameters is NULL (if checking for NULL parameters
+ *               is enabled in the configuration)
+ *         * false if:
+ *             - The item is not the last element of the linkedList
+ *             - The item is not part of the likedList
  */
 bool
-List_IsLastElement(LinkedList * const linkedList,
-                   LinkedListElement * const item);
+List_IsLastElement(const LinkedList * const linkedList,
+                   const LinkedListElement * const item);
+
+/**
+ * Test if a LinkedListElement is the first entry of a LinkedList.
+ *
+ * @param linkedList A pointer to a LinkedList.
+ * @param item A pointer to the LinkedListElement to test.
+ *
+ * @return * true if:
+ *             - The item is the first element of the linkedList
+ *             - One of the parameters is NULL (if checking for NULL parameters
+ *               is enabled in the configuration)
+ *         * false if:
+ *             - The item is not the first element of the linkedList
+ *             - The item is not part of the likedList
+ */
+bool
+List_IsFirstElement(const LinkedList * const linkedList,
+                    const LinkedListElement * const item);
 
 /**
  * Initialize a LinkedList.
@@ -227,4 +260,4 @@ List_InitLinkedListElement(LinkedListElement * const item);
 
 _EXTERN_C_DECL_END
 
-#endif /* LAZULI_SYS_LIST_H */
+#endif /* LAZULI_LIST_H */

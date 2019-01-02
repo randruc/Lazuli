@@ -11,10 +11,10 @@
  */
 
 #include <Lazuli/common.h>
-
 #include <Lazuli/sys/scheduler_hpf.h>
 #include <Lazuli/sys/scheduler_rr.h>
 #include <Lazuli/sys/task.h>
+#include <Lazuli/timers.h>
 
 /**
  * Declare a constant containing the size of a given type.
@@ -36,3 +36,6 @@ SIZEOF_TYPE(RrTask,
 
 SIZEOF_TYPE(HpfTask,
             "RAM needed for an HPF task.");
+
+SIZEOF_TYPE(Lz_TimerContext,
+            "RAM needed for a timer context.");
