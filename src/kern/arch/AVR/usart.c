@@ -106,7 +106,7 @@ Usart_HexaPrint_IntegerBytes(IntegerBytes const * const integerBytes,
   Usart_PutChar('0');
   Usart_PutChar('x');
 
-  for (i = size; 0 != i; i--) {
+  for (i = size; 0 != i; --i) {
     upperPart = (integerBytes->bytes[i - 1] >> 4) & 0x0f;
     lowerPart = integerBytes->bytes[i - 1] & 0x0f;
 

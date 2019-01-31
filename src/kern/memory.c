@@ -42,7 +42,7 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   newBreak = ALLOW_ARITHM(oldBreak) + increment;
   newGap = ALLOW_ARITHM(SP) - ALLOW_ARITHM(newBreak);
 
-  if (newGap < BREAK_STACK_GAP) {
+  if (newGap < CONFIG_BREAK_STACK_GAP) {
     return NULL;
   }
 
@@ -89,7 +89,7 @@ MemoryCopy(const void *source, void *destination, const size_t length)
   const uint8_t *sourceBytes = source;
   uint8_t *destinationBytes = destination;
 
-  for (i = 0; i < length; i++) {
+  for (i = 0; i < length; ++i) {
     destinationBytes[i] = sourceBytes[i];
   }
 }

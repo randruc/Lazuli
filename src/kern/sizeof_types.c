@@ -11,7 +11,6 @@
  */
 
 #include <Lazuli/common.h>
-
 #include <Lazuli/sys/scheduler_hpf.h>
 #include <Lazuli/sys/scheduler_rr.h>
 #include <Lazuli/sys/task.h>

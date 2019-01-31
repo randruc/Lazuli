@@ -23,31 +23,31 @@
 static void
 InitIdleMode()
 {
-#if ON_IDLE_SLEEP && ((SLEEP_WITH_IDLE_MODE +                    \
-                       SLEEP_WITH_ADC_NOISE_REDUCTION_MODE +     \
-                       SLEEP_WITH_POWER_DOWN_MODE +              \
-                       SLEEP_WITH_POWER_SAVE_MODE +              \
-                       SLEEP_WITH_STANDBY_MODE +                 \
-                       SLEEP_WITH_EXTENDED_STANDBY_MODE) > 1)
+#if CONFIG_ON_IDLE_SLEEP && ((CONFIG_SLEEP_WITH_IDLE_MODE +                \
+                              CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE + \
+                              CONFIG_SLEEP_WITH_POWER_DOWN_MODE +          \
+                              CONFIG_SLEEP_WITH_POWER_SAVE_MODE +          \
+                              CONFIG_SLEEP_WITH_STANDBY_MODE +             \
+                              CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE) > 1)
 #error Idle mode for architecture AVR must be unique.
 #endif
 
-  if (!ON_IDLE_SLEEP) {
+  if (!CONFIG_ON_IDLE_SLEEP) {
     return;
   }
 
-  if (SLEEP_WITH_ADC_NOISE_REDUCTION_MODE) {
+  if (CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE) {
     SMCR = 0x02;
-  } else if (SLEEP_WITH_POWER_DOWN_MODE) {
+  } else if (CONFIG_SLEEP_WITH_POWER_DOWN_MODE) {
     SMCR = 0x04;
-  } else if (SLEEP_WITH_POWER_SAVE_MODE) {
+  } else if (CONFIG_SLEEP_WITH_POWER_SAVE_MODE) {
     SMCR = 0x06;
-  } else if (SLEEP_WITH_STANDBY_MODE) {
+  } else if (CONFIG_SLEEP_WITH_STANDBY_MODE) {
     SMCR = 0x0c;
-  } else if (SLEEP_WITH_EXTENDED_STANDBY_MODE) {
+  } else if (CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE) {
     SMCR = 0x0e;
   } else {
-    /* Default value : SLEEP_WITH_IDLE_MODE */
+    /* Default value : CONFIG_SLEEP_WITH_IDLE_MODE */
     SMCR = 0x00;
   }
 }

@@ -18,7 +18,7 @@ Task1()
 {
   uint16_t i = UINT16_MAX >> 1;
 
-  while (true) {
+  for (;;) {
     Usart_PutChar('.');
 
     while (i--);
@@ -32,7 +32,7 @@ Task2()
 {
   uint16_t i = UINT16_MAX >> 1;
 
-  while (true) {
+  for (;;) {
     Usart_PutChar('T');
 
     while (i--);
@@ -44,7 +44,7 @@ Task2()
 void
 Task3()
 {
-  while (true) {
+  for (;;) {
     Usart_PutChar('F');
   }
 }
@@ -55,10 +55,10 @@ Task4()
   volatile uint16_t i;
   char c;
 
-  while (true) {
+  for (;;) {
     Lz_WaitInterrupt(INT_INT0);
 
-    for (c = 'a'; c <= 'j'; c++) {
+    for (c = 'a'; c <= 'j'; ++c) {
       Usart_PutChar(c);
       i = UINT16_MAX >> 1;
 
@@ -73,10 +73,10 @@ Task5()
   volatile uint16_t i;
   char c;
 
-  while (true) {
+  for (;;) {
     Lz_WaitInterrupt(INT_INT1);
 
-    for (c = 'A'; c <= 'J'; c++) {
+    for (c = 'A'; c <= 'J'; ++c) {
       Usart_PutChar(c);
       i = UINT16_MAX >> 1;
 
@@ -116,5 +116,5 @@ main()
 
   Lz_Run();
 
-  while (true);
+  for (;;);
 }

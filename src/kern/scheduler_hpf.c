@@ -12,11 +12,12 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
+#include <Lazuli/list.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/assert.h>
+#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
-#include <Lazuli/sys/list.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_hpf.h>
@@ -48,13 +49,29 @@ static LinkedList waitingInterruptTasks[INT_TOTAL];
 static void
 IdleTask()
 {
-  while (1) {
-    if (ON_IDLE_SLEEP) {
+  for (;;) {
+    if (CONFIG_ON_IDLE_SLEEP) {
       Arch_CpuSleep();
     }
   }
 }
 
+/*
+ * It would be really nice if waitingInterruptTasks could be declared to be
+ * statically initialized to a specific value for every elements...
+ * I know LINKED_LIST_INIT is full of zeros, but I don't really like to rely on
+ * the BSS initialization to perform that. I would like something more
+ * explicit.
+ *
+ * The problem here is that this waitingInterruptTasks array is placed in the
+ * BSS section, so it is initialized to 0 on startup. As we perform the true
+ * initialization here we thus perform 2 initializations, which isn't ideal...
+ * One solution could be to declare this waitingInterruptTasks array without
+ * initializaing it (like it is done here), but in a section that is not
+ * initialized on startup, so not BSS. We could for example declare a special
+ * section "runtime_initialized" that is excluded from the BSS startup
+ * initialization.
+ */
 /**
  * Initialize each entry of the waitingInterruptTasks table.
  */
@@ -64,7 +81,7 @@ InitWaitingInterruptTasksTable()
   uint8_t i;
   const LinkedList initValue = LINKED_LIST_INIT;
 
-  for (i = 0; i < INT_TOTAL; i++) {
+  for (i = 0; i < INT_TOTAL; ++i) {
     MemoryCopy(&initValue,
                &waitingInterruptTasks[i],
                sizeof(initValue));
@@ -106,11 +123,11 @@ RegisterIdleTask()
 
   Lz_InitTaskConfiguration(&taskConfiguration);
 
-  taskConfiguration.stackSize = 10;
-  taskConfiguration.priority = -1;
+  taskConfiguration.stackSize = CONFIG_HPF_IDLE_TASK_STACK_SIZE;
+  taskConfiguration.priority = CONFIG_HPF_IDLE_TASK_PRIORITY;
 
-  if (IDLE_TASK_HAS_NAME) {
-    taskConfiguration.name = "idle";
+  if (CONFIG_HPF_IDLE_TASK_HAS_NAME) {
+    taskConfiguration.name = CONFIG_HPF_IDLE_TASK_NAME;
   }
 
   Lz_RegisterTask(IdleTask, &taskConfiguration);
