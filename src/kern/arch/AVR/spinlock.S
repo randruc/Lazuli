@@ -1,10 +1,14 @@
 /**
  * @file src/kern/arch/AVR/spinlock.S
- * @brief Arch-specific spinlocks implementation.
+ * @brief AVR spinlocks implementation.
  * @date Feb 2019
  * @author Remi Andruccioli
  *
  * Implementation of spinlocks for AVR architecture.
+ *
+ * This implementation is highly arch-specific because we must guarantee
+ * atomicity of operations.
+ * On AVR the only way to do that is by disabling/enabling interrupts.
  */
 
 #include <Lazuli/sys/config.h>
