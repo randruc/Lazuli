@@ -5,8 +5,8 @@
  * @author Remi Andruccioli
  *
  * This file contains all the configuration for the kernel.
- * These are only macro constants.
- * Does not contain any arch-specific configuration.
+ * These are only macro constants. This file must be kept simple so it can be
+ * included in ASM files.
  */
 
 #ifndef LAZULI_SYS_CONFIG_H
@@ -109,6 +109,21 @@
  * If set to 0, the CPU will actively infinite loop when it's idle.
  */
 #define CONFIG_ON_IDLE_SLEEP (0)
+
+/** @name Spinlocks */
+/** @{              */
+
+/**
+ * When 1, always check for NULL functions parameters in spinlocks
+ * implementation.
+ *
+ * When 0, never check for NULL parameters.
+ *
+ * This is a way to obtain better performances, but it's also less safe.
+ */
+#define CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS (1)
+
+/** @}              */
 
 /** @name AVR-specific configuration */
 /** @{                               */

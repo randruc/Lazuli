@@ -49,6 +49,7 @@ avr-gcc \
     kern/arch/AVR/arch.c \
     kern/arch/AVR/interrupt_vectors_table.S \
     kern/arch/AVR/startup.S \
+    kern/arch/AVR/spinlock.S \
     kern/arch/AVR/timer_counter_0.c \
     kern/arch/AVR/usart.c \
     kern/kernel.c \
@@ -64,6 +65,7 @@ ar rcs lib$project_name.a \
    arch.o \
    interrupt_vectors_table.o \
    startup.o \
+   spinlock.o \
    timer_counter_0.o \
    usart.o \
    kernel.o \
@@ -92,7 +94,7 @@ avr-gcc \
     -fshort-enums \
     -T kern/linker.x \
     -o $project_name.elf \
-    kern/main_hpf.c \
+    kern/main_spinlock.c \
     lib$project_name.a
 
 if [ -e $project_name.elf ]
