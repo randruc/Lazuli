@@ -311,19 +311,19 @@ Arch_RestoreContextAndReturnFromInterrupt:
     /**
      * Copy bytes from program memory into RAM.
      *
-     * @param r16 (8 bits)      The number of bytes to copy.
-     * @param r30,r31 (16 bits) The source address in program memory of the
-     *                          stored bytes.
-     * @param r26,r27 (16 bits) The destination address in RAM.
+     * @param r28, r29 (16 bits) The number of bytes to copy.
+     * @param r30, r31 (16 bits) The source address in program memory of the
+     *                           stored bytes.
+     * @param r26, r27 (16 bits) The destination address in RAM.
      */
 copy_from_program_memory:
-    tst r16
+    sbiw r28, 0
     breq copy_from_program_memory_loop_end
     push r17
 copy_from_program_memory_loop_start:
     lpm r17, Z+
     st X+, r17
-    dec r16
+    sbiw r28, 1
     brne copy_from_program_memory_loop_start
     pop r17
 copy_from_program_memory_loop_end:
@@ -362,22 +362,24 @@ reset_system:
 
     ;; Clear bss section
     ;; TODO: Find a way to omit this code if no .bss
-    ldi r16, _bss_size
-    tst r16
+    ldi r28, lo8(_bss_size)
+    ldi r29, hi8(_bss_size)
+    sbiw r28, 0
     breq bss_loop_end
     ldi r26, lo8(_bss_start)
     ldi r27, hi8(_bss_start)
     ldi r17, 0
 bss_loop_start:
     st X+, r17
-    dec r16
+    sbiw r28, 1
     brne bss_loop_start
 bss_loop_end:
 
     ;; Load data section
     ;; TODO: Find a way to omit this code if no .data
-    ldi r16, _data_size
-    tst r16
+    ldi r28, lo8(_data_size)
+    ldi r29, hi8(_data_size)
+    sbiw r28, 0
     breq load_data_end
     ldi r30, lo8(_data_load_start)
     ldi r31, hi8(_data_load_start)
@@ -388,8 +390,9 @@ load_data_end:
 
     ;; Load rodata section
     ;; TODO: Find a way to omit this code if no .rodata
-    ldi r16, _rodata_size
-    tst r16
+    ldi r28, lo8(_rodata_size)
+    ldi r29, hi8(_rodata_size)
+    sbiw r28, 0
     breq load_rodata_end
     ldi r30, lo8(_rodata_load_start)
     ldi r31, hi8(_rodata_load_start)
