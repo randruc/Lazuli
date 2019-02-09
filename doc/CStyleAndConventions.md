@@ -65,7 +65,7 @@ multiple lines */
  * This is a comment.
  * And now this is /* a nested comment */
  */
- 
+
 /***************************************************
  *         Hey, look! I'm an artist!!!!            *
  ***************************************************/
@@ -130,7 +130,7 @@ This is good:
 int main(void)
 {
   printf("Hello world\n");
-     
+
   return EXIT_SUCCESS;
 }
 ```
@@ -142,7 +142,7 @@ int main(void) {
 
   return EXIT_SUCCESS;
 }
-    
+
 int main(void)
 {
   printf("Hello world\n");
@@ -168,7 +168,7 @@ if (n == 4)
   printf("Bye");
   return 0;
 }
-    
+
 if (n == 4) {
   printf("Bye");
   return 0; }
@@ -217,7 +217,7 @@ present.
 
 This is good:
 ```C
-if (map == NULL) {
+if (NULL == map) {
   return NULL;
 }
 
@@ -228,7 +228,7 @@ for (i = 0; i < LENGTH; i++) {
 
 This is not good:
 ```C
-if (map == NULL)
+if (NULL == map)
   return NULL;
 
 for (i = 0; i < LENGTH; i++)
@@ -250,7 +250,7 @@ Never use tabs to indent C code. C code must use 2 spaces for indentation.
 > Every editor must display the code the same way.
 
 
-Lines musn't have trailing whitespaces.
+Lines mustn't have trailing whitespaces.
 
 Files must end with a newline character.
 

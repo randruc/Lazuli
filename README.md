@@ -26,7 +26,7 @@ The Lazuli project has very specific goals that make it unique. These are:
   by all C code-checking tools.
 * __Public Domain__ - All the project is in the public domain.
 * __Well documented__ - The Lazuli project aims to be a well-documented project.
-  All the code is carrefully documented and comes with good documentation about
+  All the code is carefully documented and comes with good documentation about
   how it works and how to use it. If the documentation doesn't match the actual
   code or behavior, this is considered as a bug.
 * __Free software__ - This project is developed and can be built using only
@@ -48,7 +48,7 @@ The software currently used is:
 * __ar__ to build the static library
 * __avrdude__ to upload hex binary image to the target MCU
 * __doxygen__ to build the documentation
-* __awk__ to format ouput in the build process
+* __awk__ to format output in the build process
 * __size__ to display the size of sections in final binary image
 * __git__ to manage source code
 
@@ -66,7 +66,7 @@ The debug configuration is statically set in the `build.sh` file.
 Invoking `build.sh` produces 2 files:
 * An ELF file: `Lazuli.elf` which contains the resulting binary in ELF format.
 * An HEX file: `Lazuli.hex` which is produced from `Lazuli.elf` and which
-  contains binary code to be uplaoded to the target MCU.
+  contains binary code to be uploaded to the target MCU.
 
 
 ## Configuration
@@ -80,7 +80,7 @@ Invoking `build.sh` produces 2 files:
 
 ## Contributing
 
-__Contibutions are welcome!__
+__Contributions are welcome!__
 
 The project is hosted on GitHub (at https://github.com/randruc/Lazuli), and
 GitHub is used to manage it all, including issues and contributions.

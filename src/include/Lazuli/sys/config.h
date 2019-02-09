@@ -47,10 +47,11 @@
 #define CONFIG_DEFAULT_TASK_PRIORITY (0)
 
 /**
- * When 1, always check for NULL function parameters in linked lists
+ * When 1, always check for NULL functions parameters in linked lists
  * implementation.
  *
  * When 0, never check for NULL parameters.
+ *
  * This is a way to obtain better performances, but it's also less safe.
  */
 #define CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS (1)
@@ -81,12 +82,12 @@
 /**
  * Configure if the idle task must have a name.
  *
- * If set to 1, the idle task will have the name "idle" attached to it, and 5
- * bytes will be used to store the name in read-only data section (4 bytes for
- * the string + 1 byte for the string termination NUL character).
+ * If set to 1, the idle task will have a name attached to it, and the necessary
+ * bytes will be used to store this name in read-only data section. This name is
+ * defined in this configuration file.
  *
  * If set to 0, the idle task will have no name attached to it. Thus it can save
- * 5 bytes in the read-only data section.
+ * a few bytes in the read-only data section.
  */
 #define CONFIG_HPF_IDLE_TASK_HAS_NAME (1)
 

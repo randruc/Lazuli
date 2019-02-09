@@ -15,7 +15,7 @@ benefiting of a nice formatting on the two supports.
 The reference for the Mardown syntax can be found here:
 https://daringfireball.net/projects/markdown/syntax
 
-For emacs the package `markdown-mode` (melpa) is very usefull.
+For emacs the package `markdown-mode` (melpa) is very useful.
 
 ## Writing documents
 
@@ -28,7 +28,7 @@ Documents must be easily readable without scrolling in a console (e.g. with
 `less`), in simple text editors, in a file diff utility, or with browsers that
 doesn't support the Markdown syntax.  
 This limit isn't a problem when viewing the file in a modern browser since
-Mardown ignores simple line breaks.
+Markdown ignores simple line breaks.
 
 Always keep in mind that the file will be read in one of these two possible
 ways, so you should regularly check how it looks on both supports when writing.
