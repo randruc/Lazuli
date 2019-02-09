@@ -11,7 +11,7 @@
     *
     * Authors:
     *      Remi Andruccioli (2017)
-    * 
+    *
     */
    #+END_SRC
 * TODO Insert a raw string in the final binary to keep track of the kernel and version
@@ -41,7 +41,7 @@
 * DONE Add a description to the GitHub repository
   CLOSED: [2018-03-06 Tue 19:32]
 * Create a section to declare uninitialized global variables
-** Every global variable that is not explicitely decalred to a value will be
+** Every global variable that is not explicitly declared to a value will be
    placed in the BSS section and initialized to 0 on startup.
    But most of the time, we don't need this 0 initialization.
    Moreover initializing the BSS section on startup has a cost.
@@ -49,4 +49,3 @@
    the BSS section. That way we can keep the true needed BSS initialization very
    small, and all the concerned variables can be written for the first time on
    runtime.
-   

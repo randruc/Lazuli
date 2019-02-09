@@ -2,12 +2,12 @@
 
 Here is documented the memory layout of the kernel and user tasks.
 
-In the context of AVR MCUs the term RAM used in this document refers to the MCU 
+In the context of AVR MCUs the term RAM used in this document refers to the MCU
 SRAM, and the term ROM refers to the MCU flash memory.
 
 ## Harvard architecture and static linking
 
-AVR MCUs use a Harvard architecure. Machine instructions and program data are
+AVR MCUs use a Harvard architecture. Machine instructions and program data are
 stored in separate memories.
 
 Due to the particular architecture of AVR MCUs the kernel and user tasks are
@@ -17,7 +17,7 @@ Therefore all the object files (kernel and user tasks) are statically linked
 and share the same .text, .data, and .bss sections.
 
 We explain here how these sections are loaded into ROM and how the RAM is
-subdivised according to the sections needed at runtime.
+subdivided according to the sections needed at runtime.
 
 
 ### ROM:
@@ -82,7 +82,7 @@ The arrows on the right specify addresses.
 
 ### RAM:
 
-The RAM sections are mainly contitionned by the AVR architecture and the
+The RAM sections are mainly conditioned by the AVR architecture and the
 runtime of the C language.
 
 A small part of the RAM is mapped to machine registers and I/O registers.
@@ -96,8 +96,8 @@ regions:
   global variables in C. It is set to zero during startup.
 * The heap: This is the kernel heap. On startup the heap size is 0.
 * The stack: This is the kernel stack. On the AVR architecture the stack grows
-  downward. The stack pointer points to the next free memory location that'll be
-  used when performing a `push`.
+  downward. The stack pointer points to the next free memory location that will
+  be used when performing a `push`.
 * The space between the heap and the stack is left unused. This space isn't
   fixed in size because both the heap and the stack can grow downward or
   upward at runtime.

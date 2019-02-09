@@ -5,7 +5,7 @@ Here is documented the startup process.
 This document explains more about the file `startup.S` which contains all
 necessary code to launch the kernel.
 The file `startup.S` is written in assembly language. Its goal is mainly to set
-up the runtime environement needed to run a C program.
+up the runtime environment needed to run a C program.
 
 When powered on the AVR MCU starts executing code at address 0x0 in ROM.
 The entry point is defined as the reset interrupt handler. This interrupt
@@ -18,7 +18,7 @@ Here are the steps performed by `reset_system` to initialize the system.
 
 1. Disable interrupts. First of all, we ensure that global interrupts are
    disabled.
-   
+
 2. Set kernel stack pointer. The kernel stack pointer is set using the _ramend
    symbol defined by the linker. After this step, the kernel stack pointer
    points to the last address in RAM.
