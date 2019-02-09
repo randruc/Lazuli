@@ -156,6 +156,15 @@ Usart_HexaPrint_Pointer(void * const pointer);
 void
 Usart_HexaPrint_FunctionPointer(void (*functionPointer)());
 
+/**
+ * Print a raw string without any formatting.
+ * The string must be NUL terminated.
+ *
+ * @param string A pointer to the string to print.
+ */
+void
+Usart_PrintRawString(const char * const string);
+
 _EXTERN_C_DECL_END
 
 #endif /* LAZULI_SYS_ARCH_AVR_USART_H */
