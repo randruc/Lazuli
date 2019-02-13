@@ -4,7 +4,7 @@
  * @date Feb 2019
  * @author Remi Andruccioli
  *
- * Implementation of spinlocks for AVR architecture.
+ * Describes the implementation of spinlocks for AVR architecture.
  *
  * This implementation is highly arch-specific because we must guarantee
  * atomicity of operations.
