@@ -159,3 +159,16 @@ Usart_HexaPrint_FunctionPointer(void (*functionPointer)())
 
   Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(functionPointer));
 }
+
+void
+Usart_PrintRawString(const char * string)
+{
+  if (NULL == string) {
+    return;
+  }
+
+  while ('\0' != *string) {
+    Usart_PutChar(*string);
+    string++;
+  }
+}

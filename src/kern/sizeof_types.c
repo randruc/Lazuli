@@ -11,6 +11,7 @@
  */
 
 #include <Lazuli/common.h>
+#include <Lazuli/spinlock.h>
 #include <Lazuli/sys/scheduler_hpf.h>
 #include <Lazuli/sys/scheduler_rr.h>
 #include <Lazuli/sys/task.h>
@@ -35,3 +36,6 @@ SIZEOF_TYPE(RrTask,
 
 SIZEOF_TYPE(HpfTask,
             "RAM needed for an HPF task.");
+
+SIZEOF_TYPE(Lz_Spinlock,
+            "RAM needed for an Spinlock.");
