@@ -94,7 +94,7 @@ avr-gcc \
     -fshort-enums \
     -T kern/linker.x \
     -o $project_name.elf \
-    kern/main_spinlock.c \
+    ../example-programs/spinlocks.c \
     lib$project_name.a
 
 if [ -e $project_name.elf ]
