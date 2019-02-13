@@ -23,7 +23,8 @@ typedef volatile uint8_t Lz_Spinlock;
 
 /**
  * Defines the initialization value of a spinlock.
- * This macro constant must be used to statically initialize a declared spinlock.
+ * This macro constant must be used to statically initialize a declared
+ * spinlock.
  */
 #define LZ_SPINLOCK_INIT ((uint8_t)0)
 
