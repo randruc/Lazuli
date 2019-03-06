@@ -24,17 +24,25 @@ typedef enum {
  * for a task or the kernel.
  */
 typedef struct {
-  /** Base address of the memory region */
+  /**
+   * Base address of the memory region.
+   */
   void *baseMem;
 
-  /** Break position, points to the first location beyond the current end of
-      the heap */
+  /**
+   * Break position, points to the first location beyond the current end of
+   * the heap.
+   */
   void *brk;
 
-  /** < End address of the memory region */
+  /**
+   * End address of the memory region.
+   */
   void *endMem;
 
-  /** < The type of allocation used for this map */
+  /**
+   * The type of allocation used for this map.
+   */
   AllocationType allocationType;
 }AllocationMap;
 

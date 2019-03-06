@@ -49,3 +49,10 @@
    the BSS section. That way we can keep the true needed BSS initialization very
    small, and all the concerned variables can be written for the first time on
    runtime.
+* Change function prototypes and declarations to explicitly take void as parameter instead of ().
+** And add this rule to the "C style and conventions file".
+* Add an "end of file" comment marker at the end of each file.
+** Cf. Barr conventions.
+* Manage task termination.
+** And try again the first example program for mutexes.
+* For example programs: write the purpose of each program.

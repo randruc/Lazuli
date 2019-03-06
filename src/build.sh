@@ -15,7 +15,13 @@
 #
 
 project_name=Lazuli
+
 debug=true
+
+config_use_mutex=1
+config_use_spinlock=1
+
+CC=avr-gcc
 
 if [ $debug = true ]
 then
@@ -24,77 +30,101 @@ else
     cflags='-DLZ_DEBUG=0'
 fi
 
+cflags=$cflags' -ansi'
+cflags=$cflags' -std=c89'
+cflags=$cflags' -pedantic'
+cflags=$cflags' -Wall'
+cflags=$cflags' -Wextra'
+cflags=$cflags' -Werror'
+cflags=$cflags' -Iinclude'
+cflags=$cflags' -Ilibc-headers/arch-dependent/AVR'
+cflags=$cflags' -mmcu=atmega328p'
+cflags=$cflags' -O2'
+cflags=$cflags' -nostartfiles'
+cflags=$cflags' -nostdlib'
+cflags=$cflags' -nodefaultlibs'
+cflags=$cflags' -ffreestanding'
+cflags=$cflags' -fshort-enums'
+cflags=$cflags' -DCONFIG_USE_MUTEX='$config_use_mutex
+cflags=$cflags' -DCONFIG_USE_SPINLOCK='$config_use_spinlock
+
+echo $cflags | sed 's/ /\n/g'
+
 ./clean.sh > /dev/null
 
 ../checklines.sh
 
-avr-gcc \
-    -c \
-    $cflags \
-    -ansi \
-    -std=c89 \
-    -pedantic \
-    -Wall \
-    -Wextra \
-    -Werror \
-    -Iinclude \
-    -Ilibc-headers/arch-dependent/AVR \
-    -mmcu=atmega328p \
-    -O2 \
-    -nostartfiles \
-    -nostdlib \
-    -nodefaultlibs \
-    -ffreestanding \
-    -fshort-enums \
-    kern/arch/AVR/arch.c \
-    kern/arch/AVR/interrupt_vectors_table.S \
-    kern/arch/AVR/startup.S \
-    kern/arch/AVR/spinlock.S \
-    kern/arch/AVR/timer_counter_0.c \
-    kern/arch/AVR/usart.c \
-    kern/kernel.c \
-    kern/memory.c \
-    kern/scheduler_base.c \
-    kern/scheduler_rr.c \
-    kern/scheduler_hpf.c \
-    kern/list.c \
-    kern/sizeof_types.c \
-    libc/stdint_assertions.c
+$CC $cflags -c kern/arch/AVR/arch.c \
+    -o arch.o
+$CC $cflags -c kern/arch/AVR/interrupt_vectors_table.S\
+    -o interrupt_vectors_table.o
+$CC $cflags -c kern/arch/AVR/startup.S \
+    -o startup.o
+$CC $cflags -c kern/arch/AVR/spinlock.S \
+    -o arch_spinlock.o
+$CC $cflags -c kern/spinlock.c \
+    -o spinlock.o
+$CC $cflags -c kern/arch/AVR/timer_counter_0.c \
+    -o timer_counter_0.o
+$CC $cflags -c kern/arch/AVR/usart.c \
+    -o usart.o
+$CC $cflags -c kern/kernel.c \
+    -o kernel.o
+$CC $cflags -c kern/memory.c \
+    -o memory.o
+$CC $cflags -c kern/scheduler_base.c \
+    -o scheduler_base.o
+$CC $cflags -c kern/scheduler_rr.c \
+    -o scheduler_rr.o
+$CC $cflags -c kern/scheduler_hpf.c \
+    -o scheduler_hpf.o
+$CC $cflags -c kern/list.c \
+    -o list.o
+$CC $cflags -c kern/mutex.c \
+    -o mutex.o
+$CC $cflags -c kern/arch/AVR/mutex.S \
+    -o arch_mutex.o
+$CC $cflags -c kern/sizeof_types.c \
+    -o sizeof_types.o
+$CC $cflags -c libc/stdint_assertions.c \
+    -o stdint_assertions.o
 
-ar rcs lib$project_name.a \
-   arch.o \
-   interrupt_vectors_table.o \
-   startup.o \
-   spinlock.o \
-   timer_counter_0.o \
-   usart.o \
-   kernel.o \
-   memory.o \
-   scheduler_base.o \
-   scheduler_rr.o \
-   scheduler_hpf.o \
-   list.o \
+object_files=''
+object_files=$object_files' arch.o'
+object_files=$object_files' interrupt_vectors_table.o'
+object_files=$object_files' startup.o'
+object_files=$object_files' timer_counter_0.o'
+object_files=$object_files' usart.o'
+object_files=$object_files' kernel.o'
+object_files=$object_files' memory.o'
+object_files=$object_files' scheduler_base.o'
+object_files=$object_files' scheduler_rr.o'
+object_files=$object_files' scheduler_hpf.o'
+object_files=$object_files' list.o'
 
-avr-gcc \
+if [ $config_use_spinlock -eq 1 ]
+then
+    object_files=$object_files' spinlock.o'
+    object_files=$object_files' arch_spinlock.o'
+fi
+
+if [ $config_use_mutex -eq 1 ]
+then
+   object_files=$object_files' mutex.o'
+   object_files=$object_files' arch_mutex.o'
+fi
+
+echo
+echo $object_files | sed 's/ /\n/g' | sort
+echo
+
+ar rcs lib$project_name.a $object_files
+
+$CC \
     $cflags \
-    -ansi \
-    -std=c89 \
-    -pedantic \
-    -Wall \
-    -Wextra \
-    -Werror \
-    -Iinclude \
-    -Ilibc-headers/arch_dependent/AVR \
-    -mmcu=atmega328p \
-    -O2 \
-    -nostartfiles \
-    -nostdlib \
-    -nodefaultlibs \
-    -ffreestanding \
-    -fshort-enums \
     -T kern/linker.x \
     -o $project_name.elf \
-    ../example-programs/spinlocks.c \
+    ../example-programs/mutex_2.c \
     lib$project_name.a
 
 if [ -e $project_name.elf ]

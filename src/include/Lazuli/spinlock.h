@@ -4,7 +4,7 @@
  * @date Feb 2019
  * @author Remi Andruccioli
  *
- * Describes the interface for spinlocks.
+ * This file describes the interface for spinlocks.
  */
 
 #ifndef LAZULI_SPINLOCK_H
@@ -22,7 +22,8 @@ _EXTERN_C_DECL_BEGIN
 typedef volatile uint8_t Lz_Spinlock;
 
 /**
- * Defines the initialization value of a spinlock.
+ * Define the initialization value for the type Lz_Spinlock.
+ *
  * This macro constant must be used to statically initialize a declared
  * spinlock.
  */
@@ -31,22 +32,22 @@ typedef volatile uint8_t Lz_Spinlock;
 /**
  * Set the lock and enter region, or active wait if the lock is already set.
  *
- * @param lock A pointer to a Lz_Spinlock used to hold the lock.
- *             If the pointer lock is NULL, then the call to this function will
- *             spin forever.
+ * @param spinlock A pointer to a Lz_Spinlock used to hold the lock.
+ *                 If the pointer lock is NULL, then the call to this function
+ *                 will spin forever.
  */
 void
-Lz_Spinlock_Lock(Lz_Spinlock * const lock);
+Lz_Spinlock_Lock(Lz_Spinlock * const spinlock);
 
 /**
  * Unset the lock and leave region.
  *
- * @param lock A pointer to a Lz_Spinlock used to hold the lock.
- *             If the pointer lock is NULL, then the call to this function will
- *             spin forever.
+ * @param spinlock A pointer to a Lz_Spinlock used to hold the lock.
+ *                 If the pointer lock is NULL, then the call to this function
+ *                 will spin forever.
  */
 void
-Lz_Spinlock_Unlock(Lz_Spinlock * const lock);
+Lz_Spinlock_Unlock(Lz_Spinlock * const spinlock);
 
 _EXTERN_C_DECL_END
 

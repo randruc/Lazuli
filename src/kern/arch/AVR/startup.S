@@ -6,21 +6,7 @@
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 
-    ;; Frequently used registers
-.equ spl,  0x3d                ; Stack pointer low byte
-.equ sph,  0x3e                ; Stack pointer high byte
-.equ sreg, 0x3f                ; State register
-
-/**
- * Reset the kernel stack pointer to point to the end of RAM.
- * Uses r16 and r17.
- */
-.macro RESET_KERNEL_STACK_POINTER
-    ldi r16, lo8(_ramend)
-    ldi r17, hi8(_ramend)
-    out spl, r16
-    out sph, r17
-.endm
+.INCLUDE "kern/arch/AVR/asm_common.S"
 
 /**
  * Declare the generic code for an interrupt handler.
@@ -177,6 +163,8 @@ Lz_WaitInterrupt:
     RESET_KERNEL_STACK_POINTER
     jmp BaseScheduler_WaitEvent
 
+    ;; TODO: This label is global. See how we can rename it (Arch_XXX, Asm_XXX,
+    ;; ...)
     /**
      * Save current running task execution context on task's stack.
      *
@@ -184,6 +172,7 @@ Lz_WaitInterrupt:
      * The program counter is automaticaly saved by hardware when vectoring
      * interrupt handler.
      */
+    .global save_context_on_stack
 save_context_on_stack:
     ;; Push Y, r27 and r26 registers
     push r29
@@ -307,6 +296,16 @@ Arch_RestoreContextAndReturnFromInterrupt:
     pop r31
     ;;  Return from interrupt
     reti
+
+    .global Arch_DisableInterrupts
+Arch_DisableInterrupts:
+    cli
+    ret
+
+    .global Arch_EnableInterrupts
+Arch_EnableInterrupts:
+    sei
+    ret
 
     /**
      * Copy bytes from program memory into RAM.

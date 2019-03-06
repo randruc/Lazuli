@@ -70,6 +70,24 @@ typedef struct {
    * @param eventCode The code of the wait event.
    */
   void (*waitEvent)(void * const sp, const uint8_t eventCode);
+
+  /**
+   * Wake up all tasks waiting for a mutex.
+   *
+   * @param waitingTasks A pointer to the LinkedList containing all the tasks
+   * waiting for the mutex.
+   */
+  void (*wakeupTasksWaitingMutex)(LinkedList * const waitingTasks);
+
+  /**
+   * Place the current running task in the queue of tasks waiting for a mutex.
+   *
+   * @param sp The stack pointer of the current running task after saving its
+   *           context.
+   * @param waitingTasks A pointer to the LinkedList containing all the tasks
+   * waiting for the mutex.
+   */
+  void (*waitMutex)(void * const sp, LinkedList * const waitingTasks);
 }SchedulerOperations;
 
 /**
@@ -109,6 +127,28 @@ BaseScheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode);
  */
 void
 BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode);
+
+/**
+ * Wake up all tasks waiting for a mutex.
+ *
+ * @param waitingTasks A pointer to the LinkedList containing all the tasks
+ * waiting for the mutex.
+ */
+void
+BaseScheduler_WakeupTasksWaitingMutex(LinkedList * const waitingTasks);
+
+/**
+ * Place the current running task in the queue of tasks waiting for a mutex.
+ * This function is called from arch-specific WaitMutex routine in order to get
+ * the current running task wait for a mutex, after saving its context.
+ *
+ * @param sp The stack pointer of the current running task after saving its
+ *           context.
+ * @param waitingTasks A pointer to the LinkedList containing all the tasks
+ * waiting for the mutex.
+ */
+void
+BaseScheduler_WaitMutex(void * const sp, LinkedList * const waitingTasks);
 
 _EXTERN_C_DECL_END
 
