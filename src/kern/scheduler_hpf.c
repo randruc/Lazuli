@@ -238,11 +238,13 @@ WaitEvent(void * const sp, const uint8_t eventCode)
  * Defines the operations of the Highest Priority First scheduler.
  */
 const SchedulerOperations HPFSchedulerOperations = {
-  Init,            /**< member: init                */
-  RegisterTask,    /**< member: registerTask        */
-  Run,             /**< member: run                 */
-  HandleInterrupt, /**< member: handleInterrupt     */
-  WaitEvent        /**< member: waitEvent           */
+  Init,             /**< member: init                    */
+  RegisterTask,     /**< member: registerTask            */
+  Run,              /**< member: run                     */
+  HandleInterrupt,  /**< member: handleInterrupt         */
+  WaitEvent,        /**< member: waitEvent               */
+  NULL,             /**< member: wakeupTasksWaitingMutex */
+  NULL              /**< member: waitMutex               */
 };
 
 /** @} */

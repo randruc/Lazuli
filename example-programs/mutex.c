@@ -1,30 +1,30 @@
 /**
- * @file src/kern/spinlocks.c
- * @brief Spinlocks demonstration program.
- * @date Feb 2019
+ * @file src/kern/mutex.c
+ * @brief Mutexes demonstration program.
+ * @date Mar 2019
  * @author Remi Andruccioli
  *
- * Example program to demonstrate the use of spinlocks in Lazuli.
+ * Example program to demonstrate the use of mutexes in Lazuli.
  */
 
 #include <stdint.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
-#include <Lazuli/spinlock.h>
+#include <Lazuli/mutex.h>
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 
-static Lz_Spinlock lock = LZ_SPINLOCK_INIT;
+static Lz_Mutex mutex = LZ_MUTEX_INIT;
 
 void
 Task()
 {
-  Lz_Spinlock_Lock(&lock);
+  Lz_Mutex_Lock(&mutex);
   Usart_PrintRawString(Lz_GetTaskName());
-  Lz_Spinlock_Unlock(&lock);
+  Lz_Mutex_Unlock(&mutex);
 
   for (;;);
 }

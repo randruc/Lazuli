@@ -101,10 +101,10 @@ RegisterTask(Lz_TaskConfiguration * const taskConfiguration)
     Panic();
   }
 
+  UNUSED(taskConfiguration);
+
   List_InitLinkedListElement(&(newTask->stateQueue));
   List_Append(&readyTasks, &(newTask->stateQueue));
-
-  UNUSED(taskConfiguration);
 
   return &newTask->base;
 }
@@ -113,7 +113,6 @@ static void
 Run()
 {
   LinkedListElement *first = List_PickFirst(&readyTasks);
-
   if (NULL == first) {
     Panic();
   }
@@ -162,14 +161,66 @@ WaitEvent(void * const sp, const uint8_t eventCode)
 }
 
 /**
+ * This function is to be called after a mutex has been unlocked.
+ * Switch all tasks waiting for the mutex to be ready to run again.
+ *
+ * @param waitingTasks A pointer to the LinkedList of tasks waiting for the
+ * mutex.
+ */
+static void
+WakeupTasksWaitingMutex(LinkedList * const waitingTasks)
+{
+  if (NULL == waitingTasks) {
+    return;
+  }
+
+  List_AppendList(&readyTasks, waitingTasks);
+}
+
+/**
+ * This function is to be called if a mutex couldn't be acquired.
+ * Place the current running tasks in the lists of tasks waiting for the mutex,
+ * and schedule to run another task.
+ *
+ * @param sp The stack pointer of the task calling the wait routine.
+ * @param waitingTasks A pointer to the LinkedList of tasks waiting for the
+ * mutex.
+ */
+static void
+WaitMutex(void * const sp, LinkedList * const waitingTasks)
+{
+  /* TODO: See if it's useful to test NULL == waitingTasks here... */
+  currentTask->stackPointer = sp;
+
+  List_Append(waitingTasks, &(((RrTask *)currentTask)->stateQueue));
+
+  Schedule();
+}
+
+/**
  * Defines the operations of the Round-Robin scheduler.
  */
 const SchedulerOperations RRSchedulerOperations = {
-  Init,            /**< member: init                */
-  RegisterTask,    /**< member: registerTask        */
-  Run,             /**< member: run                 */
-  HandleInterrupt, /**< member: handleInterrupt     */
-  WaitEvent        /**< member: waitEvent           */
+  /** member: init                    */
+  Init,
+
+  /** member: registerTask            */
+  RegisterTask,
+
+  /** member: run                     */
+  Run,
+
+  /** member: handleInterrupt         */
+  HandleInterrupt,
+
+  /** member: waitEvent               */
+  WaitEvent,
+
+  /** member: wakeupTasksWaitingMutex */
+  CONFIG_USE_MUTEX ? WakeupTasksWaitingMutex : NULL,
+
+  /** member: waitMutex               */
+  CONFIG_USE_MUTEX ? WaitMutex : NULL
 };
 
 /** @} */

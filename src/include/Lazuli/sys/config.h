@@ -126,6 +126,21 @@
 
 /** @}              */
 
+/** @name Mutexes */
+/** @{            */
+
+/**
+ * When 1, always check for NULL functions parameters in mutexes
+ * implementation.
+ *
+ * When 0, never check for NULL parameters.
+ *
+ * This is a way to obtain better performances, but it's also less safe.
+ */
+#define CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES (1)
+
+/** @}            */
+
 /** @name AVR-specific configuration */
 /** @{                               */
 

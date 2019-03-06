@@ -11,7 +11,9 @@
  */
 
 #include <Lazuli/common.h>
+#include <Lazuli/mutex.h>
 #include <Lazuli/spinlock.h>
+#include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_hpf.h>
 #include <Lazuli/sys/scheduler_rr.h>
 #include <Lazuli/sys/task.h>
@@ -31,6 +33,9 @@
 SIZEOF_TYPE(TaskContextLayout,
             "RAM needed to save the context of a task.");
 
+SIZEOF_TYPE(SchedulerOperations,
+            "RAM needed to hold operations for a single scheduler.");
+
 SIZEOF_TYPE(RrTask,
             "RAM needed for an RR task.");
 
@@ -38,4 +43,7 @@ SIZEOF_TYPE(HpfTask,
             "RAM needed for an HPF task.");
 
 SIZEOF_TYPE(Lz_Spinlock,
-            "RAM needed for an Spinlock.");
+            "RAM needed for an Lz_Spinlock.");
+
+SIZEOF_TYPE(Lz_Mutex,
+            "RAM needed for an Lz_Mutex.");

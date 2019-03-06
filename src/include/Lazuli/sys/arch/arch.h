@@ -18,6 +18,7 @@
 #include <stdint.h>
 
 #include <Lazuli/common.h>
+#include <Lazuli/list.h>
 #include <Lazuli/sys/compiler.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -74,6 +75,18 @@ extern uint8_t
 Arch_LoadU8FromProgmem(char const * const source);
 
 /**
+ * Disbale all interrupts.
+ */
+extern void
+Arch_DisableInterrupts();
+
+/**
+ * Enable all interrupts.
+ */
+extern void
+Arch_EnableInterrupts();
+
+/**
  * Initialize all architecture-specific parameters.
  */
 void
@@ -84,6 +97,32 @@ Arch_Init();
  */
 void
 Arch_CpuSleep();
+
+/**
+ * Try to acquire a mutex by changing the value pointed by the lock parameter.
+ *
+ * @warning This function disables interrupts at the beginning of its execution.
+ *          If the mutex could be acquired (i.e. returning false), then
+ *          interrupts are enabled before returning to the caller.
+ *          BUT if the mutex couldn't be acquired (i.e. returning true), then
+ *          interrupts are left disabled before returning to the caller.
+ *
+ * @param lock A pointer to the lock.
+ *
+ * @return - false if the lock was free (then it could be obtained)
+ *         - true if the lock wasn't free (then it couldn't be obtained)
+ */
+bool
+Arch_TryAcquireMutex(volatile uint8_t * const lock);
+
+/**
+ * Stop the current running task and place it on the list of tasks waiting for
+ * the mutex specified in parameter.
+ *
+ * @param waitingTasks A pointer to the list of tasks waiting for the mutex.
+ */
+void
+Arch_WaitMutex(LinkedList * const waitingTasks);
 
 _EXTERN_C_DECL_END
 
