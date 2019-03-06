@@ -1,7 +1,10 @@
 /**
  * @file src/kern/memory.c
+ * @brief Kernel memory functions.
+ * @date Jul 2016
+ * @author Remi Andruccioli
  *
- * Implementation of dynamic memory allocation.
+ * Memory functions for the kernel: allocation, copy, ...
  */
 
 #include <stdint.h>
