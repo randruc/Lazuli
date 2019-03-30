@@ -38,7 +38,7 @@ static LinkedList waitingInterruptTasks[INT_TOTAL];
  * Initialize each entry of the waitingInterruptTasks table.
  */
 static void
-InitWaitingInterruptTasksTable()
+InitWaitingInterruptTasksTable(void)
 {
   uint8_t i;
   const LinkedList initValue = LINKED_LIST_INIT;
@@ -54,7 +54,7 @@ InitWaitingInterruptTasksTable()
  * Perform a scheduling.
  */
 static void
-Schedule()
+Schedule(void)
 {
   LinkedListElement *firstElement = List_PickFirst(&readyTasks);
   if (NULL != firstElement) {
@@ -69,7 +69,7 @@ Schedule()
  * Handle "compare match A" interrupts from timer 0.
  */
 static void
-Timer0CompareMatchAHandler()
+Timer0CompareMatchAHandler(void)
 {
   List_Append(&readyTasks, &(((RrTask *)currentTask)->stateQueue));
   Schedule();
@@ -79,7 +79,7 @@ Timer0CompareMatchAHandler()
 /** @{                                  */
 
 static void
-Init()
+Init(void)
 {
   TimerCounter0 * const timer0 = GetTimerCounter0();
 
@@ -110,7 +110,7 @@ RegisterTask(Lz_TaskConfiguration * const taskConfiguration)
 }
 
 static void
-Run()
+Run(void)
 {
   LinkedListElement *first = List_PickFirst(&readyTasks);
   if (NULL == first) {

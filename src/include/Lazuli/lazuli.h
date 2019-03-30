@@ -99,7 +99,7 @@ Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass);
  *                          for all parameters.
  */
 void
-Lz_RegisterTask(void (* const taskEntryPoint)(),
+Lz_RegisterTask(void (* const taskEntryPoint)(void),
                 Lz_TaskConfiguration * const taskConfiguration);
 
 /**
@@ -107,8 +107,8 @@ Lz_RegisterTask(void (* const taskEntryPoint)(),
  *        parameters.
  *
  * No function is provided for allocating a new Lz_TaskConfiguration.
- * It is strongly advised to allocate the Lz_TaskConfiguration to use on the
- * stack before calling this function.
+ * So it is strongly advised to allocate the Lz_TaskConfiguration parameter
+ * on the stack before calling this function.
  *
  * @param taskConfiguration A pointer to the Lz_TaskConfiguration to initialize.
  */
@@ -121,7 +121,7 @@ Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration);
  * Start scheduling tasks.
  */
 void
-Lz_Run();
+Lz_Run(void);
 
 /**
  * Wait for a specific interrupt to occur.
@@ -138,8 +138,8 @@ Lz_WaitInterrupt(uint8_t interruptCode);
  * @return A pointer to a string containing the name of the current running
  *         task, or NULL if the task has no name.
  */
-char const*
-Lz_GetTaskName();
+char const *
+Lz_GetTaskName(void);
 
 _EXTERN_C_DECL_END
 

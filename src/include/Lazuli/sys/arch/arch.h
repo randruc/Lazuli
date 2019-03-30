@@ -27,13 +27,13 @@ _EXTERN_C_DECL_BEGIN
  * Function that loops forever, never returns.
  */
 __noreturn extern void
-Arch_InfiniteLoop();
+Arch_InfiniteLoop(void);
 
 /**
  * Reset the whole system.
  */
 extern void
-Arch_ResetSystem();
+Arch_ResetSystem(void);
 
 /**
  * @brief Restore the context of a previously saved task, and run it by
@@ -78,25 +78,25 @@ Arch_LoadU8FromProgmem(char const * const source);
  * Disable all interrupts.
  */
 extern void
-Arch_DisableInterrupts();
+Arch_DisableInterrupts(void);
 
 /**
  * Enable all interrupts.
  */
 extern void
-Arch_EnableInterrupts();
+Arch_EnableInterrupts(void);
 
 /**
  * Initialize all architecture-specific parameters.
  */
 void
-Arch_Init();
+Arch_Init(void);
 
 /**
  * Put the CPU to sleep according to the sleep settings.
  */
 void
-Arch_CpuSleep();
+Arch_CpuSleep(void);
 
 /**
  * Try to acquire a lock by atomically changing the value pointed by the lock

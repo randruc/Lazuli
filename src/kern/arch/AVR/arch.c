@@ -21,7 +21,7 @@
  * Initialize all parameters for idle CPU.
  */
 static void
-InitIdleMode()
+InitIdleMode(void)
 {
 #if CONFIG_ON_IDLE_SLEEP && ((CONFIG_SLEEP_WITH_IDLE_MODE +                \
                               CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE + \
@@ -53,13 +53,13 @@ InitIdleMode()
 }
 
 void
-Arch_Init()
+Arch_Init(void)
 {
   InitIdleMode();
 }
 
 void
-Arch_CpuSleep()
+Arch_CpuSleep(void)
 {
   SET_BITS(SMCR, uint8_t, POSITION(0));
   cpu_sleep();

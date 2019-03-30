@@ -22,7 +22,7 @@ extern AllocationMap kernelAllocationMap;
  * Kernel panic.
  */
 void
-Panic();
+Panic(void);
 
 /**
  * Reverse the bytes of a 16-bit (2-byte) word.

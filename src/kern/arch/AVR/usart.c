@@ -22,7 +22,7 @@
 static Usart * const usart = (Usart*)&UCSR0A;
 
 void
-Usart_Init()
+Usart_Init(void)
 {
   /* Set baud rate */
   usart->ubrr0l = 12; /* LO8(UBRR0_VALUE); */
@@ -44,7 +44,7 @@ Usart_PutChar(char c)
 }
 
 void
-Usart_NewLine()
+Usart_NewLine(void)
 {
   Usart_PutChar('\r');
   Usart_PutChar('\n');

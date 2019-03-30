@@ -12,7 +12,7 @@
 
 /* TODO: Check if we can return a const object. */
 TimerCounter0 *
-GetTimerCounter0()
+GetTimerCounter0(void)
 {
   return (TimerCounter0 *)&TCCR0A;
 }

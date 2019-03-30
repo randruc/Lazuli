@@ -26,7 +26,7 @@ typedef struct {
    * After all, the PC is set on the task's stack when registering it...
    */
   /** Entry point of execution of the task */
-  void (*entryPoint)();
+  void (*entryPoint)(void);
 
   /** The saved stack pointer of the task */
   void *stackPointer;
@@ -36,7 +36,7 @@ typedef struct {
  * This type definition is needed to exlude confusion with the 'volatile'
  * type qualifier used in the struct declaration below.
  */
-typedef void (*FuncVoidVoid)();
+typedef void (*FuncVoidVoid)(void);
 
 /**
  * Represents the layout of the stack when saving the context of a task.

@@ -14,7 +14,7 @@
 #include <Lazuli/sys/arch/AVR/usart.h>
 
 void
-Task1()
+Task1(void)
 {
   uint16_t i = UINT16_MAX >> 1;
 
@@ -28,7 +28,7 @@ Task1()
 }
 
 void
-Task2()
+Task2(void)
 {
   uint16_t i = UINT16_MAX >> 1;
 
@@ -42,7 +42,7 @@ Task2()
 }
 
 void
-Task3()
+Task3(void)
 {
   for (;;) {
     Usart_PutChar('F');
@@ -50,7 +50,7 @@ Task3()
 }
 
 void
-Task4()
+Task4(void)
 {
   volatile uint16_t i;
   char c;
@@ -68,7 +68,7 @@ Task4()
 }
 
 void
-Task5()
+Task5(void)
 {
   volatile uint16_t i;
   char c;
@@ -89,7 +89,7 @@ Task5()
  * Main entry point for user tasks.
  */
 int
-main()
+main(void)
 {
   Lz_TaskConfiguration taskConfiguration;
 
