@@ -51,7 +51,7 @@ Lz_Mutex_Lock(Lz_Mutex * const mutex)
     }
   }
 
-  while (Arch_TryAcquireMutex(&(mutex->lock))) {
+  while (!Arch_TryAcquireLock(&(mutex->lock))) {
     Arch_WaitMutex(&(mutex->waitingTasks));
   }
 }

@@ -56,3 +56,4 @@
 * Manage task termination.
 ** And try again the first example program for mutexes.
 * For example programs: write the purpose of each program.
+* Manage idle task in RR scheduler.

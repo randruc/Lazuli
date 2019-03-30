@@ -62,9 +62,6 @@ main()
     "\"Fire is a good servant but a bad master.\"\r\n";
   Lz_RegisterTask(Task, &taskConfiguration);
 
-  EICRA = 0x0f;
-  EIMSK = 0x03;
-
   Usart_PrintRawString("\r\n");
 
   Lz_Run();
