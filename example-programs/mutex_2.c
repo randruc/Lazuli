@@ -39,7 +39,7 @@ static Lz_Mutex mutexA = LZ_MUTEX_INIT_LOCKED;
 static Lz_Mutex mutexB = LZ_MUTEX_INIT_LOCKED;
 
 static void
-TaskA()
+TaskA(void)
 {
   uint8_t i;
 
@@ -53,7 +53,7 @@ TaskA()
 }
 
 static void
-TaskB()
+TaskB(void)
 {
   uint8_t i;
 
@@ -69,7 +69,7 @@ TaskB()
 }
 
 int
-main()
+main(void)
 {
   Usart_Init();
 

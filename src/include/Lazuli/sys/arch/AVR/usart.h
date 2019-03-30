@@ -100,7 +100,7 @@ enum {
  * Initialize the USART.
  */
 void
-Usart_Init();
+Usart_Init(void);
 
 /**
  * Transmit a character.
@@ -114,7 +114,7 @@ Usart_PutChar(char c);
  * Transmit a new line sequence.
  */
 void
-Usart_NewLine();
+Usart_NewLine(void);
 
 /**
  * Print a uint32_t value in hexadecimal.

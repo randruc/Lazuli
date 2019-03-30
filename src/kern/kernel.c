@@ -29,7 +29,7 @@
  * This is the function the user has to define to register his own tasks.
  */
 int
-main();
+main(void);
 
 /**
  * The allocation map for the whole kernel.
@@ -41,7 +41,7 @@ AllocationMap kernelAllocationMap;
  * This function must never return.
  */
 void
-KMain()
+KMain(void)
 {
   /* Initialize the allocation map for the kernel */
   kernelAllocationMap.baseMem = &_brk;
@@ -61,7 +61,7 @@ KMain()
 #endif
 
 void
-Panic()
+Panic(void)
 {
   if (CONFIG_ON_PANIC_INFINITE_LOOP) {
     Arch_InfiniteLoop();

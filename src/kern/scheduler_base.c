@@ -74,7 +74,7 @@ PrepareTaskContext(Task * const task)
   TaskContextLayout * const contextLayout
     = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
                             - sizeof(TaskContextLayout) + 1);
-  void (*entry)() = task->entryPoint;
+  void (*entry)(void) = task->entryPoint;
 
   /*
    * WARNING: This is BAD! Machine-specific!
@@ -88,7 +88,7 @@ PrepareTaskContext(Task * const task)
 }
 
 void
-BaseScheduler_Init()
+BaseScheduler_Init(void)
 {
   JumpToScheduler[schedulerClass]->init();
 }
@@ -152,7 +152,7 @@ Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration)
 }
 
 void
-Lz_RegisterTask(void (* const taskEntryPoint)(),
+Lz_RegisterTask(void (* const taskEntryPoint)(void),
                 Lz_TaskConfiguration * const taskConfiguration)
 {
   Task *newTask;
@@ -187,13 +187,13 @@ Lz_RegisterTask(void (* const taskEntryPoint)(),
 }
 
 void
-Lz_Run()
+Lz_Run(void)
 {
   JumpToScheduler[schedulerClass]->run();
 }
 
 const char *
-Lz_GetTaskName()
+Lz_GetTaskName(void)
 {
   return currentTask->name;
 }

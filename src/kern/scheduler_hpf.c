@@ -47,7 +47,7 @@ static LinkedList waitingInterruptTasks[INT_TOTAL];
  * executed before the idle task if one is ready to run.
  */
 static void
-IdleTask()
+IdleTask(void)
 {
   for (;;) {
     if (CONFIG_ON_IDLE_SLEEP) {
@@ -76,7 +76,7 @@ IdleTask()
  * Initialize each entry of the waitingInterruptTasks table.
  */
 static void
-InitWaitingInterruptTasksTable()
+InitWaitingInterruptTasksTable(void)
 {
   uint8_t i;
   const LinkedList initValue = LINKED_LIST_INIT;
@@ -117,7 +117,7 @@ InsertTaskByPriority(LinkedList * const list, HpfTask * const taskToInsert)
 }
 
 static void
-RegisterIdleTask()
+RegisterIdleTask(void)
 {
   Lz_TaskConfiguration taskConfiguration;
 
@@ -137,7 +137,7 @@ RegisterIdleTask()
 /** @{                                  */
 
 static void
-Init()
+Init(void)
 {
   InitWaitingInterruptTasksTable();
 }
@@ -158,7 +158,7 @@ RegisterTask(Lz_TaskConfiguration * const taskConfiguration)
 }
 
 static void
-Run()
+Run(void)
 {
   LinkedListElement *first;
 

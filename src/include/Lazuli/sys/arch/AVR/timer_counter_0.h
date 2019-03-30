@@ -107,7 +107,7 @@ enum {
  * @return A pointer to the memory mapped structure.
  */
 TimerCounter0 *
-GetTimerCounter0();
+GetTimerCounter0(void);
 
 /**
  * Enable interrupts fortimer/counter 0.

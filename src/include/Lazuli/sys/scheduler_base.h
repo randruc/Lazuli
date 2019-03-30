@@ -29,7 +29,7 @@ typedef struct {
   /**
    * Initialize the scheduler.
    */
-  void (*init)();
+  void (*init)(void);
 
   /**
    * Register a new task.
@@ -51,7 +51,7 @@ typedef struct {
    *
    * Start scheduling tasks.
    */
-  void (*run)();
+  void (*run)(void);
 
   /**
    * Entry point of the interrupt handler for this scheduler.
@@ -100,7 +100,7 @@ extern Task *currentTask;
  * This function is called by kernel initialization.
  */
 void
-BaseScheduler_Init();
+BaseScheduler_Init(void);
 
 /*
  * TODO: Maybe rename interruptCode and eventCode to xxxxxId or something like
