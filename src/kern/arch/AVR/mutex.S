@@ -16,8 +16,8 @@
 
 .INCLUDE "kern/arch/AVR/asm_common.S"
 
-    .global Arch_TryAcquireMutex
-Arch_TryAcquireMutex:
+    .global Arch_TryAcquireLock
+Arch_TryAcquireLock:
 .IF CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES
     sbiw r24, 0
 infinite_loop:
@@ -29,13 +29,14 @@ infinite_loop:
     cli
     ld r24, Z
     tst r24
-    breq mutex_acquired
+    breq lock_acquired
+    sei
+    ldi r24, 0
     rjmp exit
-mutex_acquired:
+lock_acquired:
     ldi r24, 1
     st Z, r24
     sei
-    ldi r24, 0
 exit:
     pop r31
     pop r30
@@ -43,7 +44,7 @@ exit:
 
     .global Arch_WaitMutex
 Arch_WaitMutex:
-    ;; Interrupts are already disabled when this routine is called
+    cli
     call save_context_on_stack
     movw r22, r24
     ;; Save current stack pointer in registers

@@ -78,9 +78,6 @@ main()
   Lz_RegisterTask(TaskA, NULL);
   Lz_RegisterTask(TaskB, NULL);
 
-  EICRA = 0x0f;
-  EIMSK = 0x03;
-
   Usart_PrintRawString("\r\n");
 
   Lz_Run();
