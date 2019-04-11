@@ -21,7 +21,7 @@
 /**
  * Declare a constant containing the size of a given type.
  *
- * @param X The type of which to get the size.
+ * @param T The type of which to get the size.
  * @param M An short informative message to display what this type size means.
  */
 #define SIZEOF_TYPE(T, M)                        \
@@ -29,6 +29,8 @@
   __sizeof_##T = sizeof(T);                      \
   const volatile char *                          \
   __message_##T = M
+
+/** @cond false */
 
 SIZEOF_TYPE(TaskContextLayout,
             "RAM needed to save the context of a task.");
@@ -47,3 +49,5 @@ SIZEOF_TYPE(Lz_Spinlock,
 
 SIZEOF_TYPE(Lz_Mutex,
             "RAM needed for an Lz_Mutex.");
+
+/** @endcond */

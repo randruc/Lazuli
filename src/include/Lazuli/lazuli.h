@@ -23,11 +23,15 @@ _EXTERN_C_DECL_BEGIN
  * Represents a scheduling policy to run.
  */
 typedef enum {
-  /*
+  /**
+   * @cond false
+   *
    * Undocumented to user: only here for static verification.
    * This entry MUST be the first one.
    */
   __LZ_SCHEDULERCLASS_ENUM_BEGIN = -1,
+
+  /** @endcond */
 
 #if CONFIG_USE_SCHEDULER_RR
   /**
@@ -43,11 +47,15 @@ typedef enum {
   LZ_SCHED_HPF,
 #endif /* CONFIG_USE_SCHEDULER_HPF */
 
-  /*
+  /**
+   * @cond false
+   *
    * Undocumented to user: only here for static verification.
    * This entry MUST be the last one.
    */
   __LZ_SCHEDULERCLASS_ENUM_END
+
+  /** @endcond */
 }Lz_SchedulerClass;
 
 /**
@@ -82,8 +90,8 @@ typedef struct {
 /**
  * Set the scheduler class.
  *
- * @param schedulerClass A value of Lz_SchedulerClass to define the scheduling
- *        policy.
+ * @param userSchedulerClass A value of Lz_SchedulerClass to define the
+ *                           scheduling policy.
  */
 void
 Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass);

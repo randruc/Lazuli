@@ -8,8 +8,7 @@
  * This is the API that must be re-implemented if porting to another platform.
  *
  * This one is taylored after the AVR platform and can be subject to change if
- * porting.
- * These functions are the only entry points to ASM code in the kernel.
+ * porting to another platform.
  */
 
 #ifndef LAZULI_SYS_ARCH_ARCH_H

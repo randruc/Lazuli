@@ -27,7 +27,14 @@
 
 #else /* __cplusplus */
 
+/**
+ * Open C++ header file declarations.
+ */
 #define _EXTERN_C_DECL_BEGIN
+
+/**
+ * Close C++ header file declarations.
+ */
 #define _EXTERN_C_DECL_END
 
 #endif /* __cplusplus */
@@ -44,9 +51,10 @@
  * Won't compile if the assertion is false.
  *
  * @param C The condition to check.
- * @param M A string explaining why the assertion is performed. This parameter
- *          is not actualy used, it's only here to display an informative
- *          message directly in the source code in case of a failure.
+ * @param M A C-language identifier used as "message/name" for the static
+ *          assertion.
+ *          It's used here to display an informative message directly in the
+ *          source code and compiler output in case of a failure.
  */
 #define STATIC_ASSERT(C, M) extern char _static_assertion_##M[(C) ? 1 : -1]
 
@@ -64,7 +72,10 @@ typedef int ptrdiff_t;
  * Boolean type.
  */
 typedef uint8_t bool;
+
+/** @cond false */
 STATIC_ASSERT(sizeof(bool) == 1, bool_MUST_be_1_byte_long);
+/** @endcond */
 
 /**
  * Represents the size of an object.
@@ -90,12 +101,15 @@ typedef uint16_t size_t;
  */
 #define ALLOW_ARITHM(X) ((uint8_t *)(X))
 
-/*
+/**
+ * @cond false
+ *
  * This assertion is mandatory for ALLOW_ARITHM macro.
  * ALLOW_ARITHM can work with any type whose size is 1 byte.
  */
 STATIC_ASSERT(sizeof(uint8_t) == 1,
               uint8_t_MUST_be_1_byte_long_to_allow_arithmetic_on_void_pointers);
+/** @endcond */
 
 /**
  * Check that the lvalue V is of type T at compile time.
@@ -216,7 +230,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
 /**
  * Get the number of elements in a statically initialized array.
  *
- * @param The array variable.
+ * @param X The array variable.
  */
 #define ELEMENTS_COUNT(X) (sizeof(X) / sizeof((X)[0]))
 

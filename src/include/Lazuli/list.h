@@ -104,7 +104,7 @@ List_PointFirst(const LinkedList * const linkedList);
 /**
  * Test if a LinkedList is empty.
  *
- * @param LinkedList A pointer to the LinkedList to test.
+ * @param linkedList A pointer to the LinkedList to test.
  *
  * @return true if:
  *         - The linkedList is empty

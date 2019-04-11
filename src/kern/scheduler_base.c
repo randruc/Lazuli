@@ -58,9 +58,11 @@ static const SchedulerOperations *JumpToScheduler[] = {
 
 };
 
+/** @cond false */
 STATIC_ASSERT
 (__LZ_SCHEDULERCLASS_ENUM_END == ELEMENTS_COUNT(JumpToScheduler),
  The_JumpToScheduler_table_must_refer_each_Lz_SchedulerClass_enum_entry);
+/** @endcond */
 
 /**
  * Prepare the first context of the task so it will be ready when switching

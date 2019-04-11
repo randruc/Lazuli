@@ -11,7 +11,7 @@
 /**
  * Declare the generic code for an interrupt handler.
  *
- * @param @0 The interrupt code defined in interrupts.h.
+ * @param code The interrupt code defined in interrupts.h.
  */
 .macro INTERRUPT_HANDLER code
     call save_context_on_stack
