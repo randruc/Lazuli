@@ -87,10 +87,10 @@ extern void
 Arch_EnableInterrupts(void);
 
 /**
- * Initialize all architecture-specific parameters.
+ * Initialize idle CPU modes.
  */
 void
-Arch_Init(void);
+Arch_InitIdleCpuMode(void);
 
 /**
  * Put the CPU to sleep according to the sleep settings.

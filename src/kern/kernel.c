@@ -49,7 +49,7 @@ KMain(void)
   kernelAllocationMap.endMem = &_ramend;
   kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
 
-  Arch_Init();
+  Arch_InitIdleCpuMode();
 
   if (CONFIG_USE_SERIAL) {
     Arch_InitSerial();
