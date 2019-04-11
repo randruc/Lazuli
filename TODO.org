@@ -57,3 +57,11 @@
 ** And try again the first example program for mutexes.
 * For example programs: write the purpose of each program.
 * Manage idle task in RR scheduler.
+* Remove "extern" in arch.h function declarations.
+* Replace Arch_DisableInterrupts() with Arch_DisableInterruptsGetStatus() where possible.
+* Remove the typedef on the definition of Lz_SchedulerClass.
+* Rename config macro constants.
+** To adopt the following : LZ_CONFIG_<MODULE>_<PARAMETER>
+   e.g. CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL will become LZ_CONFIG_SERIAL_CHECK_NULL_PARAMETERS
+* When using CONFIG_CHECK_XXXXX, unify the calls to Panic() or return.
+** Decide which one is the best.

@@ -141,6 +141,30 @@
 
 /** @}            */
 
+/** @name Serial */
+/** @{           */
+
+/**
+ * When 1, always check for NULL functions parameters in serial API.
+ *
+ * When 0, never check for NULL parameters.
+ *
+ * This is one way to obtain better performances, but it's also less safe.
+ */
+#define CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL (1)
+
+/**
+ * When 1, check for enum parameters that are over the admissible values defined
+ * by the enum.
+ *
+ * When 0, never check the value of enum parameters.
+ *
+ * This is one way to obtain better performances, but it's also less safe.
+ */
+#define CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL (1)
+
+/** @}           */
+
 /** @name AVR-specific configuration */
 /** @{                               */
 

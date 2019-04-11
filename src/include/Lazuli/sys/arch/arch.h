@@ -18,6 +18,7 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/list.h>
+#include <Lazuli/serial.h>
 #include <Lazuli/sys/compiler.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -97,6 +98,9 @@ Arch_Init(void);
 void
 Arch_CpuSleep(void);
 
+/** @name Mutex */
+/** @{          */
+
 /**
  * Try to acquire a lock by atomically changing the value pointed by the lock
  * parameter.
@@ -117,6 +121,37 @@ Arch_TryAcquireLock(volatile uint8_t * const lock);
  */
 void
 Arch_WaitMutex(LinkedList * const waitingTasks);
+
+/** @} */
+
+/** @name Serial */
+/** @{           */
+
+/**
+ * Retrieve the current configuration of the serial line.
+ *
+ * @param configuration A pointer to an allocated Lz_SerialConfiguration used to
+ *                      store the configuration.
+ */
+void
+Arch_GetSerialConfiguration(Lz_SerialConfiguration * const configuration);
+
+/**
+ * Configure the seria line according to the parameter.
+ *
+ * @param configuration A pointer to an existing Lz_SerialConfiguration containg
+ *                      the full configuration to set up the serial line.
+ */
+void
+Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration);
+
+/**
+ * Initialize serial line with default configuration at system startup.
+ */
+void
+Arch_InitSerial(void);
+
+/** @} */
 
 _EXTERN_C_DECL_END
 

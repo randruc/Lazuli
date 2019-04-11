@@ -51,6 +51,10 @@ KMain(void)
 
   Arch_Init();
 
+  if (CONFIG_USE_SERIAL) {
+    Arch_InitSerial();
+  }
+
   /* Give hand to user */
   main();
 }
