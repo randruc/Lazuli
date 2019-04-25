@@ -238,11 +238,6 @@ typedef struct {
  * This function will fill the object pointed by the parameter with current
  * serial settings.
  *
- * This function will wait all receiving operations has completed. Depending
- * on the value of CONFIG_SERIAL_USE_INTERRUPTS it will rather block the
- * calling task or spin to wait all receiving operations has been
- * completed.
- *
  * @param serialConfiguration A pointer to an allocated Lz_SerialConfiguration
  *                            (e.g. allocated on the stack).
  */
@@ -255,13 +250,10 @@ Lz_Serial_GetConfiguration(Lz_SerialConfiguration * const serialConfiguration);
  * This function will set the different parameters of the serial line according
  * to the configuration pointed by the serialConfiguration parameter.
  *
- * This function will wait all transmitting operations has completed. Depending
- * on the value of CONFIG_SERIAL_USE_INTERRUPTS it will rather block the
- * calling task or spin to wait all transmitting operations has been
- * completed.
- *
- * @warning This function is not thread safe! You may use your own locks if you
- * wish to call this function by multiple threads at the same time.
+ * @warning On the AVR platform this function will block interrupts if
+ *          configuration option CONFIG_SERIAL_USE_INTERRUPTS is activated.
+ *          On the AVR platform, this function will wait all transmit and
+ *          receive operations has completed.
  *
  * @param serialConfiguration A pointer to an allocated Lz_SerialConfiguration
  *                            (e.g. allocated on the stack).

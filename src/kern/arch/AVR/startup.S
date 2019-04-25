@@ -304,7 +304,24 @@ Arch_DisableInterrupts:
 
     .global Arch_EnableInterrupts
 Arch_EnableInterrupts:
-    sei
+    reti
+
+    .global Arch_DisableInterruptsGetStatus
+Arch_DisableInterruptsGetStatus:
+    ;; The mask obtained by the interrupt bit in the status register.
+    .equ IBitMask, 0x80
+    in r24, sreg
+    andi r24, IBitMask
+    cli
+    ret
+
+    .global Arch_RestoreInterruptsStatus
+Arch_RestoreInterruptsStatus:
+    ;; The position of the interrupt bit in the status register.
+    .equ IBitPosition, 7
+    sbrc r24, IBitPosition
+    reti
+    cli
     ret
 
     /**

@@ -9,6 +9,7 @@
 
 #include <Lazuli/common.h>
 
+#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/memory.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -20,8 +21,12 @@ extern AllocationMap kernelAllocationMap;
 
 /**
  * Kernel panic.
+ *
+ * @warning This function is declared to never return!
+ *          If this has to evolve, remember to remove __noreturn declaration on
+ *          this function.
  */
-void
+__noreturn void
 Panic(void);
 
 /**

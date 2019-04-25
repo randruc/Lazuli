@@ -86,6 +86,31 @@ Arch_DisableInterrupts(void);
 extern void
 Arch_EnableInterrupts(void);
 
+/* TODO: This is machine specific!!! */
+/**
+ * Define the type used to store interrupts status.
+ *
+ * You shall ALWAYS set a variable of this type by calling
+ * Arch_DisableInterruptsGetStatus(), and NEVER modify its value manually.
+ */
+typedef uint8_t InterruptsStatus;
+
+/**
+ * Disable all interrupts and return the previous interrupts status.
+ *
+ * @return The previous global interrupts status.
+ */
+extern InterruptsStatus
+Arch_DisableInterruptsGetStatus(void);
+
+/**
+ * Restore a previously saved interrupts status.
+ *
+ * @param interruptsStatus A previously saved InterruptsStatus.
+ */
+extern void
+Arch_RestoreInterruptsStatus(const InterruptsStatus interruptsStatus);
+
 /**
  * Initialize idle CPU modes.
  */

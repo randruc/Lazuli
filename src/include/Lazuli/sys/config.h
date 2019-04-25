@@ -163,6 +163,13 @@
  */
 #define CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL (1)
 
+/**
+ * When 1, serial input and output will use interrupt blocking.
+ *
+ * When 0, serial input and output will use active waiting (spin).
+ */
+#define CONFIG_SERIAL_USE_INTERRUPTS (0)
+
 /** @}           */
 
 /** @name AVR-specific configuration */

@@ -28,7 +28,7 @@ static Usart * const usart = (Usart*)&UCSR0A;
  *
  * This is used to save the current setting of the serial baud rate.
  * On AVR, the setting of the speed isn't always accurate once calculated, so
- * with use this variable to store it and be able to retrieve it easily.
+ * we use this variable to store it and be able to retrieve it easily.
  */
 static enum Lz_SerialSpeed currentSerialSpeed;
 
@@ -311,11 +311,14 @@ SetStopBits2(void)
 
 /**
  * Jump table to functions setting the number of stop bits of the serial line.
+ *
+ * @warning This table must be ordered by entry values of
+ *          enum Lz_SerialStopBits.
  */
 __progmem static
 void (* const setStopBits[__LZ_SERIAL_STOP_BITS_ENUM_END])(void) = {
-  SetStopBits1,
-  SetStopBits2
+  SetStopBits1, /**< entry: LZ_SERIAL_STOP_BITS_1 */
+  SetStopBits2  /**< entry: LZ_SERIAL_STOP_BITS_2 */
 };
 
 /**
@@ -366,12 +369,15 @@ SetParityBitOdd(void)
 
 /**
  * Jump table to functions setting the kind of parity of the serial line.
+ *
+ * @warning This table must be ordered by entry values of
+ *          enum Lz_SerialParityBit.
  */
 __progmem static
 void (* const setParityBit[__LZ_SERIAL_PARITY_BIT_ENUM_END])(void) = {
-  SetParityBitNone,
-  SetParityBitEven,
-  SetParityBitOdd
+  SetParityBitNone, /**< entry: LZ_SERIAL_PARITY_NONE */
+  SetParityBitEven, /**< entry: LZ_SERIAL_PARITY_EVEN */
+  SetParityBitOdd   /**< entry: LZ_SERIAL_PARITY_ODD  */
 };
 
 /**
@@ -436,13 +442,15 @@ SetSize8(void)
 
 /**
  * Jump table to functions setting character sizes of the serial line.
+ *
+ * @warning This table must be ordered by entry values of enum Lz_SerialSize.
  */
 __progmem static
 void (* const setSize[__LZ_SERIAL_SIZE_ENUM_END])(void) = {
-  SetSize5,
-  SetSize6,
-  SetSize7,
-  SetSize8
+  SetSize5, /**< entry: LZ_SERIAL_SIZE_5 */
+  SetSize6, /**< entry: LZ_SERIAL_SIZE_6 */
+  SetSize7, /**< entry: LZ_SERIAL_SIZE_7 */
+  SetSize8  /**< entry: LZ_SERIAL_SIZE_8 */
 };
 
 /**
@@ -466,11 +474,13 @@ SetSize(const enum Lz_SerialSize size)
 /**
  * Jump table containing the setting values of UBRR0L and UBRR0H registers for
  * baud rates defined in Lz_SerialSpeed.
+ *
+ * @warning This table must be ordered by entry values of enum Lz_SerialSpeed.
  */
 __progmem static const
 uint16_t serialSpeedRegisterValue[__LZ_SERIAL_SIZE_ENUM_END] = {
-  (uint16_t)12,
-  (uint16_t)6
+  (uint16_t)12, /**< entry: LZ_SERIAL_SPEED_4800 */
+  (uint16_t)6   /**< entry: LZ_SERIAL_SPEED_9600 */
 };
 
 /**
@@ -511,23 +521,46 @@ Arch_GetSerialConfiguration(Lz_SerialConfiguration * const configuration)
 void
 Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration)
 {
+  InterruptsStatus interruptsStatus;
+
+  /* Wait all receive and transmit operations has completed */
+  while ((usart->ucsr0a & UCSR0A_TXC0) || !(usart->ucsr0a & UCSR0A_RXC0));
+
+  /*
+   * From the ATmega328p datasheet:
+   * "For interrupt driven USART operation, the Global Interrupt Flag should be
+   * cleared (and interrupts globally disabled) when doing the initialization."
+   */
+  if (CONFIG_SERIAL_USE_INTERRUPTS) {
+    interruptsStatus = Arch_DisableInterruptsGetStatus();
+  } else {
+    UNUSED(interruptsStatus);
+  }
+
   SetEnablingStatus(configuration->enableFlags);
   SetStopBits(configuration->stopBits);
   SetParityBit(configuration->parityBit);
   SetSize(configuration->size);
   SetSpeed(configuration->speed);
+
+  if (CONFIG_SERIAL_USE_INTERRUPTS) {
+    Arch_RestoreInterruptsStatus(interruptsStatus);
+  }
 }
 
 void
 Arch_InitSerial(void)
 {
   const Lz_SerialConfiguration serialConfiguration = {
-    LZ_SERIAL_DISABLE_ALL,
-    LZ_SERIAL_STOP_BITS_1,
-    LZ_SERIAL_PARITY_NONE,
-    LZ_SERIAL_SIZE_8,
-    LZ_SERIAL_SPEED_4800
+    LZ_SERIAL_DISABLE_ALL, /**< member: enableFlags */
+    LZ_SERIAL_STOP_BITS_1, /**< member: stopBits    */
+    LZ_SERIAL_PARITY_NONE, /**< member: parityBits  */
+    LZ_SERIAL_SIZE_8,      /**< member: size        */
+    LZ_SERIAL_SPEED_4800   /**< member: speed       */
   };
 
   Arch_SetSerialConfiguration(&serialConfiguration);
+
+  /* Set USART to asynchronous */
+  CLEAR_BITS(usart->ucsr0c, uint8_t, UCSR0C_UMSEL01 | UCSR0C_UMSEL00);
 }

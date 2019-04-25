@@ -64,7 +64,7 @@ KMain(void)
 #error "Only one kernel panic configuration must be defined in config.h."
 #endif
 
-void
+__noreturn void
 Panic(void)
 {
   if (CONFIG_ON_PANIC_INFINITE_LOOP) {
