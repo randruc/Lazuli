@@ -256,7 +256,7 @@ Lz_Serial_GetConfiguration(Lz_SerialConfiguration * const serialConfiguration);
  * to the configuration pointed by the serialConfiguration parameter.
  *
  * @warning On the AVR platform this function will block interrupts if
- *          configuration option CONFIG_SERIAL_USE_INTERRUPTS is activated.
+ *          configuration option LZ_CONFIG_SERIAL_USE_INTERRUPTS is activated.
  *          On the AVR platform, this function will wait all transmit and
  *          receive operations has completed.
  *

@@ -53,9 +53,9 @@ cflags=$cflags' -nostdlib'
 cflags=$cflags' -nodefaultlibs'
 cflags=$cflags' -ffreestanding'
 cflags=$cflags' -fshort-enums'
-cflags=$cflags' -DCONFIG_USE_MUTEX='$config_use_mutex
-cflags=$cflags' -DCONFIG_USE_SPINLOCK='$config_use_spinlock
-cflags=$cflags' -DCONFIG_USE_SERIAL='$config_use_serial
+cflags=$cflags' -DLZ_CONFIG_USE_MUTEX='$config_use_mutex
+cflags=$cflags' -DLZ_CONFIG_USE_SPINLOCK='$config_use_spinlock
+cflags=$cflags' -DLZ_CONFIG_USE_SERIAL='$config_use_serial
 
 echo $cflags | sed 's/ /\n/g'
 

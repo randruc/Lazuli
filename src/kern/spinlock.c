@@ -14,7 +14,7 @@
 void
 Lz_Spinlock_Unlock(Lz_Spinlock * const spinlock)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS) {
     for (; NULL == spinlock;);
   }
 

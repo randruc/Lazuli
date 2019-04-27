@@ -15,7 +15,7 @@
 void
 Lz_Serial_GetConfiguration(Lz_SerialConfiguration * const serialConfiguration)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL) {
     if (NULL == serialConfiguration) {
       return;
     }
@@ -27,7 +27,7 @@ Lz_Serial_GetConfiguration(Lz_SerialConfiguration * const serialConfiguration)
 void
 Lz_Serial_SetConfiguration(Lz_SerialConfiguration * const serialConfiguration)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL) {
     if (NULL == serialConfiguration) {
       return;
     }

@@ -130,13 +130,13 @@ List_IsEmpty(const LinkedList * const linkedList);
  *             item of each loop turn. This pointer will never be NULL.
  *
  */
-#define List_UntypedForEach(LINKEDLIST, ITEM)                              \
-  if ((CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
-      (NULL == (LINKEDLIST)->first))                                       \
-    {}                                                                     \
-  else                                                                     \
-    for ((ITEM) = (LINKEDLIST)->first;                                     \
-         NULL != (ITEM);                                                   \
+#define List_UntypedForEach(LINKEDLIST, ITEM)                           \
+  if ((LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
+      (NULL == (LINKEDLIST)->first))                                    \
+    {}                                                                  \
+  else                                                                  \
+    for ((ITEM) = (LINKEDLIST)->first;                                  \
+         NULL != (ITEM);                                                \
          (ITEM) = (ITEM)->next)
 
 /**
@@ -160,16 +160,16 @@ List_IsEmpty(const LinkedList * const linkedList);
  * @param MEMBER The name of the member in TYPE which bears the
  *               LinkedListElement.
  */
-#define List_ForEach(LINKEDLIST, TYPE, ITEM, MEMBER)                       \
-  if ((CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
-      (NULL == (LINKEDLIST)->first))                                       \
-    {}                                                                     \
-  else                                                                     \
-    for ((ITEM) = CONTAINER_OF((LINKEDLIST)->first, MEMBER, TYPE);         \
-         NULL != (ITEM);                                                   \
-         (ITEM) =                                                          \
-           (NULL == ((ITEM)->MEMBER).next)                                 \
-           ? NULL                                                          \
+#define List_ForEach(LINKEDLIST, TYPE, ITEM, MEMBER)                    \
+  if ((LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
+      (NULL == (LINKEDLIST)->first))                                    \
+    {}                                                                  \
+  else                                                                  \
+    for ((ITEM) = CONTAINER_OF((LINKEDLIST)->first, MEMBER, TYPE);      \
+         NULL != (ITEM);                                                \
+         (ITEM) =                                                       \
+           (NULL == ((ITEM)->MEMBER).next)                              \
+           ? NULL                                                       \
            : CONTAINER_OF(((ITEM)->MEMBER).next, MEMBER, TYPE))
 
 /**

@@ -28,9 +28,9 @@ Task *currentTask;
  * Contains default values for Lz_TaskConfiguration.
  */
 static const Lz_TaskConfiguration DefaultTaskConfiguration = {
-  NULL                                          /**< member: name      */,
-  CONFIG_DEFAULT_TASK_STACK_SIZE                /**< member: stackSize */,
-  (Lz_TaskPriority)CONFIG_DEFAULT_TASK_PRIORITY /**< member: priority  */
+  NULL                                             /**< member: name      */,
+  LZ_CONFIG_DEFAULT_TASK_STACK_SIZE                /**< member: stackSize */,
+  (Lz_TaskPriority)LZ_CONFIG_DEFAULT_TASK_PRIORITY /**< member: priority  */
 };
 
 /**
@@ -48,13 +48,13 @@ static enum Lz_SchedulerClass schedulerClass;
  */
 static const SchedulerOperations *JumpToScheduler[] = {
 
-#if CONFIG_USE_SCHEDULER_RR
+#if LZ_CONFIG_USE_SCHEDULER_RR
   &RRSchedulerOperations,  /**< index: LZ_SCHED_RR  */
-#endif /* USE_SCHEDULER_RR */
+#endif /* LZ_CONFIG_USE_SCHEDULER_RR */
 
-#if CONFIG_USE_SCHEDULER_HPF
+#if LZ_CONFIG_USE_SCHEDULER_HPF
   &HPFSchedulerOperations, /**< index: LZ_SCHED_HPF */
-#endif /* USE_SCHEDULER_HPF */
+#endif /* LZ_CONFIG_USE_SCHEDULER_HPF */
 
 };
 
@@ -98,7 +98,7 @@ BaseScheduler_Init(void)
 void
 BaseScheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode)
 {
-  if (CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
+  if (LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
     if (interruptCode > INT_LAST_ENTRY) {
       Panic();
     }

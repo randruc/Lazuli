@@ -15,11 +15,11 @@
 
     .global Lz_Spinlock_Lock
 Lz_Spinlock_Lock:
-.IF CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS
+.IF LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS
     sbiw r24, 0
 infinite_loop:
     breq infinite_loop
-.ENDIF /* CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS */
+.ENDIF /* LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS */
     push r30
     push r31
     movw r30, r24

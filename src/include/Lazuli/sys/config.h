@@ -15,36 +15,36 @@
 /**
  * Size in bytes of the security gap between the break and the stack pointer.
  */
-#define CONFIG_BREAK_STACK_GAP (50)
+#define LZ_CONFIG_BREAK_STACK_GAP (50)
 
 /**
  * Clock frequency in Hertz.
  */
-#define CONFIG_CLOCK_FREQUENCY (1000000)
+#define LZ_CONFIG_CLOCK_FREQUENCY (1000000)
 
 /**
  * When 1, run an infinite loop on kernel panic.
  *
  * When 0, doesn't apply.
  */
-#define CONFIG_ON_PANIC_INFINITE_LOOP (1)
+#define LZ_CONFIG_ON_PANIC_INFINITE_LOOP (1)
 
 /**
  * When 1, perform a software reset on kernel panic.
  *
  * When 0, doesn't apply.
  */
-#define CONFIG_ON_PANIC_SOFTWARE_RESET (0)
+#define LZ_CONFIG_ON_PANIC_SOFTWARE_RESET (0)
 
 /**
  * Default stack size in bytes for a new task.
  */
-#define CONFIG_DEFAULT_TASK_STACK_SIZE (20)
+#define LZ_CONFIG_DEFAULT_TASK_STACK_SIZE (20)
 
 /**
  * Default priority for a new task.
  */
-#define CONFIG_DEFAULT_TASK_PRIORITY (0)
+#define LZ_CONFIG_DEFAULT_TASK_PRIORITY (0)
 
 /**
  * When 1, always check for NULL functions parameters in linked lists
@@ -54,17 +54,17 @@
  *
  * This is a way to obtain better performances, but it's also less safe.
  */
-#define CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS (1)
+#define LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS (1)
 
 /**
  * Use Round-Robin scheduler.
  */
-#define CONFIG_USE_SCHEDULER_RR (1)
+#define LZ_CONFIG_USE_SCHEDULER_RR (1)
 
 /**
  * Use Highest Priority First scheduler.
  */
-#define CONFIG_USE_SCHEDULER_HPF (1)
+#define LZ_CONFIG_USE_SCHEDULER_HPF (1)
 
 /** @name HPF Scheduling */
 /** @{                   */
@@ -72,12 +72,12 @@
 /**
  * The stack size in bytes of the HPF scheduler idle task.
  */
-#define CONFIG_HPF_IDLE_TASK_STACK_SIZE (10)
+#define LZ_CONFIG_HPF_IDLE_TASK_STACK_SIZE (10)
 
 /**
  * The priority of the HPF scheduler idle task.
  */
-#define CONFIG_HPF_IDLE_TASK_PRIORITY (-1)
+#define LZ_CONFIG_HPF_IDLE_TASK_PRIORITY (-1)
 
 /**
  * Configure if the idle task must have a name.
@@ -89,13 +89,13 @@
  * If set to 0, the idle task will have no name attached to it. Thus it can save
  * a few bytes in the read-only data section.
  */
-#define CONFIG_HPF_IDLE_TASK_HAS_NAME (1)
+#define LZ_CONFIG_HPF_IDLE_TASK_HAS_NAME (1)
 
 /**
  * The name of the HPF idle task.
  * Never used if HPF_IDLE_TASK_HAS_NAME is set to 0.
  */
-#define CONFIG_HPF_IDLE_TASK_NAME "hpf-idle"
+#define LZ_CONFIG_HPF_IDLE_TASK_NAME "hpf-idle"
 
 /** @} */
 
@@ -103,13 +103,13 @@
  * Check if the interrupt code sent by the ASM interrupt handler to the base
  * scheduler interrupt handler is an admissible value.
  */
-#define CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
+#define LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
 
 /**
  * If set to 1, put the CPU to sleep when it's idle.
  * If set to 0, the CPU will actively infinite loop when it's idle.
  */
-#define CONFIG_ON_IDLE_SLEEP (0)
+#define LZ_CONFIG_ON_IDLE_SLEEP (0)
 
 /** @name Spinlocks */
 /** @{              */
@@ -122,7 +122,7 @@
  *
  * This is a way to obtain better performances, but it's also less safe.
  */
-#define CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS (1)
+#define LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS (1)
 
 /** @}              */
 
@@ -137,7 +137,7 @@
  *
  * This is a way to obtain better performances, but it's also less safe.
  */
-#define CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES (1)
+#define LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES (1)
 
 /** @}            */
 
@@ -151,7 +151,7 @@
  *
  * This is one way to obtain better performances, but it's also less safe.
  */
-#define CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL (1)
+#define LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL (1)
 
 /**
  * When 1, check for enum parameters that are over the admissible values defined
@@ -161,14 +161,14 @@
  *
  * This is one way to obtain better performances, but it's also less safe.
  */
-#define CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL (1)
+#define LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL (1)
 
 /**
  * When 1, serial input and output will use interrupt blocking.
  *
  * When 0, serial input and output will use active waiting (spin).
  */
-#define CONFIG_SERIAL_USE_INTERRUPTS (0)
+#define LZ_CONFIG_SERIAL_USE_INTERRUPTS (0)
 
 /** @}           */
 
@@ -180,32 +180,32 @@
  *
  * This is the default value no sleep mode is selected.
  */
-#define CONFIG_SLEEP_WITH_IDLE_MODE (1)
+#define LZ_CONFIG_SLEEP_WITH_IDLE_MODE (1)
 
 /**
  * Enter "ADC Noise Reduction Mode" when sleeping.
  */
-#define CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE (0)
+#define LZ_CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE (0)
 
 /**
  * Enter "Power-down Mode" when sleeping.
  */
-#define CONFIG_SLEEP_WITH_POWER_DOWN_MODE (0)
+#define LZ_CONFIG_SLEEP_WITH_POWER_DOWN_MODE (0)
 
 /**
  * Enter "Power-save Mode" when sleeping.
  */
-#define CONFIG_SLEEP_WITH_POWER_SAVE_MODE (0)
+#define LZ_CONFIG_SLEEP_WITH_POWER_SAVE_MODE (0)
 
 /**
  * Enter "Standby Mode" when sleeping.
  */
-#define CONFIG_SLEEP_WITH_STANDBY_MODE (0)
+#define LZ_CONFIG_SLEEP_WITH_STANDBY_MODE (0)
 
 /**
  * Enter "Extended Standby Mode" when sleeping.
  */
-#define CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE (0)
+#define LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE (0)
 
 /** @} */
 

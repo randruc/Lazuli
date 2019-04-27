@@ -19,7 +19,7 @@ Lz_Mutex_Init(Lz_Mutex * const mutex)
 {
   const Lz_Mutex initValue = LZ_MUTEX_INIT;
 
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
       return;
     }
@@ -33,7 +33,7 @@ Lz_Mutex_InitLocked(Lz_Mutex * const mutex)
 {
   const Lz_Mutex initValue = LZ_MUTEX_INIT_LOCKED;
 
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
       return;
     }
@@ -45,7 +45,7 @@ Lz_Mutex_InitLocked(Lz_Mutex * const mutex)
 void
 Lz_Mutex_Lock(Lz_Mutex * const mutex)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
       Arch_InfiniteLoop();
     }
@@ -59,7 +59,7 @@ Lz_Mutex_Lock(Lz_Mutex * const mutex)
 void
 Lz_Mutex_Unlock(Lz_Mutex * const mutex)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
       Arch_InfiniteLoop();
     }

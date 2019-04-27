@@ -33,19 +33,19 @@ enum Lz_SchedulerClass {
 
   /** @endcond */
 
-#if CONFIG_USE_SCHEDULER_RR
+#if LZ_CONFIG_USE_SCHEDULER_RR
   /**
    * Round-Robin scheduling.
    */
   LZ_SCHED_RR,
-#endif /* CONFIG_USE_SCHEDULER_RR */
+#endif /* LZ_CONFIG_USE_SCHEDULER_RR */
 
-#if CONFIG_USE_SCHEDULER_HPF
+#if LZ_CONFIG_USE_SCHEDULER_HPF
   /**
    * Highest Priority First scheduling.
    */
   LZ_SCHED_HPF,
-#endif /* CONFIG_USE_SCHEDULER_HPF */
+#endif /* LZ_CONFIG_USE_SCHEDULER_HPF */
 
   /**
    * @cond false

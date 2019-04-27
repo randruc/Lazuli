@@ -317,7 +317,7 @@ SetStopBits(const enum Lz_SerialStopBits stopBits)
 {
   void (*jump)(void);
 
-  if (CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
+  if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (stopBits <= __LZ_SERIAL_STOP_BITS_ENUM_BEGIN ||
         stopBits >= __LZ_SERIAL_STOP_BITS_ENUM_END) {
       Panic();
@@ -379,7 +379,7 @@ SetParityBit(const enum Lz_SerialParityBit parityBit)
 {
   void (*jump)();
 
-  if (CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
+  if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (parityBit <= __LZ_SERIAL_PARITY_BIT_ENUM_BEGIN ||
         parityBit >= __LZ_SERIAL_PARITY_BIT_ENUM_END) {
       Panic();
@@ -455,7 +455,7 @@ SetSize(const enum Lz_SerialSize size)
 {
   void (* jump)();
 
-  if (CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
+  if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (size <= __LZ_SERIAL_SIZE_ENUM_BEGIN ||
         size >= __LZ_SERIAL_SIZE_ENUM_END) {
       Panic();
@@ -489,7 +489,7 @@ SetSpeed(const enum Lz_SerialSpeed speed)
 {
   uint16_t registerValue;
 
-  if (CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
+  if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (speed <= __LZ_SERIAL_SPEED_ENUM_BEGIN ||
         speed >= __LZ_SERIAL_SPEED_ENUM_END) {
       Panic();
@@ -528,7 +528,7 @@ Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration)
    * "For interrupt driven USART operation, the Global Interrupt Flag should be
    * cleared (and interrupts globally disabled) when doing the initialization."
    */
-  if (CONFIG_SERIAL_USE_INTERRUPTS) {
+  if (LZ_CONFIG_SERIAL_USE_INTERRUPTS) {
     interruptsStatus = Arch_DisableInterruptsGetStatus();
   } else {
     UNUSED(interruptsStatus);
@@ -540,7 +540,7 @@ Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration)
   SetSize(configuration->size);
   SetSpeed(configuration->speed);
 
-  if (CONFIG_SERIAL_USE_INTERRUPTS) {
+  if (LZ_CONFIG_SERIAL_USE_INTERRUPTS) {
     Arch_RestoreInterruptsStatus(interruptsStatus);
   }
 }

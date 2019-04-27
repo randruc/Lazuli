@@ -12,7 +12,7 @@
 void
 List_Append(LinkedList * const linkedList, LinkedListElement * const item)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
       return;
     }
@@ -36,7 +36,7 @@ List_Append(LinkedList * const linkedList, LinkedListElement * const item)
 void
 List_Prepend(LinkedList * const linkedList, LinkedListElement * const item)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
       return;
     }
@@ -61,7 +61,7 @@ void
 List_AppendList(LinkedList * const linkedListDestination,
                 LinkedList * const linkedListToMove)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedListDestination || NULL == linkedListToMove) {
       return;
     }
@@ -89,7 +89,7 @@ List_PickFirst(LinkedList * const linkedList)
 {
   LinkedListElement *item;
 
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
       return NULL;
     }
@@ -118,7 +118,7 @@ List_PickFirst(LinkedList * const linkedList)
 LinkedListElement *
 List_PointFirst(const LinkedList * const linkedList)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
       return NULL;
     }
@@ -130,7 +130,7 @@ List_PointFirst(const LinkedList * const linkedList)
 bool
 List_IsEmpty(const LinkedList * const linkedList)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
       return true;
     }
@@ -144,7 +144,7 @@ List_InsertAfter(LinkedList * const linkedList,
                  LinkedListElement * const listItem,
                  LinkedListElement * const itemToInsert)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == listItem || NULL == itemToInsert) {
       return;
     }
@@ -164,7 +164,7 @@ List_InsertBefore(LinkedList * const linkedList,
                   LinkedListElement * const listItem,
                   LinkedListElement * const itemToInsert)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == listItem || NULL == itemToInsert) {
       return;
     }
@@ -183,7 +183,7 @@ bool
 List_IsLastElement(const LinkedList * const linkedList,
                    const LinkedListElement * const item)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
       return true;
     }
@@ -196,7 +196,7 @@ bool
 List_IsFirstElement(const LinkedList * const linkedList,
                     const LinkedListElement * const item)
 {
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
       return true;
     }
@@ -210,7 +210,7 @@ List_InitLinkedList(LinkedList * const linkedList)
 {
   const LinkedList linkedListInit = LINKED_LIST_INIT;
 
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
       return;
     }
@@ -224,7 +224,7 @@ List_InitLinkedListElement(LinkedListElement * const item)
 {
   const LinkedListElement linkedListElementInit = LINKED_LIST_ELEMENT_INIT;
 
-  if (CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
+  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == item) {
       return;
     }

@@ -45,7 +45,7 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   newBreak = ALLOW_ARITHM(oldBreak) + increment;
   newGap = ALLOW_ARITHM(SP) - ALLOW_ARITHM(newBreak);
 
-  if (newGap < CONFIG_BREAK_STACK_GAP) {
+  if (newGap < LZ_CONFIG_BREAK_STACK_GAP) {
     return NULL;
   }
 

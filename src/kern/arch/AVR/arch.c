@@ -22,31 +22,32 @@
 void
 Arch_InitIdleCpuMode(void)
 {
-#if CONFIG_ON_IDLE_SLEEP && ((CONFIG_SLEEP_WITH_IDLE_MODE +                \
-                              CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE + \
-                              CONFIG_SLEEP_WITH_POWER_DOWN_MODE +          \
-                              CONFIG_SLEEP_WITH_POWER_SAVE_MODE +          \
-                              CONFIG_SLEEP_WITH_STANDBY_MODE +             \
-                              CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE) > 1)
+#if LZ_CONFIG_ON_IDLE_SLEEP &&                                          \
+  ((LZ_CONFIG_SLEEP_WITH_IDLE_MODE +                                    \
+    LZ_CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE +                     \
+    LZ_CONFIG_SLEEP_WITH_POWER_DOWN_MODE +                              \
+    LZ_CONFIG_SLEEP_WITH_POWER_SAVE_MODE +                              \
+    LZ_CONFIG_SLEEP_WITH_STANDBY_MODE +                                 \
+    LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE) > 1)
 #error Idle mode for architecture AVR must be unique.
 #endif
 
-  if (!CONFIG_ON_IDLE_SLEEP) {
+  if (!LZ_CONFIG_ON_IDLE_SLEEP) {
     return;
   }
 
-  if (CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE) {
+  if (LZ_CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE) {
     SMCR = 0x02;
-  } else if (CONFIG_SLEEP_WITH_POWER_DOWN_MODE) {
+  } else if (LZ_CONFIG_SLEEP_WITH_POWER_DOWN_MODE) {
     SMCR = 0x04;
-  } else if (CONFIG_SLEEP_WITH_POWER_SAVE_MODE) {
+  } else if (LZ_CONFIG_SLEEP_WITH_POWER_SAVE_MODE) {
     SMCR = 0x06;
-  } else if (CONFIG_SLEEP_WITH_STANDBY_MODE) {
+  } else if (LZ_CONFIG_SLEEP_WITH_STANDBY_MODE) {
     SMCR = 0x0c;
-  } else if (CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE) {
+  } else if (LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE) {
     SMCR = 0x0e;
   } else {
-    /* Default value : CONFIG_SLEEP_WITH_IDLE_MODE */
+    /* Default value : LZ_CONFIG_SLEEP_WITH_IDLE_MODE */
     SMCR = 0x00;
   }
 }

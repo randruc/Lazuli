@@ -217,10 +217,10 @@ const SchedulerOperations RRSchedulerOperations = {
   WaitEvent,
 
   /** member: wakeupTasksWaitingMutex */
-  CONFIG_USE_MUTEX ? WakeupTasksWaitingMutex : NULL,
+  LZ_CONFIG_USE_MUTEX ? WakeupTasksWaitingMutex : NULL,
 
   /** member: waitMutex               */
-  CONFIG_USE_MUTEX ? WaitMutex : NULL
+  LZ_CONFIG_USE_MUTEX ? WaitMutex : NULL
 };
 
 /** @} */

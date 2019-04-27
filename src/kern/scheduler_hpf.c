@@ -49,7 +49,7 @@ static void
 IdleTask(void)
 {
   for (;;) {
-    if (CONFIG_ON_IDLE_SLEEP) {
+    if (LZ_CONFIG_ON_IDLE_SLEEP) {
       Arch_CpuSleep();
     }
   }
@@ -127,11 +127,11 @@ RegisterIdleTask(void)
 
   Lz_InitTaskConfiguration(&taskConfiguration);
 
-  taskConfiguration.stackSize = CONFIG_HPF_IDLE_TASK_STACK_SIZE;
-  taskConfiguration.priority = CONFIG_HPF_IDLE_TASK_PRIORITY;
+  taskConfiguration.stackSize = LZ_CONFIG_HPF_IDLE_TASK_STACK_SIZE;
+  taskConfiguration.priority = LZ_CONFIG_HPF_IDLE_TASK_PRIORITY;
 
-  if (CONFIG_HPF_IDLE_TASK_HAS_NAME) {
-    taskConfiguration.name = CONFIG_HPF_IDLE_TASK_NAME;
+  if (LZ_CONFIG_HPF_IDLE_TASK_HAS_NAME) {
+    taskConfiguration.name = LZ_CONFIG_HPF_IDLE_TASK_NAME;
   }
 
   Lz_RegisterTask(IdleTask, &taskConfiguration);

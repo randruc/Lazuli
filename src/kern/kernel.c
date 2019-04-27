@@ -51,7 +51,7 @@ KMain(void)
 
   Arch_InitIdleCpuMode();
 
-  if (CONFIG_USE_SERIAL) {
+  if (LZ_CONFIG_USE_SERIAL) {
     Arch_InitSerial();
   }
 
@@ -60,16 +60,16 @@ KMain(void)
 }
 
 /* TODO: Find something better to perform this verification... */
-#if (CONFIG_ON_PANIC_INFINITE_LOOP + CONFIG_ON_PANIC_SOFTWARE_RESET) != 1
+#if (LZ_CONFIG_ON_PANIC_INFINITE_LOOP + LZ_CONFIG_ON_PANIC_SOFTWARE_RESET) != 1
 #error "Only one kernel panic configuration must be defined in config.h."
 #endif
 
 __noreturn void
 Panic(void)
 {
-  if (CONFIG_ON_PANIC_INFINITE_LOOP) {
+  if (LZ_CONFIG_ON_PANIC_INFINITE_LOOP) {
     Arch_InfiniteLoop();
-  } else if (CONFIG_ON_PANIC_SOFTWARE_RESET) {
+  } else if (LZ_CONFIG_ON_PANIC_SOFTWARE_RESET) {
     /* TODO: Change this by a watchdog software reset */
     Arch_ResetSystem();
   }
