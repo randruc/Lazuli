@@ -96,8 +96,8 @@ EnableSerialTransmission() {
 /**
  * Main entry point for user tasks.
  */
-int
-main()
+void
+main(void)
 {
   Lz_TaskConfiguration taskConfiguration;
 

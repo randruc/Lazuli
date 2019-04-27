@@ -28,7 +28,7 @@
  *
  * This is the function the user has to define to register his own tasks.
  */
-int
+void
 main(void);
 
 /**

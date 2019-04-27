@@ -78,7 +78,7 @@ EnableSerialTransmission() {
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
-int
+void
 main(void)
 {
   EnableSerialTransmission();

@@ -39,8 +39,8 @@ EnableSerialTransmission() {
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
-int
-main()
+void
+main(void)
 {
   Lz_TaskConfiguration taskConfiguration;
 
