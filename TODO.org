@@ -33,12 +33,6 @@
 * Prefix Lazuli structs in userspace with "Lz_"
 * Find a logo
 * TODO Document build chain
-* DONE Eliminate #if in assert.h
-  CLOSED: [2018-02-13 Tue 00:32]
-** DONE Introduce an if() with debug constant symbol.
-   CLOSED: [2018-02-13 Tue 00:33]
-* DONE Add a description to the GitHub repository
-  CLOSED: [2018-03-06 Tue 19:32]
 * Create a section to declare uninitialized global variables
 ** Every global variable that is not explicitly declared to a value will be
    placed in the BSS section and initialized to 0 on startup.
