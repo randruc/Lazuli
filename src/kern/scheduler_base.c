@@ -34,9 +34,9 @@ static const Lz_TaskConfiguration DefaultTaskConfiguration = {
 };
 
 /**
- * Contains the scheduling class choosed by the user.
+ * Contains the scheduling class chosen by the user.
  */
-static Lz_SchedulerClass schedulerClass;
+static enum Lz_SchedulerClass schedulerClass;
 
 /**
  * Jump table used to jump to the right scheduler, by way of the SchedulerClass
@@ -130,7 +130,7 @@ BaseScheduler_WaitMutex(void * const sp, LinkedList * const waitingTasks)
 /** @{             */
 
 void
-Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass)
+Lz_SetSchedulerClass(const enum Lz_SchedulerClass userSchedulerClass)
 {
   schedulerClass = userSchedulerClass;
 

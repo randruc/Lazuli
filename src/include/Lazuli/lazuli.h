@@ -22,7 +22,7 @@ _EXTERN_C_DECL_BEGIN
 /**
  * Represents a scheduling policy to run.
  */
-typedef enum {
+enum Lz_SchedulerClass {
   /**
    * @cond false
    *
@@ -56,7 +56,7 @@ typedef enum {
   __LZ_SCHEDULERCLASS_ENUM_END
 
   /** @endcond */
-}Lz_SchedulerClass;
+};
 
 /**
  * Represents the priority of a task.
@@ -90,11 +90,11 @@ typedef struct {
 /**
  * Set the scheduler class.
  *
- * @param userSchedulerClass A value of Lz_SchedulerClass to define the
+ * @param userSchedulerClass A value of enum Lz_SchedulerClass to define the
  *                           scheduling policy.
  */
 void
-Lz_SetSchedulerClass(const Lz_SchedulerClass userSchedulerClass);
+Lz_SetSchedulerClass(const enum Lz_SchedulerClass userSchedulerClass);
 
 /**
  * Register a new task.
