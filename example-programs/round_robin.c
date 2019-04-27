@@ -8,6 +8,7 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
+#include <Lazuli/serial.h>
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
@@ -83,6 +84,15 @@ Task5()
   }
 }
 
+static void
+EnableSerialTransmission() {
+  Lz_SerialConfiguration serialConfiguration;
+
+  Lz_Serial_GetConfiguration(&serialConfiguration);
+  serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
+  Lz_Serial_SetConfiguration(&serialConfiguration);
+}
+
 /**
  * Main entry point for user tasks.
  */
@@ -91,7 +101,7 @@ main()
 {
   Lz_TaskConfiguration taskConfiguration;
 
-  Usart_Init();
+  EnableSerialTransmission();
 
   /* Lz_SetSchedulerClass(LZ_SCHED_RR); */
 

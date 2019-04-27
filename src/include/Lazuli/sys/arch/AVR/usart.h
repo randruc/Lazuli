@@ -97,12 +97,6 @@ enum {
 #define USART_BAUD_RATE (9600)
 
 /**
- * Initialize the USART.
- */
-void
-Usart_Init(void);
-
-/**
  * Transmit a character.
  *
  * @param c The character to transmit.

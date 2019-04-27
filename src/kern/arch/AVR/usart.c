@@ -68,20 +68,6 @@ typedef union {
 }IntegerBytes;
 
 void
-Usart_Init(void)
-{
-  /* Set baud rate */
-  usart->ubrr0l = 12; /* LO8(UBRR0_VALUE); */
-  usart->ubrr0h = 0; /* HI8(UBRR0_VALUE); */
-
-  /* Enable transmitter */
-  usart->ucsr0b = UCSR0B_TXEN0;
-
-  /* 8 bits, 1 stop bit, no parity */
-  usart->ucsr0c = UCSR0C_UCSZ01 | UCSR0C_UCSZ00;
-}
-
-void
 Usart_PutChar(char c)
 {
   while (!(usart->ucsr0a & UCSR0A_UDRE0));

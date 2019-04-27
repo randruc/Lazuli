@@ -11,6 +11,7 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
+#include <Lazuli/serial.h>
 #include <Lazuli/spinlock.h>
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
@@ -29,12 +30,21 @@ Task()
   for (;;);
 }
 
+static void
+EnableSerialTransmission() {
+  Lz_SerialConfiguration serialConfiguration;
+
+  Lz_Serial_GetConfiguration(&serialConfiguration);
+  serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
+  Lz_Serial_SetConfiguration(&serialConfiguration);
+}
+
 int
 main()
 {
   Lz_TaskConfiguration taskConfiguration;
 
-  Usart_Init();
+  EnableSerialTransmission();
 
   Lz_SetSchedulerClass(LZ_SCHED_RR);
 
