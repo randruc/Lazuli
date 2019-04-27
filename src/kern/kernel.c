@@ -52,7 +52,7 @@ KMain(void)
   Arch_InitIdleCpuMode();
 
   if (CONFIG_USE_SERIAL) {
-    Arch_InitSerial();
+    /* Arch_InitSerial(); */
   }
 
   /* Give hand to user */

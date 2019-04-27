@@ -324,6 +324,12 @@ Arch_RestoreInterruptsStatus:
     cli
     ret
 
+    .global Arch_AreInterruptsEnabled
+Arch_AreInterruptsEnabled:
+    in r24, sreg
+    andi r24, IBitMask
+    ret
+
     /**
      * Copy bytes from program memory into RAM.
      *
@@ -351,6 +357,19 @@ Arch_LoadU8FromProgmem:
     push r31
     movw r30, r24
     lpm r24, Z
+    pop r31
+    pop r30
+    ret
+
+    .global Arch_LoadPointerFromProgmem
+    .global Arch_LoadFunctionPointerFromProgmem
+Arch_LoadPointerFromProgmem:
+Arch_LoadFunctionPointerFromProgmem:
+    push r30
+    push r31
+    movw r30, r24
+    lpm r24, Z+
+    lpm r25, Z
     pop r31
     pop r30
     ret
@@ -422,6 +441,7 @@ load_rodata_end:
 
     ;; Parachute trap
     ;; This should never be reached. It is only here is case of KMain returns.
+    ;; TODO: This can never happen because we called KMain with a JMP.
     call Panic
 
     .global Arch_InfiniteLoop

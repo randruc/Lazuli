@@ -16,6 +16,8 @@
 
 project_name=Lazuli
 
+user_file=kern/unit-tests/unit_tests.c
+
 debug=true
 
 config_use_mutex=1
@@ -133,7 +135,7 @@ $CC \
     $cflags \
     -T kern/linker.x \
     -o $project_name.elf \
-    ../example-programs/mutex_2.c \
+    $user_file \
     lib$project_name.a
 
 if [ -e $project_name.elf ]

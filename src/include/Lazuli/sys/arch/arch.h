@@ -67,12 +67,40 @@ Arch_StartRunning(void *stackPointer, size_t offsetOfPc);
 /**
  * Return a byte stored in program memory.
  *
- * @param source A pointer to the address of the byte in program memory.
+ * @param source A pointer to the byte stored in program memory.
  *
- * @return The byte stored a the address contained in source parameter.
+ * @return The byte value stored at the address contained in source parameter.
  */
 extern uint8_t
-Arch_LoadU8FromProgmem(char const * const source);
+Arch_LoadU8FromProgmem(const void *source);
+
+/**
+ * Return a pointer stored in program memory.
+ *
+ * @param source A pointer to the pointer stored in program memory.
+ *
+ * @return The pointer value stored at the address contained in source
+ *         parameter.
+ */
+extern void *
+Arch_LoadPointerFromProgmem(const void *source);
+
+/**
+ * Return a function pointer stored in program memory.
+ *
+ * @warning To use this function with a different prototype than
+ *          void (*)(void), the return value must be cast to the appropriate
+ *          function pointer type.
+ *          We can't use Arch_LoadPointerFromProgmem() to do the same thing
+ *          because ISO C forbids assignment between function pointer and
+ *          'void *', and conversion of object pointer to function pointer type.
+ *
+ * @param source A pointer to the function pointer stored in program memory.
+ *
+ * @return The function pointer value stored at the address contained in source
+ *         parameter.
+ */
+extern void (*Arch_LoadFunctionPointerFromProgmem(const void *source)) ();
 
 /**
  * Disable all interrupts.
@@ -110,6 +138,15 @@ Arch_DisableInterruptsGetStatus(void);
  */
 extern void
 Arch_RestoreInterruptsStatus(const InterruptsStatus interruptsStatus);
+
+/**
+ * Obtain a value indicating if global interrupts are enabled.
+ *
+ * @return : - true if global interrupts are enabled
+ *           - false if global interrupts are disabled
+ */
+extern bool
+Arch_AreInterruptsEnabled(void);
 
 /**
  * Initialize idle CPU modes.
