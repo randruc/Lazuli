@@ -11,7 +11,7 @@
 /**
  * Declare the generic code for an interrupt handler.
  *
- * @param @0 The interrupt code defined in interrupts.h.
+ * @param code The interrupt code defined in interrupts.h.
  */
 .macro INTERRUPT_HANDLER code
     call save_context_on_stack
@@ -304,7 +304,30 @@ Arch_DisableInterrupts:
 
     .global Arch_EnableInterrupts
 Arch_EnableInterrupts:
-    sei
+    reti
+
+    .global Arch_DisableInterruptsGetStatus
+Arch_DisableInterruptsGetStatus:
+    ;; The mask obtained by the interrupt bit in the status register.
+    .equ IBitMask, 0x80
+    in r24, sreg
+    andi r24, IBitMask
+    cli
+    ret
+
+    .global Arch_RestoreInterruptsStatus
+Arch_RestoreInterruptsStatus:
+    ;; The position of the interrupt bit in the status register.
+    .equ IBitPosition, 7
+    sbrc r24, IBitPosition
+    reti
+    cli
+    ret
+
+    .global Arch_AreInterruptsEnabled
+Arch_AreInterruptsEnabled:
+    in r24, sreg
+    andi r24, IBitMask
     ret
 
     /**
@@ -334,6 +357,21 @@ Arch_LoadU8FromProgmem:
     push r31
     movw r30, r24
     lpm r24, Z
+    pop r31
+    pop r30
+    ret
+
+    .global Arch_LoadPointerFromProgmem
+    .global Arch_LoadFunctionPointerFromProgmem
+    .global Arch_LoadU16FromProgmem
+Arch_LoadPointerFromProgmem:
+Arch_LoadFunctionPointerFromProgmem:
+Arch_LoadU16FromProgmem:
+    push r30
+    push r31
+    movw r30, r24
+    lpm r24, Z+
+    lpm r25, Z
     pop r31
     pop r30
     ret
@@ -405,6 +443,7 @@ load_rodata_end:
 
     ;; Parachute trap
     ;; This should never be reached. It is only here is case of KMain returns.
+    ;; TODO: This can never happen because we called KMain with a JMP.
     call Panic
 
     .global Arch_InfiniteLoop

@@ -8,8 +8,7 @@
  * This is the API that must be re-implemented if porting to another platform.
  *
  * This one is taylored after the AVR platform and can be subject to change if
- * porting.
- * These functions are the only entry points to ASM code in the kernel.
+ * porting to another platform.
  */
 
 #ifndef LAZULI_SYS_ARCH_ARCH_H
@@ -19,6 +18,7 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/list.h>
+#include <Lazuli/serial.h>
 #include <Lazuli/sys/compiler.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -67,12 +67,54 @@ Arch_StartRunning(void *stackPointer, size_t offsetOfPc);
 /**
  * Return a byte stored in program memory.
  *
- * @param source A pointer to the address of the byte in program memory.
+ * @warning The return type is unsigned.
  *
- * @return The byte stored a the address contained in source parameter.
+ * @param source A pointer to the byte stored in program memory.
+ *
+ * @return The byte value stored at the address contained in source parameter.
  */
 extern uint8_t
-Arch_LoadU8FromProgmem(char const * const source);
+Arch_LoadU8FromProgmem(const void *source);
+
+/**
+ * Return a double-byte word stored in program memory.
+ *
+ * @warning The return type is unsigned.
+ *
+ * @param source A pointer to the word stored in program memory.
+ *
+ * @return The word value stored at the address contained in source parameter.
+ */
+extern uint16_t
+Arch_LoadU16FromProgmem(const void *source);
+
+/**
+ * Return a pointer stored in program memory.
+ *
+ * @param source A pointer to the pointer stored in program memory.
+ *
+ * @return The pointer value stored at the address contained in source
+ *         parameter.
+ */
+extern void *
+Arch_LoadPointerFromProgmem(const void *source);
+
+/**
+ * Return a function pointer stored in program memory.
+ *
+ * @warning To use this function with a different prototype than
+ *          void (*)(void), the return value must be cast to the appropriate
+ *          function pointer type.
+ *          We can't use Arch_LoadPointerFromProgmem() to do the same thing
+ *          because ISO C forbids assignment between function pointer and
+ *          'void *', and conversion of object pointer to function pointer type.
+ *
+ * @param source A pointer to the function pointer stored in program memory.
+ *
+ * @return The function pointer value stored at the address contained in source
+ *         parameter.
+ */
+extern void (*Arch_LoadFunctionPointerFromProgmem(const void *source)) ();
 
 /**
  * Disable all interrupts.
@@ -86,17 +128,54 @@ Arch_DisableInterrupts(void);
 extern void
 Arch_EnableInterrupts(void);
 
+/* TODO: This is machine specific!!! */
 /**
- * Initialize all architecture-specific parameters.
+ * Define the type used to store interrupts status.
+ *
+ * You shall ALWAYS set a variable of this type by calling
+ * Arch_DisableInterruptsGetStatus(), and NEVER modify its value manually.
+ */
+typedef uint8_t InterruptsStatus;
+
+/**
+ * Disable all interrupts and return the previous interrupts status.
+ *
+ * @return The previous global interrupts status.
+ */
+extern InterruptsStatus
+Arch_DisableInterruptsGetStatus(void);
+
+/**
+ * Restore a previously saved interrupts status.
+ *
+ * @param interruptsStatus A previously saved InterruptsStatus.
+ */
+extern void
+Arch_RestoreInterruptsStatus(const InterruptsStatus interruptsStatus);
+
+/**
+ * Obtain a value indicating if global interrupts are enabled.
+ *
+ * @return : - true if global interrupts are enabled
+ *           - false if global interrupts are disabled
+ */
+extern bool
+Arch_AreInterruptsEnabled(void);
+
+/**
+ * Initialize idle CPU modes.
  */
 void
-Arch_Init(void);
+Arch_InitIdleCpuMode(void);
 
 /**
  * Put the CPU to sleep according to the sleep settings.
  */
 void
 Arch_CpuSleep(void);
+
+/** @name Mutex */
+/** @{          */
 
 /**
  * Try to acquire a lock by atomically changing the value pointed by the lock
@@ -118,6 +197,37 @@ Arch_TryAcquireLock(volatile uint8_t * const lock);
  */
 void
 Arch_WaitMutex(LinkedList * const waitingTasks);
+
+/** @} */
+
+/** @name Serial */
+/** @{           */
+
+/**
+ * Retrieve the current configuration of the serial line.
+ *
+ * @param configuration A pointer to an allocated Lz_SerialConfiguration used to
+ *                      store the configuration.
+ */
+void
+Arch_GetSerialConfiguration(Lz_SerialConfiguration * const configuration);
+
+/**
+ * Configure the seria line according to the parameter.
+ *
+ * @param configuration A pointer to an existing Lz_SerialConfiguration containg
+ *                      the full configuration to set up the serial line.
+ */
+void
+Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration);
+
+/**
+ * Initialize serial line with default configuration at system startup.
+ */
+void
+Arch_InitSerial(void);
+
+/** @} */
 
 _EXTERN_C_DECL_END
 

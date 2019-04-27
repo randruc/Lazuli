@@ -36,9 +36,14 @@ typedef struct {
   LinkedListElement stateQueue;
 }HpfTask;
 
-/* TODO: Find out why we have to write !XXX instead of XXX == 0 */
+/**
+ * @cond false
+ *
+ * TODO: Find out why we have to write !XXX instead of XXX == 0
+ */
 STATIC_ASSERT(!OFFSET_OF(base, HpfTask),
               The_member_base_must_be_at_offset_0_in_struct_HpfTask);
+/** @endcond */
 
 _EXTERN_C_DECL_END
 

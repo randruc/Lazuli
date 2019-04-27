@@ -1,5 +1,5 @@
 /**
- * @file src/kern/arch/AVR/avr_arh.h
+ * @file src/kern/arch/AVR/avr_arch.h
  * @brief Header file specific to the AVR arch module.
  * @date Jul 2018
  * @author Remi Andruccioli

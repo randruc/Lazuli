@@ -49,7 +49,11 @@ KMain(void)
   kernelAllocationMap.endMem = &_ramend;
   kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
 
-  Arch_Init();
+  Arch_InitIdleCpuMode();
+
+  if (CONFIG_USE_SERIAL) {
+    Arch_InitSerial();
+  }
 
   /* Give hand to user */
   main();
@@ -60,7 +64,7 @@ KMain(void)
 #error "Only one kernel panic configuration must be defined in config.h."
 #endif
 
-void
+__noreturn void
 Panic(void)
 {
   if (CONFIG_ON_PANIC_INFINITE_LOOP) {

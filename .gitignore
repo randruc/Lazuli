@@ -3,4 +3,4 @@ Lazuli.hex
 *.o
 *.a
 sourcelist
-doxygen
+doxygen_output

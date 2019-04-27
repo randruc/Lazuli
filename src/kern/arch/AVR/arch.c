@@ -6,6 +6,8 @@
  *
  * This file describes the implementation of some architecture-specific
  * functions.
+ * For now it's typically what can be written in pure C, so what doesn't go to
+ * startup.S.
  */
 
 #include <stdint.h>
@@ -17,11 +19,8 @@
 
 #include "avr_arch.h"
 
-/**
- * Initialize all parameters for idle CPU.
- */
-static void
-InitIdleMode(void)
+void
+Arch_InitIdleCpuMode(void)
 {
 #if CONFIG_ON_IDLE_SLEEP && ((CONFIG_SLEEP_WITH_IDLE_MODE +                \
                               CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE + \
@@ -50,12 +49,6 @@ InitIdleMode(void)
     /* Default value : CONFIG_SLEEP_WITH_IDLE_MODE */
     SMCR = 0x00;
   }
-}
-
-void
-Arch_Init(void)
-{
-  InitIdleMode();
 }
 
 void

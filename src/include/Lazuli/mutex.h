@@ -1,5 +1,5 @@
 /**
- * @file src/include/mutex.h
+ * @file src/include/Lazuli/mutex.h
  * @brief Mutexes interface.
  * @date Feb 2019
  * @author Remi Andruccioli

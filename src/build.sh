@@ -16,10 +16,18 @@
 
 project_name=Lazuli
 
+user_file=kern/unit-tests/unit_tests.c
+#user_file=../example-programs/highest_priority_first.c
+#user_file=../example-programs/mutex_2.c
+#user_file=../example-programs/mutex.c
+#user_file=../example-programs/round_robin.c
+#user_file=../example-programs/spinlocks.c
+
 debug=true
 
 config_use_mutex=1
 config_use_spinlock=1
+config_use_serial=1
 
 CC=avr-gcc
 
@@ -47,6 +55,7 @@ cflags=$cflags' -ffreestanding'
 cflags=$cflags' -fshort-enums'
 cflags=$cflags' -DCONFIG_USE_MUTEX='$config_use_mutex
 cflags=$cflags' -DCONFIG_USE_SPINLOCK='$config_use_spinlock
+cflags=$cflags' -DCONFIG_USE_SERIAL='$config_use_serial
 
 echo $cflags | sed 's/ /\n/g'
 
@@ -84,6 +93,8 @@ $CC $cflags -c kern/mutex.c \
     -o mutex.o
 $CC $cflags -c kern/arch/AVR/mutex.S \
     -o arch_mutex.o
+$CC $cflags -c kern/serial.c \
+    -o serial.o
 $CC $cflags -c kern/sizeof_types.c \
     -o sizeof_types.o
 $CC $cflags -c libc/stdint_assertions.c \
@@ -94,7 +105,6 @@ object_files=$object_files' arch.o'
 object_files=$object_files' interrupt_vectors_table.o'
 object_files=$object_files' startup.o'
 object_files=$object_files' timer_counter_0.o'
-object_files=$object_files' usart.o'
 object_files=$object_files' kernel.o'
 object_files=$object_files' memory.o'
 object_files=$object_files' scheduler_base.o'
@@ -114,6 +124,12 @@ then
    object_files=$object_files' arch_mutex.o'
 fi
 
+if [ $config_use_serial -eq 1 ]
+then
+    object_files=$object_files' usart.o'
+    object_files=$object_files' serial.o'
+fi
+
 echo
 echo $object_files | sed 's/ /\n/g' | sort
 echo
@@ -124,7 +140,7 @@ $CC \
     $cflags \
     -T kern/linker.x \
     -o $project_name.elf \
-    ../example-programs/mutex_2.c \
+    $user_file \
     lib$project_name.a
 
 if [ -e $project_name.elf ]

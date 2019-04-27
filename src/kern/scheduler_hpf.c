@@ -116,6 +116,11 @@ InsertTaskByPriority(LinkedList * const list, HpfTask * const taskToInsert)
   List_Append(list, &(taskToInsert->stateQueue));
 }
 
+/**
+ * Register Idle task of the HPF scheduler.
+ *
+ * Idle task will be executed when no other task is ready for execution.
+ */
 static void
 RegisterIdleTask(void)
 {
