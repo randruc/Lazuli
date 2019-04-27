@@ -26,13 +26,13 @@ _EXTERN_C_DECL_BEGIN
 /**
  * Function that loops forever, never returns.
  */
-__noreturn extern void
+__noreturn void
 Arch_InfiniteLoop(void);
 
 /**
  * Reset the whole system.
  */
-extern void
+void
 Arch_ResetSystem(void);
 
 /**
@@ -46,7 +46,7 @@ Arch_ResetSystem(void);
  *
  * @param stackPointer The stack pointer of the task to restore.
  */
-extern void
+void
 Arch_RestoreContextAndReturnFromInterrupt(void *stackPointer);
 
 /**
@@ -61,7 +61,7 @@ Arch_RestoreContextAndReturnFromInterrupt(void *stackPointer);
  *                     TaskContextLayout structure (i.e. the saved context of
  *                     the task).
  */
-extern void
+void
 Arch_StartRunning(void *stackPointer, size_t offsetOfPc);
 
 /**
@@ -73,7 +73,7 @@ Arch_StartRunning(void *stackPointer, size_t offsetOfPc);
  *
  * @return The byte value stored at the address contained in source parameter.
  */
-extern uint8_t
+uint8_t
 Arch_LoadU8FromProgmem(const void *source);
 
 /**
@@ -85,7 +85,7 @@ Arch_LoadU8FromProgmem(const void *source);
  *
  * @return The word value stored at the address contained in source parameter.
  */
-extern uint16_t
+uint16_t
 Arch_LoadU16FromProgmem(const void *source);
 
 /**
@@ -96,7 +96,7 @@ Arch_LoadU16FromProgmem(const void *source);
  * @return The pointer value stored at the address contained in source
  *         parameter.
  */
-extern void *
+void *
 Arch_LoadPointerFromProgmem(const void *source);
 
 /**
@@ -114,18 +114,18 @@ Arch_LoadPointerFromProgmem(const void *source);
  * @return The function pointer value stored at the address contained in source
  *         parameter.
  */
-extern void (*Arch_LoadFunctionPointerFromProgmem(const void *source)) ();
+void (*Arch_LoadFunctionPointerFromProgmem(const void *source)) ();
 
 /**
  * Disable all interrupts.
  */
-extern void
+void
 Arch_DisableInterrupts(void);
 
 /**
  * Enable all interrupts.
  */
-extern void
+void
 Arch_EnableInterrupts(void);
 
 /* TODO: This is machine specific!!! */
@@ -142,7 +142,7 @@ typedef uint8_t InterruptsStatus;
  *
  * @return The previous global interrupts status.
  */
-extern InterruptsStatus
+InterruptsStatus
 Arch_DisableInterruptsGetStatus(void);
 
 /**
@@ -150,7 +150,7 @@ Arch_DisableInterruptsGetStatus(void);
  *
  * @param interruptsStatus A previously saved InterruptsStatus.
  */
-extern void
+void
 Arch_RestoreInterruptsStatus(const InterruptsStatus interruptsStatus);
 
 /**
@@ -159,7 +159,7 @@ Arch_RestoreInterruptsStatus(const InterruptsStatus interruptsStatus);
  * @return : - true if global interrupts are enabled
  *           - false if global interrupts are disabled
  */
-extern bool
+bool
 Arch_AreInterruptsEnabled(void);
 
 /**

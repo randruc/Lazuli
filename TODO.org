@@ -57,7 +57,6 @@
 ** And try again the first example program for mutexes.
 * For example programs: write the purpose of each program.
 * Manage idle task in RR scheduler.
-* Remove "extern" in arch.h function declarations.
 * Replace Arch_DisableInterrupts() with Arch_DisableInterruptsGetStatus() where possible.
 * Remove the typedef on the definition of Lz_SchedulerClass.
 * Rename config macro constants.
