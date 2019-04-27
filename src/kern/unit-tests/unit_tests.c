@@ -71,13 +71,22 @@ Assert(const bool cond, const uint16_t line)
   }
 }
 
+static void
+EnableSerialTransmission() {
+  Lz_SerialConfiguration serialConfiguration;
+
+  Lz_Serial_GetConfiguration(&serialConfiguration);
+  serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
+  Lz_Serial_SetConfiguration(&serialConfiguration);
+}
+
 void
 main(void)
 {
   size_t i;
   void (*test)(void);
 
-  Usart_Init();
+  EnableSerialTransmission();
 
   Usart_PutChar('-');
   Usart_NewLine();

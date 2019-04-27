@@ -67,12 +67,26 @@ Arch_StartRunning(void *stackPointer, size_t offsetOfPc);
 /**
  * Return a byte stored in program memory.
  *
+ * @warning The return type is unsigned.
+ *
  * @param source A pointer to the byte stored in program memory.
  *
  * @return The byte value stored at the address contained in source parameter.
  */
 extern uint8_t
 Arch_LoadU8FromProgmem(const void *source);
+
+/**
+ * Return a double-byte word stored in program memory.
+ *
+ * @warning The return type is unsigned.
+ *
+ * @param source A pointer to the word stored in program memory.
+ *
+ * @return The word value stored at the address contained in source parameter.
+ */
+extern uint16_t
+Arch_LoadU16FromProgmem(const void *source);
 
 /**
  * Return a pointer stored in program memory.

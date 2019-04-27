@@ -180,6 +180,11 @@ enum Lz_SerialSpeed {
   /** @endcond */
 
   /**
+   * Use a 2400 baud rate on the serial line.
+   */
+  LZ_SERIAL_SPEED_2400,
+
+  /**
    * Use a 4800 baud rate on the serial line.
    */
   LZ_SERIAL_SPEED_4800,

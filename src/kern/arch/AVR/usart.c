@@ -329,6 +329,8 @@ void (* const setStopBits[__LZ_SERIAL_STOP_BITS_ENUM_END])(void) = {
 static void
 SetStopBits(const enum Lz_SerialStopBits stopBits)
 {
+  void (*jump)(void);
+
   if (CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (stopBits <= __LZ_SERIAL_STOP_BITS_ENUM_BEGIN ||
         stopBits >= __LZ_SERIAL_STOP_BITS_ENUM_END) {
@@ -336,7 +338,8 @@ SetStopBits(const enum Lz_SerialStopBits stopBits)
     }
   }
 
-  setStopBits[stopBits]();
+  jump = Arch_LoadFunctionPointerFromProgmem(&setStopBits[stopBits]);
+  jump();
 }
 
 /**
@@ -388,6 +391,8 @@ void (* const setParityBit[__LZ_SERIAL_PARITY_BIT_ENUM_END])(void) = {
 static void
 SetParityBit(const enum Lz_SerialParityBit parityBit)
 {
+  void (*jump)();
+
   if (CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (parityBit <= __LZ_SERIAL_PARITY_BIT_ENUM_BEGIN ||
         parityBit >= __LZ_SERIAL_PARITY_BIT_ENUM_END) {
@@ -395,7 +400,8 @@ SetParityBit(const enum Lz_SerialParityBit parityBit)
     }
   }
 
-  setParityBit[parityBit]();
+  jump = Arch_LoadFunctionPointerFromProgmem(&setParityBit[parityBit]);
+  jump();
 }
 
 /**
@@ -461,6 +467,8 @@ void (* const setSize[__LZ_SERIAL_SIZE_ENUM_END])(void) = {
 static void
 SetSize(const enum Lz_SerialSize size)
 {
+  void (* jump)();
+
   if (CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (size <= __LZ_SERIAL_SIZE_ENUM_BEGIN ||
         size >= __LZ_SERIAL_SIZE_ENUM_END) {
@@ -468,7 +476,8 @@ SetSize(const enum Lz_SerialSize size)
     }
   }
 
-  setSize[size]();
+  jump = Arch_LoadFunctionPointerFromProgmem(&setSize[size]);
+  jump();
 }
 
 /**
@@ -479,6 +488,7 @@ SetSize(const enum Lz_SerialSize size)
  */
 __progmem static const
 uint16_t serialSpeedRegisterValue[__LZ_SERIAL_SIZE_ENUM_END] = {
+  (uint16_t)25, /**< entry: LZ_SERIAL_SPEED_2400 */
   (uint16_t)12, /**< entry: LZ_SERIAL_SPEED_4800 */
   (uint16_t)6   /**< entry: LZ_SERIAL_SPEED_9600 */
 };
@@ -500,7 +510,7 @@ SetSpeed(const enum Lz_SerialSpeed speed)
     }
   }
 
-  registerValue = serialSpeedRegisterValue[speed];
+  registerValue = Arch_LoadU16FromProgmem(&serialSpeedRegisterValue[speed]);
 
   usart->ubrr0l = LO8(registerValue);
   usart->ubrr0h = HI8(registerValue);
@@ -524,7 +534,8 @@ Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration)
   InterruptsStatus interruptsStatus;
 
   /* Wait all receive and transmit operations has completed */
-  while ((usart->ucsr0a & UCSR0A_TXC0) || !(usart->ucsr0a & UCSR0A_RXC0));
+  /* TODO: This one doesn't work as expected */
+  /* while (!(usart->ucsr0a & UCSR0A_TXC0) || (usart->ucsr0a & UCSR0A_RXC0)); */
 
   /*
    * From the ATmega328p datasheet:

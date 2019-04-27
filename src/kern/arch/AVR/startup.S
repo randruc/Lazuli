@@ -363,8 +363,10 @@ Arch_LoadU8FromProgmem:
 
     .global Arch_LoadPointerFromProgmem
     .global Arch_LoadFunctionPointerFromProgmem
+    .global Arch_LoadU16FromProgmem
 Arch_LoadPointerFromProgmem:
 Arch_LoadFunctionPointerFromProgmem:
+Arch_LoadU16FromProgmem:
     push r30
     push r31
     movw r30, r24
