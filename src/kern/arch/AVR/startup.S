@@ -1,8 +1,9 @@
 /**
-* @file startup.S
-*
-* Set up the runtime environment and run the kernel.
-*/
+ * @file startup.S
+ *
+ * Set up the runtime environment and run the kernel.
+ * Defines AVR-specific routines implementation declared in Arch_XXX.
+ */
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 
@@ -249,9 +250,7 @@ Arch_StartRunning:
     ;; We can now point to the saved return address (PC)
     out spl, r24
     out sph, r25
-    ;; TODO: Cant we use reti instead of sei then ret ?
-    sei
-    ret
+    reti
 
     .global Arch_RestoreContextAndReturnFromInterrupt
 Arch_RestoreContextAndReturnFromInterrupt:

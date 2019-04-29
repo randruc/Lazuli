@@ -22,7 +22,6 @@
 
 #include <Lazuli/sys/scheduler_base.h>
 
-
 /**
  * Main entry point for user tasks.
  *
@@ -75,6 +74,10 @@ Panic(void)
   }
 }
 
+/*
+ * We could declare this function as static where it is used.
+ * But if we do this we can't unit test it...
+ */
 void
 (*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void)
 {

@@ -13,9 +13,29 @@
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/kernel.h>
 
+/**
+ * Perform an assertion inside a unit test.
+ *
+ * If this assertion is false the corresponding line number will be printed on
+ * serial line.
+ *
+ * @param C The assertion to perform.
+ */
 #define ASSERT(C) Assert(C, __LINE__)
+
+/**
+ * Declare a unit test.
+ *
+ * @param N The name of the test to declare.
+ */
 #define UNIT_TEST(N) static void N(void)
 
+/**
+ * Internal function used to perform an assertion.
+ *
+ * @param cond The condition to test.
+ * @param line The line number of the assertion.
+ */
 static void
 Assert(const bool cond, const uint16_t line);
 
@@ -82,12 +102,28 @@ UNIT_TEST(ReverseBytesOfFunctionPointer_2)
   ASSERT(expectedPointer == newPointer);
 }
 
+/*
+ * TODO: This test is machine specific! It assumes that the length of a pointer
+ * is 16 bits!
+ */
+UNIT_TEST(ReverseBytesOfFunctionPointer_3)
+{
+  void (* const oldPointer)(void) = (void (*)(void))0x2121;
+  void (* const newPointer)(void) = ReverseBytesOfFunctionPointer(oldPointer);
+
+  ASSERT(oldPointer == newPointer);
+}
+
+/**
+ * Array of function pointers referencing all unit tests to execute.
+ */
 __progmem static void (* const tests[])(void) = {
   GlobalEnableDisableInterrupts,
   GlobalEnableDisableInterruptsWithStatus_1,
   GlobalEnableDisableInterruptsWithStatus_2,
   ReverseBytesOfFunctionPointer_1,
-  ReverseBytesOfFunctionPointer_2
+  ReverseBytesOfFunctionPointer_2,
+  ReverseBytesOfFunctionPointer_3
 };
 
 static void
@@ -100,6 +136,9 @@ Assert(const bool cond, const uint16_t line)
   }
 }
 
+/**
+ * Activate serial transmission.
+ */
 static void
 EnableSerialTransmission() {
   Lz_SerialConfiguration serialConfiguration;

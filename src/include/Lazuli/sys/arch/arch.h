@@ -114,7 +114,7 @@ Arch_LoadPointerFromProgmem(const void *source);
  * @return The function pointer value stored at the address contained in source
  *         parameter.
  */
-void (*Arch_LoadFunctionPointerFromProgmem(const void *source)) ();
+void (*Arch_LoadFunctionPointerFromProgmem(const void *source)) (void);
 
 /**
  * Disable all interrupts.
