@@ -76,16 +76,8 @@ PrepareTaskContext(Task * const task)
   TaskContextLayout * const contextLayout
     = (TaskContextLayout *)(ALLOW_ARITHM(task->stackPointer)
                             - sizeof(TaskContextLayout) + 1);
-  void (*entry)(void) = task->entryPoint;
 
-  /*
-   * WARNING: This is BAD! Machine-specific!
-   * We assume that a function pointer is 16-bit long.
-   * TODO: Call a hardware abstraction function to perform that.
-   */
-  ReverseBytes16(&entry);
-  contextLayout->pc = entry;
-
+  contextLayout->pc = ReverseBytesOfFunctionPointer(task->entryPoint);
   task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 

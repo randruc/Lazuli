@@ -30,14 +30,14 @@ __noreturn void
 Panic(void);
 
 /**
- * Reverse the bytes of a 16-bit (2-byte) word.
+ * Reverse the bytes of a function pointer.
  *
- * @warning Assuming that the parameter value points to a valid 16-bit word.
+ * @param pointer A function pointer.
  *
- * @param value A universal pointer to a 16-bit word to reverse.
+ * @return A new function pointer from reversed bytes of parameter "pointer".
  */
 void
-ReverseBytes16(void * const value);
+(*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void);
 
 _EXTERN_C_DECL_END
 

@@ -11,11 +11,12 @@
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
+#include <Lazuli/sys/kernel.h>
 
 #define ASSERT(C) Assert(C, __LINE__)
-#define UNIT_TEST(N) void N(void)
+#define UNIT_TEST(N) static void N(void)
 
-void
+static void
 Assert(const bool cond, const uint16_t line);
 
 UNIT_TEST(GlobalEnableDisableInterrupts)
@@ -55,13 +56,41 @@ UNIT_TEST(GlobalEnableDisableInterruptsWithStatus_2)
   Arch_DisableInterrupts();
 }
 
+/*
+ * TODO: This test is machine specific! It assumes that the length of a pointer
+ * is 16 bits!
+ */
+UNIT_TEST(ReverseBytesOfFunctionPointer_1)
+{
+  void (* const oldPointer)(void) = (void (*)(void))0xabcd;
+  void (* const newPointer)(void) = ReverseBytesOfFunctionPointer(oldPointer);
+  void (* const expectedPointer)(void) = (void (*)(void))0xcdab;
+
+  ASSERT(expectedPointer == newPointer);
+}
+
+/*
+ * TODO: This test is machine specific! It assumes that the length of a pointer
+ * is 16 bits!
+ */
+UNIT_TEST(ReverseBytesOfFunctionPointer_2)
+{
+  void (* const oldPointer)(void) = (void (*)(void))0xff;
+  void (* const newPointer)(void) = ReverseBytesOfFunctionPointer(oldPointer);
+  void (* const expectedPointer)(void) = (void (*)(void))0xff00;
+
+  ASSERT(expectedPointer == newPointer);
+}
+
 __progmem static void (* const tests[])(void) = {
   GlobalEnableDisableInterrupts,
   GlobalEnableDisableInterruptsWithStatus_1,
-  GlobalEnableDisableInterruptsWithStatus_2
+  GlobalEnableDisableInterruptsWithStatus_2,
+  ReverseBytesOfFunctionPointer_1,
+  ReverseBytesOfFunctionPointer_2
 };
 
-void
+static void
 Assert(const bool cond, const uint16_t line)
 {
   if (!cond) {

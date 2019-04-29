@@ -75,22 +75,18 @@ Panic(void)
   }
 }
 
-/* TODO: Move the ReverseByte utilities somewhere else */
-/**
- * Provides a way to manipulate a 16-bit word as an array of bytes.
- */
-union WordAsBytesArray
-{
-  uint16_t u16Value;    /**< The 16-bit word to manipulate as a bytes array. */
-  uint8_t  u8Values[2]; /**< The bytes array to manipulate the 16-bit word.  */
-};
-
 void
-ReverseBytes16(void * const value)
+(*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void)
 {
-  union WordAsBytesArray reverse;
+  const uint8_t maxIndex = sizeof(pointer) - 1;
+  const uint8_t * const oldPointerPointer = (const uint8_t * const )&pointer;
+  void (*newPointer)(void);
+  uint8_t * const newPointerPointer = (uint8_t * const)&newPointer;
+  uint8_t i;
 
-  reverse.u16Value = *(uint16_t*)value;
-  ((uint8_t *)value)[0] = reverse.u8Values[1];
-  ((uint8_t *)value)[1] = reverse.u8Values[0];
+  for (i = 0; i <= maxIndex; ++i) {
+    newPointerPointer[maxIndex - i] = oldPointerPointer[i];
+  }
+
+  return newPointer;
 }
