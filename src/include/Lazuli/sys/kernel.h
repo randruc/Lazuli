@@ -29,16 +29,6 @@ extern AllocationMap kernelAllocationMap;
 __noreturn void
 Panic(void);
 
-/**
- * Reverse the bytes of a function pointer.
- *
- * @param pointer A function pointer.
- *
- * @return A new function pointer from reversed bytes of parameter "pointer".
- */
-void
-(*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void);
-
 _EXTERN_C_DECL_END
 
 #endif /* LAZULI_SYS_KERNEL_H */

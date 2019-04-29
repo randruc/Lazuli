@@ -96,6 +96,16 @@ typedef struct {
 extern Task *currentTask;
 
 /**
+ * Reverse the bytes of a function pointer.
+ *
+ * @param pointer A function pointer.
+ *
+ * @return A new function pointer from reversed bytes of parameter "pointer".
+ */
+void
+(*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void);
+
+/**
  * Initialize the scheduler prior to running it.
  * This function is called by kernel initialization.
  */

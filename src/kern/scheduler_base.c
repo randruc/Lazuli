@@ -64,6 +64,26 @@ STATIC_ASSERT
  The_JumpToScheduler_table_must_refer_each_Lz_SchedulerClass_enum_entry);
 /** @endcond */
 
+/*
+ * We could declare this function as static.
+ * But if we do this we can't unit test it...
+ */
+void
+(*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void)
+{
+  const uint8_t maxIndex = sizeof(pointer) - 1;
+  const uint8_t * const oldPointerPointer = (const uint8_t * const )&pointer;
+  void (*newPointer)(void);
+  uint8_t * const newPointerPointer = (uint8_t * const)&newPointer;
+  uint8_t i;
+
+  for (i = 0; i <= maxIndex; ++i) {
+    newPointerPointer[maxIndex - i] = oldPointerPointer[i];
+  }
+
+  return newPointer;
+}
+
 /**
  * Prepare the first context of the task so it will be ready when switching
  * context for the first time (i.e. run the scheduler).
