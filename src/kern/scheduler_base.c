@@ -72,7 +72,7 @@ void
 (*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void)
 {
   const uint8_t maxIndex = sizeof(pointer) - 1;
-  const uint8_t * const oldPointerPointer = (const uint8_t * const )&pointer;
+  const uint8_t * const oldPointerPointer = (const uint8_t * const)&pointer;
   void (*newPointer)(void);
   uint8_t * const newPointerPointer = (uint8_t * const)&newPointer;
   uint8_t i;
