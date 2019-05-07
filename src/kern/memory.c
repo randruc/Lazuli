@@ -80,19 +80,19 @@ BaseIncrementalMalloc(const size_t s, AllocationMap * const map)
 }
 
 void *
-KIncrementalMalloc(const size_t s)
+KIncrementalMalloc(const size_t size)
 {
-  return BaseIncrementalMalloc(s, &kernelAllocationMap);
+  return BaseIncrementalMalloc(size, &kernelAllocationMap);
 }
 
 void
-MemoryCopy(const void *source, void *destination, const size_t length)
+MemoryCopy(const void *source, void *destination, const size_t size)
 {
   size_t i;
   const uint8_t *sourceBytes = source;
   uint8_t *destinationBytes = destination;
 
-  for (i = 0; i < length; ++i) {
+  for (i = 0; i < size; ++i) {
     destinationBytes[i] = sourceBytes[i];
   }
 }
