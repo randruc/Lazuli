@@ -147,7 +147,7 @@ Init(void)
 }
 
 static Task *
-RegisterTask(Lz_TaskConfiguration * const taskConfiguration)
+RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
   HpfTask *newTask = KIncrementalMalloc(sizeof(HpfTask));
   if (NULL == newTask) {

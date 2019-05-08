@@ -17,7 +17,7 @@ SECTIONS
 
     .progmem : AT(LOADADDR(.text) + SIZEOF(.text))
     {
-        KEEP(*(.progmem))
+        KEEP(*(.progmem*))
     } > REGION_PROGMEM
     _progmem_size = SIZEOF(.progmem);
     _progmem_load_start = LOADADDR(.progmem);

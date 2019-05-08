@@ -108,7 +108,7 @@ Lz_SetSchedulerClass(const enum Lz_SchedulerClass userSchedulerClass);
  */
 void
 Lz_RegisterTask(void (* const taskEntryPoint)(void),
-                Lz_TaskConfiguration * const taskConfiguration);
+                const Lz_TaskConfiguration * taskConfiguration);
 
 /**
  * @brief Initialize an Lz_TaskConfiguration with default values for all

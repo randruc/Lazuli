@@ -44,7 +44,7 @@ typedef struct {
    *
    * @return A pointer to the newly allocated and initialized Task.
    */
-  Task * (*registerTask)(Lz_TaskConfiguration * const taskConfiguration);
+  Task * (*registerTask)(const Lz_TaskConfiguration * const taskConfiguration);
 
   /**
    * Run the scheduler.

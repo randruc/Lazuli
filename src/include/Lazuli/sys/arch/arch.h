@@ -26,7 +26,7 @@ _EXTERN_C_DECL_BEGIN
 /**
  * Function that loops forever, never returns.
  */
-__noreturn void
+NORETURN void
 Arch_InfiniteLoop(void);
 
 /**
@@ -63,6 +63,18 @@ Arch_RestoreContextAndReturnFromInterrupt(void *stackPointer);
  */
 void
 Arch_StartRunning(void *stackPointer, size_t offsetOfPc);
+
+/**
+ * Copy bytes from program memory to RAM.
+ *
+ * @param source A pointer to the source address in program memory.
+ * @param destination A pointer to the destination address in RAM.
+ * @param size The number of bytes to copy.
+ */
+void
+Arch_LoadFromProgmem(const void * source,
+                     void * destination,
+                     const size_t size);
 
 /**
  * Return a byte stored in program memory.

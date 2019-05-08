@@ -14,6 +14,7 @@
 #include <Lazuli/lazuli.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
@@ -23,11 +24,10 @@
 
 Task *currentTask;
 
-/* TODO: Maybe think about storing default task configuration in progmem */
 /**
  * Contains default values for Lz_TaskConfiguration.
  */
-static const Lz_TaskConfiguration DefaultTaskConfiguration = {
+static PROGMEM const Lz_TaskConfiguration DefaultTaskConfiguration = {
   NULL                                             /**< member: name      */,
   LZ_CONFIG_DEFAULT_TASK_STACK_SIZE                /**< member: stackSize */,
   (Lz_TaskPriority)LZ_CONFIG_DEFAULT_TASK_PRIORITY /**< member: priority  */
@@ -160,29 +160,30 @@ Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration)
     return;
   }
 
-  MemoryCopy(&DefaultTaskConfiguration,
-             taskConfiguration,
-             sizeof(Lz_TaskConfiguration));
+  Arch_LoadFromProgmem(&DefaultTaskConfiguration,
+                       taskConfiguration,
+                       sizeof(Lz_TaskConfiguration));
 }
 
 void
 Lz_RegisterTask(void (* const taskEntryPoint)(void),
-                Lz_TaskConfiguration * const taskConfiguration)
+                const Lz_TaskConfiguration * taskConfiguration)
 {
+  Lz_TaskConfiguration defaultConfiguration;
   Task *newTask;
-  const Lz_TaskConfiguration *configuration;
   void *taskStack;
   size_t desiredStackSize;
 
   if (NULL == taskConfiguration) {
-    configuration = &DefaultTaskConfiguration;
-  } else {
-    configuration = taskConfiguration;
+    Arch_LoadFromProgmem(&DefaultTaskConfiguration,
+                         &defaultConfiguration,
+                         sizeof(Lz_TaskConfiguration));
+    taskConfiguration = &defaultConfiguration;
   }
 
   newTask = JumpToScheduler[schedulerClass]->registerTask(taskConfiguration);
 
-  desiredStackSize = configuration->stackSize
+  desiredStackSize = taskConfiguration->stackSize
     /* We add enough space to contain the context of a task on the stack */
     + sizeof(TaskContextLayout)
     /* Plus 1 call to save_context_on_stack (in startup.S) */
@@ -193,7 +194,7 @@ Lz_RegisterTask(void (* const taskEntryPoint)(void),
     Panic();
   }
 
-  newTask->name = configuration->name;
+  newTask->name = taskConfiguration->name;
   newTask->entryPoint = taskEntryPoint;
   newTask->stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
 
