@@ -1,5 +1,5 @@
 /**
- * @file ken/unit-tests/unit_tests.c
+ * @file kern/unit-tests/unit_tests.c
  * @brief Lazuli kernel unit tests.
  * @date Apr 2019
  * @author Remi Andruccioli
