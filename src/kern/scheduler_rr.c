@@ -94,7 +94,7 @@ Init(void)
 }
 
 static Task *
-RegisterTask(Lz_TaskConfiguration * const taskConfiguration)
+RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
   RrTask *newTask = KIncrementalMalloc(sizeof(RrTask));
   if (NULL == newTask) {

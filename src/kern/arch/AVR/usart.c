@@ -35,7 +35,7 @@ static enum Lz_SerialSpeed currentSerialSpeed;
 /**
  * Array used to get the character representation of a hexadecimal digit
  */
-__progmem static const char hexachars[] = {
+PROGMEM static const char hexachars[] = {
   '0',
   '1',
   '2',
@@ -301,7 +301,7 @@ SetStopBits2(void)
  * @warning This table must be ordered by entry values of
  *          enum Lz_SerialStopBits.
  */
-__progmem static
+PROGMEM static
 void (* const setStopBits[__LZ_SERIAL_STOP_BITS_ENUM_END])(void) = {
   SetStopBits1, /**< entry: LZ_SERIAL_STOP_BITS_1 */
   SetStopBits2  /**< entry: LZ_SERIAL_STOP_BITS_2 */
@@ -362,7 +362,7 @@ SetParityBitOdd(void)
  * @warning This table must be ordered by entry values of
  *          enum Lz_SerialParityBit.
  */
-__progmem static
+PROGMEM static
 void (* const setParityBit[__LZ_SERIAL_PARITY_BIT_ENUM_END])(void) = {
   SetParityBitNone, /**< entry: LZ_SERIAL_PARITY_NONE */
   SetParityBitEven, /**< entry: LZ_SERIAL_PARITY_EVEN */
@@ -437,7 +437,7 @@ SetSize8(void)
  *
  * @warning This table must be ordered by entry values of enum Lz_SerialSize.
  */
-__progmem static
+PROGMEM static
 void (* const setSize[__LZ_SERIAL_SIZE_ENUM_END])(void) = {
   SetSize5, /**< entry: LZ_SERIAL_SIZE_5 */
   SetSize6, /**< entry: LZ_SERIAL_SIZE_6 */
@@ -472,7 +472,7 @@ SetSize(const enum Lz_SerialSize size)
  *
  * @warning This table must be ordered by entry values of enum Lz_SerialSpeed.
  */
-__progmem static const
+PROGMEM static const
 uint16_t serialSpeedRegisterValue[__LZ_SERIAL_SIZE_ENUM_END] = {
   (uint16_t)25, /**< entry: LZ_SERIAL_SPEED_2400 */
   (uint16_t)12, /**< entry: LZ_SERIAL_SPEED_4800 */

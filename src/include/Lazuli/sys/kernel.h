@@ -23,10 +23,10 @@ extern AllocationMap kernelAllocationMap;
  * Kernel panic.
  *
  * @warning This function is declared to never return!
- *          If this has to evolve, remember to remove __noreturn declaration on
+ *          If this has to evolve, remember to remove NORETURN declaration on
  *          this function.
  */
-__noreturn void
+NORETURN void
 Panic(void);
 
 _EXTERN_C_DECL_END

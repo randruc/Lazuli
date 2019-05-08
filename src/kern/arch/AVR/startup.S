@@ -339,15 +339,42 @@ Arch_AreInterruptsEnabled:
      */
 copy_from_program_memory:
     sbiw r28, 0
-    breq copy_from_program_memory_loop_end
+    breq copy_from_program_memory_exit
     push r17
-copy_from_program_memory_loop_start:
+copy_from_program_memory_loop:
     lpm r17, Z+
     st X+, r17
     sbiw r28, 1
-    brne copy_from_program_memory_loop_start
+    brne copy_from_program_memory_loop
     pop r17
-copy_from_program_memory_loop_end:
+copy_from_program_memory_exit:
+    ret
+
+    .global Arch_LoadFromProgmem
+Arch_LoadFromProgmem:
+    push r26
+    push r27
+    movw r26, r20
+    sbiw r26, 0
+    breq load_from_progmem_exit
+    push r28
+    push r29
+    push r30
+    push r31
+    movw r30, r24
+    movw r28, r22
+load_from_progmem_loop:
+    lpm r24, Z+
+    st Y+, r24
+    sbiw r26, 1
+    brne load_from_progmem_loop
+    pop r31
+    pop r30
+    pop r29
+    pop r28
+load_from_progmem_exit:
+    pop r27
+    pop r26
     ret
 
     .global Arch_LoadU8FromProgmem
