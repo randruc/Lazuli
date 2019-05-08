@@ -15,6 +15,7 @@
 #include <Lazuli/list.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
@@ -37,7 +38,7 @@ static LinkedList readyTasks = LINKED_LIST_INIT;
  * keep ordered by priority.
  * This table is indexed by the codes defined in interrupts.h.
  */
-static LinkedList waitingInterruptTasks[INT_TOTAL];
+static NOINIT LinkedList waitingInterruptTasks[INT_TOTAL];
 
 /**
  * The idle task to be executed when no user task is ready for execution.
@@ -55,22 +56,6 @@ IdleTask(void)
   }
 }
 
-/*
- * It would be really nice if waitingInterruptTasks could be declared to be
- * statically initialized to a specific value for every elements...
- * I know LINKED_LIST_INIT is full of zeros, but I don't really like to rely on
- * the BSS initialization to perform that. I would like something more
- * explicit.
- *
- * The problem here is that this waitingInterruptTasks array is placed in the
- * BSS section, so it is initialized to 0 on startup. As we perform the true
- * initialization here we thus perform 2 initializations, which isn't ideal...
- * One solution could be to declare this waitingInterruptTasks array without
- * initializaing it (like it is done here), but in a section that is not
- * initialized on startup, so not BSS. We could for example declare a special
- * section "runtime_initialized" that is excluded from the BSS startup
- * initialization.
- */
 /**
  * Initialize each entry of the waitingInterruptTasks table.
  */

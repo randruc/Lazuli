@@ -33,15 +33,6 @@
 * Prefix Lazuli structs in userspace with "Lz_"
 * Find a logo
 * TODO Document build chain
-* Create a section to declare uninitialized global variables
-** Every global variable that is not explicitly declared to a value will be
-   placed in the BSS section and initialized to 0 on startup.
-   But most of the time, we don't need this 0 initialization.
-   Moreover initializing the BSS section on startup has a cost.
-   So it would be nice if we could declare global variables to not be placed in
-   the BSS section. That way we can keep the true needed BSS initialization very
-   small, and all the concerned variables can be written for the first time on
-   runtime.
 * Change function prototypes and declarations to explicitly take void as parameter instead of ().
 ** And add this rule to the "C style and conventions file".
 * Add an "end of file" comment marker at the end of each file.

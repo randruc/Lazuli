@@ -15,6 +15,7 @@
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_rr.h>
@@ -32,7 +33,7 @@ static LinkedList readyTasks = LINKED_LIST_INIT;
  * In each entry is the queue of tasks waiting for that particular interrupt.
  * This table is indexed by the codes defined in interrupts.h.
  */
-static LinkedList waitingInterruptTasks[INT_TOTAL];
+static NOINIT LinkedList waitingInterruptTasks[INT_TOTAL];
 
 /**
  * Initialize each entry of the waitingInterruptTasks table.
