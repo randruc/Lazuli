@@ -56,15 +56,34 @@
 /**
  * Declare a variable to be stored in program memory.
  * i.e. usualy in ROM.
+ *
+ * Variables declared with PROGMEM must be retrieved from progmem with
+ * Arch_LoadXXXFromProgmem() family of functions.
  */
 #define PROGMEM                                                         \
   __attribute__                                                         \
   ((section(COMPILER_H_TOSTRING(COMPILER_H_GENERATE_PROGMEM_SECTION_NAME()))))
 
+/**
+ * Declare a global uninitialized variable to be excluded from ".bss" section.
+ * In ISO C, all uninitialized global variables go to the ".bss" section, and
+ * are initialized by default to zero at system startup.
+ * Use this macro to prevent such a variable to be placed in ".bss" section and
+ * thus be initialized by default.
+ *
+ * We use this macro with global variables that are manually initialzed after
+ * system startup, and that don't need to be automatically set to zero.
+ *
+ * @warning The behavior of declaring an initialized variable with NONIT is
+ * unknown.
+ */
+#define NOINIT __attribute__((section(".noinit")))
+
 #else /* __GNUC__ */
 
 #define NORETURN
 #define PROGMEM
+#define NOINIT
 
 #endif/* __GNUC__ */
 

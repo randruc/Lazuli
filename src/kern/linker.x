@@ -48,6 +48,11 @@ SECTIONS
     _bss_start = ADDR(.bss);
     _bss_size = SIZEOF(.bss);
 
-    _brk = ADDR(.bss) + SIZEOF(.bss);
+    .noinit :
+    {
+        *(.noinit)
+    } > REGION_NOINIT
+
+    _brk = .;
     _ramend = LENGTH(ram) - 1;
 }
