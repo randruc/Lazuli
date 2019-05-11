@@ -13,10 +13,21 @@
 #define LAZULI_SYS_CONFIG_H
 
 /**
+ * Use Round-Robin scheduler.
+ */
+#define LZ_CONFIG_USE_SCHEDULER_RR (1)
+
+/**
+ * Use Highest Priority First scheduler.
+ */
+#define LZ_CONFIG_USE_SCHEDULER_HPF (1)
+
+/**
  * Size in bytes of the security gap between the break and the stack pointer.
  */
 #define LZ_CONFIG_BREAK_STACK_GAP (50)
 
+/* TODO: I think this has nothing to do here. */
 /**
  * Clock frequency in Hertz.
  */
@@ -57,14 +68,14 @@
 #define LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS (1)
 
 /**
- * Use Round-Robin scheduler.
+ * When 1, save the task's context when it terminates (i.e. when the task
+ * returns from its main function.
+ *
+ * When 0, don't save the task's context.
+ * Setting to 0 will result in slightly better performances when a task
+ * terminates.
  */
-#define LZ_CONFIG_USE_SCHEDULER_RR (1)
-
-/**
- * Use Highest Priority First scheduler.
- */
-#define LZ_CONFIG_USE_SCHEDULER_HPF (1)
+#define LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION (0)
 
 /** @name HPF Scheduling */
 /** @{                   */

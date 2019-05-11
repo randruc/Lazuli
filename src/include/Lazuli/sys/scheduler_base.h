@@ -88,6 +88,16 @@ typedef struct {
    * waiting for the mutex.
    */
   void (*waitMutex)(void * const sp, LinkedList * const waitingTasks);
+
+  /**
+   * Manage the termination of a task.
+   *
+   * Will be called when a task returns from its main function or calls
+   * Lz_Task_Terminate().
+   *
+   * @param sp The stack pointer of the terminating task.
+   */
+  void (*manageTaskTermination)(void * const sp);
 }SchedulerOperations;
 
 /**
@@ -111,6 +121,20 @@ void
  */
 void
 BaseScheduler_Init(void);
+
+/**
+ * Call the appropriate scheduler to manage task termination.
+ *
+ * This function is called when a task terminates its execution.
+ * i.e. when the task returns from its main function of when it calls
+ * Lz_Task_Terminate().
+ *
+ * @param sp The stack pointer of the terminating task.
+ *           This parameter will be used only if configuration option
+ *           LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION is set to 1.
+ */
+void
+BaseScheduler_ManageTaskTermination(void * const sp);
 
 /*
  * TODO: Maybe rename interruptCode and eventCode to xxxxxId or something like

@@ -58,7 +58,7 @@ Task4()
   for (;;) {
     Lz_WaitInterrupt(INT_INT0);
 
-    c = Lz_GetTaskName();
+    c = Lz_Task_GetName();
 
     while (NULL != c && '\0' != *c) {
       Usart_PutChar(*c);
@@ -75,7 +75,7 @@ Task5()
   for (;;) {
     Lz_WaitInterrupt(INT_INT0);
 
-    c = Lz_GetTaskName();
+    c = Lz_Task_GetName();
 
     while (NULL != c && '\0' != *c) {
       Usart_PutChar(*c);

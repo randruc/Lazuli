@@ -49,8 +49,6 @@ TaskA(void)
     Usart_PrintRawString("A\r\n");
     Lz_Mutex_Unlock(&mutexB);
   }
-
-  for (;;);
 }
 
 static void
@@ -65,8 +63,6 @@ TaskB(void)
     Usart_PrintRawString("B\r\n");
     Lz_Mutex_Unlock(&mutexA);
   }
-
-  for (;;);
 }
 
 static void

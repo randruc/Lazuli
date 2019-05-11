@@ -24,10 +24,8 @@ void
 Task()
 {
   Lz_Mutex_Lock(&mutex);
-  Usart_PrintRawString(Lz_GetTaskName());
+  Usart_PrintRawString(Lz_Task_GetName());
   Lz_Mutex_Unlock(&mutex);
-
-  for (;;);
 }
 
 static void

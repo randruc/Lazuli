@@ -147,7 +147,18 @@ Lz_WaitInterrupt(uint8_t interruptCode);
  *         task, or NULL if the task has no name.
  */
 char const *
-Lz_GetTaskName(void);
+Lz_Task_GetName(void);
+
+/**
+ * Terminate the calling task.
+ *
+ * Calling this function has the same effect than returning from the task's main
+ * function.
+ *
+ * The terminated task will never be scheduled again.
+ */
+void
+Lz_Task_Terminate(void);
 
 _EXTERN_C_DECL_END
 

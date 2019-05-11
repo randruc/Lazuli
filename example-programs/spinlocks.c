@@ -24,10 +24,8 @@ void
 Task()
 {
   Lz_Spinlock_Lock(&lock);
-  Usart_PrintRawString(Lz_GetTaskName());
+  Usart_PrintRawString(Lz_Task_GetName());
   Lz_Spinlock_Unlock(&lock);
-
-  for (;;);
 }
 
 static void

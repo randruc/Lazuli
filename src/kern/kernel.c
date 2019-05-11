@@ -36,7 +36,7 @@ AllocationMap kernelAllocationMap;
  * This function must never return.
  */
 void
-KMain(void)
+Kernel_Main(void)
 {
   /* Initialize the allocation map for the kernel */
   kernelAllocationMap.baseMem = &_brk;

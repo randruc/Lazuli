@@ -98,6 +98,9 @@ PrepareTaskContext(Task * const task)
                             - sizeof(TaskContextLayout) + 1);
 
   contextLayout->pc = ReverseBytesOfFunctionPointer(task->entryPoint);
+  contextLayout->terminationCallback =
+    ReverseBytesOfFunctionPointer(Lz_Task_Terminate);
+
   task->stackPointer = ALLOW_ARITHM((void*)contextLayout) - 1;
 }
 
@@ -105,6 +108,12 @@ void
 BaseScheduler_Init(void)
 {
   JumpToScheduler[schedulerClass]->init();
+}
+
+void
+BaseScheduler_ManageTaskTermination(void * const sp)
+{
+  JumpToScheduler[schedulerClass]->manageTaskTermination(sp);
 }
 
 void
@@ -208,7 +217,7 @@ Lz_Run(void)
 }
 
 const char *
-Lz_GetTaskName(void)
+Lz_Task_GetName(void)
 {
   return currentTask->name;
 }

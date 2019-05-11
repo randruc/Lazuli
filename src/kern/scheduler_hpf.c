@@ -233,7 +233,8 @@ const SchedulerOperations HPFSchedulerOperations = {
   HandleInterrupt,  /**< member: handleInterrupt         */
   WaitEvent,        /**< member: waitEvent               */
   NULL,             /**< member: wakeupTasksWaitingMutex */
-  NULL              /**< member: waitMutex               */
+  NULL,             /**< member: waitMutex               */
+  NULL              /**< member: manageTaskTermination   */
 };
 
 /** @} */

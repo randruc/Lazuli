@@ -45,40 +45,110 @@ typedef void (*FuncVoidVoid)(void);
  * counter.
  */
 typedef struct {
-  volatile uint8_t sreg;          /**< State register               */
-  volatile uint8_t r0;            /**< Register 0                   */
-  volatile uint8_t r1;            /**< Register 1                   */
-  volatile uint8_t r2;            /**< Register 2                   */
-  volatile uint8_t r3;            /**< Register 3                   */
-  volatile uint8_t r4;            /**< Register 4                   */
-  volatile uint8_t r5;            /**< Register 5                   */
-  volatile uint8_t r6;            /**< Register 6                   */
-  volatile uint8_t r7;            /**< Register 7                   */
-  volatile uint8_t r8;            /**< Register 8                   */
-  volatile uint8_t r9;            /**< Register 9                   */
-  volatile uint8_t r10;           /**< Register 10                  */
-  volatile uint8_t r11;           /**< Register 11                  */
-  volatile uint8_t r12;           /**< Register 12                  */
-  volatile uint8_t r13;           /**< Register 13                  */
-  volatile uint8_t r14;           /**< Register 14                  */
-  volatile uint8_t r15;           /**< Register 15                  */
-  volatile uint8_t r16;           /**< Register 16                  */
-  volatile uint8_t r17;           /**< Register 17                  */
-  volatile uint8_t r18;           /**< Register 18                  */
-  volatile uint8_t r19;           /**< Register 19                  */
-  volatile uint8_t r20;           /**< Register 20                  */
-  volatile uint8_t r21;           /**< Register 21                  */
-  volatile uint8_t r22;           /**< Register 22                  */
-  volatile uint8_t r23;           /**< Register 23                  */
-  volatile uint8_t r24;           /**< Register 24                  */
-  volatile uint8_t r25;           /**< Register 25                  */
-  volatile uint8_t r26;           /**< Register 26                  */
-  volatile uint8_t r27;           /**< Register 27                  */
-  volatile uint8_t r28;           /**< Register 28                  */
-  volatile uint8_t r29;           /**< Register 29                  */
-  volatile uint8_t r30;           /**< Register 30                  */
-  volatile uint8_t r31;           /**< Register 31                  */
-  volatile FuncVoidVoid pc;       /**< Program counter for the task */
+  /** State register */
+  volatile uint8_t sreg;
+
+  /** Register 0 */
+  volatile uint8_t r0;
+
+  /** Register 1 */
+  volatile uint8_t r1;
+
+  /** Register 2 */
+  volatile uint8_t r2;
+
+  /** Register 3 */
+  volatile uint8_t r3;
+
+  /** Register 4 */
+  volatile uint8_t r4;
+
+  /** Register 5 */
+  volatile uint8_t r5;
+
+  /** Register 6 */
+  volatile uint8_t r6;
+
+  /** Register 7 */
+  volatile uint8_t r7;
+
+  /** Register 8 */
+  volatile uint8_t r8;
+
+  /** Register 9 */
+  volatile uint8_t r9;
+
+  /** Register 10 */
+  volatile uint8_t r10;
+
+  /** Register 11 */
+  volatile uint8_t r11;
+
+  /** Register 12 */
+  volatile uint8_t r12;
+
+  /** Register 13 */
+  volatile uint8_t r13;
+
+  /** Register 14 */
+  volatile uint8_t r14;
+
+  /** Register 15 */
+  volatile uint8_t r15;
+
+  /** Register 16 */
+  volatile uint8_t r16;
+
+  /** Register 17 */
+  volatile uint8_t r17;
+
+  /** Register 18 */
+  volatile uint8_t r18;
+
+  /** Register 19 */
+  volatile uint8_t r19;
+
+  /** Register 20 */
+  volatile uint8_t r20;
+
+  /** Register 21 */
+  volatile uint8_t r21;
+
+  /** Register 22 */
+  volatile uint8_t r22;
+
+  /** Register 23 */
+  volatile uint8_t r23;
+
+  /** Register 24 */
+  volatile uint8_t r24;
+
+  /** Register 25 */
+  volatile uint8_t r25;
+
+  /** Register 26 */
+  volatile uint8_t r26;
+
+  /** Register 27 */
+  volatile uint8_t r27;
+
+  /** Register 28 */
+  volatile uint8_t r28;
+
+  /** Register 29 */
+  volatile uint8_t r29;
+
+  /** Register 30 */
+  volatile uint8_t r30;
+
+  /** Register 31 */
+  volatile uint8_t r31;
+
+  /** Program counter for the task */
+  volatile FuncVoidVoid pc;
+
+  /** Callback to the scheduler to manage task termination */
+  volatile FuncVoidVoid terminationCallback;
 }TaskContextLayout;
 
 _EXTERN_C_DECL_END

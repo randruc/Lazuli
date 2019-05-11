@@ -16,7 +16,9 @@
 #include <Lazuli/sys/arch/AVR/timer_counter_0.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/compiler.h>
+#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
+#include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_rr.h>
 #include <Lazuli/sys/task.h>
@@ -25,6 +27,11 @@
  * The queue of ready tasks.
  */
 static LinkedList readyTasks = LINKED_LIST_INIT;
+
+/**
+ * The queue of terminated tasks.
+ */
+static LinkedList terminatedTasks = LINKED_LIST_INIT;
 
 /**
  * The table of waiting queues for interrupts.
@@ -62,7 +69,10 @@ Schedule(void)
     currentTask = (Task *)CONTAINER_OF(firstElement, stateQueue, RrTask);
     Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
   } else {
+    /* No task is ready for execution */
     /* Nothing to do! Idle. */
+    /* TODO: manage idle time */
+    for (;;);
   }
 }
 
@@ -198,30 +208,45 @@ WaitMutex(void * const sp, LinkedList * const waitingTasks)
   Schedule();
 }
 
+static void
+ManageTaskTermination(void * const sp)
+{
+  if (LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION) {
+    currentTask->stackPointer = sp;
+  }
+
+  List_Append(&terminatedTasks, &(((RrTask *)currentTask)->stateQueue));
+
+  Schedule();
+}
+
 /**
  * Defines the operations of the Round-Robin scheduler.
  */
 const SchedulerOperations RRSchedulerOperations = {
-  /** member: init                    */
+  /** member: init */
   Init,
 
-  /** member: registerTask            */
+  /** member: registerTask */
   RegisterTask,
 
-  /** member: run                     */
+  /** member: run */
   Run,
 
-  /** member: handleInterrupt         */
+  /** member: handleInterrupt */
   HandleInterrupt,
 
-  /** member: waitEvent               */
+  /** member: waitEvent */
   WaitEvent,
 
   /** member: wakeupTasksWaitingMutex */
   LZ_CONFIG_USE_MUTEX ? WakeupTasksWaitingMutex : NULL,
 
-  /** member: waitMutex               */
-  LZ_CONFIG_USE_MUTEX ? WaitMutex : NULL
+  /** member: waitMutex */
+  LZ_CONFIG_USE_MUTEX ? WaitMutex : NULL,
+
+  /** member: manageTaskTermination */
+  ManageTaskTermination
 };
 
 /** @} */

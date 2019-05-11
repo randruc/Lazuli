@@ -6,6 +6,7 @@
  */
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/config.h>
 
 .INCLUDE "kern/arch/AVR/asm_common.S"
 
@@ -161,6 +162,17 @@ Lz_WaitInterrupt:
     in r25, sph
     RESET_KERNEL_STACK_POINTER
     jmp BaseScheduler_WaitEvent
+
+    .global Lz_Task_Terminate
+Lz_Task_Terminate:
+    cli
+.IF LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION
+    call save_context_on_stack
+    in r24, spl
+    in r25, sph
+.ENDIF
+    RESET_KERNEL_STACK_POINTER
+    jmp BaseScheduler_ManageTaskTermination
 
     ;; TODO: This label is global. See how we can rename it (Arch_XXX, Asm_XXX,
     ;; ...)
@@ -463,11 +475,11 @@ load_data_end:
 load_rodata_end:
 
     ;; Start the kernel
-    jmp KMain
+    call Kernel_Main
 
     ;; Parachute trap
-    ;; This should never be reached. It is only here is case of KMain returns.
-    ;; TODO: This can never happen because we called KMain with a JMP.
+    ;; This should never be reached. It is only here is case of Kernel_Main
+    ;; returns.
     call Panic
 
     .global Arch_InfiniteLoop
