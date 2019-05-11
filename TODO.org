@@ -37,8 +37,6 @@
 ** And add this rule to the "C style and conventions file".
 * Add an "end of file" comment marker at the end of each file.
 ** Cf. Barr conventions.
-* Manage task termination.
-** And try again the first example program for mutexes.
 * For example programs: write the purpose of each program.
 * Manage idle task in RR scheduler.
 * Replace Arch_DisableInterrupts() with Arch_DisableInterruptsGetStatus() where possible.
