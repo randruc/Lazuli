@@ -2,7 +2,7 @@
  * Architecture independent linker script.
  */
 
-INCLUDE kern/arch/AVR/linker.x
+INCLUDE kern/arch/AVR/linker.ld
 
 ENTRY(interrupt_vectors_table)
 
