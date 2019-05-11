@@ -530,8 +530,6 @@ Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration)
    */
   if (LZ_CONFIG_SERIAL_USE_INTERRUPTS) {
     interruptsStatus = Arch_DisableInterruptsGetStatus();
-  } else {
-    UNUSED(interruptsStatus);
   }
 
   SetEnablingStatus(configuration->enableFlags);

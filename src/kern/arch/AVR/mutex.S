@@ -47,7 +47,6 @@ Arch_WaitMutex:
     cli
     call save_context_on_stack
     movw r22, r24
-    ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER

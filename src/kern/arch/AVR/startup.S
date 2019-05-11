@@ -131,7 +131,6 @@ spmready_handler:
  * interrupt code.
  */
 enter_kernel_handle_interrupt:
-    ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER
@@ -158,7 +157,6 @@ Lz_WaitInterrupt:
     cli
     call save_context_on_stack
     mov r22, r24
-    ;; Save current stack pointer in registers
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER
@@ -388,10 +386,10 @@ Arch_LoadU8FromProgmem:
     ret
 
     .global Arch_LoadPointerFromProgmem
-    .global Arch_LoadFunctionPointerFromProgmem
-    .global Arch_LoadU16FromProgmem
 Arch_LoadPointerFromProgmem:
+    .global Arch_LoadFunctionPointerFromProgmem
 Arch_LoadFunctionPointerFromProgmem:
+    .global Arch_LoadU16FromProgmem
 Arch_LoadU16FromProgmem:
     push r30
     push r31
