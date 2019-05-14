@@ -138,7 +138,7 @@ ar rcs lib$project_name.a $object_files
 
 $CC \
     $cflags \
-    -T kern/linker.x \
+    -T kern/linker.ld \
     -o $project_name.elf \
     $user_file \
     lib$project_name.a
