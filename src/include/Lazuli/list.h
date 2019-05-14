@@ -81,9 +81,9 @@ List_AppendList(LinkedList * const linkedListDestination,
  *
  * @param linkedList A pointer to the linked list head.
  *
- * @return A pointer to the the first element of the list, or NULL if:
- *         - The linkedList is empty
- *         - The parameter linkedList is NULL
+ * @return A pointer to the first element of the list, or _NULL_ if:
+ *         - The @p linkedList is empty
+ *         - The parameter @p linkedList is _NULL_
  */
 LinkedListElement *
 List_PickFirst(LinkedList * const linkedList);
@@ -94,9 +94,9 @@ List_PickFirst(LinkedList * const linkedList);
  *
  * @param linkedList A pointer to an existing LinkedList.
  *
- * @return A pointer to the first element of the list, or NULL if:
- *         - The linkedList is empty
- *         - The parameter linkedList is NULL.
+ * @return A pointer to the first element of the list, or _NULL_ if:
+ *         - The @p linkedList is empty
+ *         - The parameter @p linkedList is _NULL_
  */
 LinkedListElement *
 List_PointFirst(const LinkedList * const linkedList);
@@ -106,11 +106,13 @@ List_PointFirst(const LinkedList * const linkedList);
  *
  * @param linkedList A pointer to the LinkedList to test.
  *
- * @return true if:
- *         - The linkedList is empty
- *         - The parameter linkedList is NULL
- *         false if:
- *         - The linkedList contains at least 1 element
+ * @return
+ *         - _true_ if:
+ *           + The @p linkedList is empty
+ *           + The parameter @p linkedList is _NULL_
+ *
+ *         - _false_ if:
+ *           + The @p linkedList contains at least 1 element
  */
 bool
 List_IsEmpty(const LinkedList * const linkedList);
@@ -122,12 +124,12 @@ List_IsEmpty(const LinkedList * const linkedList);
  * after the foreach.
  *
  * With configuration option CHECK_NULL_PARAMETERS_IN_LISTS, this implementation
- * can also verify if the LINKEDLIST pointer is NULL. If so, the loop is not run
- * and the execution continues after the loop.
+ * can also verify if the @p LINKEDLIST pointer is _NULL_. If so, the loop is
+ * not run and the execution continues after the loop.
  *
  * @param LINKEDLIST A pointer to the LinkedList to run through.
  * @param ITEM A pointer to a LinkedListElement that will point to the current
- *             item of each loop turn. This pointer will never be NULL.
+ *             item of each loop turn. This pointer will never be _NULL_.
  *
  */
 #define List_UntypedForEach(LINKEDLIST, ITEM)                           \
@@ -150,14 +152,14 @@ List_IsEmpty(const LinkedList * const linkedList);
  * after the foreach.
  *
  * With configuration option CHECK_NULL_PARAMETERS_IN_LISTS, this implementation
- * can also verify if the LINKEDLIST pointer is NULL. If so, the loop is not run
- * and the execution continues after the loop.
+ * can also verify if the @p LINKEDLIST pointer is _NULL_. If so, the loop is
+ * not run and the execution continues after the loop.
  *
  * @param LINKEDLIST A pointer to the LinkedList to run through.
  * @param TYPE The real type of the list elements
  * @param ITEM A pointer to a LinkedListElement that will point to the current
- *             item of each loop turn. This pointer will never be NULL.
- * @param MEMBER The name of the member in TYPE which bears the
+ *             item of each loop turn. This pointer will never be _NULL_.
+ * @param MEMBER The name of the member in @p TYPE which bears the
  *               LinkedListElement.
  */
 #define List_ForEach(LINKEDLIST, TYPE, ITEM, MEMBER)                    \
@@ -176,13 +178,13 @@ List_IsEmpty(const LinkedList * const linkedList);
  * Insert an element after another in a LinkedList.
  *
  * @param linkedList A pointer to the LinkedList containing the element
- *                   listItem on which to insert after.
+ *                   @p listItem on which to insert after.
  * @param listItem A pointer to an element on which to insert after, already
  *                 present in a LinkedList.
  * @param itemToInsert A pointer to the item to insert in the list.
  *
- * @warning The listItem parameter MUST already be part of the LinkedList
- *          pointed to by parameter linkedList. No check is performed.
+ * @warning The @p listItem parameter MUST already be part of the LinkedList
+ *          pointed to by parameter @p linkedList. No check is performed.
  */
 void
 List_InsertAfter(LinkedList * const linkedList,
@@ -193,13 +195,13 @@ List_InsertAfter(LinkedList * const linkedList,
  * Insert an element before another in a LinkedList.
  *
  * @param linkedList A pointer to the LinkedList containing the element
- *                   listItem on which to insert before.
+ *                   @p listItem on which to insert before.
  * @param listItem A pointer to an element on which to insert before, already
  *                 present in a LinkedList.
  * @param itemToInsert A pointer to the item to insert in the list.
  *
- * @warning The listItem parameter MUST already be part of the LinkedList
- *          pointed to by parameter linkedList. No check is performed.
+ * @warning The @p listItem parameter MUST already be part of the LinkedList
+ *          pointed to by parameter @p linkedList. No check is performed.
  */
 void
 List_InsertBefore(LinkedList * const linkedList,
@@ -212,13 +214,15 @@ List_InsertBefore(LinkedList * const linkedList,
  * @param linkedList A pointer to a LinkedList.
  * @param item A pointer to the LinkedListElement to test.
  *
- * @return * true if:
- *             - The item is the last element of the linkedList
- *             - One of the parameters is NULL (if checking for NULL parameters
- *               is enabled in the configuration)
- *         * false if:
- *             - The item is not the last element of the linkedList
- *             - The item is not part of the likedList
+ * @return
+ *         - _true_ if:
+ *             + The item is the last element of the linkedList
+ *             + One of the parameters is _NULL_ (if checking for _NULL_
+ *               parameters is enabled in the configuration)
+ *
+ *         - _false_ if:
+ *             + The item is not the last element of the linkedList
+ *             + The item is not part of the likedList
  */
 bool
 List_IsLastElement(const LinkedList * const linkedList,
@@ -230,13 +234,15 @@ List_IsLastElement(const LinkedList * const linkedList,
  * @param linkedList A pointer to a LinkedList.
  * @param item A pointer to the LinkedListElement to test.
  *
- * @return * true if:
- *             - The item is the first element of the linkedList
- *             - One of the parameters is NULL (if checking for NULL parameters
- *               is enabled in the configuration)
- *         * false if:
- *             - The item is not the first element of the linkedList
- *             - The item is not part of the likedList
+ * @return
+ *         - _true_ if:
+ *             + The item is the first element of the linkedList
+ *             + One of the parameters is _NULL_ (if checking for _NULL_
+ *               parameters is enabled in the configuration)
+ *
+ *         - _false_ if:
+ *             + The item is not the first element of the linkedList
+ *             + The item is not part of the likedList
  */
 bool
 List_IsFirstElement(const LinkedList * const linkedList,
