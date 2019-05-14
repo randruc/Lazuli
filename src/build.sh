@@ -16,7 +16,7 @@
 
 project_name=Lazuli
 
-user_file=kern/unit-tests/unit_tests.c
+user_file=unit-tests/unit_tests.c
 #user_file=../example-programs/highest_priority_first.c
 #user_file=../example-programs/mutex.c
 #user_file=../example-programs/mutex_2.c
