@@ -17,8 +17,9 @@
 Lz_Spinlock_Lock:
 .IF LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS
     sbiw r24, 0
-infinite_loop:
-    breq infinite_loop
+    brne skip_abort
+    call Task_Abort
+skip_abort:
 .ENDIF /* LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS */
     push r30
     push r31

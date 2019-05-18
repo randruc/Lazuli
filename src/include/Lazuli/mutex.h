@@ -47,6 +47,10 @@ typedef struct {
  * The mutex will be initialized in an unlocked state.
  *
  * @param mutex A pointer to the Lz_Mutex to initialize.
+ *
+ * @note The calling task will abort if configuration macro
+ *       LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES is set to 1 and the
+ *       parameter @p mutex is _NULL_.
  */
 void
 Lz_Mutex_Init(Lz_Mutex * const mutex);
@@ -56,6 +60,10 @@ Lz_Mutex_Init(Lz_Mutex * const mutex);
  * The mutex will be initialized in a locked state.
  *
  * @param mutex A pointer to the Lz_Mutex to initialize.
+ *
+ * @note The calling task will abort if configuration macro
+ *       LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES is set to 1 and the
+ *       parameter @p mutex is _NULL_.
  */
 void
 Lz_Mutex_InitLocked(Lz_Mutex * const mutex);
@@ -64,8 +72,10 @@ Lz_Mutex_InitLocked(Lz_Mutex * const mutex);
  * Lock the mutex and enter critical section.
  *
  * @param mutex A pointer to the Lz_Mutex to lock.
- *              If the pointer mutex is NULL, then the call to this function
- *              will spin forever.
+ *
+ * @note The calling task will abort if configuration macro
+ *       LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES is set to 1 and the
+ *       parameter @p mutex is _NULL_.
  */
 void
 Lz_Mutex_Lock(Lz_Mutex * const mutex);
@@ -74,8 +84,10 @@ Lz_Mutex_Lock(Lz_Mutex * const mutex);
  * Unlock the mutex and leave critical section.
  *
  * @param mutex A pointer to the Lz_Mutex to unlock.
- *              If the pointer mutex is NULL, then the call to this function
- *              will spin forever.
+ *
+ * @note The calling task will abort if configuration macro
+ *       LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES is set to 1 and the
+ *       parameter @p mutex is _NULL_.
  */
 void
 Lz_Mutex_Unlock(Lz_Mutex * const mutex);

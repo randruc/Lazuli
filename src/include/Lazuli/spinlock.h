@@ -33,8 +33,10 @@ typedef volatile uint8_t Lz_Spinlock;
  * Set the lock and enter region, or active wait if the lock is already set.
  *
  * @param spinlock A pointer to a Lz_Spinlock used to hold the lock.
- *                 If the pointer lock is NULL, then the call to this function
- *                 will spin forever.
+ *
+ * @note The calling task will abort if configuration macro
+ *       LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS is set to 1 and the
+ *       parameter @p spinlock is _NULL_.
  */
 void
 Lz_Spinlock_Lock(Lz_Spinlock * const spinlock);
@@ -43,8 +45,10 @@ Lz_Spinlock_Lock(Lz_Spinlock * const spinlock);
  * Unset the lock and leave region.
  *
  * @param spinlock A pointer to a Lz_Spinlock used to hold the lock.
- *                 If the pointer lock is NULL, then the call to this function
- *                 will spin forever.
+ *
+ * @note The calling task will abort if configuration macro
+ *       LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS is set to 1 and the
+ *       parameter @p spinlock is _NULL_.
  */
 void
 Lz_Spinlock_Unlock(Lz_Spinlock * const spinlock);
