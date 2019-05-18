@@ -174,6 +174,15 @@ Lz_Task_Terminate:
     RESET_KERNEL_STACK_POINTER
     jmp BaseScheduler_ManageTaskTermination
 
+    .global Task_Abort
+Task_Abort:
+    cli
+    call save_context_on_stack
+    in r24, spl
+    in r25, sph
+    RESET_KERNEL_STACK_POINTER
+    jmp BaseScheduler_AbortTask
+
     ;; TODO: This label is global. See how we can rename it (Arch_XXX, Asm_XXX,
     ;; ...)
     /**

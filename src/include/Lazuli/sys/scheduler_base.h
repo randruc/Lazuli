@@ -98,6 +98,13 @@ typedef struct {
    * @param sp The stack pointer of the terminating task.
    */
   void (*manageTaskTermination)(void * const sp);
+
+  /**
+   * Abort the curent running task.
+   *
+   * @param sp The stack pointer of the running task after saving its context.
+   */
+  void (*abortTask)(void * const sp);
 }SchedulerOperations;
 
 /**
@@ -135,6 +142,14 @@ BaseScheduler_Init(void);
  */
 void
 BaseScheduler_ManageTaskTermination(void * const sp);
+
+/**
+ * Call the appropriate scheduler to abort the curent running task.
+ *
+ * @param sp The stack pointer of the running task after saving its context.
+ */
+void
+BaseScheduler_AbortTask(void * const sp);
 
 /*
  * TODO: Maybe rename interruptCode and eventCode to xxxxxId or something like

@@ -16,19 +16,48 @@ _EXTERN_C_DECL_BEGIN
 
 /**
  * Represents a task.
+ *
+ * This type is kind of an "abstract" type. It's always nested in a more
+ * specific task type, appropriate for each scheduler class.
  */
 typedef struct {
-  /** The name of the task */
+  /**
+   * The name of the task.
+   *
+   * > Never changes once the Task is allocated.
+   */
   const char *name;
 
-  /*
-   * TODO: See if we can eliminate this member.
-   * After all, the PC is set on the task's stack when registering it...
+  /**
+   * Entry point of execution of the task.
+   *
+   * > Never changes once the Task is allocated.
    */
-  /** Entry point of execution of the task */
   void (*entryPoint)(void);
 
-  /** The saved stack pointer of the task */
+  /**
+   * The bottom of the allocated stack for the task.
+   *
+   * > Never changes once the Task is allocated.
+   *
+   * @warning This member always points to the bottom of the task's stack (the
+   *          first byte of the stack).
+   *          So if the stack grows downwards (as on many architectures) this
+   *          will always point to an address higher or equal to member
+   *          stackPointer.
+   */
+  void *stackOrigin;
+
+  /**
+   * The stack size of the task.
+   *
+   * > Never changes once the Task is allocated.
+   */
+  size_t stackSize;
+
+  /**
+   * The saved stack pointer of the task.
+   */
   void *stackPointer;
 }Task;
 
@@ -43,6 +72,13 @@ typedef void (*FuncVoidVoid)(void);
  *
  * The context of a task consists in saving all of the registers and the program
  * counter.
+ *
+ * @warning This in fact is a mixed representation of the original layout of the
+ *          task and the saved layout of the task. @n
+ *          In the original layout (when the task is allocated) we are not
+ *          interested in the registers.
+ *          And in the saved layout (when the context is saved, e.g. preemption)
+ *          we are not interested in the termination callback.
  */
 typedef struct {
   /** State register */
@@ -147,9 +183,26 @@ typedef struct {
   /** Program counter for the task */
   volatile FuncVoidVoid pc;
 
-  /** Callback to the scheduler to manage task termination */
+  /**
+   * Callback to the scheduler to manage task termination.
+   *
+   * @warning This member is valid ONLY at the time when the task is allocated
+   *          and never used its stack yet.
+   */
   volatile FuncVoidVoid terminationCallback;
 }TaskContextLayout;
+
+/**
+ * Abort the calling task.
+ *
+ * This function can be called when some unrecoverable error occured in the
+ * context of a task (e.g. when a mandatory pointer is _NULL_ as a function
+ * parameter).
+ * This will have the consequence of saving the task context (saving all
+ * registers and keeping the call stack) and unscheduling the task.
+ */
+void
+Task_Abort(void);
 
 _EXTERN_C_DECL_END
 

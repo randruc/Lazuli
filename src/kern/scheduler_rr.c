@@ -34,6 +34,11 @@ static LinkedList readyTasks = LINKED_LIST_INIT;
 static LinkedList terminatedTasks = LINKED_LIST_INIT;
 
 /**
+ * The queue of aborted tasks.
+ */
+static LinkedList abortedTasks = LINKED_LIST_INIT;
+
+/**
  * The table of waiting queues for interrupts.
  *
  * This table contains one entry per interrupt type.
@@ -220,6 +225,16 @@ ManageTaskTermination(void * const sp)
   Schedule();
 }
 
+static void
+AbortTask(void * const sp)
+{
+  currentTask->stackPointer = sp;
+
+  List_Append(&abortedTasks, &(((RrTask *)currentTask)->stateQueue));
+
+  Schedule();
+}
+
 /**
  * Defines the operations of the Round-Robin scheduler.
  */
@@ -246,7 +261,10 @@ const SchedulerOperations RRSchedulerOperations = {
   LZ_CONFIG_USE_MUTEX ? WaitMutex : NULL,
 
   /** member: manageTaskTermination */
-  ManageTaskTermination
+  ManageTaskTermination,
+
+  /** member: abortTask */
+  AbortTask
 };
 
 /** @} */

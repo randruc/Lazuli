@@ -117,6 +117,12 @@ BaseScheduler_ManageTaskTermination(void * const sp)
 }
 
 void
+BaseScheduler_AbortTask(void * const sp)
+{
+  JumpToScheduler[schedulerClass]->abortTask(sp);
+}
+
+void
 BaseScheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode)
 {
   if (LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
@@ -205,6 +211,8 @@ Lz_RegisterTask(void (* const taskEntryPoint)(void),
 
   newTask->name = taskConfiguration->name;
   newTask->entryPoint = taskEntryPoint;
+  newTask->stackSize = desiredStackSize;
+  newTask->stackOrigin = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
   newTask->stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
 
   PrepareTaskContext(newTask);
