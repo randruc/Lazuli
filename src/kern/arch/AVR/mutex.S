@@ -12,17 +12,10 @@
  * On AVR the only way to do that is by disabling/enabling interrupts.
  */
 
-#include <Lazuli/sys/config.h>
-
 .INCLUDE "kern/arch/AVR/asm_common.S"
 
     .global Arch_TryAcquireLock
 Arch_TryAcquireLock:
-.IF LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES
-    sbiw r24, 0
-infinite_loop:
-    breq infinite_loop
-.ENDIF /* LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES */
     push r30
     push r31
     movw r30, r24
