@@ -335,9 +335,7 @@ Arch_DisableInterruptsGetStatus:
 
     .global Arch_RestoreInterruptsStatus
 Arch_RestoreInterruptsStatus:
-    ;; The position of the interrupt bit in the status register.
-    .equ IBitPosition, 7
-    sbrc r24, IBitPosition
+    sbrc r24, SREG_BIT_I
     reti
     cli
     ret
