@@ -223,7 +223,7 @@ GetParityBit(void)
   }
 
   if (usart->ucsr0c & UCSR0C_UPM00) {
-    Panic();
+    Kernel_Panic();
   }
 
   return LZ_SERIAL_PARITY_NONE;
@@ -238,7 +238,7 @@ static enum Lz_SerialSize
 GetSize(void)
 {
   if (usart->ucsr0b & UCSR0B_UCSZ02) {
-    Panic();
+    Kernel_Panic();
   }
 
   if (usart->ucsr0c & UCSR0C_UCSZ01) {
@@ -320,7 +320,7 @@ SetStopBits(const enum Lz_SerialStopBits stopBits)
   if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (stopBits <= __LZ_SERIAL_STOP_BITS_ENUM_BEGIN ||
         stopBits >= __LZ_SERIAL_STOP_BITS_ENUM_END) {
-      Panic();
+      Kernel_Panic();
     }
   }
 
@@ -382,7 +382,7 @@ SetParityBit(const enum Lz_SerialParityBit parityBit)
   if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (parityBit <= __LZ_SERIAL_PARITY_BIT_ENUM_BEGIN ||
         parityBit >= __LZ_SERIAL_PARITY_BIT_ENUM_END) {
-      Panic();
+      Kernel_Panic();
     }
   }
 
@@ -458,7 +458,7 @@ SetSize(const enum Lz_SerialSize size)
   if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (size <= __LZ_SERIAL_SIZE_ENUM_BEGIN ||
         size >= __LZ_SERIAL_SIZE_ENUM_END) {
-      Panic();
+      Kernel_Panic();
     }
   }
 
@@ -492,7 +492,7 @@ SetSpeed(const enum Lz_SerialSpeed speed)
   if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (speed <= __LZ_SERIAL_SPEED_ENUM_BEGIN ||
         speed >= __LZ_SERIAL_SPEED_ENUM_END) {
-      Panic();
+      Kernel_Panic();
     }
   }
 

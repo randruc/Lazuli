@@ -27,7 +27,7 @@ extern AllocationMap kernelAllocationMap;
  *          this function.
  */
 NORETURN void
-Panic(void);
+Kernel_Panic(void);
 
 _EXTERN_C_DECL_END
 

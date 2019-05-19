@@ -127,7 +127,7 @@ BaseScheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode)
 {
   if (LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
     if (interruptCode > INT_LAST_ENTRY) {
-      Panic();
+      Kernel_Panic();
     }
   }
 
@@ -206,7 +206,7 @@ Lz_RegisterTask(void (* const taskEntryPoint)(void),
 
   taskStack = KIncrementalMalloc(desiredStackSize);
   if (NULL == taskStack) {
-    Panic();
+    Kernel_Panic();
   }
 
   newTask->name = taskConfiguration->name;

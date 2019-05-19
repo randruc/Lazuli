@@ -60,7 +60,7 @@ Kernel_Main(void)
 #endif
 
 NORETURN void
-Panic(void)
+Kernel_Panic(void)
 {
   if (LZ_CONFIG_ON_PANIC_INFINITE_LOOP) {
     Arch_InfiniteLoop();

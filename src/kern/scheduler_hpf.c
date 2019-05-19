@@ -136,7 +136,7 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
   HpfTask *newTask = KIncrementalMalloc(sizeof(HpfTask));
   if (NULL == newTask) {
-    Panic();
+    Kernel_Panic();
   }
 
   newTask->priority = taskConfiguration->priority;
@@ -155,7 +155,7 @@ Run(void)
 
   first = List_PickFirst(&readyTasks);
   if (NULL == first) {
-    Panic();
+    Kernel_Panic();
   }
 
   currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);
@@ -215,7 +215,7 @@ WaitEvent(void * const sp, const uint8_t eventCode)
 
   first = List_PickFirst(&readyTasks);
   if (NULL == first) {
-    Panic();
+    Kernel_Panic();
   }
 
   currentTask = (Task*)CONTAINER_OF(first, stateQueue, HpfTask);

@@ -43,7 +43,6 @@
 * When using CONFIG_CHECK_XXXXX, unify the calls to Panic() or return.
 ** Decide which one is the best.
 * Rename some functions for API consistency:
-** Panic() => Kernel_Panic()
 ** Lz_Run() => Lz_System_Run()
 ** Lz_RegisterTask() => Lz_System_RegisterTask() (or Lz_Task_Register)
 ** Lz_SetSchedulerClass() => Lz_Scheduler_SetClass()

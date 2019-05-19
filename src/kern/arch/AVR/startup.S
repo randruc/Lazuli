@@ -487,7 +487,7 @@ load_rodata_end:
     ;; Parachute trap
     ;; This should never be reached. It is only here is case of Kernel_Main
     ;; returns.
-    call Panic
+    call Kernel_Panic
 
     .global Arch_InfiniteLoop
 Arch_InfiniteLoop:

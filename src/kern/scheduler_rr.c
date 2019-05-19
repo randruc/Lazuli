@@ -114,7 +114,7 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
   RrTask *newTask = KIncrementalMalloc(sizeof(RrTask));
   if (NULL == newTask) {
-    Panic();
+    Kernel_Panic();
   }
 
   UNUSED(taskConfiguration);
@@ -130,7 +130,7 @@ Run(void)
 {
   LinkedListElement *first = List_PickFirst(&readyTasks);
   if (NULL == first) {
-    Panic();
+    Kernel_Panic();
   }
 
   currentTask = (Task *)CONTAINER_OF(first, stateQueue, RrTask);
