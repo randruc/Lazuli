@@ -48,7 +48,6 @@
 ** Lz_RegisterTask() => Lz_System_RegisterTask() (or Lz_Task_Register)
 ** Lz_SetSchedulerClass() => Lz_Scheduler_SetClass()
 ** Lz_InitTaskConfiguration() => Lz_TaskConfigiration_Init()
-** MemoryCopy() => Memory_Copy()
 * Maybe think about moving config.h file out of sys/ directory.
 * Add non blocking mutex lock
 ** Something like bool Lz_Mutex_TryLock(Lz_Mutex * const mutex);

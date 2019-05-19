@@ -26,7 +26,7 @@ Lz_Mutex_Init(Lz_Mutex * const mutex)
     }
   }
 
-  MemoryCopy(&initValue, mutex, sizeof(initValue));
+  Memory_Copy(&initValue, mutex, sizeof(initValue));
 }
 
 void
@@ -40,7 +40,7 @@ Lz_Mutex_InitLocked(Lz_Mutex * const mutex)
     }
   }
 
-  MemoryCopy(&initValue, mutex, sizeof(initValue));
+  Memory_Copy(&initValue, mutex, sizeof(initValue));
 }
 
 void

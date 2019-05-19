@@ -216,7 +216,7 @@ List_InitLinkedList(LinkedList * const linkedList)
     }
   }
 
-  MemoryCopy(&linkedListInit, linkedList, sizeof(linkedListInit));
+  Memory_Copy(&linkedListInit, linkedList, sizeof(linkedListInit));
 }
 
 void
@@ -230,5 +230,5 @@ List_InitLinkedListElement(LinkedListElement * const item)
     }
   }
 
-  MemoryCopy(&linkedListElementInit, item, sizeof(linkedListElementInit));
+  Memory_Copy(&linkedListElementInit, item, sizeof(linkedListElementInit));
 }

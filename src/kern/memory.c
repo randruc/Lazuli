@@ -86,7 +86,7 @@ KIncrementalMalloc(const size_t size)
 }
 
 void
-MemoryCopy(const void *source, void *destination, const size_t size)
+Memory_Copy(const void *source, void *destination, const size_t size)
 {
   size_t i;
   const uint8_t *sourceBytes = source;

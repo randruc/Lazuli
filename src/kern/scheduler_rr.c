@@ -57,9 +57,9 @@ InitWaitingInterruptTasksTable(void)
   const LinkedList initValue = LINKED_LIST_INIT;
 
   for (i = 0; i < INT_TOTAL; ++i) {
-    MemoryCopy(&initValue,
-               &waitingInterruptTasks[i],
-               sizeof(initValue));
+    Memory_Copy(&initValue,
+                &waitingInterruptTasks[i],
+                sizeof(initValue));
   }
 }
 

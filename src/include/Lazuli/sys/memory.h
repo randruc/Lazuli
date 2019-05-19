@@ -65,7 +65,7 @@ KIncrementalMalloc(const size_t size);
  * @param size The number of bytes to copy.
  */
 void
-MemoryCopy(const void * source, void * destination, const size_t size);
+Memory_Copy(const void * source, void * destination, const size_t size);
 
 _EXTERN_C_DECL_END
 
