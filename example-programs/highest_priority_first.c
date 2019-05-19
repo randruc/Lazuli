@@ -108,16 +108,16 @@ main(void)
   Lz_SetSchedulerClass(LZ_SCHED_HPF);
 
   /*
-   * Lz_InitTaskConfiguration(&taskConfiguration);
+   * Lz_TaskConfiguration_Init(&taskConfiguration);
    * taskConfiguration.priority = 5;
    * Lz_RegisterTask(Task1, &taskConfiguration);
    */
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.priority = 10;
   Lz_RegisterTask(Task4, &taskConfiguration);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.priority = 15;
   Lz_RegisterTask(Task5, &taskConfiguration);
 

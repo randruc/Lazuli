@@ -121,7 +121,7 @@ Lz_RegisterTask(void (* const taskEntryPoint)(void),
  * @param taskConfiguration A pointer to the Lz_TaskConfiguration to initialize.
  */
 void
-Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration);
+Lz_TaskConfiguration_Init(Lz_TaskConfiguration * const taskConfiguration);
 
 /**
  * Run the scheduler.

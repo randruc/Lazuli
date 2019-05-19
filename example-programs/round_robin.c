@@ -108,11 +108,11 @@ main(void)
   Lz_RegisterTask(Task1, NULL);
   Lz_RegisterTask(Task2, NULL);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.name = NAME_OF(Task4);
   Lz_RegisterTask(Task4, &taskConfiguration);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.name = NAME_OF(Task5);
   Lz_RegisterTask(Task5, &taskConfiguration);
 

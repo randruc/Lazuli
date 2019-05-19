@@ -169,7 +169,7 @@ Lz_SetSchedulerClass(const enum Lz_SchedulerClass userSchedulerClass)
 }
 
 void
-Lz_InitTaskConfiguration(Lz_TaskConfiguration * const taskConfiguration)
+Lz_TaskConfiguration_Init(Lz_TaskConfiguration * const taskConfiguration)
 {
   if (NULL == taskConfiguration) {
     return;

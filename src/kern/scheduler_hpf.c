@@ -110,7 +110,7 @@ RegisterIdleTask(void)
 {
   Lz_TaskConfiguration taskConfiguration;
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
 
   taskConfiguration.stackSize = LZ_CONFIG_HPF_IDLE_TASK_STACK_SIZE;
   taskConfiguration.priority = LZ_CONFIG_HPF_IDLE_TASK_PRIORITY;

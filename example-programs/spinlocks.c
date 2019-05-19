@@ -46,25 +46,25 @@ main(void)
 
   Lz_SetSchedulerClass(LZ_SCHED_RR);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.name =
     "Task 1 says: "
     "\"An ounce of prevention is better than a pound of cure.\"\r\n";
   Lz_RegisterTask(Task, &taskConfiguration);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.name =
     "Task 2 says: "
     "\"Don't count your chickens before they hatch.\"\r\n";
   Lz_RegisterTask(Task, &taskConfiguration);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.name =
     "Task 3 says: "
     "\"Beauty is in the eye of the beholder.\"\r\n";
   Lz_RegisterTask(Task, &taskConfiguration);
 
-  Lz_InitTaskConfiguration(&taskConfiguration);
+  Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.name =
     "Task 4 says: "
     "\"Fire is a good servant but a bad master.\"\r\n";
