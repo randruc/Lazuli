@@ -42,3 +42,18 @@
 * Replace Arch_DisableInterrupts() with Arch_DisableInterruptsGetStatus() where possible.
 * When using CONFIG_CHECK_XXXXX, unify the calls to Panic() or return.
 ** Decide which one is the best.
+* Rename some functions for API consistency:
+** Panic() => Kernel_Panic()
+** Lz_Run() => Lz_System_Run()
+** Lz_RegisterTask() => Lz_System_RegisterTask() (or Lz_Task_Register)
+** Lz_SetSchedulerClass() => Lz_Scheduler_SetClass()
+** Lz_InitTaskConfiguration() => Lz_TaskConfigiration_Init()
+** MemoryCopy() => Memory_Copy()
+* Maybe think about moving config.h file out of sys/ directory.
+* Add non blocking mutex lock
+** Something like bool Lz_Mutex_TryLock(Lz_Mutex * const mutex);
+* Implement pipes
+** Lz_Pipe, Lz_Pipe_Read(), Lz_Pipe_Write(), Lz_Pipe_TryRead()
+* Rename linked list to conform to user API naming convention:
+** Lz_LinkedList
+** Lz_LinkedListElement

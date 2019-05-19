@@ -1,0 +1,76 @@
+/**
+ * @mainpage Lazuli API documentation
+ *
+ * This is the Lazuli kernel API and user API documentation. @n
+ * @n
+ * These pages only document the APIs. For more general documentation about
+ * the project and use cases please refer to the corresponding documentation.
+ *
+ *
+ * @section user_api_subsection User API
+ *
+ * The user API consists in all header files located in @ref src/include/Lazuli.
+ * @n
+ * User tasks should only include header files from this directory.
+ * They are included as system headers, and the root directory is
+ * <b>`Lazuli`</b>. @n
+ * Some examples:
+ *
+ * @code{.c}
+ * #include <Lazuli/common.h>
+ * #include <Lazuli/lazuli.h>
+ * #include <Lazuli/mutex.h>
+ * @endcode
+ *
+ * All user API types conform to the following naming convention:
+ * <b>`Lz_XXXXX`</b> where <b>`XXXXX`</b> represents a type writtent in camel
+ * case. Some examples:
+ * @code{.c}
+ * Lz_Mutex
+ * Lz_SerialConfiguration
+ * @endcode
+ *
+ * All user API functions conform to the following naming convention:
+ * <b>`Lz_XXXXX_YYYYY`</b> where <b>`XXXXX`</b> represents a type or a
+ * "functional domain" writtent in camel case and <b>`YYYYY`</b> represents an
+ * action written in camel case. Some examples:
+ * @code{.c}
+ * Lz_Mutex_Lock
+ * Lz_Task_Terminate
+ * Lz_Serial_GetConfiguration
+ * @endcode
+ *
+ * @section kernel_api_subsection Kernel API
+ *
+ * The kernel API consists in all header files located in
+ * @ref src/include/Lazuli/sys and @ref src/include/Lazuli/sys/arch. @n
+ * Header files from theses directories can be included all across the kernel
+ * and drivers source code. @n
+ * They are included as system headers, and the root directory is
+ * <b>`Lazuli/sys`</b>. @n
+ * Some examples:
+ * @code{.c}
+ * #include <Lazuli/sys/task.h>
+ * #include <Lazuli/sys/arch/arch.h>
+ * @endcode
+ *
+ * The only naming convention applicable to kernel types is camel case. Some
+ * examples:
+ * @code{.c}
+ * Task
+ * RrTask
+ * SchedulerOperations
+ * @endcode
+ *
+ * All kernel API functions conform to the following naming convention:
+ * <b>`XXXXX_YYYYY`</b> where <b>`XXXXX`</b> represents a type or a "functional
+ * domain" written in camel case and <b>`YYYYY`</b> represents an action written
+ * in camel case. Some examples:
+ * @code{.c}
+ * Arch_DisableInterrupts
+ * Task_Abort
+ * @endcode
+ *
+ * @note It's important to note that user API header files <i>never</i> include
+ *       kernel header files.
+ */

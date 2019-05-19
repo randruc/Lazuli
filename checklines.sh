@@ -5,7 +5,8 @@ filetypes="--include=*.c \
      --include=*.md \
      --include=*.sh \
      --include=*.x \
-     --include=*.S"
+     --include=*.S \
+     --include=*.dox"
 
 # Print lines longer than 80 characters
 grep -nrH \

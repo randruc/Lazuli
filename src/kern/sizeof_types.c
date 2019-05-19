@@ -38,6 +38,9 @@ SIZEOF_TYPE(TaskContextLayout,
 SIZEOF_TYPE(SchedulerOperations,
             "RAM needed to hold operations for a single scheduler.");
 
+SIZEOF_TYPE(Task,
+            "RAM needed for a Task (base).");
+
 SIZEOF_TYPE(RrTask,
             "RAM needed for an RR task.");
 

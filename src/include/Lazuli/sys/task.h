@@ -1,5 +1,8 @@
 /**
  * @file src/include/Lazuli/sys/task.h
+ * @brief Base task definition and context description.
+ * @author Remi Andruccioli
+ * @date Feb 2017
  *
  * Describes all types and functions related to tasks.
  */
