@@ -41,4 +41,3 @@
 ** Lz_Pipe, Lz_Pipe_Read(), Lz_Pipe_Write(), Lz_Pipe_TryRead()
 * Rename linked list to conform to user API naming convention:
 ** Lz_LinkedList
-** Lz_LinkedListElement

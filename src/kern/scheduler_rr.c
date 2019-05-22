@@ -69,7 +69,7 @@ InitWaitingInterruptTasksTable(void)
 static void
 Schedule(void)
 {
-  LinkedListElement *firstElement = List_PickFirst(&readyTasks);
+  Lz_LinkedListElement *firstElement = List_PickFirst(&readyTasks);
   if (NULL != firstElement) {
     currentTask = (Task *)CONTAINER_OF(firstElement, stateQueue, RrTask);
     Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
@@ -128,7 +128,7 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 static void
 Run(void)
 {
-  LinkedListElement *first = List_PickFirst(&readyTasks);
+  Lz_LinkedListElement *first = List_PickFirst(&readyTasks);
   if (NULL == first) {
     Kernel_Panic();
   }

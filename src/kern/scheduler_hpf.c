@@ -149,7 +149,7 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 static void
 Run(void)
 {
-  LinkedListElement *first;
+  Lz_LinkedListElement *first;
 
   RegisterIdleTask();
 
@@ -166,7 +166,7 @@ Run(void)
 static void
 HandleInterrupt(void * const sp, const uint8_t interruptCode)
 {
-  LinkedListElement *first;
+  Lz_LinkedListElement *first;
   HpfTask *waitingTask;
 
   first = List_PickFirst(&waitingInterruptTasks[interruptCode]);
@@ -206,7 +206,7 @@ HandleInterrupt(void * const sp, const uint8_t interruptCode)
 static void
 WaitEvent(void * const sp, const uint8_t eventCode)
 {
-  LinkedListElement *first;
+  Lz_LinkedListElement *first;
 
   currentTask->stackPointer = sp;
 

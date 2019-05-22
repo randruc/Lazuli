@@ -29,7 +29,7 @@ typedef struct {
   Task base;
 
   /** The scheduling queue on which the task is stored */
-  LinkedListElement stateQueue;
+  Lz_LinkedListElement stateQueue;
 }RrTask;
 
 /**

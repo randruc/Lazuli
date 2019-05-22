@@ -18,23 +18,23 @@ _EXTERN_C_DECL_BEGIN
 /**
  * Represents an element of a doubly linked list.
  */
-typedef struct _LinkedListElement {
+typedef struct _Lz_LinkedListElement {
   /** A pointer to the next element in the list */
-  struct _LinkedListElement *next;
+  struct _Lz_LinkedListElement *next;
 
   /** A pointer to the previous element in the list */
-  struct _LinkedListElement *prev;
-}LinkedListElement;
+  struct _Lz_LinkedListElement *prev;
+}Lz_LinkedListElement;
 
 /**
  * Represents the main container for doubly linked elements.
  */
 typedef struct {
   /** A pointer to the first element of the linked list */
-  LinkedListElement *first;
+  Lz_LinkedListElement *first;
 
   /** A pointer to the last element of the linked list */
-  LinkedListElement *last;
+  Lz_LinkedListElement *last;
 }LinkedList;
 
 /**
@@ -43,27 +43,27 @@ typedef struct {
 #define LINKED_LIST_INIT { NULL, NULL }
 
 /**
- * Define the initialization value for the type LinkedListElement.
+ * Define the initialization value for the type Lz_LinkedListElement.
  */
 #define LINKED_LIST_ELEMENT_INIT { NULL, NULL }
 
 /**
- * Append a LinkedListElement to the end of an existing LinkedList.
+ * Append an Lz_LinkedListElement to the end of an existing LinkedList.
  *
  * @param linkedList A pointer to the linked list head.
  * @param item A pointer to the item to append to the list.
  */
 void
-List_Append(LinkedList * const linkedList, LinkedListElement * const item);
+List_Append(LinkedList * const linkedList, Lz_LinkedListElement * const item);
 
 /**
- * Insert a LinkedListElement as the first element of a LinkedList.
+ * Insert an Lz_LinkedListElement as the first element of a LinkedList.
  *
  * @param linkedList A pointer to the linked list head.
  * @param item A pointer to the item to prepend to the list.
  */
 void
-List_Prepend(LinkedList * const linkedList, LinkedListElement * const item);
+List_Prepend(LinkedList * const linkedList, Lz_LinkedListElement * const item);
 
 /**
  * Move the content of a LinkedList to the end of an existing LinkedList.
@@ -85,7 +85,7 @@ List_AppendList(LinkedList * const linkedListDestination,
  *         - The @p linkedList is empty
  *         - The parameter @p linkedList is _NULL_
  */
-LinkedListElement *
+Lz_LinkedListElement *
 List_PickFirst(LinkedList * const linkedList);
 
 /**
@@ -98,7 +98,7 @@ List_PickFirst(LinkedList * const linkedList);
  *         - The @p linkedList is empty
  *         - The parameter @p linkedList is _NULL_
  */
-LinkedListElement *
+Lz_LinkedListElement *
 List_PointFirst(const LinkedList * const linkedList);
 
 /**
@@ -128,8 +128,9 @@ List_IsEmpty(const LinkedList * const linkedList);
  * not run and the execution continues after the loop.
  *
  * @param LINKEDLIST A pointer to the LinkedList to run through.
- * @param ITEM A pointer to a LinkedListElement that will point to the current
- *             item of each loop turn. This pointer will never be _NULL_.
+ * @param ITEM A pointer to an Lz_LinkedListElement that will point to the
+ *             current item of each loop turn. This pointer will never be
+ *             _NULL_.
  *
  */
 #define List_UntypedForEach(LINKEDLIST, ITEM)                           \
@@ -146,7 +147,7 @@ List_IsEmpty(const LinkedList * const linkedList);
  *
  * This foreach implementation is typed, so each loop turn will return a typed
  * pointer to the current loop element (ie. not a pointer to a raw
- * LinkedListElement).
+ * Lz_LinkedListElement).
  *
  * If the list is empty, no loop is performed, and the execution will continue
  * after the foreach.
@@ -157,10 +158,11 @@ List_IsEmpty(const LinkedList * const linkedList);
  *
  * @param LINKEDLIST A pointer to the LinkedList to run through.
  * @param TYPE The real type of the list elements
- * @param ITEM A pointer to a LinkedListElement that will point to the current
- *             item of each loop turn. This pointer will never be _NULL_.
+ * @param ITEM A pointer to an Lz_LinkedListElement that will point to the
+ *             current item of each loop turn. This pointer will never be
+ *             _NULL_.
  * @param MEMBER The name of the member in @p TYPE which bears the
- *               LinkedListElement.
+ *               Lz_LinkedListElement.
  */
 #define List_ForEach(LINKEDLIST, TYPE, ITEM, MEMBER)                    \
   if ((LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
@@ -188,8 +190,8 @@ List_IsEmpty(const LinkedList * const linkedList);
  */
 void
 List_InsertAfter(LinkedList * const linkedList,
-                 LinkedListElement * const listItem,
-                 LinkedListElement * const itemToInsert);
+                 Lz_LinkedListElement * const listItem,
+                 Lz_LinkedListElement * const itemToInsert);
 
 /**
  * Insert an element before another in a LinkedList.
@@ -205,14 +207,14 @@ List_InsertAfter(LinkedList * const linkedList,
  */
 void
 List_InsertBefore(LinkedList * const linkedList,
-                  LinkedListElement * const listItem,
-                  LinkedListElement * const itemToInsert);
+                  Lz_LinkedListElement * const listItem,
+                  Lz_LinkedListElement * const itemToInsert);
 
 /**
- * Test if a LinkedListElement is the last entry of a LinkedList.
+ * Test if an Lz_LinkedListElement is the last entry of a LinkedList.
  *
  * @param linkedList A pointer to a LinkedList.
- * @param item A pointer to the LinkedListElement to test.
+ * @param item A pointer to the Lz_LinkedListElement to test.
  *
  * @return
  *         - _true_ if:
@@ -226,13 +228,13 @@ List_InsertBefore(LinkedList * const linkedList,
  */
 bool
 List_IsLastElement(const LinkedList * const linkedList,
-                   const LinkedListElement * const item);
+                   const Lz_LinkedListElement * const item);
 
 /**
- * Test if a LinkedListElement is the first entry of a LinkedList.
+ * Test if an Lz_LinkedListElement is the first entry of a LinkedList.
  *
  * @param linkedList A pointer to a LinkedList.
- * @param item A pointer to the LinkedListElement to test.
+ * @param item A pointer to the Lz_LinkedListElement to test.
  *
  * @return
  *         - _true_ if:
@@ -246,7 +248,7 @@ List_IsLastElement(const LinkedList * const linkedList,
  */
 bool
 List_IsFirstElement(const LinkedList * const linkedList,
-                    const LinkedListElement * const item);
+                    const Lz_LinkedListElement * const item);
 
 /**
  * Initialize a LinkedList.
@@ -257,12 +259,12 @@ void
 List_InitLinkedList(LinkedList * const linkedList);
 
 /**
- * Initialize a LinkedListElement.
+ * Initialize an Lz_LinkedListElement.
  *
- * @param item A pointer to the LinkedListElement to initialize.
+ * @param item A pointer to the Lz_LinkedListElement to initialize.
  */
 void
-List_InitLinkedListElement(LinkedListElement * const item);
+List_InitLinkedListElement(Lz_LinkedListElement * const item);
 
 _EXTERN_C_DECL_END
 
