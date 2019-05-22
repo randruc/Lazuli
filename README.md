@@ -24,7 +24,6 @@ The Lazuli project has very specific goals that make it unique. These are:
   needed in the future) to many platforms and architectures, and to be compiled
   by the largest number of compilers. Another reason is that C89 is understood
   by all C code-checking tools.
-* __Public Domain__ - All the project is in the public domain.
 * __Well documented__ - The Lazuli project aims to be a well-documented project.
   All the code is carefully documented and comes with good documentation about
   how it works and how to use it. If the documentation doesn't match the actual
