@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 
+#include <Lazuli/common.h>
 #include <Lazuli/serial.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/arch.h>
@@ -307,6 +308,14 @@ void (* const setStopBits[__LZ_SERIAL_STOP_BITS_ENUM_END])(void) = {
   SetStopBits2  /**< entry: LZ_SERIAL_STOP_BITS_2 */
 };
 
+/** @cond false */
+STATIC_ASSERT
+(
+ ELEMENTS_COUNT(setStopBits) == __LZ_SERIAL_STOP_BITS_ENUM_END,
+ all_entries_of_enum_Lz_SerialStopBits_must_be_set_in_setStopBits
+);
+/** @endcond */
+
 /**
  * Set the number of stop bits of the serial line.
  *
@@ -368,6 +377,14 @@ void (* const setParityBit[__LZ_SERIAL_PARITY_BIT_ENUM_END])(void) = {
   SetParityBitEven, /**< entry: LZ_SERIAL_PARITY_EVEN */
   SetParityBitOdd   /**< entry: LZ_SERIAL_PARITY_ODD  */
 };
+
+/** @cond false */
+STATIC_ASSERT
+(
+ ELEMENTS_COUNT(setParityBit) == __LZ_SERIAL_PARITY_BIT_ENUM_END,
+ all_entries_of_enum_Lz_SerialParityBit_must_be_set_in_setParityBit
+);
+/** @endcond */
 
 /**
  * Set the kind of parity bit of the serial line.
@@ -445,6 +462,14 @@ void (* const setSize[__LZ_SERIAL_SIZE_ENUM_END])(void) = {
   SetSize8  /**< entry: LZ_SERIAL_SIZE_8 */
 };
 
+/** @cond false */
+STATIC_ASSERT
+(
+ ELEMENTS_COUNT(setSize) == __LZ_SERIAL_SIZE_ENUM_END,
+ all_entries_of_enum_Lz_SerialSize_must_be_set_in_setSize
+);
+/** @endcond */
+
 /**
  * Set the character size of the serial line.
  *
@@ -473,11 +498,19 @@ SetSize(const enum Lz_SerialSize size)
  * @warning This table must be ordered by entry values of enum Lz_SerialSpeed.
  */
 PROGMEM static const
-uint16_t serialSpeedRegisterValue[__LZ_SERIAL_SIZE_ENUM_END] = {
+uint16_t serialSpeedRegisterValue[__LZ_SERIAL_SPEED_ENUM_END] = {
   (uint16_t)25, /**< entry: LZ_SERIAL_SPEED_2400 */
   (uint16_t)12, /**< entry: LZ_SERIAL_SPEED_4800 */
   (uint16_t)6   /**< entry: LZ_SERIAL_SPEED_9600 */
 };
+
+/** @cond false */
+STATIC_ASSERT
+(
+ ELEMENTS_COUNT(serialSpeedRegisterValue) == __LZ_SERIAL_SPEED_ENUM_END,
+ all_entries_of_enum_Lz_SerialSpeed_must_be_set_in_serialSpeedRegisterValue
+);
+/** @endcond */
 
 /**
  * Set the baud rate of the serial line.
