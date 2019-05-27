@@ -26,17 +26,17 @@
 /**
  * The queue of ready tasks.
  */
-static LinkedList readyTasks = LINKED_LIST_INIT;
+static Lz_LinkedList readyTasks = LINKED_LIST_INIT;
 
 /**
  * The queue of terminated tasks.
  */
-static LinkedList terminatedTasks = LINKED_LIST_INIT;
+static Lz_LinkedList terminatedTasks = LINKED_LIST_INIT;
 
 /**
  * The queue of aborted tasks.
  */
-static LinkedList abortedTasks = LINKED_LIST_INIT;
+static Lz_LinkedList abortedTasks = LINKED_LIST_INIT;
 
 /**
  * The table of waiting queues for interrupts.
@@ -45,7 +45,7 @@ static LinkedList abortedTasks = LINKED_LIST_INIT;
  * In each entry is the queue of tasks waiting for that particular interrupt.
  * This table is indexed by the codes defined in interrupts.h.
  */
-static NOINIT LinkedList waitingInterruptTasks[INT_TOTAL];
+static NOINIT Lz_LinkedList waitingInterruptTasks[INT_TOTAL];
 
 /**
  * Initialize each entry of the waitingInterruptTasks table.
@@ -54,7 +54,7 @@ static void
 InitWaitingInterruptTasksTable(void)
 {
   uint8_t i;
-  const LinkedList initValue = LINKED_LIST_INIT;
+  const Lz_LinkedList initValue = LINKED_LIST_INIT;
 
   for (i = 0; i < INT_TOTAL; ++i) {
     Memory_Copy(&initValue,
@@ -180,11 +180,11 @@ WaitEvent(void * const sp, const uint8_t eventCode)
  * This function is to be called after a mutex has been unlocked.
  * Switch all tasks waiting for the mutex to be ready to run again.
  *
- * @param waitingTasks A pointer to the LinkedList of tasks waiting for the
+ * @param waitingTasks A pointer to the Lz_LinkedList of tasks waiting for the
  * mutex.
  */
 static void
-WakeupTasksWaitingMutex(LinkedList * const waitingTasks)
+WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks)
 {
   if (NULL == waitingTasks) {
     return;
@@ -199,11 +199,11 @@ WakeupTasksWaitingMutex(LinkedList * const waitingTasks)
  * and schedule to run another task.
  *
  * @param sp The stack pointer of the task calling the wait routine.
- * @param waitingTasks A pointer to the LinkedList of tasks waiting for the
+ * @param waitingTasks A pointer to the Lz_LinkedList of tasks waiting for the
  * mutex.
  */
 static void
-WaitMutex(void * const sp, LinkedList * const waitingTasks)
+WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks)
 {
   /* TODO: See if it's useful to test NULL == waitingTasks here... */
   currentTask->stackPointer = sp;

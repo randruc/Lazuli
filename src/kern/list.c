@@ -10,7 +10,7 @@
 #include <Lazuli/sys/memory.h>
 
 void
-List_Append(LinkedList * const linkedList, Lz_LinkedListElement * const item)
+List_Append(Lz_LinkedList * const linkedList, Lz_LinkedListElement * const item)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
@@ -34,7 +34,8 @@ List_Append(LinkedList * const linkedList, Lz_LinkedListElement * const item)
 }
 
 void
-List_Prepend(LinkedList * const linkedList, Lz_LinkedListElement * const item)
+List_Prepend(Lz_LinkedList * const linkedList,
+             Lz_LinkedListElement * const item)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
@@ -58,8 +59,8 @@ List_Prepend(LinkedList * const linkedList, Lz_LinkedListElement * const item)
 }
 
 void
-List_AppendList(LinkedList * const linkedListDestination,
-                LinkedList * const linkedListToMove)
+List_AppendList(Lz_LinkedList * const linkedListDestination,
+                Lz_LinkedList * const linkedListToMove)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedListDestination || NULL == linkedListToMove) {
@@ -85,7 +86,7 @@ List_AppendList(LinkedList * const linkedListDestination,
 }
 
 Lz_LinkedListElement *
-List_PickFirst(LinkedList * const linkedList)
+List_PickFirst(Lz_LinkedList * const linkedList)
 {
   Lz_LinkedListElement *item;
 
@@ -116,7 +117,7 @@ List_PickFirst(LinkedList * const linkedList)
 }
 
 Lz_LinkedListElement *
-List_PointFirst(const LinkedList * const linkedList)
+List_PointFirst(const Lz_LinkedList * const linkedList)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
@@ -128,7 +129,7 @@ List_PointFirst(const LinkedList * const linkedList)
 }
 
 bool
-List_IsEmpty(const LinkedList * const linkedList)
+List_IsEmpty(const Lz_LinkedList * const linkedList)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
@@ -140,7 +141,7 @@ List_IsEmpty(const LinkedList * const linkedList)
 }
 
 void
-List_InsertAfter(LinkedList * const linkedList,
+List_InsertAfter(Lz_LinkedList * const linkedList,
                  Lz_LinkedListElement * const listItem,
                  Lz_LinkedListElement * const itemToInsert)
 {
@@ -160,7 +161,7 @@ List_InsertAfter(LinkedList * const linkedList,
 }
 
 void
-List_InsertBefore(LinkedList * const linkedList,
+List_InsertBefore(Lz_LinkedList * const linkedList,
                   Lz_LinkedListElement * const listItem,
                   Lz_LinkedListElement * const itemToInsert)
 {
@@ -180,7 +181,7 @@ List_InsertBefore(LinkedList * const linkedList,
 }
 
 bool
-List_IsLastElement(const LinkedList * const linkedList,
+List_IsLastElement(const Lz_LinkedList * const linkedList,
                    const Lz_LinkedListElement * const item)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
@@ -193,7 +194,7 @@ List_IsLastElement(const LinkedList * const linkedList,
 }
 
 bool
-List_IsFirstElement(const LinkedList * const linkedList,
+List_IsFirstElement(const Lz_LinkedList * const linkedList,
                     const Lz_LinkedListElement * const item)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
@@ -206,9 +207,9 @@ List_IsFirstElement(const LinkedList * const linkedList,
 }
 
 void
-List_InitLinkedList(LinkedList * const linkedList)
+List_InitLinkedList(Lz_LinkedList * const linkedList)
 {
-  const LinkedList linkedListInit = LINKED_LIST_INIT;
+  const Lz_LinkedList linkedListInit = LINKED_LIST_INIT;
 
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {

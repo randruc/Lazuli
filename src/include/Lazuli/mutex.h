@@ -22,8 +22,8 @@ _EXTERN_C_DECL_BEGIN
  * Represents a mutex.
  */
 typedef struct {
-  volatile uint8_t lock;   /**< The mutex lock                           */
-  LinkedList waitingTasks; /**< The list of tasks waiting for that mutex */
+  volatile uint8_t lock;      /**< The mutex lock                           */
+  Lz_LinkedList waitingTasks; /**< The list of tasks waiting for that mutex */
 }Lz_Mutex;
 
 /**

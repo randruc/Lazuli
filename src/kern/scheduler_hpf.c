@@ -28,7 +28,7 @@
  * The tasks preempted by higher priority tasks, or ready to run after an
  * interrupt get pushed onto this stack.
  */
-static LinkedList readyTasks = LINKED_LIST_INIT;
+static Lz_LinkedList readyTasks = LINKED_LIST_INIT;
 
 /**
  * The table of tasks waiting for interrupts.
@@ -38,7 +38,7 @@ static LinkedList readyTasks = LINKED_LIST_INIT;
  * keep ordered by priority.
  * This table is indexed by the codes defined in interrupts.h.
  */
-static NOINIT LinkedList waitingInterruptTasks[INT_TOTAL];
+static NOINIT Lz_LinkedList waitingInterruptTasks[INT_TOTAL];
 
 /**
  * The idle task to be executed when no user task is ready for execution.
@@ -63,7 +63,7 @@ static void
 InitWaitingInterruptTasksTable(void)
 {
   uint8_t i;
-  const LinkedList initValue = LINKED_LIST_INIT;
+  const Lz_LinkedList initValue = LINKED_LIST_INIT;
 
   for (i = 0; i < INT_TOTAL; ++i) {
     Memory_Copy(&initValue,
@@ -79,7 +79,7 @@ InitWaitingInterruptTasksTable(void)
  * @param taskToInsert The task to insert in the list.
  */
 static void
-InsertTaskByPriority(LinkedList * const list, HpfTask * const taskToInsert)
+InsertTaskByPriority(Lz_LinkedList * const list, HpfTask * const taskToInsert)
 {
   HpfTask *task;
 

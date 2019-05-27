@@ -142,13 +142,13 @@ BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode)
 }
 
 void
-BaseScheduler_WakeupTasksWaitingMutex(LinkedList * const waitingTasks)
+BaseScheduler_WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks)
 {
   JumpToScheduler[schedulerClass]->wakeupTasksWaitingMutex(waitingTasks);
 }
 
 void
-BaseScheduler_WaitMutex(void * const sp, LinkedList * const waitingTasks)
+BaseScheduler_WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks)
 {
   JumpToScheduler[schedulerClass]->waitMutex(sp, waitingTasks);
 }

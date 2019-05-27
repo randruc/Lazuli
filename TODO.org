@@ -39,5 +39,5 @@
 ** Something like bool Lz_Mutex_TryLock(Lz_Mutex * const mutex);
 * Implement pipes
 ** Lz_Pipe, Lz_Pipe_Read(), Lz_Pipe_Write(), Lz_Pipe_TryRead()
-* Rename linked list to conform to user API naming convention:
-** Lz_LinkedList
+* Move linked lists functions declarations in a kernel header file.
+** The user list.h header file will only contain the definition of structs.

@@ -201,6 +201,7 @@ Arch_CpuSleep(void);
 bool
 Arch_TryAcquireLock(volatile uint8_t * const lock);
 
+/* TODO: See if this is at the right place. */
 /**
  * Stop the current running task and place it on the list of tasks waiting for
  * the mutex specified in parameter.
@@ -208,7 +209,7 @@ Arch_TryAcquireLock(volatile uint8_t * const lock);
  * @param waitingTasks A pointer to the list of tasks waiting for the mutex.
  */
 void
-Arch_WaitMutex(LinkedList * const waitingTasks);
+Arch_WaitMutex(Lz_LinkedList * const waitingTasks);
 
 /** @} */
 

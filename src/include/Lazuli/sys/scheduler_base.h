@@ -74,20 +74,20 @@ typedef struct {
   /**
    * Wake up all tasks waiting for a mutex.
    *
-   * @param waitingTasks A pointer to the LinkedList containing all the tasks
+   * @param waitingTasks A pointer to the Lz_LinkedList containing all the tasks
    * waiting for the mutex.
    */
-  void (*wakeupTasksWaitingMutex)(LinkedList * const waitingTasks);
+  void (*wakeupTasksWaitingMutex)(Lz_LinkedList * const waitingTasks);
 
   /**
    * Place the current running task in the queue of tasks waiting for a mutex.
    *
    * @param sp The stack pointer of the current running task after saving its
    *           context.
-   * @param waitingTasks A pointer to the LinkedList containing all the tasks
+   * @param waitingTasks A pointer to the Lz_LinkedList containing all the tasks
    * waiting for the mutex.
    */
-  void (*waitMutex)(void * const sp, LinkedList * const waitingTasks);
+  void (*waitMutex)(void * const sp, Lz_LinkedList * const waitingTasks);
 
   /**
    * Manage the termination of a task.
@@ -180,11 +180,11 @@ BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode);
 /**
  * Wake up all tasks waiting for a mutex.
  *
- * @param waitingTasks A pointer to the LinkedList containing all the tasks
+ * @param waitingTasks A pointer to the Lz_LinkedList containing all the tasks
  * waiting for the mutex.
  */
 void
-BaseScheduler_WakeupTasksWaitingMutex(LinkedList * const waitingTasks);
+BaseScheduler_WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks);
 
 /**
  * Place the current running task in the queue of tasks waiting for a mutex.
@@ -193,11 +193,11 @@ BaseScheduler_WakeupTasksWaitingMutex(LinkedList * const waitingTasks);
  *
  * @param sp The stack pointer of the current running task after saving its
  *           context.
- * @param waitingTasks A pointer to the LinkedList containing all the tasks
+ * @param waitingTasks A pointer to the Lz_LinkedList containing all the tasks
  * waiting for the mutex.
  */
 void
-BaseScheduler_WaitMutex(void * const sp, LinkedList * const waitingTasks);
+BaseScheduler_WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks);
 
 _EXTERN_C_DECL_END
 
