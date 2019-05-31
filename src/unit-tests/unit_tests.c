@@ -9,6 +9,7 @@
  */
 
 #include <Lazuli/common.h>
+#include <Lazuli/list.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/compiler.h>
@@ -262,6 +263,523 @@ UNIT_TEST(LoadFromProgmem_2)
   ASSERT(false == target.b);
 }
 
+typedef struct {
+  char c;
+  Lz_LinkedListElement element;
+}TestListItem;
+
+UNIT_TEST(List_Append_1)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  Lz_LinkedListElement *item;
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('A' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('B' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('C' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('D' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('E' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(List_IsEmpty(&linkedList));
+  ASSERT(NULL == List_PointFirst(&linkedList));
+}
+
+UNIT_TEST(List_ForEach_1)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_ForEach(&linkedList, TestListItem, item, element) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+  }
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_ForEach_2)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem *item;
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_ForEach(&linkedList, TestListItem, item, element) {
+    ASSERT(false);
+  }
+
+  ASSERT(List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_1)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+  }
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_2)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(false);
+  }
+
+  ASSERT(List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_3)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  Lz_LinkedListElement *pointedElement;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    if ('B' == item->c || 'D' == item->c) {
+      iterator = List_Remove(&linkedList, &item->element);
+    }
+  }
+
+  pointedElement = List_PointElementAt(&linkedList, 0);
+  ASSERT('A' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 1);
+  ASSERT('C' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 2);
+  ASSERT('E' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 3);
+  ASSERT(NULL == pointedElement);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_4)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  Lz_LinkedListElement *pointedElement;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    if ('B' == item->c || 'C' == item->c || 'D' == item->c) {
+      iterator = List_Remove(&linkedList, &item->element);
+    }
+  }
+
+  pointedElement = List_PointElementAt(&linkedList, 0);
+  ASSERT('A' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 1);
+  ASSERT('E' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 2);
+  ASSERT(NULL == pointedElement);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_5)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  Lz_LinkedListElement *pointedElement;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    if ('A' == item->c) {
+      iterator = List_Remove(&linkedList, &item->element);
+    }
+  }
+
+  pointedElement = List_PointElementAt(&linkedList, 0);
+  ASSERT('B' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 1);
+  ASSERT('C' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 2);
+  ASSERT('D' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 3);
+  ASSERT('E' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 4);
+  ASSERT(NULL == pointedElement);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_6)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  Lz_LinkedListElement *pointedElement;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    if ('A' == item->c || 'B' == item->c) {
+      iterator = List_Remove(&linkedList, &item->element);
+    }
+  }
+
+  pointedElement = List_PointElementAt(&linkedList, 0);
+  ASSERT('C' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 1);
+  ASSERT('D' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 2);
+  ASSERT('E' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 3);
+  ASSERT(NULL == pointedElement);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_7)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  Lz_LinkedListElement *pointedElement;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    if ('D' == item->c) {
+      iterator = List_Remove(&linkedList, &item->element);
+    }
+  }
+
+  pointedElement = List_PointElementAt(&linkedList, 0);
+  ASSERT('A' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 1);
+  ASSERT('B' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 2);
+  ASSERT('C' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 3);
+  ASSERT('E' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 4);
+  ASSERT(NULL == pointedElement);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_8)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  Lz_LinkedListElement *pointedElement;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    if ('E' == item->c) {
+      iterator = List_Remove(&linkedList, &item->element);
+    }
+  }
+
+  pointedElement = List_PointElementAt(&linkedList, 0);
+  ASSERT('A' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 1);
+  ASSERT('B' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 2);
+  ASSERT('C' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 3);
+  ASSERT('D' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 4);
+  ASSERT(NULL == pointedElement);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_9)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  Lz_LinkedListElement *pointedElement;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    if ('D' == item->c || 'E' == item->c) {
+      iterator = List_Remove(&linkedList, &item->element);
+    }
+  }
+
+  pointedElement = List_PointElementAt(&linkedList, 0);
+  ASSERT('A' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 1);
+  ASSERT('B' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 2);
+  ASSERT('C' == CONTAINER_OF(pointedElement, element, TestListItem)->c);
+
+  pointedElement = List_PointElementAt(&linkedList, 3);
+  ASSERT(NULL == pointedElement);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+}
+
+UNIT_TEST(List_RemovableForEach_10)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  TestListItem *item;
+  Lz_LinkedListElement *iterator;
+  char testChar = 'A';
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Append(&linkedList, &a.element);
+  List_Append(&linkedList, &b.element);
+  List_Append(&linkedList, &c.element);
+  List_Append(&linkedList, &d.element);
+  List_Append(&linkedList, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+
+  List_RemovableForEach(&linkedList, TestListItem, item, element, iterator) {
+    ASSERT(NULL != item);
+    ASSERT(testChar == item->c);
+    ++testChar;
+
+    iterator = List_Remove(&linkedList, &item->element);
+  }
+
+  ASSERT(List_IsEmpty(&linkedList));
+}
+
 /**
  * Array of function pointers referencing all unit tests to execute.
  */
@@ -281,7 +799,20 @@ PROGMEM static void (* const tests[])(void) = {
   LoadU16FromProgmem_1,
   LoadU16FromProgmem_2,
   LoadFromProgmem_1,
-  LoadFromProgmem_2
+  LoadFromProgmem_2,
+  List_Append_1,
+  List_ForEach_1,
+  List_ForEach_2,
+  List_RemovableForEach_1,
+  List_RemovableForEach_2,
+  List_RemovableForEach_3,
+  List_RemovableForEach_4,
+  List_RemovableForEach_5,
+  List_RemovableForEach_6,
+  List_RemovableForEach_7,
+  List_RemovableForEach_8,
+  List_RemovableForEach_9,
+  List_RemovableForEach_10
 };
 
 static void
