@@ -186,6 +186,23 @@ Arch_InitIdleCpuMode(void);
 void
 Arch_CpuSleep(void);
 
+/** @name System timer */
+/** @{                 */
+
+/**
+ * Initialize the system timer.
+ */
+void
+Arch_InitSystemTimer(void);
+
+/**
+ * Start the system timer.
+ */
+void
+Arch_StartSystemTimer(void);
+
+/** @}                 */
+
 /** @name Mutex */
 /** @{          */
 

@@ -75,6 +75,8 @@ $CC $cflags -c kern/spinlock.c \
     -o spinlock.o
 $CC $cflags -c kern/arch/AVR/timer_counter_0.c \
     -o timer_counter_0.o
+$CC $cflags -c kern/arch/AVR/timer_counter_1.c \
+    -o timer_counter_1.o
 $CC $cflags -c kern/arch/AVR/usart.c \
     -o usart.o
 $CC $cflags -c kern/kernel.c \
@@ -105,6 +107,7 @@ object_files=$object_files' arch.o'
 object_files=$object_files' interrupt_vectors_table.o'
 object_files=$object_files' startup.o'
 object_files=$object_files' timer_counter_0.o'
+object_files=$object_files' timer_counter_1.o'
 object_files=$object_files' kernel.o'
 object_files=$object_files' memory.o'
 object_files=$object_files' scheduler_base.o'
