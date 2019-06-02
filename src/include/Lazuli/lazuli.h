@@ -99,14 +99,21 @@ Lz_SetSchedulerClass(const enum Lz_SchedulerClass userSchedulerClass);
 /**
  * Register a new task.
  *
+ * If an error occured during registration of the task _false_ is returned and
+ * the task is not included in the set of tasks that will be run.
+ *
  * @param taskEntryPoint The entry point of the task to register.
  *                       i.e. A pointer to the function representing the task.
  * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing the
  *                          configuration of the task being registered.
  *                          If NULL is passed, then default values are applied
  *                          for all parameters.
+ *
+ * @return
+ *         - _true_ if the task has been registered without error.
+ *         - _false_ if an error occured during registration.
  */
-void
+bool
 Lz_RegisterTask(void (* const taskEntryPoint)(void),
                 const Lz_TaskConfiguration * taskConfiguration);
 

@@ -117,7 +117,7 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
   RrTask *newTask = KIncrementalMalloc(sizeof(RrTask));
   if (NULL == newTask) {
-    Kernel_Panic();
+    return NULL;
   }
 
   UNUSED(taskConfiguration);

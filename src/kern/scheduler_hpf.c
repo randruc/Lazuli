@@ -119,7 +119,9 @@ RegisterIdleTask(void)
     taskConfiguration.name = LZ_CONFIG_HPF_IDLE_TASK_NAME;
   }
 
-  Lz_RegisterTask(IdleTask, &taskConfiguration);
+  if(!Lz_RegisterTask(IdleTask, &taskConfiguration)) {
+    Kernel_Panic();
+  }
 }
 
 /**
@@ -139,7 +141,7 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
   HpfTask *newTask = KIncrementalMalloc(sizeof(HpfTask));
   if (NULL == newTask) {
-    Kernel_Panic();
+    return NULL;
   }
 
   newTask->priority = taskConfiguration->priority;

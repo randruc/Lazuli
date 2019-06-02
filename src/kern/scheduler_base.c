@@ -180,7 +180,7 @@ Lz_TaskConfiguration_Init(Lz_TaskConfiguration * const taskConfiguration)
                        sizeof(Lz_TaskConfiguration));
 }
 
-void
+bool
 Lz_RegisterTask(void (* const taskEntryPoint)(void),
                 const Lz_TaskConfiguration * taskConfiguration)
 {
@@ -197,6 +197,9 @@ Lz_RegisterTask(void (* const taskEntryPoint)(void),
   }
 
   newTask = JumpToScheduler[schedulerClass]->registerTask(taskConfiguration);
+  if (NULL == newTask) {
+    return false;
+  }
 
   desiredStackSize = taskConfiguration->stackSize
     /* We add enough space to contain the context of a task on the stack */
@@ -206,7 +209,7 @@ Lz_RegisterTask(void (* const taskEntryPoint)(void),
 
   taskStack = KIncrementalMalloc(desiredStackSize);
   if (NULL == taskStack) {
-    Kernel_Panic();
+    return false;
   }
 
   newTask->name = taskConfiguration->name;
@@ -216,6 +219,8 @@ Lz_RegisterTask(void (* const taskEntryPoint)(void),
   newTask->stackPointer = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
 
   PrepareTaskContext(newTask);
+
+  return true;
 }
 
 void
