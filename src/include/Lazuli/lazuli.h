@@ -47,6 +47,13 @@ enum Lz_SchedulerClass {
   LZ_SCHED_HPF,
 #endif /* LZ_CONFIG_USE_SCHEDULER_HPF */
 
+#if LZ_CONFIG_USE_SCHEDULER_RMS
+  /**
+   * Rate Monotonic Scheduling.
+   */
+  LZ_SCHED_RMS,
+#endif /* LZ_CONFIG_USE_SCHEDULER_RMS */
+
   /**
    * @cond false
    *
@@ -85,6 +92,22 @@ typedef struct {
    * Used for HPF scheduling.
    */
   Lz_TaskPriority priority;
+
+  /**
+   * The period (T) of the task.
+   * Used for RMS scheduling.
+   *
+   * The period is expressed as an integer number of time units.
+   */
+  uint16_t period;
+
+  /**
+   * The completion time (C) of the task (worst case execution time).
+   * Used for RMS scheduling.
+   *
+   * The completion time is expressed as an integer number of time units.
+   */
+  uint16_t completion;
 }Lz_TaskConfiguration;
 
 /**

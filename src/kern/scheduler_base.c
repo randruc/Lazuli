@@ -20,6 +20,7 @@
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
 #include <Lazuli/sys/scheduler_hpf.h>
+#include <Lazuli/sys/scheduler_rms.h>
 #include <Lazuli/sys/scheduler_rr.h>
 
 Task *currentTask;
@@ -28,9 +29,11 @@ Task *currentTask;
  * Contains default values for Lz_TaskConfiguration.
  */
 static PROGMEM const Lz_TaskConfiguration DefaultTaskConfiguration = {
-  NULL                                             /**< member: name      */,
-  LZ_CONFIG_DEFAULT_TASK_STACK_SIZE                /**< member: stackSize */,
-  (Lz_TaskPriority)LZ_CONFIG_DEFAULT_TASK_PRIORITY /**< member: priority  */
+  NULL                                             /**< member: name       */,
+  LZ_CONFIG_DEFAULT_TASK_STACK_SIZE                /**< member: stackSize  */,
+  (Lz_TaskPriority)LZ_CONFIG_DEFAULT_TASK_PRIORITY /**< member: priority   */,
+  0                                                /**< member: period     */,
+  0                                                /**< member: completion */,
 };
 
 /**
@@ -55,6 +58,10 @@ static const SchedulerOperations *JumpToScheduler[] = {
 #if LZ_CONFIG_USE_SCHEDULER_HPF
   &HPFSchedulerOperations, /**< index: LZ_SCHED_HPF */
 #endif /* LZ_CONFIG_USE_SCHEDULER_HPF */
+
+#if LZ_CONFIG_USE_SCHEDULER_RMS
+  &RMSSchedulerOperations, /** < index: LZ_SCHED_RMS */
+#endif /* LZ_CONFIG_USE_SCHEDULER_RMS */
 
 };
 

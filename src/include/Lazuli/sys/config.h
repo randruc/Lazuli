@@ -23,6 +23,11 @@
 #define LZ_CONFIG_USE_SCHEDULER_HPF (1)
 
 /**
+ * Use Rate Monotonic Scheduler.
+ */
+#define LZ_CONFIG_USE_SCHEDULER_RMS (1)
+
+/**
  * Size in bytes of the security gap between the break and the stack pointer.
  */
 #define LZ_CONFIG_BREAK_STACK_GAP (50)
