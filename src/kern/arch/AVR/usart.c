@@ -15,11 +15,6 @@
 #include <Lazuli/sys/kernel.h>
 
 /**
- * The baud rate value to set in UBRR0.
- */
-#define UBRR0_VALUE ((CLOCK_FREQUENCY / 16 * USART_BAUD_RATE) - 1)
-
-/**
  * A constant pointer to the memory mapped Usart structure.
  */
 static Usart * const usart = (Usart*)&UCSR0A;

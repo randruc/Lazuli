@@ -32,11 +32,15 @@
  */
 #define LZ_CONFIG_BREAK_STACK_GAP (50)
 
-/* TODO: I think this has nothing to do here. */
 /**
- * Clock frequency in Hertz.
+ * THe clock frequency of the machine, in Hertz.
  */
-#define LZ_CONFIG_CLOCK_FREQUENCY (1000000)
+#define LZ_CONFIG_MACHINE_CLOCK_FREQUENCY (16000000)
+
+/**
+ * The operating system clock resolution, in seconds.
+ */
+#define LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION (0.002)
 
 /**
  * When 1, run an infinite loop on kernel panic.

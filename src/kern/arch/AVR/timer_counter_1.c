@@ -11,14 +11,23 @@
 #include <stdint.h>
 
 #include <Lazuli/sys/arch/AVR/timer_counter_1.h>
+#include <Lazuli/sys/config.h>
+
+/** The Timer/Counter 1 clock prescaler */
+#define TIMER_COUNTER_1_PRESCALER (8)
+
+/**
+ * Setting for the compare register whith the desired settings.
+ */
+#define COMPARE_MATCH_REGISTER_VALUE                                    \
+  ((uint16_t)                                                           \
+   ((LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION *                                \
+     (LZ_CONFIG_MACHINE_CLOCK_FREQUENCY / TIMER_COUNTER_1_PRESCALER)) - 1))
 
 void
 Arch_InitSystemTimer(void)
 {
-  /*
-   * Setting for a timer resolution of 10ms, for a system clock of 1 MHz.
-   */
-  const uint16_t compareMatchRegisterValue = 4999;
+  const uint16_t compareMatchRegisterValue = COMPARE_MATCH_REGISTER_VALUE;
 
   TCCR1A = 0;
   TCCR1B = 0;
@@ -34,6 +43,9 @@ Arch_InitSystemTimer(void)
 void
 Arch_StartSystemTimer(void)
 {
-  TIMSK1 |= TIMSK1_OCIE1A; /* Enable output compare A match interrupt */
-  TCCR1B |= TCCR1B_CS10;   /* Clock select : system clock, prescale by 1 */
+  /* Enable output compare A match interrupt */
+  TIMSK1 |= TIMSK1_OCIE1A;
+
+  /* Clock select : system clock, prescale by 8 */
+  TCCR1B |= TCCR1B_CS11;
 }

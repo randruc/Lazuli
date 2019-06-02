@@ -6,7 +6,7 @@
 avrdude \
     -p m328p \
     -c atmelice_isp \
-    -U lfuse:w:0x62:m \
+    -U lfuse:w:0xff:m \
     -U hfuse:w:0xd1:m \
     -U efuse:w:0xff:m \
     -U flash:w:Lazuli.hex
