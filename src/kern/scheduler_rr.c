@@ -91,8 +91,11 @@ Timer0CompareMatchAHandler(void)
   Schedule();
 }
 
-/** @name scheduler_base implementation */
-/** @{                                  */
+/**
+ * @name scheduler_base implementation
+ *
+ * @{
+ */
 
 static void
 Init(void)

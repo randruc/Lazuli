@@ -122,8 +122,11 @@ RegisterIdleTask(void)
   Lz_RegisterTask(IdleTask, &taskConfiguration);
 }
 
-/** @name scheduler_base implementation */
-/** @{                                  */
+/**
+ * @name scheduler_base implementation
+ *
+ * @{
+ */
 
 static void
 Init(void)

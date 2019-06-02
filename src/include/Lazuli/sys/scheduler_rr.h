@@ -24,11 +24,16 @@ extern const SchedulerOperations RRSchedulerOperations;
  * Represents a task registered by the RR scheduler.
  */
 typedef struct {
-  /* WARNING: This MUST be the first member of the struct */
-  /** The base definition of a task */
+  /**
+   * The base definition of a task.
+   *
+   * @warning This MUST be the first member of the struct.
+   */
   Task base;
 
-  /** The scheduling queue on which the task is stored */
+  /**
+   * The scheduling queue on which the task is stored.
+   */
   Lz_LinkedListElement stateQueue;
 }RrTask;
 

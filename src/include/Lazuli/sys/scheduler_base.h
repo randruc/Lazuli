@@ -39,8 +39,9 @@ typedef struct {
    *
    * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing
    *                          the configuration of the task being registered.
-   *                          If NULL is passed, then default values are applied
-   *                          for all parameters.
+   *                          This parameter can never be _NULL_, but some of
+   *                          its fields can contain default configuration
+   *                          values.
    *
    * @return A pointer to the newly allocated and initialized Task.
    */

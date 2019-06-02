@@ -25,14 +25,21 @@ extern const SchedulerOperations HPFSchedulerOperations;
  * Represents a task registered by the HPF scheduler.
  */
 typedef struct {
-  /* WARNING: This MUST be the first member of the struct */
-  /** The base definition of a task */
+  /**
+   * The base definition of a task.
+   *
+   * @warning This MUST be the first member of the struct
+   */
   Task base;
 
-  /** The task priority */
+  /**
+   * The task priority
+   */
   Lz_TaskPriority priority;
 
-  /** The scheduling queue on which the task is stored */
+  /**
+   * The scheduling queue on which the task is stored
+   */
   Lz_LinkedListElement stateQueue;
 }HpfTask;
 
