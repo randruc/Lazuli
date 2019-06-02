@@ -780,6 +780,213 @@ UNIT_TEST(List_RemovableForEach_10)
   ASSERT(List_IsEmpty(&linkedList));
 }
 
+UNIT_TEST(List_Prepend_1)
+{
+  Lz_LinkedList linkedList = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  Lz_LinkedListElement *item;
+
+  ASSERT(List_IsEmpty(&linkedList));
+
+  List_Prepend(&linkedList, &a.element);
+  List_Prepend(&linkedList, &b.element);
+  List_Prepend(&linkedList, &c.element);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('C' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('B' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList));
+  item = List_PickFirst(&linkedList);
+  ASSERT(NULL != item);
+  ASSERT('A' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(List_IsEmpty(&linkedList));
+  ASSERT(NULL == List_PointFirst(&linkedList));
+}
+
+UNIT_TEST(List_AppendList_1)
+{
+  Lz_LinkedList linkedList1 = LINKED_LIST_INIT;
+  Lz_LinkedList linkedList2 = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  Lz_LinkedListElement *item;
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  List_Append(&linkedList1, &a.element);
+  List_Append(&linkedList1, &b.element);
+  List_Append(&linkedList1, &c.element);
+
+  List_Append(&linkedList2, &d.element);
+  List_Append(&linkedList2, &e.element);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(!List_IsEmpty(&linkedList2));
+
+  List_AppendList(&linkedList1, &linkedList2);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('A' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('B' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('C' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('D' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('E' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  ASSERT(NULL == List_PointFirst(&linkedList1));
+  ASSERT(NULL == List_PointFirst(&linkedList2));
+}
+
+UNIT_TEST(List_AppendList_2)
+{
+  Lz_LinkedList linkedList1 = LINKED_LIST_INIT;
+  Lz_LinkedList linkedList2 = LINKED_LIST_INIT;
+  TestListItem d = { 'D', LINKED_LIST_ELEMENT_INIT };
+  TestListItem e = { 'E', LINKED_LIST_ELEMENT_INIT };
+  Lz_LinkedListElement *item;
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  List_Append(&linkedList2, &d.element);
+  List_Append(&linkedList2, &e.element);
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(!List_IsEmpty(&linkedList2));
+
+  List_AppendList(&linkedList1, &linkedList2);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('D' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('E' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  ASSERT(NULL == List_PointFirst(&linkedList1));
+  ASSERT(NULL == List_PointFirst(&linkedList2));
+}
+
+UNIT_TEST(List_AppendList_3)
+{
+  Lz_LinkedList linkedList1 = LINKED_LIST_INIT;
+  Lz_LinkedList linkedList2 = LINKED_LIST_INIT;
+  TestListItem a = { 'A', LINKED_LIST_ELEMENT_INIT };
+  TestListItem b = { 'B', LINKED_LIST_ELEMENT_INIT };
+  TestListItem c = { 'C', LINKED_LIST_ELEMENT_INIT };
+  Lz_LinkedListElement *item;
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  List_Append(&linkedList1, &a.element);
+  List_Append(&linkedList1, &b.element);
+  List_Append(&linkedList1, &c.element);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  List_AppendList(&linkedList1, &linkedList2);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('A' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('B' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(!List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  item = List_PickFirst(&linkedList1);
+  ASSERT(NULL != item);
+  ASSERT('C' == CONTAINER_OF(item, element, TestListItem)->c);
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  ASSERT(NULL == List_PointFirst(&linkedList1));
+  ASSERT(NULL == List_PointFirst(&linkedList2));
+}
+
+UNIT_TEST(List_AppendList_4)
+{
+  Lz_LinkedList linkedList1 = LINKED_LIST_INIT;
+  Lz_LinkedList linkedList2 = LINKED_LIST_INIT;
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  List_AppendList(&linkedList1, &linkedList2);
+
+  ASSERT(List_IsEmpty(&linkedList1));
+  ASSERT(List_IsEmpty(&linkedList2));
+
+  ASSERT(NULL == List_PointFirst(&linkedList1));
+  ASSERT(NULL == List_PointFirst(&linkedList2));
+}
+
 /**
  * Array of function pointers referencing all unit tests to execute.
  */
@@ -812,7 +1019,12 @@ PROGMEM static void (* const tests[])(void) = {
   List_RemovableForEach_7,
   List_RemovableForEach_8,
   List_RemovableForEach_9,
-  List_RemovableForEach_10
+  List_RemovableForEach_10,
+  List_Prepend_1,
+  List_AppendList_1,
+  List_AppendList_2,
+  List_AppendList_3,
+  List_AppendList_4
 };
 
 static void
