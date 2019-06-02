@@ -226,7 +226,7 @@ List_IsEmpty(const Lz_LinkedList * const linkedList);
                                                                         \
          NULL != (ITEM);                                                \
                                                                         \
-         ((ITERATOR) = (NULL == ITERATOR) ?                             \
+         ((ITERATOR) = (NULL == (ITERATOR)) ?                           \
           (LINKEDLIST)->first : (ITERATOR)->next),                      \
            ((ITEM) = (NULL == (ITERATOR)) ?                             \
             NULL : CONTAINER_OF((ITERATOR), MEMBER, TYPE)))
