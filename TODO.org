@@ -41,3 +41,5 @@
 ** Lz_Pipe, Lz_Pipe_Read(), Lz_Pipe_Write(), Lz_Pipe_TryRead()
 * Move linked lists functions declarations in a kernel header file.
 ** The user list.h header file will only contain the definition of structs.
+* Find a way to get rid of #including AVR interrupts header file in kernel code.
+* If threads are killed/crash while holding locks, what happens?

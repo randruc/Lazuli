@@ -298,7 +298,7 @@ SetStopBits2(void)
  *          enum Lz_SerialStopBits.
  */
 PROGMEM static
-void (* const setStopBits[__LZ_SERIAL_STOP_BITS_ENUM_END])(void) = {
+void (* const setStopBits[])(void) = {
   SetStopBits1, /**< entry: LZ_SERIAL_STOP_BITS_1 */
   SetStopBits2  /**< entry: LZ_SERIAL_STOP_BITS_2 */
 };
@@ -367,7 +367,7 @@ SetParityBitOdd(void)
  *          enum Lz_SerialParityBit.
  */
 PROGMEM static
-void (* const setParityBit[__LZ_SERIAL_PARITY_BIT_ENUM_END])(void) = {
+void (* const setParityBit[])(void) = {
   SetParityBitNone, /**< entry: LZ_SERIAL_PARITY_NONE */
   SetParityBitEven, /**< entry: LZ_SERIAL_PARITY_EVEN */
   SetParityBitOdd   /**< entry: LZ_SERIAL_PARITY_ODD  */
@@ -450,7 +450,7 @@ SetSize8(void)
  * @warning This table must be ordered by entry values of enum Lz_SerialSize.
  */
 PROGMEM static
-void (* const setSize[__LZ_SERIAL_SIZE_ENUM_END])(void) = {
+void (* const setSize[])(void) = {
   SetSize5, /**< entry: LZ_SERIAL_SIZE_5 */
   SetSize6, /**< entry: LZ_SERIAL_SIZE_6 */
   SetSize7, /**< entry: LZ_SERIAL_SIZE_7 */
@@ -493,7 +493,7 @@ SetSize(const enum Lz_SerialSize size)
  * @warning This table must be ordered by entry values of enum Lz_SerialSpeed.
  */
 PROGMEM static const
-uint16_t serialSpeedRegisterValue[__LZ_SERIAL_SPEED_ENUM_END] = {
+uint16_t serialSpeedRegisterValue[] = {
   (uint16_t)25, /**< entry: LZ_SERIAL_SPEED_2400 */
   (uint16_t)12, /**< entry: LZ_SERIAL_SPEED_4800 */
   (uint16_t)6   /**< entry: LZ_SERIAL_SPEED_9600 */
