@@ -99,20 +99,20 @@ Clock24_Increment(void)
 /*
  * The working of this function needs an explanation.
  *
- * While we read all the fields of struct Clock24, the kernel can interrupt this
- * function to update the fields. If that happends we will obtain a copy of
- * struct Clock24 that is not correct. i.e. half of the fields with the previous
- * value, and the other half with the updated value.
+ * While we read all the fields of struct Clock24 clock24, the kernel can
+ * interrupt this function to update the fields. If that happends we will
+ * obtain a copy of struct Clock24 clock24 that is not correct. i.e. half of the
+ * fields with the previous value, and the other half with the updated value.
  *
  * To avoid that, we use this kind of "optimistic access":
  * A version number is contained in struct Clock24. As all of the fields are
  * updated by the kernel at the same time without interrupting, the new values
- * of the time fields of the struct with correspond to a new value of the
+ * of the time fields in the struct with correspond to a new value of the
  * version field.
  * We first read the current version number, then read all the time fields, and
  * finally read the version number again. If the two version numbers differ we
- * then know that the kernel updated the struct Clock24 while we were accessing
- * it.
+ * then know that the kernel updated the struct Clock24 clock24 while we were
+ * accessing it.
  */
 void
 Lz_Clock24_Get(Clock24 * const userClock24)
@@ -124,10 +124,7 @@ Lz_Clock24_Get(Clock24 * const userClock24)
   }
 
   do {
-    /*
-     * We don't use Memory_Copy() here to guarantee the order of the copy of the
-     * fields
-     */
+    /* We don't use Memory_Copy() here to guarantee the order of copying. */
     version = clock24.version;
     userClock24->hours = clock24.hours;
     userClock24->minutes = clock24.minutes;
