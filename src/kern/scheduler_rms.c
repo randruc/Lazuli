@@ -12,6 +12,7 @@
 
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
+#include <Lazuli/sys/clock_24.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
@@ -187,6 +188,10 @@ HandleInterrupt(void * const sp, const uint8_t interruptCode)
   currentTask->stackPointer = sp;
 
   if (INT_TIMER1COMPA == interruptCode) {
+    if (LZ_CONFIG_USE_CLOCK_24) {
+      Clock24_Increment();
+    }
+
     Schedule();
   }
 

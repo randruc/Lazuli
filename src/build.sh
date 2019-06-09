@@ -28,6 +28,7 @@ debug=true
 config_use_mutex=1
 config_use_spinlock=1
 config_use_serial=1
+config_use_clock_24=1
 
 CC=avr-gcc
 
@@ -56,6 +57,7 @@ cflags=$cflags' -fshort-enums'
 cflags=$cflags' -DLZ_CONFIG_USE_MUTEX='$config_use_mutex
 cflags=$cflags' -DLZ_CONFIG_USE_SPINLOCK='$config_use_spinlock
 cflags=$cflags' -DLZ_CONFIG_USE_SERIAL='$config_use_serial
+cflags=$cflags' -DLZ_CONFIG_USE_CLOCK_24'=$config_use_clock_24
 
 echo $cflags | sed 's/ /\n/g'
 
@@ -99,6 +101,8 @@ $CC $cflags -c kern/arch/AVR/mutex.S \
     -o arch_mutex.o
 $CC $cflags -c kern/serial.c \
     -o serial.o
+$CC $cflags -c kern/clock_24.c \
+    -o clock_24.o
 $CC $cflags -c kern/sizeof_types.c \
     -o sizeof_types.o
 $CC $cflags -c libc/stdint_assertions.c \
@@ -134,6 +138,11 @@ if [ $config_use_serial -eq 1 ]
 then
     object_files=$object_files' usart.o'
     object_files=$object_files' serial.o'
+fi
+
+if [ $config_use_clock_24 -eq 1 ]
+then
+    object_files=$object_files' clock_24.o'
 fi
 
 echo

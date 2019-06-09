@@ -10,6 +10,7 @@
  * the final binary image.
  */
 
+#include <Lazuli/clock_24.h>
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 #include <Lazuli/mutex.h>
@@ -33,6 +34,9 @@
   __message_##T = M
 
 /** @cond false */
+
+SIZEOF_TYPE(Clock24,
+            "RAM needed for a Clock24.");
 
 SIZEOF_TYPE(HpfTask,
             "RAM needed for an HPF task.");
