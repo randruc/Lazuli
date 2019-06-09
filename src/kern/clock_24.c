@@ -10,7 +10,7 @@
 /**
  * The system Clock24.
  */
-static Clock24 clock24 = {0};
+static volatile Clock24 clock24 = {0};
 
 /**
  * Increment an uint8_t value, and reset it if it reaches the value in
@@ -25,7 +25,7 @@ static Clock24 clock24 = {0};
  *           - The value was incremented without resetting
  */
 static bool
-IncrementUntil(uint8_t * const value, const uint8_t comparator)
+IncrementUntil(volatile uint8_t * const value, const uint8_t comparator)
 {
   if (*value == comparator) {
     *value = 0;
@@ -117,7 +117,7 @@ Clock24_Increment(void)
 void
 Lz_Clock24_Get(Clock24 * const userClock24)
 {
-  volatile uint8_t version;
+  uint8_t version;
 
   if (NULL == userClock24) {
     return;

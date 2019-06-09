@@ -20,10 +20,10 @@ _EXTERN_C_DECL_BEGIN
  * Represents the type used to hold the time.
  */
 typedef struct {
-  uint8_t hours;            /**< Hours          */
-  uint8_t minutes;          /**< Minutes        */
-  uint8_t seconds;          /**< Seconds        */
-  volatile uint8_t version; /**< Version number */
+  uint8_t hours;   /**< Hours          */
+  uint8_t minutes; /**< Minutes        */
+  uint8_t seconds; /**< Seconds        */
+  uint8_t version; /**< Version number */
 }Clock24;
 
 /**
