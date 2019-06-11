@@ -54,6 +54,12 @@ static Lz_LinkedList terminatedTasks = LINKED_LIST_INIT;
  */
 static Lz_LinkedList abortedTasks = LINKED_LIST_INIT;
 
+/*
+ * TODO: When running idle, find out what to do with currentTask. Should it be
+ * set to NULL ? Because when we run idle, we re-enable interrupts, so the next
+ * interrupt will save the context of... nothing!!!
+ */
+
 /**
  * Insert a task in a list, keeping priorities ordered by period (shortest to
  * largest).
