@@ -38,9 +38,9 @@
 #define LZ_CONFIG_MACHINE_CLOCK_FREQUENCY (16000000)
 
 /**
- * The operating system clock resolution, in seconds.
+ * The operating system clock resolution frequency, in Hertz.
  */
-#define LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION (0.002)
+#define LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY (500)
 
 /**
  * When 1, run an infinite loop on kernel panic.

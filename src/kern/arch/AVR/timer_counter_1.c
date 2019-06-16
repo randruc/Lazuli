@@ -17,12 +17,12 @@
 #define TIMER_COUNTER_1_PRESCALER (8)
 
 /**
- * Setting for the compare register whith the desired settings.
+ * Value of the compare match register whith the desired clock settings.
  */
 #define COMPARE_MATCH_REGISTER_VALUE                                    \
-  ((uint16_t)                                                           \
-   ((LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION *                                \
-     (LZ_CONFIG_MACHINE_CLOCK_FREQUENCY / TIMER_COUNTER_1_PRESCALER)) - 1))
+  ((uint16_t)((LZ_CONFIG_MACHINE_CLOCK_FREQUENCY /                      \
+               (TIMER_COUNTER_1_PRESCALER *                             \
+                LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY)) - 1))     \
 
 void
 Arch_InitSystemTimer(void)
@@ -30,12 +30,11 @@ Arch_InitSystemTimer(void)
   const uint16_t compareMatchRegisterValue = COMPARE_MATCH_REGISTER_VALUE;
 
   TCCR1A = 0;
-  TCCR1B = 0;
-  TCCR1B |= TCCR1B_WGM12; /* CTC mode, TOP is OCR1A */
   TIMSK1 = 0;
   TIFR1 = 0;
   TCNT1H = 0;
   TCNT1L = 0;
+  TCCR1B = TCCR1B_WGM12; /* CTC mode, TOP is OCR1A */
   OCR1AH = HI8(compareMatchRegisterValue);
   OCR1AL = LO8(compareMatchRegisterValue);
 }

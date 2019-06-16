@@ -72,7 +72,7 @@ IncrementHours(void)
 void
 Clock24_Increment(void)
 {
-  const uint16_t ticksInOneSecond = 1 / LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION;
+  const uint16_t ticksInOneSecond = LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY;
   static uint16_t ticksToNewSecond = 0;
 
   ticksToNewSecond++;
