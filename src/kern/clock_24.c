@@ -13,6 +13,11 @@
 static volatile Clock24 clock24 = {0};
 
 /**
+ * The clock version value.
+ */
+static volatile uint8_t clockVersion = 0;
+
+/**
  * Increment an uint8_t value, and reset it if it reaches the value in
  * @p comparator.
  *
@@ -66,7 +71,7 @@ IncrementMinutes(void)
 static void
 IncrementHours(void)
 {
-  IncrementUntil(&clock24.hours, 24);
+  IncrementUntil(&clock24.hours, 23);
 }
 
 void
@@ -83,10 +88,10 @@ Clock24_Increment(void)
 
   ticksToNewSecond = 0;
 
-  if (clock24.version == UINT8_MAX) {
-    clock24.version = 0;
+  if (clockVersion == UINT8_MAX) {
+    clockVersion = 0;
   } else {
-    clock24.version++;
+    clockVersion++;
   }
 
   if (IncrementSeconds()) {
@@ -99,16 +104,17 @@ Clock24_Increment(void)
 /*
  * The working of this function needs an explanation.
  *
- * While we read all the fields of struct Clock24 clock24, the kernel can
- * interrupt this function to update the fields. If that happends we will
- * obtain a copy of struct Clock24 clock24 that is not correct. i.e. half of the
- * fields with the previous value, and the other half with the updated value.
+ * While a user task reads all the fields of struct Clock24 clock24, an
+ * interrupt can occur to run the kernel that will update the fields. If that
+ * happens we will obtain a copy of struct Clock24 clock24 that is corrupted.
+ * i.e. some of the fields with the previous value, and the others with the
+ * updated value.
  *
  * To avoid that, we use this kind of "optimistic access":
- * A version number is contained in struct Clock24. As all of the fields are
- * updated by the kernel at the same time without interrupting, the new values
- * of the time fields in the struct with correspond to a new value of the
- * version field.
+ * A version number is associated to struct Clock24. As all of the fields of
+ * struct Clock24 and version number are updated by the kernel at the same time
+ * without interrupting, the new values of the time fields in the struct will be
+ * associated to a new value of the version field.
  * We first read the current version number, then read all the time fields, and
  * finally read the version number again. If the two version numbers differ we
  * then know that the kernel updated the struct Clock24 clock24 while we were
@@ -124,11 +130,9 @@ Lz_Clock24_Get(Clock24 * const userClock24)
   }
 
   do {
-    /* We don't use Memory_Copy() here to guarantee the order of copying. */
-    version = clock24.version;
+    version = clockVersion;
     userClock24->hours = clock24.hours;
     userClock24->minutes = clock24.minutes;
     userClock24->seconds = clock24.seconds;
-    userClock24->version = clock24.version;
-  } while (version != userClock24->version);
+  } while (version != clockVersion);
 }
