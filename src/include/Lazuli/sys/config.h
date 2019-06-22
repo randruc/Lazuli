@@ -229,4 +229,23 @@
 
 /** @} */
 
+/**
+ * @name Configuration macros redeclarations for Frama-C
+ *
+ * These declarations are here to provide a true declaration for macro constants
+ * definitions usually injected by the compiler.
+ */
+/** @{                                    */
+
+#ifdef LZ_USING_FRAMA_C
+
+extern int LZ_CONFIG_USE_MUTEX;
+extern int LZ_CONFIG_USE_SPINLOCK;
+extern int LZ_CONFIG_USE_SERIAL;
+extern int LZ_CONFIG_USE_CLOCK_24;
+
+#endif /* LZ_USING_FRAMA_C */
+
+/** @} */
+
 #endif /* LAZULI_SYS_CONFIG_H */
