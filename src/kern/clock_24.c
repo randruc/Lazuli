@@ -1,3 +1,11 @@
+/**
+ * @file src/kern/clock_24.c
+ * @brief 24-Hour clock kernel implementation.
+ * @date Jun 2019
+ * @author Remi Andruccioli
+ *
+ * This file describes the implementation of the kernel 24-Hour clock.
+ */
 
 #include <stdint.h>
 
@@ -50,7 +58,7 @@ static volatile uint8_t clockVersion = 0;
 static bool
 IncrementUntil(volatile uint8_t * const value, const uint8_t comparator)
 {
-  if (*value == comparator) {
+  if (*value >= comparator) {
     *value = 0;
 
     return true;
