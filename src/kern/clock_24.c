@@ -29,6 +29,24 @@ static volatile uint8_t clockVersion = 0;
  *         _false_ if:
  *           - The value was incremented without resetting
  */
+/*@
+  @requires \valid(value);
+  @requires comparator == 23 || comparator == 59;
+  @assigns *value;
+  @
+  @behavior comparator_reached:
+  @  assumes *value >= comparator;
+  @  ensures *value == 0;
+  @  ensures \result == \true;
+  @  
+  @behavior comparator_not_reached:
+  @  assumes *value < comparator;
+  @  ensures *value  == \old(*value) + 1;
+  @  ensures \result == \false;
+  @  
+  @complete behaviors;
+  @disjoint behaviors;
+  @*/
 static bool
 IncrementUntil(volatile uint8_t * const value, const uint8_t comparator)
 {
@@ -135,4 +153,9 @@ Lz_Clock24_Get(Clock24 * const userClock24)
     userClock24->minutes = clock24.minutes;
     userClock24->seconds = clock24.seconds;
   } while (version != clockVersion);
+
+  /*@assert version == clockVersion; */
+  /*@assert userClock24->hours == clock24.hours; */
+  /*@assert userClock24->minutes == clock24.minutes; */
+  /*@assert userClock24->seconds == clock24.seconds; */
 }
