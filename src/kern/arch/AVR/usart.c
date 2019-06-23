@@ -494,9 +494,10 @@ SetSize(const enum Lz_SerialSize size)
  */
 PROGMEM static const
 uint16_t serialSpeedRegisterValue[] = {
-  (uint16_t)25, /**< entry: LZ_SERIAL_SPEED_2400 */
-  (uint16_t)12, /**< entry: LZ_SERIAL_SPEED_4800 */
-  (uint16_t)6   /**< entry: LZ_SERIAL_SPEED_9600 */
+  (uint16_t)416, /**< entry: LZ_SERIAL_SPEED_2400  */
+  (uint16_t)207, /**< entry: LZ_SERIAL_SPEED_4800  */
+  (uint16_t)103, /**< entry: LZ_SERIAL_SPEED_9600  */
+  (uint16_t)51   /**< entry: LZ_SERIAL_SPEED_19200 */
 };
 
 /** @cond false */

@@ -195,6 +195,11 @@ enum Lz_SerialSpeed {
   LZ_SERIAL_SPEED_9600,
 
   /**
+   * Use a 19200 baud rate on the serial line.
+   */
+  LZ_SERIAL_SPEED_19200,
+
+  /**
    * @cond false
    *
    * Undocumented to user: only here for static verification.
