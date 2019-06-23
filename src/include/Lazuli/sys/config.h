@@ -86,6 +86,18 @@
  */
 #define LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION (0)
 
+/**
+ * Check if the interrupt code sent by the ASM interrupt handler to the base
+ * scheduler interrupt handler is an admissible value.
+ */
+#define LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
+
+/**
+ * If set to 1, put the CPU to sleep when it's idle.
+ * If set to 0, the CPU will actively infinite loop when it's idle.
+ */
+#define LZ_CONFIG_ON_IDLE_SLEEP (0)
+
 /** @name HPF Scheduling */
 /** @{                   */
 
@@ -119,17 +131,31 @@
 
 /** @} */
 
+/** @name RMS Scheduling */
+/** @{                   */
 /**
- * Check if the interrupt code sent by the ASM interrupt handler to the base
- * scheduler interrupt handler is an admissible value.
+ * The stack size in bytes of the RMS scheduler idle task.
  */
-#define LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
+#define LZ_CONFIG_RMS_IDLE_TASK_STACK_SIZE (10)
 
 /**
- * If set to 1, put the CPU to sleep when it's idle.
- * If set to 0, the CPU will actively infinite loop when it's idle.
+ * Configure if the idle task must have a name.
+ *
+ * If set to 1, the idle task will have a name attached to it, and the necessary
+ * bytes will be used to store this name in read-only data section. This name is
+ * defined in this configuration file.
+ *
+ * If set to 0, the idle task will have no name attached to it. Thus it can save
+ * a few bytes in the read-only data section.
  */
-#define LZ_CONFIG_ON_IDLE_SLEEP (0)
+#define LZ_CONFIG_RMS_IDLE_TASK_HAS_NAME (1)
+
+/**
+ * The name of the RMS idle task.
+ * Never used if RMS_IDLE_TASK_HAS_NAME is set to 0.
+ */
+#define LZ_CONFIG_RMS_IDLE_TASK_NAME "rms-idle-task"
+/** @} */
 
 /** @name Spinlocks */
 /** @{              */
