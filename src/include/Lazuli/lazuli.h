@@ -72,6 +72,12 @@ enum Lz_SchedulerClass {
 typedef int8_t Lz_TaskPriority;
 
 /**
+ * Represents the type used for the system clock resolution unit, as an unsigned
+ * integer.
+ */
+typedef uint16_t Lz_ResolutionUnit;
+
+/**
  * Represents the configuration of a task.
  */
 typedef struct {
@@ -99,7 +105,7 @@ typedef struct {
    *
    * The period is expressed as an integer number of time units.
    */
-  uint16_t period;
+  Lz_ResolutionUnit period;
 
   /**
    * The completion time (C) of the task (worst case execution time).
@@ -107,7 +113,7 @@ typedef struct {
    *
    * The completion time is expressed as an integer number of time units.
    */
-  uint16_t completion;
+  Lz_ResolutionUnit completion;
 }Lz_TaskConfiguration;
 
 /**
@@ -189,6 +195,14 @@ Lz_Task_GetName(void);
  */
 void
 Lz_Task_Terminate(void);
+
+/**
+ * Set the calling task to wait for its next activation.
+ * May be used if the task finnished its work without consuming all of its
+ * completion time.
+ */
+void
+Lz_Task_WaitActivation(void);
 
 _EXTERN_C_DECL_END
 

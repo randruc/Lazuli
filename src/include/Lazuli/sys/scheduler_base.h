@@ -42,10 +42,13 @@ typedef struct {
    *                          This parameter can never be _NULL_, but some of
    *                          its fields can contain default configuration
    *                          values.
+   * @param idleTask A boolean value indicating that the call is made to
+   *                 register the idle task of the scheduler.
    *
    * @return A pointer to the newly allocated and initialized Task.
    */
-  Task * (*registerTask)(const Lz_TaskConfiguration * const taskConfiguration);
+  Task * (*registerTask)(const Lz_TaskConfiguration * const taskConfiguration,
+                         const bool idleTask);
 
   /**
    * Run the scheduler.
@@ -199,6 +202,27 @@ BaseScheduler_WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks);
  */
 void
 BaseScheduler_WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks);
+
+/**
+ * Register a new task.
+ *
+ * @param taskEntryPoint The entry point of the task to register.
+ *                       i.e. A pointer to the function representing the task.
+ * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing the
+ *                          configuration of the task being registered.
+ *                          If NULL is passed, then default values are applied
+ *                          for all parameters.
+ * @param idleTask A boolean value indicating that the task to register is the
+ *                 scheduler idle task.
+ *
+ * @return
+ *         - _true_ if the task has been registered without error.
+ *         - _false_ if an error occured during registration.
+ */
+bool
+BaseScheduler_RegisterTask(void (* const taskEntryPoint)(void),
+                           const Lz_TaskConfiguration * taskConfiguration,
+                           bool idleTask);
 
 _EXTERN_C_DECL_END
 

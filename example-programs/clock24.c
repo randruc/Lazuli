@@ -16,10 +16,19 @@
 void
 Task1()
 {
-  volatile uint8_t i = 0;
+  Clock24 clock24;
 
   for (;;) {
-    i++;
+    Lz_Task_WaitActivation();
+
+    Lz_Clock24_Get(&clock24);
+    
+    Usart_HexaPrint_u16(clock24.hours);
+    Usart_PutChar(':');
+    Usart_HexaPrint_u16(clock24.minutes);
+    Usart_PutChar(':');
+    Usart_HexaPrint_u16(clock24.seconds);
+    Usart_NewLine();
   }
 }
 
@@ -43,29 +52,14 @@ main(void)
 
   EnableSerialTransmission();
 
-  Usart_PrintRawString(".......\r\n");
+  Usart_PrintRawString("\r\n>>>>>>>\r\n");
   
   Lz_SetSchedulerClass(LZ_SCHED_RMS);
   
   Lz_TaskConfiguration_Init(&taskConfiguration);
-  taskConfiguration.period = 4;
-  taskConfiguration.completion = 1;
-  taskConfiguration.name = "1";
+  taskConfiguration.period = 50;
+  taskConfiguration.completion = 5;
   Lz_RegisterTask(Task1, &taskConfiguration);
-
-  Lz_TaskConfiguration_Init(&taskConfiguration);
-  taskConfiguration.period = 6;
-  taskConfiguration.completion = 2;
-  taskConfiguration.name = "2";
-  Lz_RegisterTask(Task1, &taskConfiguration);
-
-  Lz_TaskConfiguration_Init(&taskConfiguration);
-  taskConfiguration.period = 12;
-  taskConfiguration.completion = 3;
-  taskConfiguration.name = "3";
-  Lz_RegisterTask(Task1, &taskConfiguration);
-
-  Usart_PrintRawString("------\r\n");
   
   Lz_Run();
 

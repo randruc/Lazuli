@@ -137,12 +137,15 @@ Init(void)
 }
 
 static Task *
-RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
+RegisterTask(const Lz_TaskConfiguration * const taskConfiguration,
+             const bool idleTask)
 {
   HpfTask *newTask = KIncrementalMalloc(sizeof(HpfTask));
   if (NULL == newTask) {
     return NULL;
   }
+
+  UNUSED(idleTask);
 
   newTask->priority = taskConfiguration->priority;
   List_InitLinkedListElement(&(newTask->stateQueue));

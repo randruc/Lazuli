@@ -113,7 +113,8 @@ Init(void)
 }
 
 static Task *
-RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
+RegisterTask(const Lz_TaskConfiguration * const taskConfiguration,
+             const bool idleTask)
 {
   RrTask *newTask = KIncrementalMalloc(sizeof(RrTask));
   if (NULL == newTask) {
@@ -121,6 +122,7 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
   }
 
   UNUSED(taskConfiguration);
+  UNUSED(idleTask);
 
   List_InitLinkedListElement(&(newTask->stateQueue));
   List_Append(&readyTasks, &(newTask->stateQueue));

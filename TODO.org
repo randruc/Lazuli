@@ -43,3 +43,5 @@
 ** The user list.h header file will only contain the definition of structs.
 * Find a way to get rid of #including AVR interrupts header file in kernel code.
 * If threads are killed/crash while holding locks, what happens?
+* For Cpu_Sleep -> Maybe combine the 3 calls in 1 ASM call.
+* Generate doxygen documentation for stdint.h.
