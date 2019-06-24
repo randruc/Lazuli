@@ -13,6 +13,7 @@
 #include <stdint.h>
 
 #include <Lazuli/common.h>
+#include <Lazuli/lazuli.h>
 #include <Lazuli/list.h>
 #include <Lazuli/sys/scheduler_base.h>
 
@@ -22,6 +23,39 @@ _EXTERN_C_DECL_BEGIN
  * Jump table to the operations of the Rate Monotonic Scheduler.
  */
 extern const SchedulerOperations RMSSchedulerOperations;
+
+/**
+ * Represents a message that an RmsTask can pass to the scheduler after its time
+ * slice has expired.
+ */
+enum TaskToSchedulerMessage {
+  /**
+   * @cond false
+   *
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the first one.
+   */
+  __TASK_TO_SCHEDULER_MESSAGE_ENUM_BEGIN = -1,
+
+  /**
+   * No message has to be passed to the scheduler.
+   */
+  NO_MESSAGE = -1,
+
+  /**
+   * Set the task to wait for its next activation.
+   * i.e. It finnished its work without consuming all of its completion time.
+   */
+  WAIT_ACTIVATION,
+
+  /**
+   * @cond false
+   *
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the last one.
+   */
+  __TASK_TO_SCHEDULER_MESSAGE_ENUM_END
+};
 
 /**
  * Represents a task registered in the RMS scheduler.
@@ -43,26 +77,32 @@ typedef struct {
    * The period (T) of the task, expressed as an integer number of time units.
    * Defined by task configuration when registering task, then left read-only.
    */
-  uint16_t period;
+  Lz_ResolutionUnit period;
 
   /**
    * The completion time (C) of the task (worst case execution time), expressed
    * as an integer number of time units.
    * Defined by task configuration when registering task, then left read-only.
    */
-  uint16_t completion;
+  Lz_ResolutionUnit completion;
 
   /**
    * The number of time units until the task will complete its execution.
    * Updated by scheduler.
    */
-  uint16_t timeUntilCompletion;
+  Lz_ResolutionUnit timeUntilCompletion;
 
   /**
    * The number of time units until the task will be activated.
    * Updated by scheduler.
    */
-  uint16_t timeUntilActivation;
+  Lz_ResolutionUnit timeUntilActivation;
+
+  /**
+   * The message the task has to pass to the scheduler for the next scheduling
+   * operation (i.e. after its time slice expires).
+   */
+  enum TaskToSchedulerMessage taskToSchedulerMessage;
 }RmsTask;
 
 /**

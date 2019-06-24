@@ -8,11 +8,13 @@
  */
 
 #include <Lazuli/common.h>
+#include <Lazuli/lazuli.h>
 #include <Lazuli/list.h>
 
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/clock_24.h>
+#include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
@@ -54,11 +56,27 @@ static Lz_LinkedList terminatedTasks = LINKED_LIST_INIT;
  */
 static Lz_LinkedList abortedTasks = LINKED_LIST_INIT;
 
-/*
- * TODO: When running idle, find out what to do with currentTask. Should it be
- * set to NULL ? Because when we run idle, we re-enable interrupts, so the next
- * interrupt will save the context of... nothing!!!
+/**
+ * The idle task.
+ *
+ * This task is run when no other task is ready to run.
  */
+static NOINIT RmsTask *idleTask;
+
+/**
+ * Idle tak.
+ *
+ * This task is executed when no other task is ready for execution.
+ */
+static void
+IdleTask(void)
+{
+  for (;;) {
+    if (LZ_CONFIG_ON_IDLE_SLEEP) {
+      Arch_CpuSleep();
+    }
+  }
+}
 
 /**
  * Insert a task in a list, keeping priorities ordered by period (shortest to
@@ -97,8 +115,14 @@ InsertTaskByPeriodPriority(Lz_LinkedList * const list,
 /**
  * Elect the new current task.
  *
+ * The election is done by setting the pointer currentTask (or its binding
+ * *currentTaskAsRms) to the elected task.
+ *
  * This function is called at each clock tick (triggered by the timer at the
  * rate of the system time resolution).
+ *
+ * This function updates all tasks lists accordingly to the different realtime
+ * parameters and status of each task.
  */
 static void
 Schedule(void)
@@ -106,12 +130,29 @@ Schedule(void)
   RmsTask *loopTask;
   Lz_LinkedListElement *linkedListElement;
 
-  (*currentTaskAsRms)->timeUntilCompletion--;
+  if (*currentTaskAsRms != idleTask) {
+    (*currentTaskAsRms)->timeUntilCompletion--;
 
-  if (0 == (*currentTaskAsRms)->timeUntilCompletion) {
-    InsertTaskByPeriodPriority(&waitingTasks, *currentTaskAsRms);
-  } else {
-    InsertTaskByPeriodPriority(&readyTasks, *currentTaskAsRms);
+    if (WAIT_ACTIVATION == (*currentTaskAsRms)->taskToSchedulerMessage ||
+        0 == (*currentTaskAsRms)->timeUntilCompletion) {
+      List_Append(&waitingTasks, &(*currentTaskAsRms)->stateQueue);
+    } else {
+      InsertTaskByPeriodPriority(&readyTasks, *currentTaskAsRms);
+    }
+  }
+
+  (*currentTaskAsRms)->taskToSchedulerMessage = NO_MESSAGE;
+
+  List_ForEach(&readyTasks, RmsTask, loopTask, stateQueue) {
+    loopTask->timeUntilActivation--;
+
+    if (0 == loopTask->timeUntilActivation) {
+      if (loopTask->timeUntilCompletion > 0) {
+        /* TODO: Missed deadline */
+      } else {
+        loopTask->timeUntilActivation = loopTask->period;
+      }
+    }
   }
 
   List_RemovableForEach(&waitingTasks,
@@ -133,23 +174,24 @@ Schedule(void)
   linkedListElement = List_PickFirst(&readyTasks);
   if (NULL != linkedListElement) {
     *currentTaskAsRms = CONTAINER_OF(linkedListElement, stateQueue, RmsTask);
+  } else {
+    *currentTaskAsRms = idleTask;
   }
 }
 
 /**
- * @name scheduler_base implementation
+ * Callback of SchedulerOperations.registerTask() for registering a user task.
  *
- * @{
+ * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing
+ *                          the configuration of the task being registered.
+ *                          This parameter can never be _NULL_, but some of
+ *                          its fields can contain default configuration
+ *                          values.
+ *
+ * @return A pointer to the newly allocated and initialized Task.
  */
-
-static void
-Init(void)
-{
-  Arch_InitSystemTimer();
-}
-
 static Task *
-RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
+CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
   RmsTask *newTask;
 
@@ -165,27 +207,108 @@ RegisterTask(const Lz_TaskConfiguration * const taskConfiguration)
   newTask->period = taskConfiguration->period;
   newTask->completion = taskConfiguration->completion;
 
+  newTask->timeUntilActivation = newTask->period;
+  newTask->timeUntilCompletion = newTask->completion;
+
+  newTask->taskToSchedulerMessage = NO_MESSAGE;
+
   List_InitLinkedListElement(&newTask->stateQueue);
   InsertTaskByPeriodPriority(&readyTasks, newTask);
 
   return &newTask->base;
 }
 
+/**
+ * Callback of SchedulerOperations.registerTask() for registering the scheduler
+ * idle task.
+ *
+ * @return A pointer to the allocated and initialized idle Task.
+ */
+static Task *
+CallbackRegisterIdleTask(void)
+{
+  idleTask = KIncrementalMalloc(sizeof(RmsTask));
+  if (NULL == idleTask) {
+    return NULL;
+  }
+
+  idleTask->taskToSchedulerMessage = NO_MESSAGE;
+
+  return &idleTask->base;
+}
+
+/**
+ * Register the idle task.
+ *
+ * @return
+ *         - _true_ if the task has been registered without error.
+ *         - _false_ if an error occured during registration.
+ */
+static bool
+RegisterIdleTask(void)
+{
+  Lz_TaskConfiguration taskConfiguration;
+
+  Lz_TaskConfiguration_Init(&taskConfiguration);
+
+  taskConfiguration.stackSize = LZ_CONFIG_RMS_IDLE_TASK_STACK_SIZE;
+
+  if (LZ_CONFIG_RMS_IDLE_TASK_HAS_NAME) {
+    taskConfiguration.name = LZ_CONFIG_RMS_IDLE_TASK_NAME;
+  }
+
+  return BaseScheduler_RegisterTask(IdleTask, &taskConfiguration, true);
+}
+
+void
+Lz_Task_WaitActivation(void)
+{
+  (*currentTaskAsRms)->taskToSchedulerMessage = WAIT_ACTIVATION;
+
+  Arch_CpuSleep();
+}
+
+/**
+ * @name scheduler_base implementation
+ *
+ * @{
+ */
+
+static void
+Init(void)
+{
+  Arch_InitSystemTimer();
+}
+
+static Task *
+RegisterTask(const Lz_TaskConfiguration * const taskConfiguration,
+             const bool idleTask)
+{
+  if (idleTask) {
+    return CallbackRegisterIdleTask();
+  } else {
+    return CallbackRegisterUserTask(taskConfiguration);
+  }
+}
+
 static void
 Run(void)
 {
-  Lz_LinkedListElement *firstElement;
+  const Lz_LinkedListElement * const firstElement = List_PickFirst(&readyTasks);
+
+  if(!RegisterIdleTask()) {
+    Kernel_Panic();
+  }
 
   Arch_StartSystemTimer();
 
-  firstElement = List_PickFirst(&readyTasks);
   if (NULL != firstElement) {
     *currentTaskAsRms = CONTAINER_OF(firstElement, stateQueue, RmsTask);
-    Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
   } else {
-    /* No task is ready for execution */
-    /* Nothing to do! Idle. */
+    *currentTaskAsRms = idleTask;
   }
+
+  Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
 }
 
 static void

@@ -17,10 +17,11 @@
 project_name=Lazuli
 
 #user_file=unit-tests/unit_tests.c
+user_file=../example-programs/clock24.c
 #user_file=../example-programs/highest_priority_first.c
 #user_file=../example-programs/mutex.c
 #user_file=../example-programs/mutex_2.c
-user_file=../example-programs/rms.c
+#user_file=../example-programs/rms.c
 #user_file=../example-programs/round_robin.c
 #user_file=../example-programs/spinlocks.c
 

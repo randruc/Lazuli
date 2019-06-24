@@ -40,7 +40,7 @@
 /**
  * The operating system clock resolution frequency, in Hertz.
  */
-#define LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY (500)
+#define LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY (50)
 
 /**
  * When 1, run an infinite loop on kernel panic.
@@ -92,6 +92,7 @@
  */
 #define LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY (1)
 
+/* TODO: Check if this one is used */
 /**
  * If set to 1, put the CPU to sleep when it's idle.
  * If set to 0, the CPU will actively infinite loop when it's idle.
