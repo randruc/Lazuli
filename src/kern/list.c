@@ -137,7 +137,7 @@ List_IsEmpty(const Lz_LinkedList * const linkedList)
     }
   }
 
-  return (NULL == linkedList->first);
+  return (NULL == linkedList->first && NULL == linkedList->last);
 }
 
 void
