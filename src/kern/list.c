@@ -137,7 +137,7 @@ List_IsEmpty(const Lz_LinkedList * const linkedList)
     }
   }
 
-  return (NULL == linkedList->first);
+  return (NULL == linkedList->first && NULL == linkedList->last);
 }
 
 void
@@ -214,32 +214,6 @@ List_Remove(Lz_LinkedList * const linkedList,
   itemToRemove->next = NULL;
 
   return previousElement;
-}
-
-bool
-List_IsLastElement(const Lz_LinkedList * const linkedList,
-                   const Lz_LinkedListElement * const item)
-{
-  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
-    if (NULL == linkedList || NULL == item) {
-      return true;
-    }
-  }
-
-  return linkedList->last == item;
-}
-
-bool
-List_IsFirstElement(const Lz_LinkedList * const linkedList,
-                    const Lz_LinkedListElement * const item)
-{
-  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
-    if (NULL == linkedList || NULL == item) {
-      return true;
-    }
-  }
-
-  return linkedList->first == item;
 }
 
 Lz_LinkedListElement *

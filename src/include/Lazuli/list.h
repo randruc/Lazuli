@@ -286,47 +286,6 @@ List_Remove(Lz_LinkedList * const linkedList,
             Lz_LinkedListElement * const itemToRemove);
 
 /**
- * Test if an Lz_LinkedListElement is the last entry of an Lz_LinkedList.
- *
- * @param linkedList A pointer to an Lz_LinkedList.
- * @param item A pointer to the Lz_LinkedListElement to test.
- *
- * @return
- *         - _true_ if:
- *             + The item is the last element of the linkedList
- *             + One of the parameters is _NULL_ (if checking for _NULL_
- *               parameters is enabled in the configuration)
- *
- *         - _false_ if:
- *             + The item is not the last element of the linkedList
- *             + The item is not part of the likedList
- */
-bool
-List_IsLastElement(const Lz_LinkedList * const linkedList,
-                   const Lz_LinkedListElement * const item);
-
-/**
- * Test if an Lz_LinkedListElement is the first entry of an Lz_LinkedList.
- *
- * @param linkedList A pointer to an Lz_LinkedList.
- * @param item A pointer to the Lz_LinkedListElement to test.
- *
- * @return
- *         - _true_ if:
- *             + The item is the first element of the linkedList
- *             + One of the parameters is _NULL_ (if checking for _NULL_
- *               parameters is enabled in the configuration)
- *
- *         - _false_ if:
- *             + The item is not the first element of the linkedList
- *             + The item is not part of the likedList
- */
-bool
-List_IsFirstElement(const Lz_LinkedList * const linkedList,
-                    const Lz_LinkedListElement * const item);
-
-
-/**
  * Point to an indexed element in an Lz_LinkedList, starting at index 0.
  *
  * The element will not be removed from the list.
