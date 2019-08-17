@@ -23,11 +23,6 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * A pointer to the current running task.
- */
-extern Task *currentTask;
-
-/**
  * Reverse the bytes of a function pointer.
  *
  * @param pointer A function pointer.

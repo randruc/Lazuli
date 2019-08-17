@@ -1,6 +1,7 @@
 * Maybe switch to C99 (to allow inline). (or maybe not!)
 * Allow the user to define its own Panic() function
 * Be compatible with C++ user tasks
+* Be compatible with Rust task.
 * TODO Add a license and define a file header to add to each file for distribution
 * TODO Insert a raw string in the final binary to keep track of the kernel and version
 ** Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
@@ -33,7 +34,6 @@
 * Rename some functions for API consistency:
 ** Lz_Run() => Lz_System_Run()
 ** Lz_RegisterTask() => Lz_System_RegisterTask() (or Lz_Task_Register)
-** Lz_SetSchedulerClass() => Lz_Scheduler_SetClass()
 * Maybe think about moving config.h file out of sys/ directory.
 * Add non blocking mutex lock
 ** Something like bool Lz_Mutex_TryLock(Lz_Mutex * const mutex);
@@ -45,3 +45,5 @@
 * If threads are killed/crash while holding locks, what happens?
 * For Cpu_Sleep -> Maybe combine the 3 calls in 1 ASM call.
 * Generate doxygen documentation for stdint.h.
+* Make it ZERO dynamic allocation.
+** Allow the user to statically define the structures needed by the system (in particular tasks + stacks)

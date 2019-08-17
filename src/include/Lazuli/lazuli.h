@@ -48,12 +48,6 @@ typedef struct {
   size_t stackSize;
 
   /**
-   * The priority of the task.
-   * Used for HPF scheduling.
-   */
-  Lz_TaskPriority priority;
-
-  /**
    * The period (T) of the task.
    *
    * The period is expressed as an integer number of time units.

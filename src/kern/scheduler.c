@@ -21,6 +21,9 @@
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler.h>
 
+/**
+ * A pointer to the current running task.
+ */
 Task *currentTask;
 
 /**
@@ -60,9 +63,8 @@ static NOINIT Task *idleTask;
 static PROGMEM const Lz_TaskConfiguration DefaultTaskConfiguration = {
   NULL                                             /**< member: name       */,
   LZ_CONFIG_DEFAULT_TASK_STACK_SIZE                /**< member: stackSize  */,
-  (Lz_TaskPriority)LZ_CONFIG_DEFAULT_TASK_PRIORITY /**< member: priority   */,
   0                                                /**< member: period     */,
-  0                                                /**< member: completion */,
+  0                                                /**< member: completion */
 };
 
 /**
