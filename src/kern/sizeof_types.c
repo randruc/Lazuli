@@ -16,7 +16,6 @@
 #include <Lazuli/mutex.h>
 #include <Lazuli/spinlock.h>
 #include <Lazuli/sys/scheduler.h>
-#include <Lazuli/sys/scheduler_rms.h>
 #include <Lazuli/sys/task.h>
 
 /**
@@ -44,9 +43,6 @@ SIZEOF_TYPE(Lz_Spinlock,
 
 SIZEOF_TYPE(Lz_TaskConfiguration,
             "RAM needed for Lz_TaskConfiguration.");
-
-SIZEOF_TYPE(RmsTask,
-            "RAM needed for an RMS task.");
 
 SIZEOF_TYPE(Task,
             "RAM needed for a Task (base).");

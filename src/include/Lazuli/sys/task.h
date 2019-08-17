@@ -13,6 +13,7 @@
 #include <stdint.h>
 
 #include <Lazuli/common.h>
+#include <Lazuli/lazuli.h>
 #include <Lazuli/list.h>
 
 _EXTERN_C_DECL_BEGIN
@@ -62,6 +63,42 @@ typedef struct {
    * The saved stack pointer of the task.
    */
   void *stackPointer;
+
+  /**
+   * The scheduling queue on which the task is stored.
+   */
+  Lz_LinkedListElement stateQueue;
+
+  /**
+   * The period (T) of the task, expressed as an integer number of time units.
+   * Defined by task configuration when registering task, then left read-only.
+   */
+  Lz_ResolutionUnit period;
+
+  /**
+   * The completion time (C) of the task (worst case execution time), expressed
+   * as an integer number of time units.
+   * Defined by task configuration when registering task, then left read-only.
+   */
+  Lz_ResolutionUnit completion;
+
+  /**
+   * The number of time units until the task will complete its execution.
+   * Updated by scheduler.
+   */
+  Lz_ResolutionUnit timeUntilCompletion;
+
+  /**
+   * The number of time units until the task will be activated.
+   * Updated by scheduler.
+   */
+  Lz_ResolutionUnit timeUntilActivation;
+
+  /**
+   * The message the task has to pass to the scheduler for the next scheduling
+   * operation (i.e. after its time slice expires).
+   */
+  enum TaskToSchedulerMessage taskToSchedulerMessage;
 }Task;
 
 /**

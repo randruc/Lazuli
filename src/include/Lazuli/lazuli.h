@@ -70,6 +70,40 @@ typedef struct {
   Lz_ResolutionUnit completion;
 }Lz_TaskConfiguration;
 
+/* TODO: Maybe move this one somewhere else. */
+/**
+ * Represents a message that a Task can pass to the scheduler after its time
+ * slice has expired.
+ */
+enum TaskToSchedulerMessage {
+  /**
+   * @cond false
+   *
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the first one.
+   */
+  __TASK_TO_SCHEDULER_MESSAGE_ENUM_BEGIN = -1,
+
+  /**
+   * No message has to be passed to the scheduler.
+   */
+  NO_MESSAGE = -1,
+
+  /**
+   * Set the task to wait for its next activation.
+   * i.e. It finnished its work without consuming all of its completion time.
+   */
+  WAIT_ACTIVATION,
+
+  /**
+   * @cond false
+   *
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the last one.
+   */
+  __TASK_TO_SCHEDULER_MESSAGE_ENUM_END
+};
+
 /**
  * Register a new task.
  *

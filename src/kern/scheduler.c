@@ -20,20 +20,8 @@
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler.h>
-#include <Lazuli/sys/scheduler_rms.h>
 
 Task *currentTask;
-
-/**
- * Shorthand to cast base currentTask in the right type.
- * This way we obtain a bidirectionnal binding to currentTask cast as an RmsTask
- * pointer.
- */
-/*
- * "All problems in computer science can be solved by another level of
- * indirection" - David Wheeler
- */
-static RmsTask ** const currentTaskAsRms = (RmsTask**)&currentTask;
 
 /**
  * The queue of ready tasks.
@@ -64,7 +52,7 @@ static Lz_LinkedList abortedTasks = LINKED_LIST_INIT;
  *
  * This task is run when no other task is ready to run.
  */
-static NOINIT RmsTask *idleTask;
+static NOINIT Task *idleTask;
 
 /**
  * Contains default values for Lz_TaskConfiguration.
@@ -90,26 +78,6 @@ IdleTask(void)
       Arch_CpuSleep();
     }
   }
-}
-
-/*
- * We could declare this function as static.
- * But if we do this we can't unit test it...
- */
-void
-(*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void)
-{
-  const uint8_t maxIndex = sizeof(pointer) - 1;
-  const uint8_t * const oldPointerPointer = (const uint8_t * const)&pointer;
-  void (*newPointer)(void);
-  uint8_t * const newPointerPointer = (uint8_t * const)&newPointer;
-  uint8_t i;
-
-  for (i = 0; i <= maxIndex; ++i) {
-    newPointerPointer[maxIndex - i] = oldPointerPointer[i];
-  }
-
-  return newPointer;
 }
 
 /**
@@ -145,15 +113,15 @@ PrepareTaskContext(Task * const task)
  */
 static void
 InsertTaskByPeriodPriority(Lz_LinkedList * const list,
-                           RmsTask * const taskToInsert)
+                           Task * const taskToInsert)
 {
-  RmsTask *task;
+  Task *task;
 
   if (NULL == list || NULL == taskToInsert) {
     return;
   }
 
-  List_ForEach (list, RmsTask, task, stateQueue) {
+  List_ForEach (list, Task, task, stateQueue) {
     if (task->period > taskToInsert->period) {
       List_InsertBefore(list,
                         &task->stateQueue,
@@ -163,7 +131,7 @@ InsertTaskByPeriodPriority(Lz_LinkedList * const list,
     }
   }
 
-  List_Append(list, &(taskToInsert->stateQueue));
+  List_Append(list, &taskToInsert->stateQueue);
 }
 
 /**
@@ -181,23 +149,23 @@ InsertTaskByPeriodPriority(Lz_LinkedList * const list,
 static void
 Schedule(void)
 {
-  RmsTask *loopTask;
+  Task *loopTask;
   Lz_LinkedListElement *linkedListElement;
 
-  if (*currentTaskAsRms != idleTask) {
-    (*currentTaskAsRms)->timeUntilCompletion--;
+  if (currentTask != idleTask) {
+    currentTask->timeUntilCompletion--;
 
-    if (WAIT_ACTIVATION == (*currentTaskAsRms)->taskToSchedulerMessage ||
-        0 == (*currentTaskAsRms)->timeUntilCompletion) {
-      List_Append(&waitingTasks, &(*currentTaskAsRms)->stateQueue);
+    if (WAIT_ACTIVATION == currentTask->taskToSchedulerMessage ||
+        0 == currentTask->timeUntilCompletion) {
+      List_Append(&waitingTasks, &currentTask->stateQueue);
     } else {
-      InsertTaskByPeriodPriority(&readyTasks, *currentTaskAsRms);
+      InsertTaskByPeriodPriority(&readyTasks, currentTask);
     }
   }
 
-  (*currentTaskAsRms)->taskToSchedulerMessage = NO_MESSAGE;
+  currentTask->taskToSchedulerMessage = NO_MESSAGE;
 
-  List_ForEach(&readyTasks, RmsTask, loopTask, stateQueue) {
+  List_ForEach(&readyTasks, Task, loopTask, stateQueue) {
     loopTask->timeUntilActivation--;
 
     if (0 == loopTask->timeUntilActivation) {
@@ -210,7 +178,7 @@ Schedule(void)
   }
 
   List_RemovableForEach(&waitingTasks,
-                        RmsTask,
+                        Task,
                         loopTask,
                         stateQueue,
                         linkedListElement) {
@@ -227,9 +195,9 @@ Schedule(void)
 
   linkedListElement = List_PickFirst(&readyTasks);
   if (NULL != linkedListElement) {
-    *currentTaskAsRms = CONTAINER_OF(linkedListElement, stateQueue, RmsTask);
+    currentTask = CONTAINER_OF(linkedListElement, stateQueue, Task);
   } else {
-    *currentTaskAsRms = idleTask;
+    currentTask = idleTask;
   }
 }
 
@@ -247,13 +215,13 @@ Schedule(void)
 static Task *
 CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
 {
-  RmsTask *newTask;
+  Task *newTask;
 
   if (0 == taskConfiguration->period || 0 == taskConfiguration->completion) {
     return NULL;
   }
 
-  newTask = KIncrementalMalloc(sizeof(RmsTask));
+  newTask = KIncrementalMalloc(sizeof(Task));
   if (NULL == newTask) {
     return NULL;
   }
@@ -269,7 +237,7 @@ CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
   List_InitLinkedListElement(&newTask->stateQueue);
   InsertTaskByPeriodPriority(&readyTasks, newTask);
 
-  return &newTask->base;
+  return newTask;
 }
 
 /**
@@ -281,14 +249,14 @@ CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
 static Task *
 CallbackRegisterIdleTask(void)
 {
-  idleTask = KIncrementalMalloc(sizeof(RmsTask));
+  idleTask = KIncrementalMalloc(sizeof(Task));
   if (NULL == idleTask) {
     return NULL;
   }
 
   idleTask->taskToSchedulerMessage = NO_MESSAGE;
 
-  return &idleTask->base;
+  return idleTask;
 }
 
 /**
@@ -384,6 +352,26 @@ RegisterIdleTask(void)
  * @{
  */
 
+/*
+ * We could declare this function as static.
+ * But if we do this we can't unit test it...
+ */
+void
+(*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void)
+{
+  const uint8_t maxIndex = sizeof(pointer) - 1;
+  const uint8_t * const oldPointerPointer = (const uint8_t * const)&pointer;
+  void (*newPointer)(void);
+  uint8_t * const newPointerPointer = (uint8_t * const)&newPointer;
+  uint8_t i;
+
+  for (i = 0; i <= maxIndex; ++i) {
+    newPointerPointer[maxIndex - i] = oldPointerPointer[i];
+  }
+
+  return newPointer;
+}
+
 void
 Scheduler_Init(void)
 {
@@ -397,7 +385,7 @@ Scheduler_ManageTaskTermination(void * const sp)
     currentTask->stackPointer = sp;
   }
 
-  List_Append(&terminatedTasks, &(*currentTaskAsRms)->stateQueue);
+  List_Append(&terminatedTasks, &currentTask->stateQueue);
 
   Arch_EnableInterrupts();
 
@@ -418,7 +406,7 @@ Scheduler_AbortTask(void * const sp)
 {
   currentTask->stackPointer = sp;
 
-  List_Append(&abortedTasks, &(*currentTaskAsRms)->stateQueue);
+  List_Append(&abortedTasks, &currentTask->stateQueue);
 
   Arch_EnableInterrupts();
 
@@ -516,9 +504,9 @@ Lz_Run(void)
   Arch_StartSystemTimer();
 
   if (NULL != firstElement) {
-    *currentTaskAsRms = CONTAINER_OF(firstElement, stateQueue, RmsTask);
+    currentTask = CONTAINER_OF(firstElement, stateQueue, Task);
   } else {
-    *currentTaskAsRms = idleTask;
+    currentTask = idleTask;
   }
 
   Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
@@ -533,7 +521,7 @@ Lz_Task_GetName(void)
 void
 Lz_Task_WaitActivation(void)
 {
-  (*currentTaskAsRms)->taskToSchedulerMessage = WAIT_ACTIVATION;
+  currentTask->taskToSchedulerMessage = WAIT_ACTIVATION;
 
   Arch_CpuSleep();
 }
