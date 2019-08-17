@@ -15,7 +15,7 @@
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 #include <Lazuli/list.h>
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler.h>
 
 _EXTERN_C_DECL_BEGIN
 

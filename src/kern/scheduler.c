@@ -18,7 +18,7 @@
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/scheduler_rms.h>
 
 Task *currentTask;
@@ -50,12 +50,6 @@ static enum Lz_SchedulerClass schedulerClass;
 static const SchedulerOperations *JumpToScheduler[] = {
   &RMSSchedulerOperations, /** < index: LZ_SCHED_RMS */
 };
-
-/** @cond false */
-STATIC_ASSERT
-(__LZ_SCHEDULERCLASS_ENUM_END == ELEMENTS_COUNT(JumpToScheduler),
- The_JumpToScheduler_table_must_refer_each_Lz_SchedulerClass_enum_entry);
-/** @endcond */
 
 /*
  * We could declare this function as static.

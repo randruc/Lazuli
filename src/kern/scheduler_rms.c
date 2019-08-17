@@ -17,7 +17,7 @@
 #include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/scheduler_rms.h>
 #include <Lazuli/sys/task.h>
 

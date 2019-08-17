@@ -12,7 +12,7 @@
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/memory.h>
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/task.h>
 
 void

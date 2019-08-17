@@ -15,7 +15,7 @@
 #include <Lazuli/lazuli.h>
 #include <Lazuli/mutex.h>
 #include <Lazuli/spinlock.h>
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/scheduler_rms.h>
 #include <Lazuli/sys/task.h>
 
