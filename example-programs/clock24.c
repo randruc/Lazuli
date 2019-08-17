@@ -53,9 +53,7 @@ main(void)
   EnableSerialTransmission();
 
   Usart_PrintRawString("\r\n>>>>>>>\r\n");
-  
-  Lz_SetSchedulerClass(LZ_SCHED_RMS);
-  
+
   Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.period = 50;
   taskConfiguration.completion = 5;

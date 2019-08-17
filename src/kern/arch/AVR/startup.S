@@ -135,7 +135,7 @@ enter_kernel_handle_interrupt:
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER
-    jmp BaseScheduler_HandleInterrupt
+    jmp Scheduler_HandleInterrupt
 
 /**
  * Wait for a specific interrupt to occur.
@@ -161,7 +161,7 @@ Lz_WaitInterrupt:
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER
-    jmp BaseScheduler_WaitEvent
+    jmp Scheduler_WaitEvent
 
     .global Lz_Task_Terminate
 Lz_Task_Terminate:
@@ -172,7 +172,7 @@ Lz_Task_Terminate:
     in r25, sph
 .ENDIF
     RESET_KERNEL_STACK_POINTER
-    jmp BaseScheduler_ManageTaskTermination
+    jmp Scheduler_ManageTaskTermination
 
     .global Task_Abort
 Task_Abort:
@@ -181,7 +181,7 @@ Task_Abort:
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER
-    jmp BaseScheduler_AbortTask
+    jmp Scheduler_AbortTask
 
     ;; TODO: This label is global. See how we can rename it (Arch_XXX, Asm_XXX,
     ;; ...)

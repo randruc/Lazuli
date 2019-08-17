@@ -292,128 +292,25 @@ CallbackRegisterIdleTask(void)
 }
 
 /**
- * Register the idle task.
+ * Register a new task.
+ *
+ * @param taskEntryPoint The entry point of the task to register.
+ *                       i.e. A pointer to the function representing the task.
+ * @param taskConfiguration A pointer to an Lz_TaskConfiguration containing the
+ *                          configuration of the task being registered.
+ *                          If NULL is passed, then default values are applied
+ *                          for all parameters.
+ * @param idleTask A boolean value indicating that the task to register is the
+ *                 scheduler idle task.
  *
  * @return
  *         - _true_ if the task has been registered without error.
  *         - _false_ if an error occured during registration.
  */
 static bool
-RegisterIdleTask(void)
-{
-  Lz_TaskConfiguration taskConfiguration;
-
-  Lz_TaskConfiguration_Init(&taskConfiguration);
-
-  taskConfiguration.stackSize = LZ_CONFIG_RMS_IDLE_TASK_STACK_SIZE;
-
-  if (LZ_CONFIG_RMS_IDLE_TASK_HAS_NAME) {
-    taskConfiguration.name = LZ_CONFIG_RMS_IDLE_TASK_NAME;
-  }
-
-  return BaseScheduler_RegisterTask(IdleTask, &taskConfiguration, true);
-}
-
-void
-BaseScheduler_Init(void)
-{
-  Arch_InitSystemTimer();
-}
-
-void
-BaseScheduler_ManageTaskTermination(void * const sp)
-{
-  if (LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION) {
-    currentTask->stackPointer = sp;
-  }
-
-  List_Append(&terminatedTasks, &(*currentTaskAsRms)->stateQueue);
-
-  Arch_EnableInterrupts();
-
-  for(;;);
-
-  /*
-   * TODO: we have a problem here.
-   * Here, CPU is now idle.
-   * But Schedule() doesn't run the elected task.
-   *
-   * I think one good solution is to enter idle, and wait for the next clock
-   * tick.
-   */
-}
-
-void
-BaseScheduler_AbortTask(void * const sp)
-{
-  currentTask->stackPointer = sp;
-
-  List_Append(&abortedTasks, &(*currentTaskAsRms)->stateQueue);
-
-  Arch_EnableInterrupts();
-
-  for(;;);
-
-  /*
-   * TODO: we have a problem here.
-   * Here, CPU is now idle.
-   * But Schedule() doesn't run the elected task.
-   *
-   * I think one good solution is to enter idle, and wait for the next clock
-   * tick.
-   */
-}
-
-void
-BaseScheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode)
-{
-  if (LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
-    if (interruptCode > INT_LAST_ENTRY) {
-      Kernel_Panic();
-    }
-  }
-
-  currentTask->stackPointer = sp;
-
-  if (INT_TIMER1COMPA == interruptCode) {
-    if (LZ_CONFIG_USE_CLOCK_24) {
-      Clock24_Increment();
-    }
-
-    Schedule();
-  }
-
-  Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
-}
-
-/* TODO: Maybe think about rename this one to WaitInterrupt */
-void
-BaseScheduler_WaitEvent(void * const sp, const uint8_t eventCode)
-{
-  /* TODO: Implement this */
-  UNUSED(sp);
-  UNUSED(eventCode);
-}
-
-void
-BaseScheduler_WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks)
-{
-  /* TODO: Implement this */
-  UNUSED(waitingTasks);
-}
-
-void
-BaseScheduler_WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks)
-{
-  /* TODO: Implement this */
-  UNUSED(sp);
-  UNUSED(waitingTasks);
-}
-
-bool
-BaseScheduler_RegisterTask(void (* const taskEntryPoint)(void),
-                           const Lz_TaskConfiguration * taskConfiguration,
-                           bool idleTask)
+RegisterTask(void (* const taskEntryPoint)(void),
+             const Lz_TaskConfiguration * taskConfiguration,
+             bool idleTask)
 {
   Lz_TaskConfiguration defaultConfiguration;
   Task *newTask;
@@ -458,17 +355,135 @@ BaseScheduler_RegisterTask(void (* const taskEntryPoint)(void),
 
   return true;
 }
-/** @name User API */
-/** @{             */
+
+/**
+ * Register the idle task.
+ *
+ * @return
+ *         - _true_ if the task has been registered without error.
+ *         - _false_ if an error occured during registration.
+ */
+static bool
+RegisterIdleTask(void)
+{
+  Lz_TaskConfiguration taskConfiguration;
+
+  Lz_TaskConfiguration_Init(&taskConfiguration);
+
+  taskConfiguration.stackSize = LZ_CONFIG_RMS_IDLE_TASK_STACK_SIZE;
+
+  if (LZ_CONFIG_RMS_IDLE_TASK_HAS_NAME) {
+    taskConfiguration.name = LZ_CONFIG_RMS_IDLE_TASK_NAME;
+  }
+
+  return RegisterTask(IdleTask, &taskConfiguration, true);
+}
+
+/**
+ * @name Kernel API
+ * @{
+ */
 
 void
-Lz_SetSchedulerClass(const enum Lz_SchedulerClass userSchedulerClass)
+Scheduler_Init(void)
 {
- /* TODO: Remove this */
-  UNUSED(userSchedulerClass);
-
-  BaseScheduler_Init();
+  Arch_InitSystemTimer();
 }
+
+void
+Scheduler_ManageTaskTermination(void * const sp)
+{
+  if (LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION) {
+    currentTask->stackPointer = sp;
+  }
+
+  List_Append(&terminatedTasks, &(*currentTaskAsRms)->stateQueue);
+
+  Arch_EnableInterrupts();
+
+  for(;;);
+
+  /*
+   * TODO: we have a problem here.
+   * Here, CPU is now idle.
+   * But Schedule() doesn't run the elected task.
+   *
+   * I think one good solution is to enter idle, and wait for the next clock
+   * tick.
+   */
+}
+
+void
+Scheduler_AbortTask(void * const sp)
+{
+  currentTask->stackPointer = sp;
+
+  List_Append(&abortedTasks, &(*currentTaskAsRms)->stateQueue);
+
+  Arch_EnableInterrupts();
+
+  for(;;);
+
+  /*
+   * TODO: we have a problem here.
+   * Here, CPU is now idle.
+   * But Schedule() doesn't run the elected task.
+   *
+   * I think one good solution is to enter idle, and wait for the next clock
+   * tick.
+   */
+}
+
+void
+Scheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode)
+{
+  if (LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY) {
+    if (interruptCode > INT_LAST_ENTRY) {
+      Kernel_Panic();
+    }
+  }
+
+  currentTask->stackPointer = sp;
+
+  if (INT_TIMER1COMPA == interruptCode) {
+    if (LZ_CONFIG_USE_CLOCK_24) {
+      Clock24_Increment();
+    }
+
+    Schedule();
+  }
+
+  Arch_RestoreContextAndReturnFromInterrupt(currentTask->stackPointer);
+}
+
+/* TODO: Maybe think about rename this one to WaitInterrupt */
+void
+Scheduler_WaitEvent(void * const sp, const uint8_t eventCode)
+{
+  /* TODO: Implement this */
+  UNUSED(sp);
+  UNUSED(eventCode);
+}
+
+void
+Scheduler_WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks)
+{
+  /* TODO: Implement this */
+  UNUSED(waitingTasks);
+}
+
+void
+Scheduler_WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks)
+{
+  /* TODO: Implement this */
+  UNUSED(sp);
+  UNUSED(waitingTasks);
+}
+
+/** @} */
+
+/** @name User API */
+/** @{             */
 
 void
 Lz_TaskConfiguration_Init(Lz_TaskConfiguration * const taskConfiguration)
@@ -486,7 +501,7 @@ bool
 Lz_RegisterTask(void (* const taskEntryPoint)(void),
                 const Lz_TaskConfiguration * taskConfiguration)
 {
-  return BaseScheduler_RegisterTask(taskEntryPoint, taskConfiguration, false);
+  return RegisterTask(taskEntryPoint, taskConfiguration, false);
 }
 
 void

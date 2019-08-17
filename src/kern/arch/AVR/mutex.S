@@ -43,4 +43,4 @@ Arch_WaitMutex:
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER
-    jmp BaseScheduler_WaitMutex
+    jmp Scheduler_WaitMutex

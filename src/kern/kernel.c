@@ -17,6 +17,7 @@
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/memory.h>
+#include <Lazuli/sys/scheduler.h>
 
 /**
  * Main entry point for user tasks.
@@ -45,6 +46,7 @@ Kernel_Main(void)
   kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
 
   Arch_InitIdleCpuMode();
+  Scheduler_Init();
 
   if (LZ_CONFIG_USE_SERIAL) {
     Arch_InitSerial();

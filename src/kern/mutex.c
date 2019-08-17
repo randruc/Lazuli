@@ -68,6 +68,6 @@ Lz_Mutex_Unlock(Lz_Mutex * const mutex)
 
   Arch_DisableInterrupts();
   mutex->lock = 0;
-  BaseScheduler_WakeupTasksWaitingMutex(&(mutex->waitingTasks));
+  Scheduler_WakeupTasksWaitingMutex(&(mutex->waitingTasks));
   Arch_EnableInterrupts();
 }

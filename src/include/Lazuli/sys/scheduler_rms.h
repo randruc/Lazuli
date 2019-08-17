@@ -20,11 +20,6 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Jump table to the operations of the Rate Monotonic Scheduler.
- */
-extern const SchedulerOperations RMSSchedulerOperations;
-
-/**
  * Represents a message that an RmsTask can pass to the scheduler after its time
  * slice has expired.
  */

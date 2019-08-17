@@ -20,52 +20,6 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Represents a scheduling policy to run.
- */
-enum Lz_SchedulerClass {
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the first one.
-   */
-  __LZ_SCHEDULERCLASS_ENUM_BEGIN = -1,
-
-  /** @endcond */
-
-#if LZ_CONFIG_USE_SCHEDULER_RR
-  /**
-   * Round-Robin scheduling.
-   */
-  LZ_SCHED_RR,
-#endif /* LZ_CONFIG_USE_SCHEDULER_RR */
-
-#if LZ_CONFIG_USE_SCHEDULER_HPF
-  /**
-   * Highest Priority First scheduling.
-   */
-  LZ_SCHED_HPF,
-#endif /* LZ_CONFIG_USE_SCHEDULER_HPF */
-
-#if LZ_CONFIG_USE_SCHEDULER_RMS
-  /**
-   * Rate Monotonic Scheduling.
-   */
-  LZ_SCHED_RMS,
-#endif /* LZ_CONFIG_USE_SCHEDULER_RMS */
-
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the last one.
-   */
-  __LZ_SCHEDULERCLASS_ENUM_END
-
-  /** @endcond */
-};
-
-/**
  * Represents the priority of a task.
  * The higher the value, the higher the priority.
  */
@@ -115,15 +69,6 @@ typedef struct {
    */
   Lz_ResolutionUnit completion;
 }Lz_TaskConfiguration;
-
-/**
- * Set the scheduler class.
- *
- * @param userSchedulerClass A value of enum Lz_SchedulerClass to define the
- *                           scheduling policy.
- */
-void
-Lz_SetSchedulerClass(const enum Lz_SchedulerClass userSchedulerClass);
 
 /**
  * Register a new task.

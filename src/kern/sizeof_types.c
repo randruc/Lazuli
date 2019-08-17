@@ -48,9 +48,6 @@ SIZEOF_TYPE(Lz_TaskConfiguration,
 SIZEOF_TYPE(RmsTask,
             "RAM needed for an RMS task.");
 
-SIZEOF_TYPE(SchedulerOperations,
-            "RAM needed to hold operations for a single scheduler.");
-
 SIZEOF_TYPE(Task,
             "RAM needed for a Task (base).");
 
