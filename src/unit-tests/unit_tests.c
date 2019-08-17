@@ -13,7 +13,7 @@
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/compiler.h>
-#include <Lazuli/sys/scheduler_base.h>
+#include <Lazuli/sys/scheduler.h>
 
 /**
  * Perform an assertion inside a unit test.
@@ -1046,6 +1046,7 @@ EnableSerialTransmission() {
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
+  serialConfiguration.speed = LZ_SERIAL_SPEED_19200;
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 

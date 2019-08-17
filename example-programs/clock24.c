@@ -1,7 +1,7 @@
 /**
- * @file main.c
+ * @file clock24.c
  *
- * Entry point for user tasks.
+ * An example program demonstrating a simple real-time task: a clock.
  */
 
 #include <stdint.h>
@@ -14,7 +14,7 @@
 #include <Lazuli/sys/arch/AVR/usart.h>
 
 void
-Task1()
+ClockTask()
 {
   Clock24 clock24;
 
@@ -57,7 +57,7 @@ main(void)
   Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.period = 50;
   taskConfiguration.completion = 5;
-  Lz_RegisterTask(Task1, &taskConfiguration);
+  Lz_RegisterTask(ClockTask, &taskConfiguration);
   
   Lz_Run();
 

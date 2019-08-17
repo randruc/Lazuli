@@ -55,7 +55,6 @@ typedef struct {
 
   /**
    * The period (T) of the task.
-   * Used for RMS scheduling.
    *
    * The period is expressed as an integer number of time units.
    */
@@ -63,7 +62,6 @@ typedef struct {
 
   /**
    * The completion time (C) of the task (worst case execution time).
-   * Used for RMS scheduling.
    *
    * The completion time is expressed as an integer number of time units.
    */

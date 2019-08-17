@@ -137,8 +137,7 @@ InsertTaskByPeriodPriority(Lz_LinkedList * const list,
 /**
  * Elect the new current task.
  *
- * The election is done by setting the pointer currentTask (or its binding
- * *currentTaskAsRms) to the elected task.
+ * The election is done by setting the currentTask pointer to the elected task.
  *
  * This function is called at each clock tick (triggered by the timer at the
  * rate of the system time resolution).
@@ -338,10 +337,10 @@ RegisterIdleTask(void)
 
   Lz_TaskConfiguration_Init(&taskConfiguration);
 
-  taskConfiguration.stackSize = LZ_CONFIG_RMS_IDLE_TASK_STACK_SIZE;
+  taskConfiguration.stackSize = LZ_CONFIG_IDLE_TASK_STACK_SIZE;
 
-  if (LZ_CONFIG_RMS_IDLE_TASK_HAS_NAME) {
-    taskConfiguration.name = LZ_CONFIG_RMS_IDLE_TASK_NAME;
+  if (LZ_CONFIG_IDLE_TASK_HAS_NAME) {
+    taskConfiguration.name = LZ_CONFIG_IDLE_TASK_NAME;
   }
 
   return RegisterTask(IdleTask, &taskConfiguration, true);
