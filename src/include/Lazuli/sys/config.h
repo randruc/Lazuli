@@ -13,16 +13,6 @@
 #define LAZULI_SYS_CONFIG_H
 
 /**
- * Use Round-Robin scheduler.
- */
-#define LZ_CONFIG_USE_SCHEDULER_RR (1)
-
-/**
- * Use Highest Priority First scheduler.
- */
-#define LZ_CONFIG_USE_SCHEDULER_HPF (1)
-
-/**
  * Use Rate Monotonic Scheduler.
  */
 #define LZ_CONFIG_USE_SCHEDULER_RMS (1)
@@ -98,39 +88,6 @@
  * If set to 0, the CPU will actively infinite loop when it's idle.
  */
 #define LZ_CONFIG_ON_IDLE_SLEEP (0)
-
-/** @name HPF Scheduling */
-/** @{                   */
-
-/**
- * The stack size in bytes of the HPF scheduler idle task.
- */
-#define LZ_CONFIG_HPF_IDLE_TASK_STACK_SIZE (10)
-
-/**
- * The priority of the HPF scheduler idle task.
- */
-#define LZ_CONFIG_HPF_IDLE_TASK_PRIORITY (-1)
-
-/**
- * Configure if the idle task must have a name.
- *
- * If set to 1, the idle task will have a name attached to it, and the necessary
- * bytes will be used to store this name in read-only data section. This name is
- * defined in this configuration file.
- *
- * If set to 0, the idle task will have no name attached to it. Thus it can save
- * a few bytes in the read-only data section.
- */
-#define LZ_CONFIG_HPF_IDLE_TASK_HAS_NAME (1)
-
-/**
- * The name of the HPF idle task.
- * Never used if HPF_IDLE_TASK_HAS_NAME is set to 0.
- */
-#define LZ_CONFIG_HPF_IDLE_TASK_NAME "hpf-idle"
-
-/** @} */
 
 /** @name RMS Scheduling */
 /** @{                   */

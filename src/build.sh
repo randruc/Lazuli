@@ -18,11 +18,9 @@ project_name=Lazuli
 
 #user_file=unit-tests/unit_tests.c
 user_file=../example-programs/clock24.c
-#user_file=../example-programs/highest_priority_first.c
 #user_file=../example-programs/mutex.c
 #user_file=../example-programs/mutex_2.c
 #user_file=../example-programs/rms.c
-#user_file=../example-programs/round_robin.c
 #user_file=../example-programs/spinlocks.c
 
 debug=true
@@ -89,10 +87,6 @@ $CC $cflags -c kern/memory.c \
     -o memory.o
 $CC $cflags -c kern/scheduler_base.c \
     -o scheduler_base.o
-$CC $cflags -c kern/scheduler_rr.c \
-    -o scheduler_rr.o
-$CC $cflags -c kern/scheduler_hpf.c \
-    -o scheduler_hpf.o
 $CC $cflags -c kern/scheduler_rms.c \
     -o scheduler_rms.o
 $CC $cflags -c kern/list.c \
@@ -119,8 +113,6 @@ object_files=$object_files' timer_counter_1.o'
 object_files=$object_files' kernel.o'
 object_files=$object_files' memory.o'
 object_files=$object_files' scheduler_base.o'
-object_files=$object_files' scheduler_rr.o'
-object_files=$object_files' scheduler_hpf.o'
 object_files=$object_files' scheduler_rms.o'
 object_files=$object_files' list.o'
 

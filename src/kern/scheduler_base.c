@@ -19,9 +19,7 @@
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler_base.h>
-#include <Lazuli/sys/scheduler_hpf.h>
 #include <Lazuli/sys/scheduler_rms.h>
-#include <Lazuli/sys/scheduler_rr.h>
 
 Task *currentTask;
 
@@ -50,19 +48,7 @@ static enum Lz_SchedulerClass schedulerClass;
  * Here we statically register operations for all register classes.
  */
 static const SchedulerOperations *JumpToScheduler[] = {
-
-#if LZ_CONFIG_USE_SCHEDULER_RR
-  &RRSchedulerOperations,  /**< index: LZ_SCHED_RR  */
-#endif /* LZ_CONFIG_USE_SCHEDULER_RR */
-
-#if LZ_CONFIG_USE_SCHEDULER_HPF
-  &HPFSchedulerOperations, /**< index: LZ_SCHED_HPF */
-#endif /* LZ_CONFIG_USE_SCHEDULER_HPF */
-
-#if LZ_CONFIG_USE_SCHEDULER_RMS
   &RMSSchedulerOperations, /** < index: LZ_SCHED_RMS */
-#endif /* LZ_CONFIG_USE_SCHEDULER_RMS */
-
 };
 
 /** @cond false */
