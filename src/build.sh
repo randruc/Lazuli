@@ -87,8 +87,6 @@ $CC $cflags -c kern/memory.c \
     -o memory.o
 $CC $cflags -c kern/scheduler.c \
     -o scheduler.o
-$CC $cflags -c kern/scheduler_rms.c \
-    -o scheduler_rms.o
 $CC $cflags -c kern/list.c \
     -o list.o
 $CC $cflags -c kern/mutex.c \
@@ -113,7 +111,6 @@ object_files=$object_files' timer_counter_1.o'
 object_files=$object_files' kernel.o'
 object_files=$object_files' memory.o'
 object_files=$object_files' scheduler.o'
-object_files=$object_files' scheduler_rms.o'
 object_files=$object_files' list.o'
 
 if [ $config_use_spinlock -eq 1 ]
