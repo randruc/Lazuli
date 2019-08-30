@@ -1,17 +1,17 @@
 /**
- * @file src/kern/scheduler_base.c
- * @brief Base scheduler implementation.
+ * @file src/kern/scheduler.c
+ * @brief Lazuli scheduler implementation.
  * @date Mar 2018
  * @author Remi Andruccioli
  *
- * This files describes the common implementation of every scheduler classes in
- * Lazuli.
+ * This file describes the implementation of the Lazuli scheduler.
  */
 
 #include <stdint.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
+
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/clock_24.h>
@@ -68,7 +68,7 @@ static PROGMEM const Lz_TaskConfiguration DefaultTaskConfiguration = {
 };
 
 /**
- * Idle tak.
+ * The scheduler idle task.
  *
  * This task is executed when no other task is ready for execution.
  */

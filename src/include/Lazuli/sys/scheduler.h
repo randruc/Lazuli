@@ -1,13 +1,10 @@
 /**
- * @file src/include/Lazuli/sys/scheduler_base.h
- * @brief Base scheduler interface. The kernel API of the base scheduler.
+ * @file src/include/Lazuli/sys/scheduler.h
+ * @brief Lazuli scheduler interface. The kernel API of the scheduler.
  * @date Feb 2017
  * @author Remi Andruccioli
  *
- * This file describes the common interface of every scheduler classes in
- * Lazuli.
- * It defines the interface to which each scheduler class must conform.
- * It also defines symbols that are accessible to any scheduler class.
+ * This file describes the kernel interface of the Lazuli scheduler.
  */
 
 #ifndef LAZULI_SYS_SCHEDULER_BASE_H

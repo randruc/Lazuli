@@ -47,3 +47,4 @@
 * Generate doxygen documentation for stdint.h.
 * Make it ZERO dynamic allocation.
 ** Allow the user to statically define the structures needed by the system (in particular tasks + stacks)
+** Place the incremental memory allocator in a separate module. By the way, the incremental memory allocator is not thread safe.
