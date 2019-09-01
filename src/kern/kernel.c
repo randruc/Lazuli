@@ -17,6 +17,7 @@
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/memory.h>
+#include <Lazuli/sys/memory_allocation_incremental.h>
 #include <Lazuli/sys/scheduler.h>
 
 /**
@@ -28,22 +29,18 @@ void
 main(void);
 
 /**
- * The allocation map for the whole kernel.
- */
-AllocationMap kernelAllocationMap;
-
-/**
  * This is the kernel entry point.
  * This function must never return.
  */
 void
 Kernel_Main(void)
 {
-  /* Initialize the allocation map for the kernel */
-  kernelAllocationMap.baseMem = &_brk;
-  kernelAllocationMap.brk = &_brk;
-  kernelAllocationMap.endMem = &_ramend;
-  kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
+  if (LZ_CONFIG_USE_INCREMENTAL_MEMORY_ALLOCATOR) {
+    /* Initialize the allocation map for the kernel */
+    kernelAllocationMap.baseMem = &_brk;
+    kernelAllocationMap.brk = &_brk;
+    kernelAllocationMap.endMem = &_ramend;
+  }
 
   Arch_InitIdleCpuMode();
   Scheduler_Init();

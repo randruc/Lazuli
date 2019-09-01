@@ -43,9 +43,16 @@ typedef struct {
   char const *name;
 
   /**
-   * The size of the stack needed by the task
+   * The size of the stack needed by the task.
+   * Needed only when using dynamic allocation.
    */
   size_t stackSize;
+
+  bool useStaticAllocation;
+  
+  void *staticAllocatedStack;
+
+  void *staticAllocatedTask;
 
   /**
    * The period (T) of the task.

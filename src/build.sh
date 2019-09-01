@@ -29,6 +29,7 @@ config_use_mutex=1
 config_use_spinlock=1
 config_use_serial=1
 config_use_clock_24=1
+config_use_incremental_memory_allocator=0
 
 CC=avr-gcc
 
@@ -57,7 +58,8 @@ cflags=$cflags' -fshort-enums'
 cflags=$cflags' -DLZ_CONFIG_USE_MUTEX='$config_use_mutex
 cflags=$cflags' -DLZ_CONFIG_USE_SPINLOCK='$config_use_spinlock
 cflags=$cflags' -DLZ_CONFIG_USE_SERIAL='$config_use_serial
-cflags=$cflags' -DLZ_CONFIG_USE_CLOCK_24'=$config_use_clock_24
+cflags=$cflags' -DLZ_CONFIG_USE_CLOCK_24='$config_use_clock_24
+cflags=$cflags' -DLZ_CONFIG_USE_INCREMENTAL_MEMORY_ALLOCATOR='$config_use_incremental_memory_allocator
 
 echo $cflags | sed 's/ /\n/g'
 
@@ -85,6 +87,8 @@ $CC $cflags -c kern/kernel.c \
     -o kernel.o
 $CC $cflags -c kern/memory.c \
     -o memory.o
+$CC $cflags -c kern/memory_allocation_incremental.c \
+    -o memory_allocation_incremental.o
 $CC $cflags -c kern/scheduler.c \
     -o scheduler.o
 $CC $cflags -c kern/list.c \
@@ -134,6 +138,11 @@ fi
 if [ $config_use_clock_24 -eq 1 ]
 then
     object_files=$object_files' clock_24.o'
+fi
+
+if [ $config_use_incremental_memory_allocator -eq 1 ]
+then
+    object_files=$object_files' memory_allocation_incremental.o'
 fi
 
 echo

@@ -10,14 +10,8 @@
 #include <Lazuli/common.h>
 
 #include <Lazuli/sys/compiler.h>
-#include <Lazuli/sys/memory.h>
 
 _EXTERN_C_DECL_BEGIN
-
-/**
- * Allocation map for the kernel.
- */
-extern AllocationMap kernelAllocationMap;
 
 /**
  * Kernel panic.

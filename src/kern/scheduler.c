@@ -19,6 +19,7 @@
 #include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
+#include <Lazuli/sys/memory_allocation_incremental.h>
 #include <Lazuli/sys/scheduler.h>
 
 /**
@@ -222,9 +223,15 @@ CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
     return NULL;
   }
 
-  newTask = KIncrementalMalloc(sizeof(Task));
-  if (NULL == newTask) {
-    return NULL;
+  if (taskConfiguration->useStaticAllocation) {
+    newTask = staticAllocatedTask;
+  } else {
+    if (LZ_CONFIG_USE_INCREMENTAL_MEMORY_ALLOCATOR) {
+      newTask = KIncrementalMalloc(sizeof(Task));
+      if (NULL == newTask) {
+        return NULL;
+      }
+    }
   }
 
   newTask->period = taskConfiguration->period;
