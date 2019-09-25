@@ -16,8 +16,8 @@
 
 project_name=Lazuli
 
-#user_file=unit-tests/unit_tests.c
-user_file=../example-programs/clock24.c
+user_file=unit-tests/unit_tests.c
+#user_file=../example-programs/clock24.c
 #user_file=../example-programs/mutex.c
 #user_file=../example-programs/mutex_2.c
 #user_file=../example-programs/rms.c
@@ -75,8 +75,6 @@ $CC $cflags -c kern/arch/AVR/spinlock.S \
     -o arch_spinlock.o
 $CC $cflags -c kern/spinlock.c \
     -o spinlock.o
-$CC $cflags -c kern/arch/AVR/timer_counter_0.c \
-    -o timer_counter_0.o
 $CC $cflags -c kern/arch/AVR/timer_counter_1.c \
     -o timer_counter_1.o
 $CC $cflags -c kern/arch/AVR/usart.c \
@@ -106,7 +104,6 @@ object_files=''
 object_files=$object_files' arch.o'
 object_files=$object_files' interrupt_vectors_table.o'
 object_files=$object_files' startup.o'
-object_files=$object_files' timer_counter_0.o'
 object_files=$object_files' timer_counter_1.o'
 object_files=$object_files' kernel.o'
 object_files=$object_files' memory.o'
@@ -144,6 +141,7 @@ ar rcs lib$project_name.a $object_files
 
 $CC \
     $cflags \
+    -T kern/arch/AVR/linker.ld \
     -T kern/linker.ld \
     -o $project_name.elf \
     $user_file \
@@ -161,7 +159,7 @@ then
         $project_name.hex
 
     # TODO: This doesn't seem to display correct sizes (rodata...)
-    size -Adt Lazuli.elf | ./sizeof_sections.awk > /dev/tty
+    avr-size -Adt Lazuli.elf | ./sizeof_sections.awk > /dev/tty
     echo
     avr-objdump -j .data -D sizeof_types.o | ./sizeof_types.awk > /dev/tty
 

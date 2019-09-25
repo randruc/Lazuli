@@ -12,7 +12,7 @@
  * On AVR the only way to do that is by disabling/enabling interrupts.
  */
 
-.INCLUDE "kern/arch/AVR/asm_common.S"
+#include "asm_common.S"
 
     .global Arch_TryAcquireLock
 Arch_TryAcquireLock:
