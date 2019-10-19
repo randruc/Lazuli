@@ -49,11 +49,6 @@ set(
   -DLZ_CONFIG_USE_SERIAL=1
   -DLZ_CONFIG_USE_CLOCK_24=1)
 
-project(
-  Lazuli
-  LANGUAGES C ASM
-  VERSION 0.1.0)
-
 set(
   LAZULI_CORE_SOURCE_FILES
   kern/arch/AVR/arch.c
@@ -71,6 +66,11 @@ set(
   kern/arch/AVR/mutex.S
   kern/serial.c
   kern/clock_24.c)
+
+project(
+  Lazuli
+  LANGUAGES C ASM
+  VERSION 0.1.0)
 
 message("Target machine is: ${LZ_TARGET_MACHINE_CHOICE}")
 
