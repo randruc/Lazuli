@@ -7,9 +7,10 @@
  * This file describes the C part of the implementation of spinlocks.
  */
 
+#include <config.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/spinlock.h>
-#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/task.h>
 
 void

@@ -7,10 +7,11 @@
  * This file describes the implementation of serial interface configuration.
  */
 
+#include <config.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/serial.h>
 #include <Lazuli/sys/arch/arch.h>
-#include <Lazuli/sys/config.h>
 
 void
 Lz_Serial_GetConfiguration(Lz_SerialConfiguration * const serialConfiguration)

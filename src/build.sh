@@ -47,6 +47,7 @@ cflags=$cflags' -Wextra'
 cflags=$cflags' -Werror'
 cflags=$cflags' -Iinclude'
 cflags=$cflags' -Ilibc-headers/arch-dependent/AVR'
+cflags=$cflags' -Ibuild'
 cflags=$cflags' -mmcu=atmega328p'
 cflags=$cflags' -O2'
 cflags=$cflags' -nostartfiles'
@@ -104,34 +105,18 @@ object_files=''
 object_files=$object_files' arch.o'
 object_files=$object_files' interrupt_vectors_table.o'
 object_files=$object_files' startup.o'
+object_files=$object_files' arch_spinlock.o'
+object_files=$object_files' spinlock.o'
 object_files=$object_files' timer_counter_1.o'
+object_files=$object_files' usart.o'
 object_files=$object_files' kernel.o'
 object_files=$object_files' memory.o'
 object_files=$object_files' scheduler.o'
 object_files=$object_files' list.o'
-
-if [ $config_use_spinlock -eq 1 ]
-then
-    object_files=$object_files' spinlock.o'
-    object_files=$object_files' arch_spinlock.o'
-fi
-
-if [ $config_use_mutex -eq 1 ]
-then
-   object_files=$object_files' mutex.o'
-   object_files=$object_files' arch_mutex.o'
-fi
-
-if [ $config_use_serial -eq 1 ]
-then
-    object_files=$object_files' usart.o'
-    object_files=$object_files' serial.o'
-fi
-
-if [ $config_use_clock_24 -eq 1 ]
-then
-    object_files=$object_files' clock_24.o'
-fi
+object_files=$object_files' mutex.o'
+object_files=$object_files' arch_mutex.o'
+object_files=$object_files' serial.o'
+object_files=$object_files' clock_24.o'
 
 echo
 echo $object_files | sed 's/ /\n/g' | sort

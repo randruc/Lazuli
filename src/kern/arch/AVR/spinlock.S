@@ -11,7 +11,7 @@
  * On AVR the only way to do that is by disabling/enabling interrupts.
  */
 
-#include <Lazuli/sys/config.h>
+#include <config.h>
 
     .global Lz_Spinlock_Lock
 Lz_Spinlock_Lock:

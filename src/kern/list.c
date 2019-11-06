@@ -4,9 +4,10 @@
  * This file describes the operations related to lists.
  */
 
+#include <config.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/list.h>
-#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/memory.h>
 
 void

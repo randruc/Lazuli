@@ -7,6 +7,8 @@
  * This file describes the implementation of the Lazuli scheduler.
  */
 
+#include <config.h>
+
 #include <stdint.h>
 
 #include <Lazuli/common.h>
@@ -16,7 +18,6 @@
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/clock_24.h>
 #include <Lazuli/sys/compiler.h>
-#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler.h>
