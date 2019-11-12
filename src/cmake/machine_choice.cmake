@@ -18,3 +18,19 @@ set_property(
   CACHE LZ_TARGET_MACHINE_CHOICE
   PROPERTY STRINGS
   "AVR_ATmega328p")
+
+if(NOT LZ_TARGET_MACHINE_CHOICE)
+  message(
+    FATAL_ERROR
+    "Configuration error: \
+    The target machine must be defined with cache variable \
+    'LZ_TARGET_MACHINE_CHOICE'.")
+elseif(LZ_TARGET_MACHINE_CHOICE STREQUAL AVR_ATmega328p)
+  set(CMAKE_TOOLCHAIN_FILE cmake/avr.toolchain.cmake)
+else()
+  message(
+    FATAL_ERROR
+    "Fatal error: \
+    The target machine choice '${LZ_TARGET_MACHINE_CHOICE}' is not a known \
+    value.")
+endif()
