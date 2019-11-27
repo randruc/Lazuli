@@ -1,31 +1,28 @@
 #
 # Main CMake file to build the Lazuli kernel as a static library.
 #
+# Author: Remi Andruccioli
+# Date: Sep 2019
+#
 
 cmake_minimum_required(VERSION 3.11)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
-
-include(cmake/machine_choice.cmake)
-include(cmake/initial_cache.cmake)
 
 set(
   LAZULI_CORE_SOURCE_FILES
   kern/arch/AVR/arch.c
   kern/arch/AVR/interrupt_vectors_table.S
   kern/arch/AVR/startup.S
-  kern/arch/AVR/spinlock.S
-  kern/spinlock.c
   kern/arch/AVR/timer_counter_1.c
-  kern/arch/AVR/usart.c  
   kern/kernel.c
   kern/memory.c
   kern/scheduler.c
-  kern/list.c
-  kern/mutex.c
-  kern/arch/AVR/mutex.S
-  kern/serial.c
-  kern/clock_24.c)
+  kern/list.c)
+
+include(cmake/machine_choice.cmake)
+include(cmake/initial_cache.cmake)
+include(cmake/declare_lazuli_module.cmake)
 
 project(
   Lazuli
@@ -70,26 +67,52 @@ include_directories(
 
 set(
   KERNEL_LIBRARY_NAME
-  ${CMAKE_PROJECT_NAME})#_${LZ_TARGET_MACHINE_CHOICE}_${CMAKE_PROJECT_VERSION})
+  ${CMAKE_PROJECT_NAME}_${LZ_TARGET_MACHINE_CHOICE}_${CMAKE_PROJECT_VERSION})
 
-set(
-  KERNEL_LST_NAME
-  ${KERNEL_LIBRARY_NAME}.lst)
+# set(
+#   KERNEL_LST_NAME
+#   ${KERNEL_LIBRARY_NAME}.lst)
+
+# This variable is a list containing all the declared modules.
+set(DECLARED_MODULES "")
+
+add_subdirectory(kern/modules/clock_24)
+add_subdirectory(kern/modules/mutex)
+add_subdirectory(kern/modules/serial)
+add_subdirectory(kern/modules/spinlock)
 
 add_library(
   ${KERNEL_LIBRARY_NAME}
   STATIC
   ${LAZULI_CORE_SOURCE_FILES})
 
+# Link with the activated modules
+foreach(DECLARED_MODULE ${DECLARED_MODULES})
+  string(TOUPPER ${DECLARED_MODULE} MODULE_NAME_UPPER)
+  
+  if(LZ_CONFIG_USE_${MODULE_NAME_UPPER})
+    message("Using module: ${DECLARED_MODULE}")
+    
+    target_sources(
+      ${KERNEL_LIBRARY_NAME}
+      PUBLIC
+      $<TARGET_OBJECTS:${DECLARED_MODULE}>)
+    
+#    add_compile_definitions("LZ_CONFIG_USE_MODULE_${MODULE_NAME_UPPER}=1")
+  else()
+#    add_compile_definitions("LZ_CONFIG_USE_MODULE_${MODULE_NAME_UPPER}=0")
+  endif()
+endforeach()
+
 target_compile_options(
   ${KERNEL_LIBRARY_NAME}
   PUBLIC ${LZ_KERNEL_COMPILE_FLAGS})
 
-add_custom_command(
-  OUTPUT ${KERNEL_LST_NAME}
-  COMMAND ${CMAKE_OBJDUMP} -hS libLazuli.a > ${KERNEL_LST_NAME})
+# add_custom_command(
+#   OUTPUT ${KERNEL_LST_NAME}
+#   COMMAND ${CMAKE_OBJDUMP} -hS libLazuli.a > ${KERNEL_LST_NAME})
 
-add_custom_target(
-  ${KERNEL_LIBRARY_NAME}
-  ALL
-  DEPENDS ${KERNEL_LST_NAME})
+# add_custom_target(
+#   matar #TODO: Change this
+#   ALL
+#   DEPENDS ${KERNEL_LIBRARY_NAME})

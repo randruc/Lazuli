@@ -35,7 +35,7 @@ option(
 option(
   LZ_CONFIG_ON_PANIC_SOFTWARE_RESET
   "When 1, perform a software reset on kernel panic. When 0, doesn't apply."
-  ON)
+  OFF)
 
 set(
   LZ_CONFIG_DEFAULT_TASK_STACK_SIZE

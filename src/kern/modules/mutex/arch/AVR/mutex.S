@@ -12,7 +12,12 @@
  * On AVR the only way to do that is by disabling/enabling interrupts.
  */
 
-#include "asm_common.S"
+/*
+ * TODO: Find a better way to perform that.
+ * As it is a standard cpp #include, maybe this could be done by doing
+ * basically the same a system headers (gcc -I).
+ */
+#include "../../../../arch/AVR/asm_common.S"
 
     .global Arch_TryAcquireLock
 Arch_TryAcquireLock:
