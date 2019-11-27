@@ -2,6 +2,7 @@
 * Allow the user to define its own Panic() function
 * Be compatible with C++ user tasks
 * Be compatible with Rust task.
+* Be compatible with Go tasks ?
 * TODO Add a license and define a file header to add to each file for distribution
 * TODO Insert a raw string in the final binary to keep track of the kernel and version
 ** Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
