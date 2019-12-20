@@ -26,6 +26,11 @@ RUN dnf install -y \
     && \
     dnf clean all
 
+RUN dnf install -y \
+    clang-tools-extra \
+    && \
+    dnf clean all
+
 WORKDIR ~
 
 RUN echo Welcome in the Lazuli development environment container. > ~/.motd && \
