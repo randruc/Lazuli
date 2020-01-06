@@ -42,11 +42,7 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     -std=c89
     -pedantic
     -fshort-enums
-    -mmcu=atmega328p
-    -DLZ_CONFIG_USE_MUTEX=1
-    -DLZ_CONFIG_USE_SPINLOCK=1
-    -DLZ_CONFIG_USE_SERIAL=1
-    -DLZ_CONFIG_USE_CLOCK_24=1)
+    -mmcu=atmega328p)
 else()
   message(
     FATAL_ERROR
@@ -68,6 +64,7 @@ set(
 #   ${KERNEL_LIBRARY_NAME}.lst)
 
 # This variable is a list containing all the declared modules.
+# Elements will be added in this list by the subsequents modules declarations.
 set(DECLARED_MODULES "")
 
 add_subdirectory(kern/modules/clock_24)
