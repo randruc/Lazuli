@@ -53,12 +53,6 @@ else()
     "Fatal error: The compiler of ID ${CMAKE_C_COMPILER_ID} is unknown.")
 endif()
 
-configure_file(
-  config.h.in
-  config.h
-  @ONLY
-  NEWLINE_STYLE UNIX)
-
 include_directories(
   BEFORE
   include                         # For Lazuli headers
@@ -81,6 +75,12 @@ add_subdirectory(kern/modules/mutex)
 add_subdirectory(kern/modules/serial)
 add_subdirectory(kern/modules/spinlock)
 
+configure_file(
+  config.h.in
+  config.h
+  @ONLY
+  NEWLINE_STYLE UNIX)
+
 add_library(
   ${KERNEL_LIBRARY_NAME}
   STATIC
@@ -97,10 +97,6 @@ foreach(DECLARED_MODULE ${DECLARED_MODULES})
       ${KERNEL_LIBRARY_NAME}
       PUBLIC
       $<TARGET_OBJECTS:${DECLARED_MODULE}>)
-    
-#    add_compile_definitions("LZ_CONFIG_USE_MODULE_${MODULE_NAME_UPPER}=1")
-  else()
-#    add_compile_definitions("LZ_CONFIG_USE_MODULE_${MODULE_NAME_UPPER}=0")
   endif()
 endforeach()
 

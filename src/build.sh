@@ -72,14 +72,8 @@ $CC $cflags -c kern/arch/AVR/interrupt_vectors_table.S\
     -o interrupt_vectors_table.o
 $CC $cflags -c kern/arch/AVR/startup.S \
     -o startup.o
-$CC $cflags -c kern/arch/AVR/spinlock.S \
-    -o arch_spinlock.o
-$CC $cflags -c kern/spinlock.c \
-    -o spinlock.o
 $CC $cflags -c kern/arch/AVR/timer_counter_1.c \
     -o timer_counter_1.o
-$CC $cflags -c kern/arch/AVR/usart.c \
-    -o usart.o
 $CC $cflags -c kern/kernel.c \
     -o kernel.o
 $CC $cflags -c kern/memory.c \
@@ -88,14 +82,25 @@ $CC $cflags -c kern/scheduler.c \
     -o scheduler.o
 $CC $cflags -c kern/list.c \
     -o list.o
-$CC $cflags -c kern/mutex.c \
-    -o mutex.o
-$CC $cflags -c kern/arch/AVR/mutex.S \
-    -o arch_mutex.o
-$CC $cflags -c kern/serial.c \
-    -o serial.o
-$CC $cflags -c kern/clock_24.c \
+
+$CC $cflags -c kern/modules/clock_24/clock_24.c \
     -o clock_24.o
+
+$CC $cflags -c kern/modules/mutex/mutex.c \
+    -o mutex.o
+$CC $cflags -c kern/modules/mutex/arch/AVR/mutex.S \
+    -o arch_mutex.o
+
+$CC $cflags -c kern/modules/serial/serial.c \
+    -o serial.o
+$CC $cflags -c kern/modules/serial/arch/AVR/usart.c \
+    -o usart.o
+
+$CC $cflags -c kern/modules/spinlock/spinlock.c \
+    -o spinlock.o
+$CC $cflags -c kern/modules/spinlock/arch/AVR/spinlock.S \
+    -o arch_spinlock.o
+
 $CC $cflags -c kern/sizeof_types.c \
     -o sizeof_types.o
 $CC $cflags -c libc/stdint_assertions.c \
@@ -105,24 +110,29 @@ object_files=''
 object_files=$object_files' arch.o'
 object_files=$object_files' interrupt_vectors_table.o'
 object_files=$object_files' startup.o'
-object_files=$object_files' arch_spinlock.o'
-object_files=$object_files' spinlock.o'
 object_files=$object_files' timer_counter_1.o'
-object_files=$object_files' usart.o'
 object_files=$object_files' kernel.o'
 object_files=$object_files' memory.o'
 object_files=$object_files' scheduler.o'
 object_files=$object_files' list.o'
+
+object_files=$object_files' clock_24.o'
+
 object_files=$object_files' mutex.o'
 object_files=$object_files' arch_mutex.o'
+
 object_files=$object_files' serial.o'
-object_files=$object_files' clock_24.o'
+object_files=$object_files' usart.o'
+
+object_files=$object_files' spinlock.o'
+object_files=$object_files' arch_spinlock.o'
 
 echo
 echo $object_files | sed 's/ /\n/g' | sort
 echo
 
-ar rcs lib$project_name.a $object_files
+avr-ar qc lib$project_name.a $object_files
+avr-ranlib lib$project_name.a
 
 $CC \
     $cflags \
