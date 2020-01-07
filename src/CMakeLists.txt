@@ -32,8 +32,8 @@ project(
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
   set(
     LZ_KERNEL_COMPILE_FLAGS
-    -DLZ_DEBUG=1
-    -g
+    -DLZ_DEBUG=1 # TODO: Remove this flag.
+    -g           # TODO: Apply a condition for this flag.
     -Wall
     -Wextra
     -Werror
@@ -87,7 +87,7 @@ add_library(
 foreach(DECLARED_MODULE ${DECLARED_MODULES})
   string(TOUPPER ${DECLARED_MODULE} MODULE_NAME_UPPER)
   
-  if(LZ_CONFIG_USE_${MODULE_NAME_UPPER})
+  if(LZ_CONFIG_${MODULE_NAME_UPPER}_USED)
     message("Using module: ${DECLARED_MODULE}")
     
     target_sources(
