@@ -34,7 +34,8 @@ RUN dnf install -y \
 WORKDIR ~
 
 RUN echo Welcome in the Lazuli development environment container. > ~/.motd && \
-    echo This image was generated on $(date -u). >> ~/.motd
+    echo This image was generated on $(date -u). >> ~/.motd && \
+    echo >> ~/.motd
 
 RUN echo 'cat ~/.motd' >> ~/.bashrc
 
