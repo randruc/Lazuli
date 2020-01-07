@@ -499,7 +499,7 @@ Lz_Run(void)
 {
   const Lz_LinkedListElement * const firstElement = List_PickFirst(&readyTasks);
 
-  if(!RegisterIdleTask()) {
+  if (!RegisterIdleTask()) {
     Kernel_Panic();
   }
 
