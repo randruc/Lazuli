@@ -25,7 +25,7 @@ include(cmake/initial_cache.cmake)
 include(cmake/declare_lazuli_module.cmake)
 
 project(
-  Lazuli
+  LazuliKernel
   LANGUAGES C ASM
   VERSION 0.1.0)
 
@@ -57,7 +57,15 @@ include_directories(
 
 set(
   KERNEL_LIBRARY_NAME
-  ${CMAKE_PROJECT_NAME}_${LZ_TARGET_MACHINE_CHOICE}_${CMAKE_PROJECT_VERSION})
+  ${PROJECT_NAME}_${LZ_TARGET_MACHINE_CHOICE}_${CMAKE_PROJECT_VERSION})
+
+get_directory_property(HAS_PARENT PARENT_DIRECTORY)
+if(HAS_PARENT)
+  set(
+    LAZULI_LIBRARY
+    ${KERNEL_LIBRARY_NAME}
+    PARENT_SCOPE)
+endif()
 
 # set(
 #   KERNEL_LST_NAME

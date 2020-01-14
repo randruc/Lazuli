@@ -21,9 +21,9 @@ Task1(void)
 }
 
 /**
- * Main entry point of the whole system.
+ * Main entry point for the user program.
  */
-void
+int
 main(void)
 {
   /* Register the defined task to run */
@@ -31,4 +31,6 @@ main(void)
 
   /* Run the system */
   Lz_Run();
+
+  return 0;
 }
