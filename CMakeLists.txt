@@ -81,10 +81,11 @@ add_custom_command(
   OUTPUT
   ${LAZULI_USER_PROJECT_NAME}.lst
   COMMAND
-  avr-objdump -hS ${LAZULI_USER_PROJECT_NAME} > ${LAZULI_USER_PROJECT_NAME}.lst
+  ${CMAKE_OBJDUMP} -hS ${LAZULI_USER_PROJECT_NAME}
+  > ${LAZULI_USER_PROJECT_NAME}.lst
   DEPENDS
   ${LAZULI_USER_PROJECT_NAME}
-  COMMENT "Generating LST file ${LAZULI_USER_PROJECT_NAME}.lst"
+  COMMENT "Generating user LST file: ${LAZULI_USER_PROJECT_NAME}.lst"
   VERBATIM)
 
 add_custom_target(
@@ -100,7 +101,7 @@ add_custom_command(
   OUTPUT
   ${LAZULI_USER_PROJECT_NAME}.hex
   COMMAND
-  avr-objcopy
+  ${CMAKE_OBJCOPY}
   -j .text
   -j .data
   -j .rodata
@@ -110,7 +111,7 @@ add_custom_command(
   ${LAZULI_USER_PROJECT_NAME}.hex
   DEPENDS
   ${LAZULI_USER_PROJECT_NAME}
-  COMMENT "Generating HEX file : ${LAZULI_USER_PROJECT_NAME}.hex"
+  COMMENT "Generating user HEX file: ${LAZULI_USER_PROJECT_NAME}.hex"
   VERBATIM)
 
 add_custom_target(

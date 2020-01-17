@@ -109,11 +109,22 @@ target_compile_options(
   ${KERNEL_LIBRARY_NAME}
   PUBLIC ${LZ_KERNEL_COMPILE_FLAGS})
 
-# add_custom_command(
-#   OUTPUT ${KERNEL_LST_NAME}
-#   COMMAND ${CMAKE_OBJDUMP} -hS libLazuli.a > ${KERNEL_LST_NAME})
+set(KERNEL_LST_TARGET_NAME kernel_lst_ouput)
 
-# add_custom_target(
-#   matar #TODO: Change this
-#   ALL
-#   DEPENDS ${KERNEL_LIBRARY_NAME})
+add_custom_command(
+  OUTPUT
+  ${KERNEL_LIBRARY_NAME}.lst
+  COMMAND
+  ${CMAKE_OBJDUMP} -hS $<TARGET_FILE:${KERNEL_LIBRARY_NAME}>
+  > ${KERNEL_LIBRARY_NAME}.lst
+  DEPENDS
+  ${KERNEL_LIBRARY_NAME}
+  COMMENT "Generating kernel LST file: ${KERNEL_LIBRARY_NAME}.lst"
+  VERBATIM)
+
+add_custom_target(
+  ${KERNEL_LST_TARGET_NAME}
+  ALL
+  DEPENDS ${KERNEL_LIBRARY_NAME}.lst)
+
+add_dependencies(${KERNEL_LST_TARGET_NAME} ${KERNEL_LIBRARY_NAME})
