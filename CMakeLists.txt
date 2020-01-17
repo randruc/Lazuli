@@ -1,6 +1,7 @@
 #
 # Main CMake file to build the user project.
 #
+
 cmake_minimum_required(VERSION 3.11)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
@@ -74,3 +75,47 @@ target_link_options(
   ${LAZULI_USER_PROJECT_NAME}
   PUBLIC ${LAZULI_USER_LINK_FLAGS})
 
+set(LST_TARGET_NAME lst_ouput)
+
+add_custom_command(
+  OUTPUT
+  ${LAZULI_USER_PROJECT_NAME}.lst
+  COMMAND
+  avr-objdump -hS ${LAZULI_USER_PROJECT_NAME} > ${LAZULI_USER_PROJECT_NAME}.lst
+  DEPENDS
+  ${LAZULI_USER_PROJECT_NAME}
+  COMMENT "Generating LST file ${LAZULI_USER_PROJECT_NAME}.lst"
+  VERBATIM)
+
+add_custom_target(
+  ${LST_TARGET_NAME}
+  ALL
+  DEPENDS ${LAZULI_USER_PROJECT_NAME}.lst)
+
+add_dependencies(${LST_TARGET_NAME} ${LAZULI_USER_PROJECT_NAME})
+
+set(HEX_TARGET_NAME hex_output)
+
+add_custom_command(
+  OUTPUT
+  ${LAZULI_USER_PROJECT_NAME}.hex
+  COMMAND
+  avr-objcopy
+  -j .text
+  -j .data
+  -j .rodata
+  -j .progmem
+  -O ihex
+  ${LAZULI_USER_PROJECT_NAME}
+  ${LAZULI_USER_PROJECT_NAME}.hex
+  DEPENDS
+  ${LAZULI_USER_PROJECT_NAME}
+  COMMENT "Generating HEX file : ${LAZULI_USER_PROJECT_NAME}.hex"
+  VERBATIM)
+
+add_custom_target(
+  ${HEX_TARGET_NAME}
+  ALL
+  DEPENDS ${LAZULI_USER_PROJECT_NAME}.hex)
+
+add_dependencies(${HEX_TARGET_NAME} ${LAZULI_USER_PROJECT_NAME})
