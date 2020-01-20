@@ -1,0 +1,25 @@
+#
+# Main GitHub Actions Workflow file.
+# CI build.
+#
+
+name: Lazuli CI Build
+
+on:
+  push:
+    branches:
+      - github-actions
+
+jobs:
+  build_job:
+    name: Build job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: ./
+      - name: Build in container
+        uses: actions/DockerContainerAction@v1
+        with:
+          command: 'echo Hello, new world! This is $(avr-gcc --version)'
+    
