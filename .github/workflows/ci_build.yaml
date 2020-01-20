@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build in container
-        uses: .github/actions/DockerContainerAction
+        uses: ./github/actions/docker-container-action
         with:
           command: 'echo Hello, new world! This is $(avr-gcc --version)'
     
