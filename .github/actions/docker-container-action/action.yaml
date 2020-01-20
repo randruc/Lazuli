@@ -21,6 +21,6 @@ outputs:
 
 runs:
   using: 'Docker'
-  image: 'Dockerfile'
+  image: './Dockerfile'
   args:
     - ${{ inputs.command }}
