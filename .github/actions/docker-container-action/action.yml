@@ -20,7 +20,8 @@ outputs:
     description: 'The output of the build'
 
 runs:
-  using: 'Docker'
-  image: './Dockerfile'
+  using: 'docker'
+  # TODO: Ugly: find a better way to reference the Dockerfile.
+  image: '../../../Dockerfile'
   args:
     - ${{ inputs.command }}
