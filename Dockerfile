@@ -31,7 +31,7 @@ RUN dnf install -y \
     && \
     dnf clean all
 
-WORKDIR ~
+WORKDIR ~/workspace
 
 RUN echo Welcome in the Lazuli development environment container. > ~/.motd && \
     echo This image was generated on $(date -u). >> ~/.motd && \
