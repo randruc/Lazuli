@@ -7,12 +7,13 @@
  * This file describes the implementation of the kernel 24-Hour clock.
  */
 
+#include <config.h>
+
 #include <stdint.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/clock_24.h>
 #include <Lazuli/sys/clock_24.h>
-#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/memory.h>
 
 /**

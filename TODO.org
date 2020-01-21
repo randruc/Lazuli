@@ -49,3 +49,7 @@
 * Make it ZERO dynamic allocation.
 ** Allow the user to statically define the structures needed by the system (in particular tasks + stacks)
 ** Place the incremental memory allocator in a separate module. By the way, the incremental memory allocator is not thread safe.
+* In documentation about modules:
+** After creating the module directory:
+*** Update CMakeLists.txt to add_subdirectory.
+*** Update config.h.in to add the configuration macro constant.

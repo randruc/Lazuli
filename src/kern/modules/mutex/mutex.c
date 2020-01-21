@@ -8,9 +8,10 @@
  * Mutexes in Lazuli are implemented as blocking.
  */
 
+#include <config.h>
+
 #include <Lazuli/mutex.h>
 #include <Lazuli/sys/arch/arch.h>
-#include <Lazuli/sys/config.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/task.h>

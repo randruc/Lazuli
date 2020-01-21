@@ -10,12 +10,13 @@
  * startup.S.
  */
 
+#include <config.h>
+
 #include <stdint.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/arch.h>
-#include <Lazuli/sys/config.h>
 
 #include "avr_arch.h"
 

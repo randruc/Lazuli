@@ -5,10 +5,11 @@
  * Defines AVR-specific routines implementation declared in Arch_XXX.
  */
 
+#include <config.h>
+    
 #include <Lazuli/sys/arch/AVR/interrupts.h>
-#include <Lazuli/sys/config.h>
 
-.INCLUDE "kern/arch/AVR/asm_common.S"
+#include "asm_common.S"
 
 /**
  * Declare the generic code for an interrupt handler.

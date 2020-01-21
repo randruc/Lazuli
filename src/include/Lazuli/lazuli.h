@@ -12,10 +12,11 @@
 #ifndef LAZULI_LAZULI_H
 #define LAZULI_LAZULI_H
 
+#include <config.h>
+
 #include <stdint.h>
 
 #include <Lazuli/common.h>
-#include <Lazuli/sys/config.h>
 
 _EXTERN_C_DECL_BEGIN
 

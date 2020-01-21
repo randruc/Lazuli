@@ -100,33 +100,6 @@ enum {
                                   Flag                                      */
 };
 
-/* TODO: Transform that to a constant */
-/**
- * Obtain the memory mapped structure of the "8-bit timer/counter 0" driver.
- *
- * @return A pointer to the memory mapped structure.
- */
-TimerCounter0 *
-GetTimerCounter0(void);
-
-/**
- * Enable interrupts fortimer/counter 0.
- *
- * @param interruptsMask The mask of interrupts to enable, according to the
- *                       possible values of TIMSK0 register.
- */
-void
-TimerCounter0InterruptsEnable(const uint8_t interruptsMask);
-
-/**
- * Disable interrupts for timer/counter 0.
- *
- * @param interruptsMask The mask of interrupts to disable, according to the
- *                       possible values of TIMSK0 register.
- */
-void
-TimerCounter0InterruptsDisable(const uint8_t interruptsMask);
-
 _EXTERN_C_DECL_END
 
 #endif /* LAZULI_SYS_ARCH_AVR_TIMER_COUNTER_0_H */
