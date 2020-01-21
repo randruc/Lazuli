@@ -436,7 +436,7 @@ Scheduler_HandleInterrupt(void * const sp, const uint8_t interruptCode)
   currentTask->stackPointer = sp;
 
   if (INT_TIMER1COMPA == interruptCode) {
-    if (LZ_CONFIG_USE_CLOCK_24) {
+    if (LZ_CONFIG_MODULE_CLOCK_24_USED) {
       Clock24_Increment();
     }
 

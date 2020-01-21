@@ -49,7 +49,7 @@ Kernel_Main(void)
   Arch_InitIdleCpuMode();
   Scheduler_Init();
 
-  if (LZ_CONFIG_USE_SERIAL) {
+  if (LZ_CONFIG_MODULE_SERIAL_USED) {
     Arch_InitSerial();
   }
 

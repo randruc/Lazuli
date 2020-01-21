@@ -232,4 +232,33 @@
 
 /** @} */
 
+/** @name Used modules */
+/** @{                 */
+
+/*
+ * Declared in the same order as CMakeLists.txt.
+ */
+
+/**
+ * Use module "clock_24": Implement a 24-Hour clock in the kernel.
+ */
+#cmakedefine01 LZ_CONFIG_MODULE_CLOCK_24_USED
+
+/**
+ * Use module "mutex": Mutexes implementation.
+ */
+#cmakedefine01 LZ_CONFIG_MODULE_MUTEX_USED
+
+/**
+ * Use module "serial": Serial interface configuration.
+ */
+#cmakedefine01 LZ_CONFIG_MODULE_SERIAL_USED
+
+/**
+ * Use module "spinlock": Spinlocks implementation.
+ */
+#cmakedefine01 LZ_CONFIG_MODULE_SPINLOCK_USED
+
+/** @} */
+
 #endif /* LAZULI_CONFIG_H */
