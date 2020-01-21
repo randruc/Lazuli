@@ -5,10 +5,7 @@
 
 name: Lazuli CI Build
 
-on:
-  push:
-    branches:
-      - github-actions
+on: [push]
 
 jobs:
   build_job:
