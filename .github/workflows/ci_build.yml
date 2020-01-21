@@ -1,0 +1,24 @@
+#
+# Main GitHub Actions Workflow file.
+# CI build.
+#
+
+name: Lazuli CI Build
+
+on:
+  push:
+    branches:
+      - github-actions
+
+jobs:
+  build_job:
+    name: Build job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/docker-container-action
+        with:
+          command:
+            - 'bash'
+            - '-c'
+            - 'pwd && ls'

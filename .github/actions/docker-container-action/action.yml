@@ -1,0 +1,27 @@
+#
+# GitHub action to use Lazuli Development Environment container image for CI
+# builds.
+#
+
+
+name: 'Docker container action'
+
+description: >
+  GitHub action to use Lazuli Development Environment container image for CI
+  builds.
+  
+inputs:
+  command:
+    description: 'The command to run in the container'
+    required: true
+    
+outputs:
+  build_output:
+    description: 'The output of the build'
+
+runs:
+  using: 'docker'
+  # TODO: Ugly: find a better way to reference the Dockerfile.
+  image: '../../../Dockerfile'
+  args:
+    - ${{ inputs.command }}
