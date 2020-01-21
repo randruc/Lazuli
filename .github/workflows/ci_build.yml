@@ -18,7 +18,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/docker-container-action
         with:
-          command:
-            - 'bash'
-            - '-c'
-            - 'pwd && ls'
+          command: 'bash -c ./.compile.sh'
