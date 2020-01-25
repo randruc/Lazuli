@@ -17,7 +17,7 @@ jobs:
       - name: Build docker image
         run: docker image build -t lazuli .
       - name: Run Lazuli container
-        run: docker run -tid --rm --name lazuli_container -v.:/~/workspace:z lazuli
+        run: docker run -tid --rm --name lazuli_container -v$(pwd):/~/workspace:z lazuli
       - name: Test exec from container
         run: docker exec lazuli_container bash -c "avr-gcc --version"
         
