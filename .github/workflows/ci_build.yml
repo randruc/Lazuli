@@ -11,6 +11,10 @@ jobs:
   build:
     name: Build job
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        machine: [AVR_ATmega328p]
+        
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,6 +22,8 @@ jobs:
         run: docker image build -t lazuli .
       - name: Run Lazuli container
         run: docker run -tid --rm --name lazuli_container -v$(pwd):/~/workspace:z lazuli
-      - name: Test exec from container
-        run: docker exec lazuli_container bash -c "avr-gcc --version"
+      - name: CMake Configure
+        run: docker exec lazuli_container bash -c "cmake -S . -B ./build -DLZ_TARGET_MACHINE_CHOICE=${{matrix.machine}}"
+      - name: CMake Build
+        run: docker exec lazuli_container bash -c "./.compile.sh"
         
