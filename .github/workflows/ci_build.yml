@@ -8,11 +8,16 @@ name: Lazuli CI Build
 on: [push]
 
 jobs:
-  build_job:
+  build:
     name: Build job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/docker-container-action
-        with:
-          command: 'bash -c ./.compile.sh'
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build docker image
+        run: docker image build -t lazuli .
+      - name: Run Lazuli container
+        run: docker run -tid --rm --name lazuli_container -v.:/~/workspace:z lazuli
+      - name: Test exec from container
+        run: docker exec lazuli_container bash -c "avr-gcc --version"
+        
