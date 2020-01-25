@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build docker image
+      - name: Build docker image # TODO: Build docker image out of the matrix.
         run: docker image build -t lazuli .
       - name: Run Lazuli container
         run: docker run -tid --rm --name lazuli_container -v$(pwd):/~/workspace:z lazuli
