@@ -2,26 +2,30 @@
 
 filetypes="--include=*.c \
      --include=*.h \
-     --include=*.md \
      --include=*.sh \
-     --include=*.x \
+     --include=*.ld \
      --include=*.S \
-     --include=*.dox"
+     --include=*.dox \
+     --exclude-dir=build"
+
+failed=0
 
 # Print lines longer than 80 characters
-grep -nrH \
+! grep -nrH \
      '.\{81\}'\
      --color \
-     $filetypes
+     $filetypes || failed=1
 
 # Find tab characters
-grep -nrHP \
+! grep -nrHP \
      --color \
      "\t" \
-     $filetypes
+     $filetypes || failed=1
 
 # Find trailing whitespaces
-grep -nrH \
+! grep -nrH \
      "\([[:space:]]\)$" \
      --color \
-     $filetypes
+     $filetypes || failed=1
+
+exit $failed
