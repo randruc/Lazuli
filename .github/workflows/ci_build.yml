@@ -39,4 +39,4 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Check line length, trailing whitespaces and tabs
-        run: .checklines.sh
+        run: ./.checklines.sh
