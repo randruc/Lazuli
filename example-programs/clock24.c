@@ -22,7 +22,7 @@ ClockTask()
     Lz_Task_WaitActivation();
 
     Lz_Clock24_Get(&clock24);
-    
+
     Usart_HexaPrint_u16(clock24.hours);
     Usart_PutChar(':');
     Usart_HexaPrint_u16(clock24.minutes);
@@ -58,7 +58,7 @@ main(void)
   taskConfiguration.period = 50;
   taskConfiguration.completion = 5;
   Lz_RegisterTask(ClockTask, &taskConfiguration);
-  
+
   Lz_Run();
 
   for (;;);

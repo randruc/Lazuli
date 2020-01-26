@@ -57,7 +57,7 @@ TaskB(void)
   uint8_t i;
 
   Lz_Mutex_Unlock(&mutexA);
-  
+
   for (i = 0; i < LOOP_N; ++i) {
     Lz_Mutex_Lock(&mutexB);
     Usart_PrintRawString("B\r\n");

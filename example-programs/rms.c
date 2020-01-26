@@ -44,9 +44,9 @@ main(void)
   EnableSerialTransmission();
 
   Usart_PrintRawString(".......\r\n");
-  
+
   Lz_SetSchedulerClass(LZ_SCHED_RMS);
-  
+
   Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.period = 4;
   taskConfiguration.completion = 1;
@@ -66,7 +66,7 @@ main(void)
   Lz_RegisterTask(Task1, &taskConfiguration);
 
   Usart_PrintRawString("------\r\n");
-  
+
   Lz_Run();
 
   for (;;);

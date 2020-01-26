@@ -6,7 +6,7 @@
  */
 
 #include <config.h>
-    
+
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 
 #include "asm_common.S"
