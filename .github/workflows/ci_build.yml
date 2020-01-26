@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        run: actions/checkout@v2
+        uses: actions/checkout@v2
         
       - name: Check line length, trailing whitespaces and tabs
         run: .checklines.sh
