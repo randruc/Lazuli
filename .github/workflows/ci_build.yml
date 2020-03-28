@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Build docker image # TODO: Build docker image out of the matrix.
+      - name: Build docker image # TODO: Maybe build docker image out of the matrix.
         run: docker image build -t lazuli .
         
       - name: Run Lazuli container

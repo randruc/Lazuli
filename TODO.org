@@ -53,3 +53,4 @@
 ** After creating the module directory:
 *** Update CMakeLists.txt to add_subdirectory.
 *** Update config.h.in to add the configuration macro constant.
+* In .dir-locals.el add configuration for C style.
