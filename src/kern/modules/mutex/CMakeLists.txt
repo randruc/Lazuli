@@ -4,6 +4,7 @@
 
 declare_lazuli_module(
   mutex
+  OFF
   "Module for mutexes implementation."
   mutex.c
   arch/AVR/mutex.S)

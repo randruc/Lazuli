@@ -4,6 +4,7 @@
 
 declare_lazuli_module(
   spinlock
+  OFF
   "Module for spinlocks implementation."
   spinlock.c
   arch/AVR/spinlock.S)

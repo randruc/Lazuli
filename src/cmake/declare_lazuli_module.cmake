@@ -14,11 +14,14 @@
 #
 # @param MODULE_NAME The module name, in lowercase, without prefixing it by
 #                    "module_".
+# @param MODULE_ACTIVATE_BY_DEFAULT If "ON" the module is to be activated by
+#                                   default. If "OFF" it will not.
 # @param MODULE_SUMMARY A summary of the module functionnality.
 # @param ... A list of the module source files.
 #
 macro(declare_lazuli_module
     MODULE_NAME
+    MODULE_ACTIVATE_BY_DEFAULT
     MODULE_SUMMARY
 #   ...
     )
@@ -41,7 +44,7 @@ macro(declare_lazuli_module
   option(
     LZ_CONFIG_${TARGET_MODULE_NAME_UPPER}_USED
     ${MODULE_SUMMARY}
-    OFF)
+    ${MODULE_ACTIVATE_BY_DEFAULT})
 
   # Add the module to the global list of declared modules
   set(DECLARED_MODULES ${DECLARED_MODULES} ${TARGET_MODULE_NAME} PARENT_SCOPE)
