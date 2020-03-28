@@ -34,6 +34,36 @@ set(
 # The following directives shouldn't be changed by the user
 # TODO: maybe think about putting them into another file.
 
+option(
+  LZ_CONFIG_BUILD_UNIT_TESTS
+  "When 1, build an executable containing unit tests."
+  OFF)
+
+mark_as_advanced(LZ_CONFIG_BUILD_UNIT_TESTS)
+
+set(
+  LZ_EXAMPLE_PROGRAM
+  "null"
+  CACHE STRING
+  "Choice of example program to build.")
+
+set_property(
+  CACHE LZ_EXAMPLE_PROGRAM
+  PROPERTY STRINGS
+  "null;clock24.c")
+
+if(LZ_CONFIG_BUILD_UNIT_TESTS)
+  set(
+    LAZULI_USER_SOURCE_FILES
+    src/unit-tests/unit_tests.c)
+else()
+  if(NOT LZ_EXAMPLE_PROGRAM STREQUAL "null")
+    set(
+      LAZULI_USER_SOURCE_FILES
+      example-programs/${LZ_EXAMPLE_PROGRAM})
+  endif()
+endif()
+
 include_directories(
   BEFORE
   src/include                         # For Lazuli headers

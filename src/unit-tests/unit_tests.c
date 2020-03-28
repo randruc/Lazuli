@@ -1050,7 +1050,7 @@ EnableSerialTransmission() {
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
-void
+int
 main(void)
 {
   size_t i;
