@@ -89,9 +89,7 @@ Clock24_Increment(void)
   const uint16_t ticksInOneSecond = LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY;
   static uint16_t ticksToNewSecond = 0;
 
-  ticksToNewSecond++;
-
-  if (ticksToNewSecond < ticksInOneSecond) {
+  if (++ticksToNewSecond < ticksInOneSecond) {
     return;
   }
 
@@ -100,7 +98,7 @@ Clock24_Increment(void)
   if (clockVersion == UINT8_MAX) {
     clockVersion = 0;
   } else {
-    clockVersion++;
+    ++clockVersion;
   }
 
   if (IncrementSeconds()) {
