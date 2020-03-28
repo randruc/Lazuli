@@ -17,6 +17,7 @@ SECTIONS
 
     .progmem : AT(LOADADDR(.text) + SIZEOF(.text))
     {
+        *(.versionstring)
         KEEP(*(.progmem*))
     } > REGION_PROGMEM
     _progmem_size = SIZEOF(.progmem);

@@ -79,6 +79,7 @@ add_subdirectory(kern/modules/clock_24)
 add_subdirectory(kern/modules/mutex)
 add_subdirectory(kern/modules/serial)
 add_subdirectory(kern/modules/spinlock)
+add_subdirectory(kern/modules/version_string)
 
 configure_file(
   config.h.in

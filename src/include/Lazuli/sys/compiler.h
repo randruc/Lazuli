@@ -79,6 +79,13 @@
  */
 #define NOINIT __attribute__((section(".noinit")))
 
+/**
+ * Declare a variable in a section called ".versionstring". This section is only
+ * used in module version_string, to include Lazuli version string in final
+ * binary.
+ */
+#define VERSION_STRING_SECTION __attribute__((section(".versionstring")))
+
 #else /* __GNUC__ */
 
 #define NORETURN
