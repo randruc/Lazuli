@@ -1,5 +1,8 @@
 /**
  * @file startup.S
+ * @brief ASM kernel startup and routines definitions.
+ * @date Jan 2017
+ * @author Remi Andruccioli
  *
  * Set up the runtime environment and run the kernel.
  * Defines AVR-specific routines implementation declared in Arch_XXX.

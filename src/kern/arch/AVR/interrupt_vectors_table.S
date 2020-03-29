@@ -1,5 +1,8 @@
 /**
  * @file interrupt_vectors_table.S
+ * @brief Interrupt vectors table.
+ * @date Jan 2017
+ * @author Remi Andruccioli
  *
  * Set up the interrupt vectors table.
  */
