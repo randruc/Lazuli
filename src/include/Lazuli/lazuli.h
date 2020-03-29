@@ -80,7 +80,7 @@ enum TaskToSchedulerMessage {
   /**
    * No message has to be passed to the scheduler.
    */
-  NO_MESSAGE = -1,
+  NO_MESSAGE = 0,
 
   /**
    * Set the task to wait for its next activation.
