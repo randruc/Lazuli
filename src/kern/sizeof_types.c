@@ -50,4 +50,7 @@ SIZEOF_TYPE(Task,
 SIZEOF_TYPE(TaskContextLayout,
             "RAM needed to save the context of a task.");
 
+SIZEOF_TYPE(u_read_write_atomic_t,
+            "The size of u_read_write_atomic_t");
+
 /** @endcond */

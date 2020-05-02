@@ -78,11 +78,6 @@ STATIC_ASSERT(sizeof(bool) == 1, bool_MUST_be_1_byte_long);
 /** @endcond */
 
 /**
- * Represents the size of an object.
- */
-typedef uint16_t size_t;
-
-/**
  * Boolean TRUE constant value.
  */
 #define true ((bool)1)
@@ -91,6 +86,20 @@ typedef uint16_t size_t;
  * Boolean FALSE constant value.
  */
 #define false ((bool)0)
+
+/**
+ * Represents the size of an object.
+ */
+/* TODO: Not portable!!! */
+typedef uint16_t size_t;
+
+/**
+ * Represents an unsigned integer that can be read and written atomically.
+ * This type is the equivalent of libc's sig_atomic_t (signal.h).
+ *
+ * Use this type with volatile.
+ */
+typedef uint8_t u_read_write_atomic_t;
 
 /**
  * @brief Allow arithmetic on a void pointer.

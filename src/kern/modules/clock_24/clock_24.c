@@ -24,7 +24,7 @@ static volatile Clock24 clock24 = {0};
 /**
  * The clock version value.
  */
-static volatile uint8_t clockVersion = 0;
+static volatile u_read_write_atomic_t clockVersion = 0;
 
 /**
  * Increment an uint8_t value, and reset it if it reaches the value in
@@ -111,26 +111,29 @@ Clock24_Increment(void)
 /*
  * The working of this function needs an explanation.
  *
- * While a user task reads all the fields of struct Clock24 clock24, an
- * interrupt can occur to run the kernel that will update the fields. If that
- * happens we will obtain a copy of struct Clock24 clock24 that is corrupted.
- * i.e. some of the fields with the previous value, and the others with the
- * updated value.
+ * While a user task reads all the fields of struct Clock24 clock24, the clock
+ * thick interrupt can occur and cause the kernel to update that same fields.
+ * If that happens we will obtain a copy of struct Clock24 clock24 that is
+ * corrupted. e.g. some of the fields with the previous value, and the others
+ * with the updated value.
  *
  * To avoid that, we use this kind of "optimistic access":
  * A version number is associated to struct Clock24. As all of the fields of
  * struct Clock24 and version number are updated by the kernel at the same time
- * without interrupting, the new values of the time fields in the struct will be
- * associated to a new value of the version field.
+ * without being interrupted, the new values of the time fields in the struct
+ * will be associated to a new value of the version field.
  * We first read the current version number, then read all the time fields, and
  * finally read the version number again. If the two version numbers differ we
  * then know that the kernel updated the struct Clock24 clock24 while we were
  * accessing it.
+ *
+ * This works as long as the version number is declared with a type that is read
+ * and written atomically.
  */
 void
 Lz_Clock24_Get(Clock24 * const userClock24)
 {
-  uint8_t version;
+  u_read_write_atomic_t version;
 
   if (NULL == userClock24) {
     return;
