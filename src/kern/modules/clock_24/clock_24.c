@@ -61,7 +61,7 @@ static bool
 IncrementSeconds(void)
 {
   const uint8_t lastSecondInAMinute = 59;
-  
+
   return IncrementUntil(&clock24.seconds, lastSecondInAMinute);
 }
 
@@ -74,7 +74,7 @@ static bool
 IncrementMinutes(void)
 {
   const uint8_t lastMinuteInAnHour = 59;
-  
+
   return IncrementUntil(&clock24.minutes, lastMinuteInAnHour);
 }
 
@@ -85,7 +85,7 @@ static void
 IncrementHours(void)
 {
   const uint8_t lastHourInADay = 23;
-  
+
   IncrementUntil(&clock24.hours, lastHourInADay);
 }
 
