@@ -8,4 +8,5 @@ clang-tidy \
     -header-filter=* \
     -- \
     -Iinclude \
+    -I../build/src \
     -Ilibc-headers/arch-dependent/x86_64

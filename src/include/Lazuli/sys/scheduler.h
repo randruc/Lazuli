@@ -7,8 +7,8 @@
  * This file describes the kernel interface of the Lazuli scheduler.
  */
 
-#ifndef LAZULI_SYS_SCHEDULER_BASE_H
-#define LAZULI_SYS_SCHEDULER_BASE_H
+#ifndef LAZULI_SYS_SCHEDULER_H
+#define LAZULI_SYS_SCHEDULER_H
 
 #include <stdint.h>
 
@@ -108,4 +108,4 @@ Scheduler_WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks);
 
 _EXTERN_C_DECL_END
 
-#endif /* LAZULI_SYS_SCHEDULER_BASE_H */
+#endif /* LAZULI_SYS_SCHEDULER_H */

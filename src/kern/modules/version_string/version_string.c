@@ -9,6 +9,7 @@
  */
 
 #include <config.h>
+
 #include <Lazuli/sys/compiler.h>
 
 /**

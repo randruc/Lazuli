@@ -11,8 +11,8 @@
 
 #include <stdint.h>
 
-#include <Lazuli/common.h>
 #include <Lazuli/clock_24.h>
+#include <Lazuli/common.h>
 #include <Lazuli/sys/clock_24.h>
 #include <Lazuli/sys/memory.h>
 
@@ -60,7 +60,9 @@ IncrementUntil(volatile uint8_t * const value, const uint8_t comparator)
 static bool
 IncrementSeconds(void)
 {
-  return IncrementUntil(&clock24.seconds, 59);
+  const uint8_t lastSecondInAMinute = 59;
+  
+  return IncrementUntil(&clock24.seconds, lastSecondInAMinute);
 }
 
 /**
@@ -71,7 +73,9 @@ IncrementSeconds(void)
 static bool
 IncrementMinutes(void)
 {
-  return IncrementUntil(&clock24.minutes, 59);
+  const uint8_t lastMinuteInAnHour = 59;
+  
+  return IncrementUntil(&clock24.minutes, lastMinuteInAnHour);
 }
 
 /**
@@ -80,7 +84,9 @@ IncrementMinutes(void)
 static void
 IncrementHours(void)
 {
-  IncrementUntil(&clock24.hours, 23);
+  const uint8_t lastHourInADay = 23;
+  
+  IncrementUntil(&clock24.hours, lastHourInADay);
 }
 
 void
@@ -95,11 +101,13 @@ Clock24_Increment(void)
 
   ticksToNewSecond = 0;
 
-  if (clockVersion == UINT8_MAX) {
-    clockVersion = 0;
-  } else {
-    ++clockVersion;
-  }
+  /*
+   * The clock version integer will constantly increment from 0 to its maximum
+   * value.
+   * We can let it overflow as it is unsigned. Unsiged overflow is not an
+   * undefined behaviour in C89.
+   */
+  ++clockVersion;
 
   if (IncrementSeconds()) {
     if (IncrementMinutes()) {

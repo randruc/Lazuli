@@ -8,8 +8,8 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
-#include <Lazuli/serial.h>
 #include <Lazuli/clock_24.h>
+#include <Lazuli/serial.h>
 
 #include <Lazuli/sys/arch/AVR/usart.h>
 
