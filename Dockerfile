@@ -2,7 +2,7 @@
 # Lazuli Docker file.
 #
 
-FROM fedora:30
+FROM fedora:31
 
 LABEL description="Lazuli development environment."
 LABEL url="https://github.com/randruc/Lazuli"
@@ -13,6 +13,7 @@ RUN dnf install -y \
     grep \
     less \
     sed \
+    findutils \
     gawk \
     make \
     cmake \
@@ -33,10 +34,18 @@ RUN dnf install -y \
 
 WORKDIR ~/workspace
 
+COPY VERSION /tmp
+
 RUN echo Welcome in the Lazuli development environment container. > ~/.motd && \
-    echo This image was generated on $(date -u). >> ~/.motd && \
-    echo >> ~/.motd
+    echo For Lazuli version $(cat /tmp/VERSION). >> ~/.motd && \
+    echo This image was generated on $(date -u). >> ~/.motd
 
 RUN echo 'cat ~/.motd' >> ~/.bashrc
+
+RUN echo 'cat /etc/fedora-release >> ~/.bashrc'
+
+RUN echo 'uname -a >> ~/.bashrc'
+
+RUN echo 'echo >> ~/.bashrc'
 
 CMD [ "/usr/bin/bash" ]
