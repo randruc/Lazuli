@@ -12,24 +12,32 @@ LABEL description="Lazuli development environment."
 LABEL url="https://github.com/randruc/Lazuli"
 LABEL maintainer="remi.andruccioli@gmail.com"
 
-RUN dnf install -y sed && dnf clean all
-
 # This will allow installation of man pages along with packages
 RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf
 
-# We reinstall sed to force the installation of its man page
-RUN dnf reinstall -y sed && dnf clean all
+# Packages listed here are already installed in Fedora 31. We reinstall them to
+# force the installation of their man pages.
+# For now it seems that DNF does not provide a convenient way to perform
+# a "reinstall or install" on a given package, or an "install doc" for a given
+# package.
+RUN dnf reinstall -y \
+    sed \
+    bash \
+    grep \
+    gawk \
+    coreutils \
+    && \
+    dnf clean all
 
 RUN dnf install -y \
     man-db \
-    bash \
-    grep \
     less \
     findutils \
     gawk \
     make \
     cmake \
     gcc \
+    binutils\
     && \
     dnf clean all
 
