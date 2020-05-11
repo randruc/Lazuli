@@ -42,10 +42,10 @@ RUN echo Welcome in the Lazuli development environment container. > ~/.motd && \
 
 RUN echo 'cat ~/.motd' >> ~/.bashrc
 
-RUN echo 'cat /etc/fedora-release >> ~/.bashrc'
+RUN echo 'cat /etc/fedora-release' >> ~/.bashrc
 
-RUN echo 'uname -a >> ~/.bashrc'
+RUN echo 'uname -a' >> ~/.bashrc
 
-RUN echo 'echo >> ~/.bashrc'
+RUN echo 'echo' >> ~/.bashrc
 
 CMD [ "/usr/bin/bash" ]
