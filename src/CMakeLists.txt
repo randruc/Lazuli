@@ -24,10 +24,18 @@ include(cmake/machine_choice.cmake)
 include(cmake/initial_cache.cmake)
 include(cmake/declare_lazuli_module.cmake)
 
+# Retrieve version from VERSION file.
+file(
+  STRINGS
+  "../VERSION"
+  PROJECT_VERSION_STRING
+  REGEX
+  "[0-9]+.[0-9]+.[0-9]+")
+
 project(
   LazuliKernel
   LANGUAGES C ASM
-  VERSION 0.1.0)
+  VERSION ${PROJECT_VERSION_STRING})
 
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
   set(
