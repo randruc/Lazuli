@@ -71,6 +71,7 @@ BaseIncrementalMalloc(const size_t s, AllocationMap * const map)
     return NULL;
   }
 
+  /* We force the type of allocation to be incremental by default */
   if (ALLOC_UNDEFINED == map->allocationType) {
     map->allocationType = ALLOC_INCREMENTAL;
   } else if (ALLOC_INCREMENTAL != map->allocationType) {

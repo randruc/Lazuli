@@ -85,7 +85,7 @@
  * binary.
  */
 #define VERSION_STRING_SECTION __attribute__((section(".versionstring")))
-
+  
 #else /* __GNUC__ */
 
 #define NORETURN
