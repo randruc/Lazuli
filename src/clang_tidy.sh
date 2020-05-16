@@ -9,4 +9,5 @@ clang-tidy \
     -- \
     -Iinclude \
     -I../build/src \
-    -Ilibc-headers/arch-dependent/x86_64
+    -Ilibc-headers/arch-dependent/x86_64 \
+    -DLZ_STATIC_ANALYSIS=1

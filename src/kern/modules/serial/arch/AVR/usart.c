@@ -4,11 +4,10 @@
  * Describes the driver implementation for the USART of the ATMega328p.
  */
 
-#include <config.h>
-
 #include <stdint.h>
 
 #include <Lazuli/common.h>
+#include <Lazuli/config.h>
 #include <Lazuli/serial.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/arch.h>

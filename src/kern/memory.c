@@ -7,11 +7,10 @@
  * Memory functions for the kernel: allocation, copy, ...
  */
 
-#include <config.h>
-
 #include <stdint.h>
 
 #include <Lazuli/common.h>
+#include <Lazuli/config.h>
 
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/kernel.h>

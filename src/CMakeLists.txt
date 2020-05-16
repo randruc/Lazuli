@@ -89,6 +89,12 @@ add_subdirectory(kern/modules/serial)
 add_subdirectory(kern/modules/spinlock)
 add_subdirectory(kern/modules/version_string)
 
+if(LZ_STATIC_ANALYSIS)
+  # TODO: Replace that by add_compile_definitions() the day we use a higher
+  # version of CMake.
+  add_definitions(-DLZ_STATIC_ANALYSIS=1)
+endif()
+
 configure_file(
   config.h.in
   config.h

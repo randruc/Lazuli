@@ -11,9 +11,8 @@
  * It also holds the kernel memory allocation map.
  */
 
-#include <config.h>
-
 #include <Lazuli/common.h>
+#include <Lazuli/config.h>
 
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/linker.h>
@@ -58,8 +57,10 @@ Kernel_Main(void)
 }
 
 /* TODO: Find something better to perform this verification... */
+#ifndef LZ_STATIC_ANALYSIS
 #if (LZ_CONFIG_ON_PANIC_INFINITE_LOOP + LZ_CONFIG_ON_PANIC_SOFTWARE_RESET) != 1
 #error "Only one kernel panic configuration must be defined in config.h."
+#endif
 #endif
 
 NORETURN void

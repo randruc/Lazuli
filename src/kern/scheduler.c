@@ -7,11 +7,10 @@
  * This file describes the implementation of the Lazuli scheduler.
  */
 
-#include <config.h>
-
 #include <stdint.h>
 
 #include <Lazuli/common.h>
+#include <Lazuli/config.h>
 #include <Lazuli/lazuli.h>
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>

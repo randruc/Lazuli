@@ -10,11 +10,10 @@
  * startup.S.
  */
 
-#include <config.h>
-
 #include <stdint.h>
 
 #include <Lazuli/common.h>
+#include <Lazuli/config.h>
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/arch.h>
 

@@ -8,9 +8,9 @@
  * "16-bit timer counter 1" of the ATMega328p.
  */
 
-#include <config.h>
-
 #include <stdint.h>
+
+#include <Lazuli/config.h>
 
 #include <Lazuli/sys/arch/AVR/timer_counter_1.h>
 
