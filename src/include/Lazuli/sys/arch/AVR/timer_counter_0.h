@@ -55,24 +55,24 @@ typedef struct {
  * Content of the TCCR0A register.
  */
 enum {
-  TCCR0A_WGM00  = POSITION(0), /**< Waveform Generation Mode    */
-  TCCR0A_WGM01  = POSITION(1), /**< Waveform Generation Mode    */
-  TCCR0A_COM0B0 = POSITION(4), /**< Compare Match Output B Mode */
-  TCCR0A_COM0B1 = POSITION(5), /**< Compare Match Output B Mode */
-  TCCR0A_COM0A0 = POSITION(6), /**< Compare Match Output A Mode */
-  TCCR0A_COM0A1 = POSITION(7)  /**< Compare Match Output A Mode */
+  TCCR0A_WGM00  = POSITION(0U), /**< Waveform Generation Mode    */
+  TCCR0A_WGM01  = POSITION(1U), /**< Waveform Generation Mode    */
+  TCCR0A_COM0B0 = POSITION(4U), /**< Compare Match Output B Mode */
+  TCCR0A_COM0B1 = POSITION(5U), /**< Compare Match Output B Mode */
+  TCCR0A_COM0A0 = POSITION(6U), /**< Compare Match Output A Mode */
+  TCCR0A_COM0A1 = POSITION(7U)  /**< Compare Match Output A Mode */
 };
 
 /**
  * Content of the TCCR0B register
  */
 enum {
-  TCCR0B_CS00  = POSITION(0), /**< Clock Select             */
-  TCCR0B_CS01  = POSITION(1), /**< Clock Select             */
-  TCCR0B_CS02  = POSITION(2), /**< Clock Select             */
-  TCCR0B_WGM02 = POSITION(3), /**< Waveform Generation Mode */
-  TCCR0B_FOC0B = POSITION(6), /**< Force Output Compare B   */
-  TCCR0B_FOC0A = POSITION(7)  /**< Force Output Compare A   */
+  TCCR0B_CS00  = POSITION(0U), /**< Clock Select             */
+  TCCR0B_CS01  = POSITION(1U), /**< Clock Select             */
+  TCCR0B_CS02  = POSITION(2U), /**< Clock Select             */
+  TCCR0B_WGM02 = POSITION(3U), /**< Waveform Generation Mode */
+  TCCR0B_FOC0B = POSITION(6U), /**< Force Output Compare B   */
+  TCCR0B_FOC0A = POSITION(7U)  /**< Force Output Compare A   */
 };
 
 /**
@@ -80,23 +80,23 @@ enum {
  */
 enum {
   /** Timer/Counter 0 Overflow Interrupt enable */
-  TIMSK0_TOIE0 = POSITION(0),
+  TIMSK0_TOIE0 = POSITION(0U),
 
   /** Timer/Counter 0 Output Compare Match A Interrupt Enable */
-  TIMSK0_OCIE0A = POSITION(1),
+  TIMSK0_OCIE0A = POSITION(1U),
 
   /** Timer/Counter 0 Output Compare Match B Interrupt Enable */
-  TIMSK0_OCIE0B = POSITION(2)
+  TIMSK0_OCIE0B = POSITION(2U)
 };
 
 /**
  * Content of the TIFR0 Register.
  */
 enum {
-  TIFR0_TOV0  = POSITION(0), /**< Timer/Counter 0 Overflow Flag             */
-  TIFR0_OCF0A = POSITION(1), /**< Timer/Counter 0 Output Compare A Match
+  TIFR0_TOV0  = POSITION(0U), /**< Timer/Counter 0 Overflow Flag             */
+  TIFR0_OCF0A = POSITION(1U), /**< Timer/Counter 0 Output Compare A Match
                                   Flag                                      */
-  TIFR0_OCF0B = POSITION(2)  /**< Timer/Counter 0 Output Compare B Match
+  TIFR0_OCF0B = POSITION(2U)  /**< Timer/Counter 0 Output Compare B Match
                                   Flag                                      */
 };
 

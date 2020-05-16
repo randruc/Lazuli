@@ -53,42 +53,42 @@ typedef struct {
  * Content of the UCSR0A register.
  */
 enum {
-  UCSR0A_RXC0  = POSITION(7), /**< USART Receive Complete             */
-  UCSR0A_TXC0  = POSITION(6), /**< USART Transmit Complete            */
-  UCSR0A_UDRE0 = POSITION(5), /**< USART Data Register Empty          */
-  UCSR0A_FE0   = POSITION(4), /**< Frame Error                        */
-  UCSR0A_DOR0  = POSITION(3), /**< Data OverRun                       */
-  UCSR0A_UPE0  = POSITION(2), /**< USART Parity Error                 */
-  UCSR0A_U2X0  = POSITION(1), /**< Double USART Transmission Speed    */
-  UCSR0A_MPCM0 = POSITION(0)  /**< Multi-processor Communication Mode */
+  UCSR0A_RXC0  = POSITION(7U), /**< USART Receive Complete             */
+  UCSR0A_TXC0  = POSITION(6U), /**< USART Transmit Complete            */
+  UCSR0A_UDRE0 = POSITION(5U), /**< USART Data Register Empty          */
+  UCSR0A_FE0   = POSITION(4U), /**< Frame Error                        */
+  UCSR0A_DOR0  = POSITION(3U), /**< Data OverRun                       */
+  UCSR0A_UPE0  = POSITION(2U), /**< USART Parity Error                 */
+  UCSR0A_U2X0  = POSITION(1U), /**< Double USART Transmission Speed    */
+  UCSR0A_MPCM0 = POSITION(0U)  /**< Multi-processor Communication Mode */
 };
 
 /**
  * Content of the UCSR0B register.
  */
 enum {
-  UCSR0B_RXCIE0 = POSITION(7), /**< RX Complete Interrupt Enable         */
-  UCSR0B_TXCIE0 = POSITION(6), /**< TX Complete Interrupt Enable         */
-  UCSR0B_UDRIE0 = POSITION(5), /**< Data Register Empty Interrupt Enable */
-  UCSR0B_RXEN0  = POSITION(4), /**< Receiver Enable                      */
-  UCSR0B_TXEN0  = POSITION(3), /**< Transmitter Enable                   */
-  UCSR0B_UCSZ02 = POSITION(2), /**< Character Size 2                     */
-  UCSR0B_RXB80  = POSITION(1), /**< Receive Data Bit 8                   */
-  UCSR0B_TXB80  = POSITION(0)  /**< Transmit Data Bit 8                  */
+  UCSR0B_RXCIE0 = POSITION(7U), /**< RX Complete Interrupt Enable         */
+  UCSR0B_TXCIE0 = POSITION(6U), /**< TX Complete Interrupt Enable         */
+  UCSR0B_UDRIE0 = POSITION(5U), /**< Data Register Empty Interrupt Enable */
+  UCSR0B_RXEN0  = POSITION(4U), /**< Receiver Enable                      */
+  UCSR0B_TXEN0  = POSITION(3U), /**< Transmitter Enable                   */
+  UCSR0B_UCSZ02 = POSITION(2U), /**< Character Size 2                     */
+  UCSR0B_RXB80  = POSITION(1U), /**< Receive Data Bit 8                   */
+  UCSR0B_TXB80  = POSITION(0U)  /**< Transmit Data Bit 8                  */
 };
 
 /**
  * Content of the UCSR0C register.
  */
 enum {
-  UCSR0C_UMSEL01 = POSITION(7), /**< USART Mode Select 1 */
-  UCSR0C_UMSEL00 = POSITION(6), /**< USART Mode Select 0 */
-  UCSR0C_UPM01   = POSITION(5), /**< Parity Mode 1       */
-  UCSR0C_UPM00   = POSITION(4), /**< Parity Mode 0       */
-  UCSR0C_USBS0   = POSITION(3), /**< Stop Bit Select     */
-  UCSR0C_UCSZ01  = POSITION(2), /**< Character size 1    */
-  UCSR0C_UCSZ00  = POSITION(1), /**< Character Size 0    */
-  UCSR0C_UCPOL0  = POSITION(0)  /**< Clock Polarity      */
+  UCSR0C_UMSEL01 = POSITION(7U), /**< USART Mode Select 1 */
+  UCSR0C_UMSEL00 = POSITION(6U), /**< USART Mode Select 0 */
+  UCSR0C_UPM01   = POSITION(5U), /**< Parity Mode 1       */
+  UCSR0C_UPM00   = POSITION(4U), /**< Parity Mode 0       */
+  UCSR0C_USBS0   = POSITION(3U), /**< Stop Bit Select     */
+  UCSR0C_UCSZ01  = POSITION(2U), /**< Character size 1    */
+  UCSR0C_UCSZ00  = POSITION(1U), /**< Character Size 0    */
+  UCSR0C_UCPOL0  = POSITION(0U)  /**< Clock Polarity      */
 };
 
 /**

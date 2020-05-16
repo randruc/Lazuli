@@ -157,10 +157,16 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
 /**
  * Define a constant bit at position X, starting from index 0.
  *
- * @param X An integer representing the position of the bit, starting from index
- *          0.
+ * @param X An unsigned integer constant representing the position of the bit,
+ *          starting from index 0.
+ *
+ * @warning The constant must be specified using an unsigned integer litteral
+ *          in uppercase.
+ *          e.g. POSITION(2U)
+ *          This is to make static analyzers not complain about using a shift
+ *          operator with an unsigned value.
  */
-#define POSITION(X) (1 << (X))
+#define POSITION(X) (1U << (X))
 
 /**
  * Define an indirect read/write variable at an absolute address.
@@ -241,6 +247,6 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  *
  * @param X The array variable.
  */
-#define ELEMENTS_COUNT(X) (sizeof(X) / sizeof((X)[0]))
+#define ELEMENTS_COUNT(X) ((size_t)(sizeof(X) / sizeof((X)[0])))
 
 #endif /* LAZULI_COMMON_H */

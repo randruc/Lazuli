@@ -32,12 +32,12 @@ enum Lz_SerialEnableFlags {
   /**
    * Enable serial transmission.
    */
-  LZ_SERIAL_ENABLE_TRANSMIT = POSITION(1),
+  LZ_SERIAL_ENABLE_TRANSMIT = POSITION(1U),
 
   /**
    * Enable serial reception.
    */
-  LZ_SERIAL_ENABLE_RECEIVE = POSITION(2),
+  LZ_SERIAL_ENABLE_RECEIVE = POSITION(2U),
 
   /**
    * Enable both serial transmission and reception.

@@ -78,53 +78,53 @@ _EXTERN_C_DECL_BEGIN
  * Content of the TCCR1A register.
  */
 enum {
-  TCCR1A_WGM10  = POSITION(0), /**< Waveform generation mode          */
-  TCCR1A_WGM11  = POSITION(1), /**< Waveform generation mode          */
-  TCCR1A_COM1B0 = POSITION(4), /**< Compare output mode for Channel B */
-  TCCR1A_COM1B1 = POSITION(5), /**< Compare output mode for Channel B */
-  TCCR1A_COM1A0 = POSITION(6), /**< Compare output mode for Channel A */
-  TCCR1A_COM1A1 = POSITION(7)  /**< Compare output mode for Channel A */
+  TCCR1A_WGM10  = POSITION(0U), /**< Waveform generation mode          */
+  TCCR1A_WGM11  = POSITION(1U), /**< Waveform generation mode          */
+  TCCR1A_COM1B0 = POSITION(4U), /**< Compare output mode for Channel B */
+  TCCR1A_COM1B1 = POSITION(5U), /**< Compare output mode for Channel B */
+  TCCR1A_COM1A0 = POSITION(6U), /**< Compare output mode for Channel A */
+  TCCR1A_COM1A1 = POSITION(7U)  /**< Compare output mode for Channel A */
 };
 
 /**
  * Content of the TCCR1B register.
  */
 enum {
-  TCCR1B_CS10  = POSITION(0), /**< Clock select                  */
-  TCCR1B_CS11  = POSITION(1), /**< Clock select                  */
-  TCCR1B_CS12  = POSITION(2), /**< Clock select                  */
-  TCCR1B_WGM12 = POSITION(3), /**< Waveform generation mode      */
-  TCCR1B_WGM13 = POSITION(4), /**< Waveform generation mode      */
-  TCCR1B_ICES1 = POSITION(6), /**< Input capture edge select     */
-  TCCR1B_ICNC1 = POSITION(7)  /**< Input capture noise canceller */
+  TCCR1B_CS10  = POSITION(0U), /**< Clock select                  */
+  TCCR1B_CS11  = POSITION(1U), /**< Clock select                  */
+  TCCR1B_CS12  = POSITION(2U), /**< Clock select                  */
+  TCCR1B_WGM12 = POSITION(3U), /**< Waveform generation mode      */
+  TCCR1B_WGM13 = POSITION(4U), /**< Waveform generation mode      */
+  TCCR1B_ICES1 = POSITION(6U), /**< Input capture edge select     */
+  TCCR1B_ICNC1 = POSITION(7U)  /**< Input capture noise canceller */
 };
 
 /**
  * Content of the TCCR1C register.
  */
 enum {
-  TCCR1C_FOC1B = POSITION(6), /**< Force output compare for channel A */
-  TCCR1C_FOC1A = POSITION(7)  /**< Force output compare for channel B */
+  TCCR1C_FOC1B = POSITION(6U), /**< Force output compare for channel A */
+  TCCR1C_FOC1A = POSITION(7U)  /**< Force output compare for channel B */
 };
 
 /**
  * Content of the TIMSK1 register.
  */
 enum {
-  TIMSK1_TOIE1  = POSITION(0),  /**< Overflow interrupt enable               */
-  TIMSK1_OCIE1A = POSITION(1),  /**< Output compare A match interrupt enable */
-  TIMSK1_OCIE1B = POSITION(2),  /**< Output compare B match interrupt enable */
-  TIMSK1_ICIE1  = POSITION(5)   /**< Input capture enable                    */
+  TIMSK1_TOIE1  = POSITION(0U),  /**< Overflow interrupt enable               */
+  TIMSK1_OCIE1A = POSITION(1U),  /**< Output compare A match interrupt enable */
+  TIMSK1_OCIE1B = POSITION(2U),  /**< Output compare B match interrupt enable */
+  TIMSK1_ICIE1  = POSITION(5U)   /**< Input capture enable                    */
 };
 
 /**
  * Content of the TIFR1 register.
  */
 enum {
-  TIFR1_TOV1  = POSITION(0), /**< Overflow flag               */
-  TIFR1_OCF1A = POSITION(1), /**< Output compare A match flag */
-  TIFR1_OCF1B = POSITION(2), /**< Output compare B match flag */
-  TIFR1_ICF1  = POSITION(5)  /**< Input capture flag          */
+  TIFR1_TOV1  = POSITION(0U), /**< Overflow flag               */
+  TIFR1_OCF1A = POSITION(1U), /**< Output compare A match flag */
+  TIFR1_OCF1B = POSITION(2U), /**< Output compare B match flag */
+  TIFR1_ICF1  = POSITION(5U)  /**< Input capture flag          */
 };
 
 /** @} */

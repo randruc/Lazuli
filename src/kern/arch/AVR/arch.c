@@ -56,7 +56,7 @@ Arch_InitIdleCpuMode(void)
 void
 Arch_CpuSleep(void)
 {
-  SET_BITS(SMCR, uint8_t, POSITION(0));
+  SET_BITS(SMCR, uint8_t, POSITION(0U));
   cpu_sleep();
-  CLEAR_BITS(SMCR, uint8_t, POSITION(0));
+  CLEAR_BITS(SMCR, uint8_t, POSITION(0U));
 }
