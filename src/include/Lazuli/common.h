@@ -126,7 +126,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  * @param V The lvalue to check.
  * @param T The supposed type of the lvalue.
  */
-#define STATIC_CHECK_TYPE(V, T) UNUSED(1 ? &(V) : (T*)0)
+#define STATIC_CHECK_TYPE(V, T) UNUSED(1 ? (T*)0 : &(V))
 
 /**
  * Set the corresponding bits of X in the value V of type T.
