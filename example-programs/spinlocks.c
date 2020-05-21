@@ -18,10 +18,13 @@
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 
+DEPENDENCY_ON_MODULE(SPINLOCK);
+DEPENDENCY_ON_MODULE(SERIAL);
+
 static Lz_Spinlock lock = LZ_SPINLOCK_INIT;
 
 void
-Task()
+Task(void)
 {
   Lz_Spinlock_Lock(&lock);
   Usart_PrintRawString(Lz_Task_GetName());
@@ -29,22 +32,21 @@ Task()
 }
 
 static void
-EnableSerialTransmission() {
+EnableSerialTransmission(void) {
   Lz_SerialConfiguration serialConfiguration;
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
+    serialConfiguration.speed = LZ_SERIAL_SPEED_9600;
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
-void
+int
 main(void)
 {
   Lz_TaskConfiguration taskConfiguration;
 
   EnableSerialTransmission();
-
-  Lz_SetSchedulerClass(LZ_SCHED_RR);
 
   Lz_TaskConfiguration_Init(&taskConfiguration);
   taskConfiguration.name =
@@ -69,9 +71,6 @@ main(void)
     "Task 4 says: "
     "\"Fire is a good servant but a bad master.\"\r\n";
   Lz_RegisterTask(Task, &taskConfiguration);
-
-  EICRA = 0x0f;
-  EIMSK = 0x03;
 
   Usart_PrintRawString("\r\n");
 
