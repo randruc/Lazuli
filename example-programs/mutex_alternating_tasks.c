@@ -28,10 +28,13 @@
 #include <Lazuli/sys/arch/AVR/registers.h>
 #include <Lazuli/sys/arch/AVR/usart.h>
 
+DEPENDENCY_ON_MODULE(SERIAL);
+DEPENDENCY_ON_MODULE(MUTEX);
+
 /*
  * Define the number of iterations for each loop.
  */
-static const uint8_t LOOP_N = 5;
+static const uint8_t LOOP_N = 10;
 
 /*
  * Define the mutexes associated with each task.
@@ -66,20 +69,19 @@ TaskB(void)
 }
 
 static void
-EnableSerialTransmission() {
+EnableSerialTransmission(void) {
   Lz_SerialConfiguration serialConfiguration;
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
+  serialConfiguration.speed = LZ_SERIAL_SPEED_9600;
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
-void
+int
 main(void)
 {
   EnableSerialTransmission();
-
-  Lz_SetSchedulerClass(LZ_SCHED_RR);
 
   Lz_RegisterTask(TaskA, NULL);
   Lz_RegisterTask(TaskB, NULL);

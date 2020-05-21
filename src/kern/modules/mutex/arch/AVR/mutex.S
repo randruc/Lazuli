@@ -39,13 +39,3 @@ exit:
     pop r31
     pop r30
     ret
-
-    .global Arch_WaitMutex
-Arch_WaitMutex:
-    cli
-    call save_context_on_stack
-    movw r22, r24
-    in r24, spl
-    in r25, sph
-    RESET_KERNEL_STACK_POINTER
-    jmp Scheduler_WaitMutex

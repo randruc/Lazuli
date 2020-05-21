@@ -14,6 +14,7 @@
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
+#include <Lazuli/mutex.h>
 
 #include <Lazuli/sys/task.h>
 
@@ -82,24 +83,24 @@ Scheduler_WaitEvent(void * const sp, const uint8_t eventCode);
 /**
  * Wake up all tasks waiting for a mutex.
  *
- * @param waitingTasks A pointer to the Lz_LinkedList containing all the tasks
- * waiting for the mutex.
+ * @param waitingTasks A pointer to the mutex the tasks are waiting for.
  */
 void
-Scheduler_WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks);
+Scheduler_WakeupTasksWaitingMutex(Lz_Mutex * const mutex);
 
 /**
- * Place the current running task in the queue of tasks waiting for a mutex.
- * This function is called from arch-specific WaitMutex routine in order to get
- * the current running task wait for a mutex, after saving its context.
+ * Get a pointer to the current running task.
  *
- * @param sp The stack pointer of the current running task after saving its
- *           context.
- * @param waitingTasks A pointer to the Lz_LinkedList containing all the tasks
- * waiting for the mutex.
+ * @return A valid pointer to the current running task.
+ */
+Task*
+Scheduler_GetCurrentTask(void);
+
+/**
+ * Put the current task to sleep until the end of its time slice.
  */
 void
-Scheduler_WaitMutex(void * const sp, Lz_LinkedList * const waitingTasks);
+Scheduler_SleepUntilEndOfTimeSlice(void);
 
 _EXTERN_C_DECL_END
 

@@ -16,32 +16,57 @@
 #include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/task.h>
 
-void
-Lz_Mutex_Init(Lz_Mutex * const mutex)
+/**
+ * Initialize a mutex in a given state.
+ *
+ * @param mutex A pointer to the mutex to initialize.
+ * @param initValue A valid pointer to a mutex in the desired state.
+ */
+static void
+InitMutex(Lz_Mutex * const mutex, const Lz_Mutex * const initValue)
 {
-  const Lz_Mutex initValue = LZ_MUTEX_INIT;
-
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
       Task_Abort();
     }
   }
+  
+  Memory_Copy(initValue, mutex, sizeof(Lz_Mutex));
+}
 
-  Memory_Copy(&initValue, mutex, sizeof(initValue));
+/**
+ * Set the task to wait for a given mutex to be unlocked.
+ *
+ * @param mutex a valid pointer to the mutex to wait.
+ */
+static void
+WaitMutex(Lz_Mutex * const mutex)
+{
+  Task * const currentTask = Scheduler_GetCurrentTask();
+  
+  currentTask->taskToSchedulerMessage = WAIT_MUTEX;
+  currentTask->taskToSchedulerMessageParameter = mutex;
+
+  Scheduler_SleepUntilEndOfTimeSlice();
+}
+
+/** @name User API */
+/** @{             */
+
+void
+Lz_Mutex_Init(Lz_Mutex * const mutex)
+{
+  const Lz_Mutex initValueUnlocked = LZ_MUTEX_INIT;
+
+  InitMutex(mutex, &initValueUnlocked);
 }
 
 void
 Lz_Mutex_InitLocked(Lz_Mutex * const mutex)
 {
-  const Lz_Mutex initValue = LZ_MUTEX_INIT_LOCKED;
+  const Lz_Mutex initValueLocked = LZ_MUTEX_INIT_LOCKED;
 
-  if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
-    if (NULL == mutex) {
-      Task_Abort();
-    }
-  }
-
-  Memory_Copy(&initValue, mutex, sizeof(initValue));
+  InitMutex(mutex, &initValueLocked);
 }
 
 void
@@ -52,9 +77,9 @@ Lz_Mutex_Lock(Lz_Mutex * const mutex)
       Task_Abort();
     }
   }
-
+  
   while (!Arch_TryAcquireLock(&(mutex->lock))) {
-    Arch_WaitMutex(&(mutex->waitingTasks));
+    WaitMutex(mutex);
   }
 }
 
@@ -69,6 +94,8 @@ Lz_Mutex_Unlock(Lz_Mutex * const mutex)
 
   Arch_DisableInterrupts();
   mutex->lock = 0;
-  Scheduler_WakeupTasksWaitingMutex(&(mutex->waitingTasks));
+  Scheduler_WakeupTasksWaitingMutex(mutex);  
   Arch_EnableInterrupts();
 }
+
+/** @} */

@@ -4,7 +4,7 @@
  * @date Feb 2017
  * @author Remi Andruccioli
  *
- * This file describes the public API of the Lazuli kernel.
+ * This file describes the public (user) API of the Lazuli kernel.
  * It defines public types and functions that can by used by user main code
  * and tasks.
  */
@@ -116,51 +116,6 @@ typedef struct {
    */
   lz_u_resolution_unit_t completion;
 }Lz_TaskConfiguration;
-
-/* TODO: Maybe move this one somewhere else. */
-/**
- * Represents a message that a Task can pass to the scheduler after its time
- * slice has expired.
- */
-enum TaskToSchedulerMessage {
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the first one.
-   */
-  __TASK_TO_SCHEDULER_MESSAGE_ENUM_BEGIN = -1,
-
-  /**
-   * No message has to be passed to the scheduler.
-   */
-  NO_MESSAGE = 0,
-
-  /**
-   * Set the task to wait for its next activation.
-   * i.e. It finnished its work without consuming all of its completion time.
-   */
-  WAIT_ACTIVATION,
-
-  /**
-   * Set the task to wait for an interrupt.
-   * A parameter representing the interrupt number must accompany this message.
-   */
-  WAIT_INTERRUPT,
-
-  /**
-   * Terminate the task.
-   */
-  TERMINATE_TASK,
-
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the last one.
-   */
-  __TASK_TO_SCHEDULER_MESSAGE_ENUM_END
-};
 
 /**
  * Register a new task.

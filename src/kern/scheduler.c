@@ -12,6 +12,7 @@
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
 #include <Lazuli/lazuli.h>
+#include <Lazuli/mutex.h>
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
 #include <Lazuli/sys/arch/arch.h>
@@ -303,13 +304,16 @@ ManagePriorityRealTimeTask(void)
     
     List_Prepend(&waitingInterruptsTasks[interruptCode],
                  &currentTask->stateQueue);
-
-    return;
+  } else if (LZ_CONFIG_MODULE_MUTEX_USED &&
+             (WAIT_MUTEX == currentTask->taskToSchedulerMessage)) {
+    Lz_Mutex * const mutex = currentTask->taskToSchedulerMessageParameter;
+    List_Prepend(&mutex->waitingTasks,
+                 &currentTask->stateQueue);
+  } else {
+    InsertTaskByPriority(&readyTasks[PRIORITY_RT],
+                         currentTask,
+                         PriorityComparer);
   }
-  
-  InsertTaskByPriority(&readyTasks[PRIORITY_RT],
-                       currentTask,
-                       PriorityComparer);
 }
 
 /**
@@ -516,24 +520,6 @@ RegisterIdleTask(void)
 }
 
 /**
- * Put the current task to sleep until the end of its time slice.
- */
-static void
-SleepUntilEndOfTimeSlice(void)
-{
-  /*
-   * We use this do-while loop because the task can be woken up by any interrupt
-   * source. In the case of standard interrupts (i.e. not a clock tick)
-   * the task needs to sleep again after the interruption has been managed.
-   * In other words, currentTask->taskToSchedulerMessage will be equal to
-   * NO_MESSAGE only if the task's time slice has finished.
-   */
-  do {
-    Arch_CpuSleep();
-  } while (NO_MESSAGE != currentTask->taskToSchedulerMessage);
-}
-
-/**
  * @name Kernel API
  * @{
  */
@@ -643,19 +629,50 @@ Scheduler_HandleClockTick(void * const sp)
 }
 
 void
-Scheduler_WakeupTasksWaitingMutex(Lz_LinkedList * const waitingTasks)
+Scheduler_WakeupTasksWaitingMutex(Lz_Mutex * const mutex)
 {
-  /* TODO: Implement this */
-  UNUSED(waitingTasks);
+  Task *loopTask;
+  Lz_LinkedListElement *iterator;
+
+  /* TODO: Ugly */
+  if (!LZ_CONFIG_MODULE_MUTEX_USED) {
+    UNUSED(mutex);
+    UNUSED(loopTask);
+    UNUSED(iterator);
+
+    return;
+  }
+  
+  List_RemovableForEach(&mutex->waitingTasks,
+                        Task,
+                        loopTask,
+                        stateQueue,
+                        iterator) {
+    iterator = List_Remove(&mutex->waitingTasks,
+                           &loopTask->stateQueue);
+    InsertTaskByPriority(&readyTasks[PRIORITY_RT], loopTask, PriorityComparer);
+  }
+}
+
+Task*
+Scheduler_GetCurrentTask(void)
+{
+  return currentTask;
 }
 
 void
-Scheduler_WaitMutex(void * const sp,
-                    Lz_LinkedList * const waitingTasks)
+Scheduler_SleepUntilEndOfTimeSlice(void)
 {
-  /* TODO: Implement this */
-  UNUSED(sp);
-  UNUSED(waitingTasks);
+  /*
+   * We use this do-while loop because the task can be woken up by any interrupt
+   * source. In the case of standard interrupts (i.e. not a clock tick)
+   * the task needs to sleep again after the interruption has been managed.
+   * In other words, currentTask->taskToSchedulerMessage will be equal to
+   * NO_MESSAGE only if the task's time slice has finished.
+   */
+  do {
+    Arch_CpuSleep();
+  } while (NO_MESSAGE != currentTask->taskToSchedulerMessage);
 }
 
 /** @} */
@@ -707,7 +724,7 @@ Lz_Task_WaitActivation(void)
 {
   currentTask->taskToSchedulerMessage = WAIT_ACTIVATION;
 
-  SleepUntilEndOfTimeSlice();
+  Scheduler_SleepUntilEndOfTimeSlice();
 }
 
 void
@@ -716,7 +733,7 @@ Lz_Task_WaitInterrupt(uint8_t interruptCode)
   currentTask->taskToSchedulerMessage = WAIT_INTERRUPT;
   currentTask->taskToSchedulerMessageParameter = &interruptCode;
 
-  SleepUntilEndOfTimeSlice();
+  Scheduler_SleepUntilEndOfTimeSlice();
 }
 
 void
@@ -724,7 +741,7 @@ Lz_Task_Terminate(void)
 {
   currentTask->taskToSchedulerMessage = TERMINATE_TASK;
 
-  SleepUntilEndOfTimeSlice();
+  Scheduler_SleepUntilEndOfTimeSlice();
 }
 
 /** @} */
