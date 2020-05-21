@@ -16,6 +16,8 @@
 #include <Lazuli/sys/compiler.h>
 #include <Lazuli/sys/scheduler.h>
 
+DEPENDENCY_ON_MODULE(SERIAL);
+
 /**
  * Perform an assertion inside a unit test.
  *

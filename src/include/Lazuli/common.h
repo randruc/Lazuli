@@ -249,4 +249,12 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  */
 #define ELEMENTS_COUNT(X) ((size_t)(sizeof(X) / sizeof((X)[0])))
 
+/**
+ * Perform a static assertion to check if a given module is activated.
+ *
+ * @param X The module name, in uppercase.
+ */
+#define DEPENDENCY_ON_MODULE(X) \
+  STATIC_ASSERT(LZ_CONFIG_MODULE_ ## X ## _USED, Module_ ## X ## _must_be_used)
+
 #endif /* LAZULI_COMMON_H */

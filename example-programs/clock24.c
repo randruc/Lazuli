@@ -13,6 +13,9 @@
 
 #include <Lazuli/sys/arch/AVR/usart.h>
 
+DEPENDENCY_ON_MODULE(CLOCK_24);
+DEPENDENCY_ON_MODULE(SERIAL);
+
 /* This array could also be stored in ROM using PROGMEM. */
 static const char * const printableValues[] =
   {
@@ -25,7 +28,7 @@ static const char * const printableValues[] =
   };
 
 void
-ClockTask()
+ClockTask(void)
 {
   Clock24 clock24;
 
@@ -44,7 +47,7 @@ ClockTask()
 }
 
 static void
-EnableSerialTransmission() {
+EnableSerialTransmission(void) {
   Lz_SerialConfiguration serialConfiguration;
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
@@ -66,6 +69,7 @@ main(void)
   Usart_PrintRawString("\r\n>>>>>>>\r\n");
 
   Lz_TaskConfiguration_Init(&taskConfiguration);
+  taskConfiguration.schedulingPolicy = CYCLIC_RT;
   taskConfiguration.period = 50;
   taskConfiguration.completion = 25;
   Lz_RegisterTask(ClockTask, &taskConfiguration);

@@ -18,11 +18,15 @@
 
 _EXTERN_C_DECL_BEGIN
 
+/*
+ * TODO: Maybe think about storing scheduling policy parameters in a union to
+ * save memory.
+ * This would have the drawback of not being able for a task to save its
+ * parameters if it needs to alternate between 2 different policies that use
+ * different kind of parameters.
+ */
 /**
  * Represents a task.
- *
- * This type is kind of an "abstract" type. It's always nested in a more
- * specific task type, appropriate for each scheduler class.
  */
 typedef struct {
   /**
@@ -65,6 +69,11 @@ typedef struct {
   void *stackPointer;
 
   /**
+   * The scheduling policy.
+   */
+  enum Lz_SchedulingPolicy schedulingPolicy;
+  
+  /**
    * The scheduling queue on which the task is stored.
    */
   Lz_LinkedListElement stateQueue;
@@ -73,32 +82,47 @@ typedef struct {
    * The period (T) of the task, expressed as an integer number of time units.
    * Defined by task configuration when registering task, then left read-only.
    */
-  Lz_ResolutionUnit period;
+  lz_u_resolution_unit_t period;
 
   /**
    * The completion time (C) of the task (worst case execution time), expressed
    * as an integer number of time units.
    * Defined by task configuration when registering task, then left read-only.
    */
-  Lz_ResolutionUnit completion;
+  lz_u_resolution_unit_t completion;
 
   /**
    * The number of time units until the task will complete its execution.
    * Updated by scheduler.
    */
-  Lz_ResolutionUnit timeUntilCompletion;
+  lz_u_resolution_unit_t timeUntilCompletion;
 
   /**
    * The number of time units until the task will be activated.
    * Updated by scheduler.
    */
-  Lz_ResolutionUnit timeUntilActivation;
+  lz_u_resolution_unit_t timeUntilActivation;
+
+  /**
+   * The task priority. Only used for non-cyclic tasks.
+   */
+  lz_task_priority_t priority;
 
   /**
    * The message the task has to pass to the scheduler for the next scheduling
    * operation (i.e. after its time slice expires).
+   *
+   * @attention Declared volatile because it can be updated both by the task
+   *            itself or the kernel.
    */
-  enum TaskToSchedulerMessage taskToSchedulerMessage;
+  volatile enum TaskToSchedulerMessage taskToSchedulerMessage;
+
+  /**
+   * A parameter that can accompany a taskToSchedulerMessage.
+   *
+   * This parameter is a "universal pointer" to the actual parameter.
+   */
+  void *taskToSchedulerMessageParameter;
 }Task;
 
 /**

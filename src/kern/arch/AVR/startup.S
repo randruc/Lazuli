@@ -20,9 +20,9 @@
  * @param code The interrupt code defined in interrupts.h.
  */
 .macro INTERRUPT_HANDLER code
-    call save_context_on_stack
-    ldi r22, \code
-    jmp enter_kernel_handle_interrupt
+    push r24
+    ldi r24, \code
+    jmp call_scheduler_handle_interrupt
 .endm
 
     ;;
@@ -68,9 +68,14 @@ timer2ovf_handler:
 timer1capt_handler:
     INTERRUPT_HANDLER INT_TIMER1CAPT
 
+    ;; This interrupt is used for the main clock (for scheduling).
     .global timer1compA_handler
 timer1compA_handler:
-    INTERRUPT_HANDLER INT_TIMER1COMPA
+    call save_context_on_stack
+    in r24, spl
+    in r25, sph
+    RESET_KERNEL_STACK_POINTER
+    jmp Scheduler_HandleClockTick
 
     .global timer1compB_handler
 timer1compB_handler:
@@ -129,54 +134,17 @@ spmready_handler:
     INTERRUPT_HANDLER INT_SPMREADY
 
 /**
- * Switch to kernel stack and give hand to the scheduler to handle the
- * interrupt.
+ * Call the scheduler to handle the interrupt.
+ * IMPORTANT: The scheduler will execute on the stack of the current task! No
+ * context saving nor context switching is performed here.
  *
- * Before calling this subroutine, you first need to fill r22 with the
+ * Before calling this subroutine, you first need to fill r24 with the
  * interrupt code.
  */
-enter_kernel_handle_interrupt:
-    in r24, spl
-    in r25, sph
-    RESET_KERNEL_STACK_POINTER
-    jmp Scheduler_HandleInterrupt
-
-/**
- * Wait for a specific interrupt to occur.
- *
- * Technically:
- * - Disable interrupts
- * - Save the context of the current task
- * - Reset the stack to switch to kernel stack
- * - Give hand to the base scheduler by passing it the stack pointer of the
- *   current task and the interrupt code
- *
- * @param r24 A value of Lz_InterruptCode representing the interrupt
- *            to wait for.
- *
- * WARNING!!! This routine only works as long as r24 is left untouched until the
- *            line "mov r22, r24".
- */
-    .global Lz_WaitInterrupt
-Lz_WaitInterrupt:
-    cli
-    call save_context_on_stack
-    mov r22, r24
-    in r24, spl
-    in r25, sph
-    RESET_KERNEL_STACK_POINTER
-    jmp Scheduler_WaitEvent
-
-    .global Lz_Task_Terminate
-Lz_Task_Terminate:
-    cli
-.IF LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION
-    call save_context_on_stack
-    in r24, spl
-    in r25, sph
-.ENDIF
-    RESET_KERNEL_STACK_POINTER
-    jmp Scheduler_ManageTaskTermination
+call_scheduler_handle_interrupt:
+    call Scheduler_HandleInterrupt
+    pop r24
+    reti
 
     .global Task_Abort
 Task_Abort:
@@ -357,10 +325,12 @@ Arch_AreInterruptsEnabled:
      * @param r30, r31 (16 bits) The source address in program memory of the
      *                           stored bytes.
      * @param r26, r27 (16 bits) The destination address in RAM.
+     *
+     * @warning: This routine assumes that the number of bytes to copy is at
+     *           least 1. Make sure you call this routine with a number of bytes
+     *           that is not 0.
      */
 copy_from_program_memory:
-    sbiw r28, 0
-    breq copy_from_program_memory_exit
     push r17
 copy_from_program_memory_loop:
     lpm r17, Z+
@@ -368,7 +338,6 @@ copy_from_program_memory_loop:
     sbiw r28, 1
     brne copy_from_program_memory_loop
     pop r17
-copy_from_program_memory_exit:
     ret
 
     .global Arch_LoadFromProgmem
@@ -422,7 +391,7 @@ Arch_LoadU16FromProgmem:
     pop r31
     pop r30
     ret
-
+    
     .global cpu_sleep
 cpu_sleep:
     sleep

@@ -20,16 +20,59 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Represents the priority of a task.
+ * Represents the priority of a task, as a signed integer.
  * The higher the value, the higher the priority.
  */
-typedef int8_t Lz_TaskPriority;
+typedef int8_t lz_task_priority_t;
 
 /**
  * Represents the type used for the system clock resolution unit, as an unsigned
  * integer.
  */
-typedef uint16_t Lz_ResolutionUnit;
+typedef uint16_t lz_u_resolution_unit_t;
+
+/**
+ * Defines the possible scheduling policies for a Lazuli user task.
+ *
+ * @attention The constants are defined from the highest priority policy to the
+ *            lowest. i.e. A lower value means a higher priority.
+ */
+enum Lz_SchedulingPolicy {
+  /**
+   * @cond false
+   *
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the first one.
+   */
+   __LZ_SCHEDULING_POLICY_ENUM_BEGIN = -1,
+
+   /**
+    * Cyclic real-time scheduling.
+    */
+   CYCLIC_RT = 0,
+
+   /**
+    * Priority time sliced real-time scheduling.
+    *
+    * Equivalent to POSIX SCHED_RR.
+    */
+   PRIORITY_RT,
+
+   /**
+    * Priority round-robin scheduling (non real-time).
+    */
+   /*
+    * PRIORITY_RR,
+    */
+   
+  /**
+   * @cond false
+   *
+   * Undocumented to user: only here for static verification.
+   * This entry MUST be the last one.
+   */
+   __LZ_SCHEDULING_POLICY_ENUM_END
+};
 
 /**
  * Represents the configuration of a task.
@@ -48,18 +91,30 @@ typedef struct {
   size_t stackSize;
 
   /**
-   * The period (T) of the task.
+   * The scheduling policy of the task.
+   */
+  enum Lz_SchedulingPolicy schedulingPolicy;
+
+  /**
+   * The priority of task. Only used for non-cyclic tasks.
+   * The lower this number is, the higher the priority will be.
+   */
+  lz_task_priority_t priority;
+  
+  /**
+   * The period (T) of the task. Used only for cyclic tasks.
    *
    * The period is expressed as an integer number of time units.
    */
-  Lz_ResolutionUnit period;
+  lz_u_resolution_unit_t period;
 
   /**
-   * The completion time (C) of the task (worst case execution time).
+   * The completion time (C) of the task (worst case execution time). Used only
+   * for cyclic tasks.
    *
    * The completion time is expressed as an integer number of time units.
    */
-  Lz_ResolutionUnit completion;
+  lz_u_resolution_unit_t completion;
 }Lz_TaskConfiguration;
 
 /* TODO: Maybe move this one somewhere else. */
@@ -86,6 +141,17 @@ enum TaskToSchedulerMessage {
    * i.e. It finnished its work without consuming all of its completion time.
    */
   WAIT_ACTIVATION,
+
+  /**
+   * Set the task to wait for an interrupt.
+   * A parameter representing the interrupt number must accompany this message.
+   */
+  WAIT_INTERRUPT,
+
+  /**
+   * Terminate the task.
+   */
+  TERMINATE_TASK,
 
   /**
    * @cond false
@@ -115,7 +181,7 @@ enum TaskToSchedulerMessage {
  */
 bool
 Lz_RegisterTask(void (* const taskEntryPoint)(void),
-                const Lz_TaskConfiguration * taskConfiguration);
+                Lz_TaskConfiguration * taskConfiguration);
 
 /**
  * @brief Initialize an Lz_TaskConfiguration with default values for all
@@ -143,9 +209,12 @@ Lz_Run(void);
  * Puts the calling task to sleep until the specified interrupt occurs.
  *
  * @param interruptCode The code of the interrupt to wait for.
+ *
+ * @attention Only tasks with scheduling policy PRIORITY_RT can wait for
+ *            interrupts.
  */
 void
-Lz_WaitInterrupt(uint8_t interruptCode);
+Lz_Task_WaitInterrupt(uint8_t interruptCode);
 
 /**
  * Get the name of the calling task.
@@ -157,7 +226,8 @@ char const *
 Lz_Task_GetName(void);
 
 /**
- * Terminate the calling task.
+ * Terminate the calling task. The context of the task will be saved on its
+ * stack.
  *
  * Calling this function has the same effect than returning from the task's main
  * function.
@@ -171,6 +241,9 @@ Lz_Task_Terminate(void);
  * Set the calling task to wait for its next activation.
  * May be used if the task finnished its work without consuming all of its
  * completion time.
+ *
+ * @attention Only tasks with scheduling policy CYCLIC_RT can wait for next
+ *            activation.
  */
 void
 Lz_Task_WaitActivation(void);

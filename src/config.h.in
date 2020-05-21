@@ -84,16 +84,6 @@
 #cmakedefine01 LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS
 
 /**
- * When 1, save the task's context when it terminates (i.e. when the task
- * returns from its main function).
- *
- * When 0, don't save the task's context.
- * Setting to 0 will result in slightly better performances when a task
- * terminates.
- */
-#cmakedefine01 LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION
-
-/**
  * When 1, check if the interrupt code sent by the ASM interrupt handler to the
  * base scheduler interrupt handler is an admissible value.
  *

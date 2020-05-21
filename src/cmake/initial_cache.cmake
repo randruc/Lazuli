@@ -6,7 +6,6 @@
 # function.
 #
 
-
 ## General Settings
 
 set(
@@ -39,7 +38,7 @@ option(
 
 set(
   LZ_CONFIG_DEFAULT_TASK_STACK_SIZE
-  20
+  50
   CACHE STRING
   "Default stack size in bytes for a new task.")
 
@@ -55,13 +54,8 @@ option(
   ON)
 
 option(
-  LZ_CONFIG_SAVE_TASK_CONTEXT_ON_TERMINATION
-  "Save the task's context when it terminates."
-  ON)
-
-option(
   LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY
-  "Check the interrupt code sent by the ASM interrupt handler."
+  "Check if the interrupt codes are in the defined range."
   ON)
 
 option(
