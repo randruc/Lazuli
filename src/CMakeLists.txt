@@ -44,6 +44,12 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     -g           # TODO: Apply a condition for this flag.
     -Wall
     -Wextra
+    -Wstrict-prototypes
+    -Wundef
+    #-Wmissing-noreturn # Can be used for code review
+    #-Wsign-conversion  # Can be used for code review
+    #-Wconversion       # Can be used for code review
+    #-Wshadow           # Can be used for code review
     -Werror
     -O2
     -ansi

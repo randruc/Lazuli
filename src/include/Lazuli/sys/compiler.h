@@ -71,10 +71,10 @@
  * Use this macro to prevent such a variable to be placed in ".bss" section and
  * thus be initialized by default.
  *
- * We use this macro with global variables that are manually initialzed after
+ * We use this macro with global variables that are manually initialized after
  * system startup, and that don't need to be automatically set to zero.
  *
- * @warning The behavior of declaring an initialized variable with NONIT is
+ * @warning The behavior of declaring an initialized variable with NOINIT is
  * unknown.
  */
 #define NOINIT __attribute__((section(".noinit")))

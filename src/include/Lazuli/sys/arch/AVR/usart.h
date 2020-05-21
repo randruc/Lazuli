@@ -148,7 +148,7 @@ Usart_HexaPrint_Pointer(void * const pointer);
  * @param functionPointer The function pointer value to print.
  */
 void
-Usart_HexaPrint_FunctionPointer(void (*functionPointer)());
+Usart_HexaPrint_FunctionPointer(void (*functionPointer)(void));
 
 /**
  * Print a raw string without any formatting.

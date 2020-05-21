@@ -1042,12 +1042,12 @@ Assert(const bool cond, const uint16_t line)
  * Activate serial transmission.
  */
 static void
-EnableSerialTransmission() {
+EnableSerialTransmission(void) {
   Lz_SerialConfiguration serialConfiguration;
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
-  serialConfiguration.speed = LZ_SERIAL_SPEED_19200;
+  serialConfiguration.speed = LZ_SERIAL_SPEED_9600;
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 

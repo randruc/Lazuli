@@ -19,7 +19,7 @@ _EXTERN_C_DECL_BEGIN
  * Put the AVR CPU to sleep according to the sleep settings.
  */
 extern void
-cpu_sleep();
+cpu_sleep(void);
 
 _EXTERN_C_DECL_END
 

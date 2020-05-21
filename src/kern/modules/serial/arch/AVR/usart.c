@@ -55,12 +55,12 @@ PROGMEM static const char hexachars[] = {
  * 32 bits).
  */
 typedef union {
-  void *pointer;             /**< Holds the pointer value              */
-  void (*functionPointer)(); /**< Hold the function pointer value      */
-  uint8_t    u8Value;        /**< Holds the 8-bits value               */
-  uint16_t   u16Value;       /**< Holds the 16-bits value              */
-  uint32_t   u32Value;       /**< Holds the 32-bits value              */
-  char  bytes[4];            /**< Easily access each byte of the value */
+  void *pointer;                 /**< Holds the pointer value              */
+  void (*functionPointer)(void); /**< Hold the function pointer value      */
+  uint8_t    u8Value;            /**< Holds the 8-bits value               */
+  uint16_t   u16Value;           /**< Holds the 16-bits value              */
+  uint32_t   u32Value;           /**< Holds the 32-bits value              */
+  char  bytes[4];                /**< Easily access each byte of the value */
 }IntegerBytes;
 
 void
@@ -145,7 +145,7 @@ Usart_HexaPrint_Pointer(void * const pointer)
 }
 
 void
-Usart_HexaPrint_FunctionPointer(void (*functionPointer)())
+Usart_HexaPrint_FunctionPointer(void (*functionPointer)(void))
 {
   IntegerBytes integerBytes;
   integerBytes.functionPointer = functionPointer;
@@ -389,7 +389,7 @@ STATIC_ASSERT
 static void
 SetParityBit(const enum Lz_SerialParityBit parityBit)
 {
-  void (*jump)();
+  void (*jump)(void);
 
   if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (parityBit <= __LZ_SERIAL_PARITY_BIT_ENUM_BEGIN ||
@@ -473,7 +473,7 @@ STATIC_ASSERT
 static void
 SetSize(const enum Lz_SerialSize size)
 {
-  void (* jump)();
+  void (* jump)(void);
 
   if (LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL) {
     if (size <= __LZ_SERIAL_SIZE_ENUM_BEGIN ||

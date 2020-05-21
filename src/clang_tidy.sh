@@ -3,7 +3,7 @@
 # Execute clang-tidy on every .h and .c files.
 
 clang-tidy \
-    $(find . -iname *.h -o -iname *.c) \
+    $(find . -iname *.h -o -iname *.c ! -name "unit_tests.c") \
     -checks=*,-readability-avoid-const-params-in-decls \
     -header-filter=* \
     -- \
