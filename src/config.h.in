@@ -122,6 +122,11 @@
  */
 #define LZ_CONFIG_IDLE_TASK_NAME "@LZ_CONFIG_IDLE_TASK_NAME@"
 
+/**
+ * When set, add instrumentation code to measure context switches.
+ */
+#cmakedefine01 LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES
+
 /** @} */
 
 /** @name Spinlocks */
@@ -219,6 +224,18 @@
  * Enter "Extended Standby Mode" when sleeping.
  */
 #cmakedefine01 LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE
+
+/**
+ * The port used for instrumentation on AVR machines.
+ */
+#define LZ_CONFIG_AVR_INSTRUMENT_PORT \
+  (@LZ_CONFIG_AVR_INSTRUMENT_PORT@)
+
+/**
+ * The position in the port used for instrumentation on AVR machines.
+ */
+#define LZ_CONFIG_AVR_INSTRUMENT_POSITION \
+  (@LZ_CONFIG_AVR_INSTRUMENT_POSITION@)
 
 /** @} */
 

@@ -186,6 +186,12 @@ Arch_InitIdleCpuMode(void);
 void
 Arch_CpuSleep(void);
 
+/**
+ * Initialize the context switch instrumentation.
+ */
+void
+Arch_InitInstrumentation(void);
+
 /** @name System timer */
 /** @{                 */
 

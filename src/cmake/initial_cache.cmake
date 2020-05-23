@@ -83,6 +83,12 @@ set(
   CACHE STRING
   "The name of the idle task.")
 
+option(
+  LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES
+  "When set, add instrumentation code to measure context switches."
+  OFF)
+
+mark_as_advanced(LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES)
 
 ## Spinlocks
 
@@ -149,3 +155,19 @@ option(
   LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE
   "Enter 'Extended Standby Mode' when sleeping."
   OFF)
+
+SET(
+  LZ_CONFIG_AVR_INSTRUMENT_PORT
+  0x2B
+  CACHE STRING
+  "The port used for instrumentation on AVR machines.")
+
+mark_as_advanced(LZ_CONFIG_AVR_INSTRUMENT_POSITION)
+
+SET(
+  LZ_CONFIG_AVR_INSTRUMENT_POSITION
+  7
+  CACHE STRING
+  "The position in the port used for instrumentation on AVR machines.")
+
+mark_as_advanced(LZ_CONFIG_AVR_INSTRUMENT_POSITION)

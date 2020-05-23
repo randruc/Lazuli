@@ -133,6 +133,11 @@ extern const bool LZ_CONFIG_IDLE_TASK_HAS_NAME;
  */
 extern const char * const LZ_CONFIG_IDLE_TASK_NAME;
 
+/**
+ * When set, add instrumentation code to measure context switches.
+ */
+extern const bool LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES;
+
 /** @} */
 
 /** @name Spinlocks */
@@ -259,6 +264,16 @@ extern const bool LZ_CONFIG_MODULE_SERIAL_USED;
  * Use module "spinlock": Spinlocks implementation.
  */
 extern const bool LZ_CONFIG_MODULE_SPINLOCK_USED;
+
+/**
+ * The port used for instrumentation on AVR machines.
+ */
+extern uint16_t LZ_CONFIG_AVR_INSTRUMENT_PORT;
+
+/**
+ * The position in the port used for instrumentation on AVR machines.
+ */
+extern uint8_t LZ_CONFIG_AVR_INSTRUMENT_POSITION;
 
 /** @} */
 

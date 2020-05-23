@@ -15,6 +15,16 @@
 #include "asm_common.S"
 
 /**
+ * The port used when instrumenting context switches.
+ */
+.equ instrument_port, (LZ_CONFIG_AVR_INSTRUMENT_PORT - 0x20)
+
+/**
+ * The pin number of the port used when instrumenting context switches.
+ */
+.equ instrument_port_position, LZ_CONFIG_AVR_INSTRUMENT_POSITION
+    
+/**
  * Declare the generic code for an interrupt handler.
  *
  * @param code The interrupt code defined in interrupts.h.
@@ -71,6 +81,9 @@ timer1capt_handler:
     ;; This interrupt is used for the main clock (for scheduling).
     .global timer1compA_handler
 timer1compA_handler:
+    .IF LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES
+    sbi instrument_port, instrument_port_position
+    .ENDIF
     call save_context_on_stack
     in r24, spl
     in r25, sph
@@ -231,6 +244,11 @@ save_context_on_stack:
     push r26
     ret
 
+/*
+ * TODO: This is not used. See if it has some interest to use it again on system
+ * startup. It has the advantage of being quicker than
+ * Arch_RestoreContextAndReturnFromInterrupt.
+ */
     .global Arch_StartRunning
 Arch_StartRunning:
     ;; Here we can skip POPing the 32 registers + the state register since they
@@ -284,9 +302,11 @@ Arch_RestoreContextAndReturnFromInterrupt:
     pop r29
     pop r30
     pop r31
-    ;;  Return from interrupt
+    .IF LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES
+    cbi instrument_port, instrument_port_position
+    .ENDIF
     reti
-
+    
     .global Arch_DisableInterrupts
 Arch_DisableInterrupts:
     cli

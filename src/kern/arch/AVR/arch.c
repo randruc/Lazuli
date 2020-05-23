@@ -59,3 +59,21 @@ Arch_CpuSleep(void)
   cpu_sleep();
   CLEAR_BITS(SMCR, uint8_t, POSITION(0U));
 }
+
+/* TODO: Put that in a module */
+void
+Arch_InitInstrumentation(void)
+{
+  if (!LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES) {
+    return;
+  }
+  
+  /* Direction of the pin */
+  /* WARNING: This is very specific to the AVR ATmega328p. */
+  SET_BITS(DIRECT(LZ_CONFIG_AVR_INSTRUMENT_PORT - 1),
+           uint8_t,
+           POSITION(LZ_CONFIG_AVR_INSTRUMENT_POSITION));
+  CLEAR_BITS(DIRECT(LZ_CONFIG_AVR_INSTRUMENT_PORT),
+             uint8_t,
+             POSITION(LZ_CONFIG_AVR_INSTRUMENT_POSITION));
+}
