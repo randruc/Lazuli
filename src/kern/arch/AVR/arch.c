@@ -67,7 +67,7 @@ Arch_InitInstrumentation(void)
   if (!LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES) {
     return;
   }
-  
+
   /* Direction of the pin */
   /* WARNING: This is very specific to the AVR ATmega328p. */
   SET_BITS(DIRECT(LZ_CONFIG_AVR_INSTRUMENT_PORT - 1),

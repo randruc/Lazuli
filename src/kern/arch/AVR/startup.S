@@ -23,7 +23,7 @@
  * The pin number of the port used when instrumenting context switches.
  */
 .equ instrument_port_position, LZ_CONFIG_AVR_INSTRUMENT_POSITION
-    
+
 /**
  * Declare the generic code for an interrupt handler.
  *
@@ -306,7 +306,7 @@ Arch_RestoreContextAndReturnFromInterrupt:
     cbi instrument_port, instrument_port_position
     .ENDIF
     reti
-    
+
     .global Arch_DisableInterrupts
 Arch_DisableInterrupts:
     cli
@@ -411,7 +411,7 @@ Arch_LoadU16FromProgmem:
     pop r31
     pop r30
     ret
-    
+
     .global cpu_sleep
 cpu_sleep:
     sleep

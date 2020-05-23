@@ -123,7 +123,7 @@ typedef struct {
    * The scheduling policy.
    */
   enum Lz_SchedulingPolicy schedulingPolicy;
-  
+
   /**
    * The scheduling queue on which the task is stored.
    */

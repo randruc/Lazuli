@@ -30,7 +30,7 @@ InitMutex(Lz_Mutex * const mutex, const Lz_Mutex * const initValue)
       Task_Abort();
     }
   }
-  
+
   Memory_Copy(initValue, mutex, sizeof(Lz_Mutex));
 }
 
@@ -43,7 +43,7 @@ static void
 WaitMutex(Lz_Mutex * const mutex)
 {
   Task * const currentTask = Scheduler_GetCurrentTask();
-  
+
   currentTask->taskToSchedulerMessage = WAIT_MUTEX;
   currentTask->taskToSchedulerMessageParameter = mutex;
 
@@ -77,7 +77,7 @@ Lz_Mutex_Lock(Lz_Mutex * const mutex)
       Task_Abort();
     }
   }
-  
+
   while (!Arch_TryAcquireLock(&(mutex->lock))) {
     WaitMutex(mutex);
   }
@@ -94,7 +94,7 @@ Lz_Mutex_Unlock(Lz_Mutex * const mutex)
 
   Arch_DisableInterrupts();
   mutex->lock = 0;
-  Scheduler_WakeupTasksWaitingMutex(mutex);  
+  Scheduler_WakeupTasksWaitingMutex(mutex);
   Arch_EnableInterrupts();
 }
 

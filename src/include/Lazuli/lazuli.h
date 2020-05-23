@@ -64,7 +64,7 @@ enum Lz_SchedulingPolicy {
    /*
     * PRIORITY_RR,
     */
-   
+
   /**
    * @cond false
    *
@@ -100,7 +100,7 @@ typedef struct {
    * The lower this number is, the higher the priority will be.
    */
   lz_task_priority_t priority;
-  
+
   /**
    * The period (T) of the task. Used only for cyclic tasks.
    *

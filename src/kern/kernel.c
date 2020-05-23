@@ -55,7 +55,7 @@ Kernel_Main(void)
   if (LZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES) {
     Arch_InitInstrumentation();
   }
-  
+
   /* Give hand to user */
   main();
 }
