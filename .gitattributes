@@ -1,5 +1,4 @@
-*.c  linguist-language=C
-*.h  linguist-language=C
-*.ld linguist-language=Linker Script
-*.S  linguist-language=Unix Assembly
-
+*.c linguist-language=C
+*.h linguist-language=C
+*.ld linguist-language=Linker-Script
+*.S linguist-language=Unix-Assembly
