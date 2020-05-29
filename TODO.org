@@ -54,3 +54,6 @@
 *** Update CMakeLists.txt to add_subdirectory.
 *** Update config.h.in to add the configuration macro constant.
 * In .dir-locals.el add configuration for C style.
+* In .bashrc of the Docker image: display a warning if the version of the image doesn't match the version of the repository.
+* CMake config : prefix the config cache variables by their respective categories.
+* Implement scheduler queues with AVL trees.
