@@ -5,6 +5,7 @@ filetypes="--include=*.c \
      --include=*.sh \
      --include=*.ld \
      --include=*.S \
+     --include=*.rst \
      --include=*.dox \
      --exclude-dir=build"
 
