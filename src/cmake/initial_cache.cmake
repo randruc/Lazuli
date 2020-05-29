@@ -64,6 +64,15 @@ option(
   ON)
 
 
+## Build options
+
+option(
+  LZ_CONFIG_BUILD_OUTPUT_STACK_USAGE
+  "Output stack usage, on the compilers that support it."
+  OFF)
+mark_as_advanced(LZ_CONFIG_BUILD_OUTPUT_STACK_USAGE)
+
+
 ## Scheduling
 
 set(

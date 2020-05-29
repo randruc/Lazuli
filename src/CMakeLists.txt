@@ -57,6 +57,11 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     -pedantic
     -fshort-enums
     -mmcu=atmega328p)
+
+  if(LZ_CONFIG_BUILD_OUTPUT_STACK_USAGE)
+    message("Outputting stack usage on build.")
+    set(LZ_KERNEL_COMPILE_FLAGS ${LZ_KERNEL_COMPILE_FLAGS} -fstack-usage)
+  endif()
 else()
   message(
     FATAL_ERROR
