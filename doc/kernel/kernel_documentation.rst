@@ -1,10 +1,14 @@
-.. author: Remi Andruccioli
-   date: May 2020
+.. sectionauthor:: Remi Andruccioli <remi.andruccioli@gmail.com>
+.. date: May 2020
 
-Welcome to the kernel documentation.
-====================================
 
-Welcome to the kernel documentation.   
+Kernel documentation
+====================
+
+You are reading the Lazuli kernel documentation.
+
+It is highly recommended you have read all the User documentation before
+reading this part.
 
 .. toctree::
    :maxdepth: 2

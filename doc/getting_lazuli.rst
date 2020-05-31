@@ -1,9 +1,9 @@
-.. author: Remi Andruccioli
-   date: May 2020
+.. sectionauthor:: Remi Andruccioli <remi.andruccioli@gmail.com>
+.. date: May 2020
 
 
-Getting the source
-==================
+Getting Lazuli
+==============
 
 To start developing with Lazuli, the first thing to do is to get your own copy
 of the Lazuli source code.
