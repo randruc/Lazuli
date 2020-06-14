@@ -1,8 +1,8 @@
-Lazuli.elf
-Lazuli.hex
-*.o
-*.a
-sourcelist
 doxygen_output/
-build/
+build/*
 _build/
+
+# Uncomment the next line to keep track of CMake cache in your repository. This
+# is usefull when working on a team project to keep the same configuration for
+# all the team. WARNING: Only works if you're using the Lazuli Docker image.
+# !*/CMakeCache.txt

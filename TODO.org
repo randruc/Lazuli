@@ -3,13 +3,9 @@
 * Be compatible with C++ user tasks
 * Be compatible with Rust task.
 * Be compatible with Go tasks ?
+** Looks complicated, due to the presence of the garbage collector...
 * TODO Add a license and define a file header to add to each file for distribution
-* TODO Insert a raw string in the final binary to keep track of the kernel and version
-** Something like "Lazuli 1.42.63 ", with delimiters, or fixed size.
-*** Maybe make it 'richer' by adding information about the compiler name and version used to compile.
-** This information (kernel name, version number(s)) might be accessible to the code.
-** Pick a version numbering model.
-* Get a real Makefile, or build system, or whatever
+* Pick a version numbering model.
 * TODO Reference resources
 ** Providing links and documentation over the Internet.
 * Add a README file
@@ -19,23 +15,18 @@
 * TODO Write doc about progmem
 * Add a CONTRIBUTING file and update README.md about that
 ** [[https://help.github.com/articles/setting-guidelines-for-repository-contributors/]]
-* Provide a way to perform unit tests onto the target machine
 * Prefix Lazuli structs in userspace with "Lz_"
 * Find a logo
 * TODO Document build chain
-* Change function prototypes and declarations to explicitly take void as parameter instead of ().
-** And add this rule to the "C style and conventions file".
 * Add an "end of file" comment marker at the end of each file.
 ** Cf. Barr conventions.
 * For example programs: write the purpose of each program.
-* Manage idle task in RR scheduler.
 * Replace Arch_DisableInterrupts() with Arch_DisableInterruptsGetStatus() where possible.
 * When using CONFIG_CHECK_XXXXX, unify the calls to Panic() or return.
 ** Decide which one is the best.
 * Rename some functions for API consistency:
 ** Lz_Run() => Lz_System_Run()
 ** Lz_RegisterTask() => Lz_System_RegisterTask() (or Lz_Task_Register)
-* Maybe think about moving config.h file out of sys/ directory.
 * Add non blocking mutex lock
 ** Something like bool Lz_Mutex_TryLock(Lz_Mutex * const mutex);
 * Implement pipes
@@ -57,3 +48,11 @@
 * In .bashrc of the Docker image: display a warning if the version of the image doesn't match the version of the repository.
 * CMake config : prefix the config cache variables by their respective categories.
 * Implement scheduler queues with AVL trees.
+* Think about defining the execution of the main() function in the idle task.
+** i.e. Execution begins as the idle task, and user tasks are created from the idle task.
+** This allows/ease the implementation of Pthread API.
+** Carrefully think about priorities.
+* For PROGMEM, implement "memcpy_P": Memory_CopyFromProgmem
+* Test command "apropos" in man pages of the Docker image.
+* In the Docker image, make sure to respect the File Hierarchy Standard
+** https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
