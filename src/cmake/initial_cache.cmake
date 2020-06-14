@@ -63,6 +63,10 @@ option(
   "Put the CPU to sleep when it's idle, or infinite loop."
   ON)
 
+option(
+  LZ_CONFIG_INCLUDE_VERSION_STRING_IN_FINAL_BINARY
+  "Include a string representing the version of Lazuli in the final binary."
+  ON)
 
 ## Build options
 
@@ -171,7 +175,7 @@ SET(
   CACHE STRING
   "The port used for instrumentation on AVR machines.")
 
-mark_as_advanced(LZ_CONFIG_AVR_INSTRUMENT_POSITION)
+mark_as_advanced(LZ_CONFIG_AVR_INSTRUMENT_PORT)
 
 SET(
   LZ_CONFIG_AVR_INSTRUMENT_POSITION

@@ -2,7 +2,7 @@
 # Main CMake file to build the user project.
 #
 
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
@@ -29,7 +29,9 @@ set(
   -Wall
   -Wextra
   -Werror
-  -O2)
+  -O2
+  #TODO: Manage this properly
+  -mmcu=atmega328p)
 
 # The following directives shouldn't be changed by the user
 # TODO: maybe think about putting them into another file.
@@ -75,7 +77,7 @@ set(
   -nostartfiles
   -nostdlib
   -nodefaultlibs
-  -ffreestanding
+  #--gc-sections # This options is invalid when gcc is used as the linker
   -T${CMAKE_SOURCE_DIR}/src/kern/arch/AVR/linker.ld
   -T${CMAKE_SOURCE_DIR}/src/kern/linker.ld)
 

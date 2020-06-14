@@ -97,6 +97,16 @@
  */
 #cmakedefine01 LZ_CONFIG_ON_IDLE_SLEEP
 
+/**
+ * When 1, an ASCII string representing the version of the Lazuli kernel will be
+ * included in the ".progmem" section of the final binary. Here is an example
+ * of the string: "{Lazuli-0.1.0}"
+ * This string is not meant to be manipulated by code so no symbol is associated
+ * with it.
+ * When 0, nothing is included.
+ */
+#cmakedefine01 LZ_CONFIG_INCLUDE_VERSION_STRING_IN_FINAL_BINARY
+
 /** @name Scheduling */
 /** @{               */
 /**
