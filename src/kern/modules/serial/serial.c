@@ -1,5 +1,5 @@
 /**
- * @file src/kern/serial.c
+ * @file src/kern/modules/serial/serial.c
  * @brief Serial port configuration implementation.
  * @date Mar 2019
  * @author Remi Andruccioli

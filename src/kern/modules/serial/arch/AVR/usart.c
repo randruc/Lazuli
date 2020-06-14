@@ -1,5 +1,5 @@
 /**
- * @file src/kern/arch/AVR/usart.c
+ * @file src/kern/modules/serial/arch/AVR/usart.c
  *
  * Describes the driver implementation for the USART of the ATMega328p.
  */

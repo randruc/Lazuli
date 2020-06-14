@@ -1,5 +1,5 @@
 /**
- * @file src/kern/spinlock.c
+ * @file src/kern/modules/spinlock/spinlock.c
  * @brief Spinlocks implementation
  * @date Feb 2019
  * @author Remi Andruccioli

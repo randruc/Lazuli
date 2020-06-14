@@ -2,10 +2,23 @@
 # Lazuli Dockerfile.
 #
 # This Dockerfile describes the container image that is used as the development
-# environment for Lazuli. Hence this image is used by kernel and user application
+# environment for Lazuli. This image is used by kernel and user application
 # developpers, as well as for continuous integration.
 #
+# Man pages are first built in an intermediate image. This has the advantage of
+# being platform-independent. The man pages are then copied into the final
+# Lazuli image.
+#
 
+## Intermediate image used to build man pages
+FROM fedora:31 AS man_intermediate
+RUN dnf install -y doxygen gzip
+COPY . ~/workspace/
+WORKDIR ~/workspace
+RUN doxygen
+RUN gzip --best -nvr ./doxygen_output/man
+
+## Actual Lazuli image
 FROM fedora:31
 
 LABEL description="Lazuli development environment."
@@ -20,52 +33,60 @@ RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf
 # For now it seems that DNF does not provide a convenient way to perform
 # a "reinstall or install" on a given package, or an "install doc" for a given
 # package.
+#
+# Sort by alphabetical order
 RUN dnf reinstall -y \
-    sed \
     bash \
-    grep \
-    gawk \
     coreutils \
-    && \
-    dnf clean all
-
-RUN dnf install -y \
-    man-db \
-    less \
-    findutils \
     gawk \
-    make \
-    cmake \
-    gcc \
-    binutils\
+    grep \
+    sed \
     && \
     dnf clean all
 
+# Sort by alphabetical order
 RUN dnf install -y \
     avr-gcc \
     avr-binutils \
+    bash-completion \
+    binutils\
+    clang-tools-extra \
+    cmake \
+    findutils \
+    gawk \
+    gcc \
+    less \
+    make \
+    man-db \
     && \
     dnf clean all
 
-RUN dnf install -y \
-    clang-tools-extra \
-    && \
-    dnf clean all
+# Copy man pages from intermediate image
+COPY --from=man_intermediate ~/workspace/doxygen_output/man/ /usr/share/man/
+
+# Update man pages index cache
+RUN mandb
 
 WORKDIR ~/workspace
 
-COPY VERSION /tmp
+COPY ./VERSION /etc/lazuli-version
 
-RUN echo Welcome in the Lazuli development environment container. > ~/.motd && \
-    echo For Lazuli version $(cat /tmp/VERSION). >> ~/.motd && \
-    echo This image was generated on $(date -u). >> ~/.motd
+RUN echo " _                        _ _ " >> /etc/motd && \
+    echo "| |                      | (_)" >> /etc/motd && \
+    echo "| |      ____ _____ _   _| |_ " >> /etc/motd && \
+    echo "| |     / _  (___  ) | | | | |" >> /etc/motd && \
+    echo "| |____( ( | |/ __/| |_| | | |" >> /etc/motd && \
+    echo "|_______)_||_(_____)\____|_|_| v$(cat /etc/lazuli-version)" >> /etc/motd && \
+    echo "" >> /etc/motd && \
+    echo "Welcome in the Lazuli development environment container." >> /etc/motd && \
+    echo "For Lazuli version $(cat /etc/lazuli-version)." >> /etc/motd && \
+    echo "This image was generated on $(date -u)." >> /etc/motd
 
-RUN echo 'cat ~/.motd' >> ~/.bashrc
-
-RUN echo 'cat /etc/fedora-release' >> ~/.bashrc
-
-RUN echo 'uname -a' >> ~/.bashrc
-
-RUN echo 'echo' >> ~/.bashrc
+    # Enable bash completion (for man pages)
+RUN echo "source /etc/profile.d/bash_completion.sh" >> ~/.bashrc && \
+    echo "cat /etc/motd" >> ~/.bashrc && \
+    echo "cat /etc/fedora-release" >> ~/.bashrc && \
+    echo "uname -a" >> ~/.bashrc && \
+    echo "echo"  >> ~/.bashrc
 
 CMD [ "/usr/bin/bash" ]

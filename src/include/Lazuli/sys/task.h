@@ -31,6 +31,8 @@ enum TaskToSchedulerMessage {
    */
   __TASK_TO_SCHEDULER_MESSAGE_ENUM_BEGIN = -1,
 
+  /** @endcond */
+
   /**
    * No message has to be passed to the scheduler.
    */
@@ -67,6 +69,8 @@ enum TaskToSchedulerMessage {
    * This entry MUST be the last one.
    */
   __TASK_TO_SCHEDULER_MESSAGE_ENUM_END
+
+  /** @endcond */
 };
 
 /*

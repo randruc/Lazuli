@@ -40,3 +40,16 @@ jobs:
         
       - name: Check line length, trailing whitespaces and tabs
         run: ./.checklines.sh
+
+  doxygen: # TODO: Run this job inside a container.
+    name: Doxygen job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Doxygen
+        run: sudo apt-get install -y doxygen
+
+      - name: Run Doxygen
+        run: doxygen
