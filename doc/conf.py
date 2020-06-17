@@ -15,6 +15,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import re
 
 
 # -- Project information -----------------------------------------------------
@@ -23,11 +24,15 @@ project = 'Lazuli'
 copyright = '2020, Remi Andruccioli'
 author = 'Remi Andruccioli'
 
-# The short X.Y version
-version = ''
-# The full version, including alpha/beta/rc tags
-release = '0.1.0'
+version_file = open("../VERSION", "r")
 
+# The full version, including alpha/beta/rc tags
+release = version_file.read()
+
+# The short X.Y version
+version = re.match(r'^([0-9]+.[0-9]+)', release).group(0)
+
+version_file.close()
 
 # -- General configuration ---------------------------------------------------
 
@@ -75,7 +80,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'classic' #'alabaster'
+html_theme = 'sphinx_rtd_theme' #'classic' #'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -139,7 +144,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'lazuli', 'Lazuli Documentation',
+    (master_doc, 'Lazuli', 'Lazuli Documentation',
      [author], 1)
 ]
 

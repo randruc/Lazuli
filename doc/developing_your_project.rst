@@ -159,7 +159,7 @@ We can now ask CMake to configure the cross-compilation toolchain, hitting ``c``
 
 
 After exiting this screen by hitting ``e``, ccmake now displays all the
-available configuration variables for the toolchain it created :
+available configuration variables for the toolchain it created:
 
 .. code-block:: console
 

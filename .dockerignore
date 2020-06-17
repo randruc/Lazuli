@@ -1,3 +1,4 @@
-doxygen_output/
-build/
-_build/
+**/.git/
+**/doxygen_output/
+**/build/
+**/_build/

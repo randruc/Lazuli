@@ -12,18 +12,21 @@
 
 ## Intermediate image used to build man pages
 FROM fedora:31 AS man_intermediate
-RUN dnf install -y doxygen gzip
+RUN dnf install -y doxygen gzip make python3-sphinx
 COPY . ~/workspace/
 WORKDIR ~/workspace
-RUN doxygen
-RUN gzip --best -nvr ./doxygen_output/man
+# Build Doxygen man pages
+RUN doxygen && gzip --best -nvr ./doxygen_output/man
+# Build Sphinx man pages
+WORKDIR doc
+RUN make man && gzip --best -nvr ./_build/man
 
 ## Actual Lazuli image
 FROM fedora:31
 
 LABEL description="Lazuli development environment."
 LABEL url="https://github.com/randruc/Lazuli"
-LABEL maintainer="remi.andruccioli@gmail.com"
+LABEL maintainer="Remi Andruccioli <remi.andruccioli@gmail.com>"
 
 # This will allow installation of man pages along with packages
 RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf
@@ -64,6 +67,8 @@ RUN dnf install -y \
 # Copy man pages from intermediate image
 COPY --from=man_intermediate ~/workspace/doxygen_output/man/ /usr/share/man/
 
+COPY --from=man_intermediate ~/workspace/doc/_build/man/ /usr/share/man/man1/
+
 # Update man pages index cache
 RUN mandb
 
@@ -71,22 +76,10 @@ WORKDIR ~/workspace
 
 COPY ./VERSION /etc/lazuli-version
 
-RUN echo " _                        _ _ " >> /etc/motd && \
-    echo "| |                      | (_)" >> /etc/motd && \
-    echo "| |      ____ _____ _   _| |_ " >> /etc/motd && \
-    echo "| |     / _  (___  ) | | | | |" >> /etc/motd && \
-    echo "| |____( ( | |/ __/| |_| | | |" >> /etc/motd && \
-    echo "|_______)_||_(_____)\____|_|_| v$(cat /etc/lazuli-version)" >> /etc/motd && \
-    echo "" >> /etc/motd && \
-    echo "Welcome in the Lazuli development environment container." >> /etc/motd && \
-    echo "For Lazuli version $(cat /etc/lazuli-version)." >> /etc/motd && \
-    echo "This image was generated on $(date -u)." >> /etc/motd
+RUN date -u > /etc/lazuli-container-date
 
-    # Enable bash completion (for man pages)
-RUN echo "source /etc/profile.d/bash_completion.sh" >> ~/.bashrc && \
-    echo "cat /etc/motd" >> ~/.bashrc && \
-    echo "cat /etc/fedora-release" >> ~/.bashrc && \
-    echo "uname -a" >> ~/.bashrc && \
-    echo "echo"  >> ~/.bashrc
+COPY ./.docker_bashrc /tmp/
+
+RUN cat /tmp/.docker_bashrc >> ~/.bashrc && rm /tmp/.docker_bashrc
 
 CMD [ "/usr/bin/bash" ]

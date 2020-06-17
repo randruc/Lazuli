@@ -13,6 +13,7 @@ reading this part.
 .. toctree::
    :maxdepth: 2
 
+   version_management
    startup
    instrumentation_and_diagnostics/instrumentation_and_diagnostics
    code_style_and_conventions

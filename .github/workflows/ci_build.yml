@@ -42,7 +42,7 @@ jobs:
         run: ./.checklines.sh
 
   doxygen: # TODO: Run this job inside a container.
-    name: Doxygen job
+    name: Doxygen job - Build Doxygen documentation from code comments
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -51,5 +51,20 @@ jobs:
       - name: Install Doxygen
         run: sudo apt-get install -y doxygen
 
+        # Ugly hack to force the parameter QUIET to NO only in this
+        # CI situation (for logs).
       - name: Run Doxygen
-        run: doxygen
+        run: cat Doxyfile | sed  "/^QUIET.*=/c\QUIET = NO" | doxygen -
+
+  sphinx: # TODO: Run this job inside a container.
+    name: Sphinx job - Build Sphinx documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Sphinx
+        run: sudo apt-get install -y make python3-sphinx
+
+      - name: Run Sphinx
+        run: cd doc && make
