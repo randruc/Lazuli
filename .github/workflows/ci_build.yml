@@ -18,16 +18,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
+        # This is to install the ts command
+      - name: Install complementary tools
+        run: sudo apt-get install -y moreutils
+
+        # We pipe the Docker build output to ts in order to have timestamps on
+        # each build step.
+        # The first time stamp is a stopwatch since the invocation of
+        # "docker build".
+        # The second timestamp is the time taken since the previous print.
       - name: Build docker image # TODO: Maybe build docker image out of the matrix.
-        run: docker image build -t lazuli .
-        
+        run: docker version && { docker image build -t lazuli . | ts -i "%H:%M:%S  " | ts -s "%H:%M:%S  " ; }
+
       - name: Run Lazuli container
         run: docker run -tid --rm --name lazuli_container -v$(pwd):/~/workspace:z lazuli
-        
+
       - name: CMake Configure (for target machine ${{matrix.machine}})
         run: docker exec lazuli_container bash -c "cmake -S . -B ./build -DLZ_TARGET_MACHINE_CHOICE=${{matrix.machine}}"
-        
+
       - name: CMake Build
         run: docker exec lazuli_container bash -c "./.compile.sh"
 
