@@ -32,13 +32,16 @@ jobs:
         run: docker version && { docker image build -t lazuli . | ts -i "%H:%M:%S  " | ts -s "%H:%M:%S  " ; }
 
       - name: Run Lazuli container
-        run: docker run -tid --rm --name lazuli_container -v$(pwd):/~/workspace:z lazuli
+        run: docker run -id --rm --name lazuli -v$(pwd):/~/workspace:z lazuli
 
       - name: CMake Configure (for target machine ${{matrix.machine}})
-        run: docker exec lazuli_container bash -c "cmake -S . -B ./build -DLZ_TARGET_MACHINE_CHOICE=${{matrix.machine}}"
+        run: docker exec lazuli bash -c "cmake -S . -B ./build -DLZ_TARGET_MACHINE_CHOICE=${{matrix.machine}}"
 
       - name: CMake Build
-        run: docker exec lazuli_container bash -c "./.compile.sh"
+        run: docker exec lazuli bash -c "./.compile.sh"
+
+      - name: Stop Lazuli container
+        run: docker container stop lazuli
 
   checks:
     name: Checks job
