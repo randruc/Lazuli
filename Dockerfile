@@ -21,11 +21,12 @@ RUN sed -i '/tsflags=nodocs/d' /etc/dnf/dnf.conf
 # a "reinstall or install" on a given package, or an "install doc" for a given
 # package.
 RUN dnf reinstall -y \
-    sed \
     bash \
-    grep \
-    gawk \
     coreutils \
+    gawk \
+    grep \
+    sed \
+    time \
     && \
     dnf clean all
 

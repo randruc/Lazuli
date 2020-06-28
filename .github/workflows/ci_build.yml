@@ -38,7 +38,7 @@ jobs:
         run: docker exec lazuli bash -c "cmake -S . -B ./build -DLZ_TARGET_MACHINE_CHOICE=${{matrix.machine}}"
 
       - name: CMake Build
-        run: docker exec lazuli bash -c "./.compile.sh"
+        run: docker exec lazuli bash -c "time ./.compile.sh"
 
       - name: Stop Lazuli container
         run: docker container stop lazuli
