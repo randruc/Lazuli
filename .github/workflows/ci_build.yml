@@ -40,9 +40,6 @@ jobs:
       - name: CMake Build
         run: docker exec lazuli bash -c "time ./.compile.sh"
 
-      - name: Stop Lazuli container
-        run: docker container stop lazuli
-
   checks:
     name: Checks job
     runs-on: ubuntu-latest
