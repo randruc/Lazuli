@@ -2,3 +2,7 @@
 *.h linguist-language=C
 *.ld linguist-language=Linker-Script
 *.S linguist-language=Unix-Assembly
+
+# For now, we force \n endings on every platform, because we're using a Linux
+# container for building.
+* text eol=lf
