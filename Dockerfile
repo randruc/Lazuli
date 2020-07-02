@@ -44,6 +44,7 @@ RUN dnf reinstall -y \
     gawk \
     grep \
     sed \
+    time \
     && \
     dnf clean all
 

@@ -9,4 +9,4 @@
 ;; be used instead".
 ;; https://docs.docker.com/engine/reference/commandline/exec/
 ((c-mode
-  (compile-command . "podman exec lazuli_container bash -c ./.compile.sh ")))
+  (compile-command . "podman exec lazuli bash -c ./.compile.sh ")))
