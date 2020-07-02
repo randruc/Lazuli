@@ -25,7 +25,7 @@ _EXTERN_C_DECL_BEGIN
  *
  * @param pointer A function pointer.
  *
- * @return A new function pointer from reversed bytes of parameter "pointer".
+ * @return A new function pointer from reversed bytes of parameter @p pointer.
  */
 void
 (*ReverseBytesOfFunctionPointer(void (* const pointer)(void)))(void);
@@ -83,7 +83,7 @@ Scheduler_WaitEvent(void * const sp, const uint8_t eventCode);
 /**
  * Wake up all tasks waiting for a mutex.
  *
- * @param waitingTasks A pointer to the mutex the tasks are waiting for.
+ * @param mutex A pointer to the mutex the tasks are waiting for.
  */
 void
 Scheduler_WakeupTasksWaitingMutex(Lz_Mutex * const mutex);

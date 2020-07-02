@@ -5,8 +5,10 @@ filetypes="--include=*.c \
      --include=*.sh \
      --include=*.ld \
      --include=*.S \
+     --include=*.txt \
      --include=*.dox \
-     --exclude-dir=build"
+     --exclude-dir=build \
+     --exclude-dir=_build"
 
 failed=0
 

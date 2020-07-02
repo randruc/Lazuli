@@ -46,6 +46,8 @@ enum Lz_SchedulingPolicy {
    */
    __LZ_SCHEDULING_POLICY_ENUM_BEGIN = -1,
 
+   /** @endcond */
+
    /**
     * Cyclic real-time scheduling.
     */
@@ -72,6 +74,8 @@ enum Lz_SchedulingPolicy {
    * This entry MUST be the last one.
    */
    __LZ_SCHEDULING_POLICY_ENUM_END
+
+   /** @endcond */
 };
 
 /**

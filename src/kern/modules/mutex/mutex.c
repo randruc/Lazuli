@@ -1,5 +1,5 @@
 /**
- * @file src/kern/mutex.c
+ * @file src/kern/modules/mutex/mutex.c
  * @brief Mutex implementation.
  * @date Feb 2019
  * @author Remi Andruccioli

@@ -5,4 +5,4 @@
 
 #!/bin/bash
 
-find . -name *.su | xargs cat | column -td | sort -rn -k2 | less
+find . -type f -name *.su | xargs cat | column -td | sort -rn -k2 | less

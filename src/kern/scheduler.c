@@ -200,6 +200,8 @@ InsertTaskByPriority(Lz_LinkedList * const list,
  * highest priority to the lowest until we find a task that is ready to run.
  *
  * If no task is ready to run, we pick the idle task.
+ *
+ * @return A valid pointer to the next task to run.
  */
 static Task*
 PickTaskToRun(void)
@@ -267,6 +269,9 @@ UpdateCyclicRealTimeTasks(void)
   }
 }
 
+/**
+ * Manage cyclic real-time tasks.
+ */
 static void
 ManageCyclicRealTimeTask(void)
 {
@@ -284,6 +289,9 @@ ManageCyclicRealTimeTask(void)
                        PeriodComparer);
 }
 
+/**
+ * Manage priority real-time tasks.
+ */
 static void
 ManagePriorityRealTimeTask(void)
 {
@@ -524,7 +532,11 @@ RegisterIdleTask(void)
  * @{
  */
 
-/*
+/**
+ * @cond false
+ *
+ * Doxygen seems to not recognize this function declaration properly.
+ *
  * We could declare this function as static.
  * But if we do this we can't unit test it...
  */
@@ -543,6 +555,8 @@ void
 
   return newPointer;
 }
+
+/** @endcond */
 
 /*
  * TODO: Is it cleaner to perform a direct assign or to call Memory_Copy()?

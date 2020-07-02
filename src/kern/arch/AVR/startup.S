@@ -485,3 +485,8 @@ load_rodata_end:
     .global Arch_InfiniteLoop
 Arch_InfiniteLoop:
     rjmp Arch_InfiniteLoop
+
+    .IF LZ_CONFIG_INCLUDE_VERSION_STRING_IN_FINAL_BINARY
+    .section ".progmem"
+    .ascii "{Lazuli-" LZ_VERSION "}";
+    .ENDIF

@@ -35,7 +35,7 @@ macro(declare_lazuli_module
 
   target_compile_options(
     ${TARGET_MODULE_NAME}
-    PUBLIC
+    PRIVATE
     ${LZ_KERNEL_COMPILE_FLAGS})
   
   # Declare the configuration option (in cache)

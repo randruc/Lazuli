@@ -23,6 +23,9 @@
  * Main entry point for user tasks.
  *
  * This is the function the user has to define to register his own tasks.
+ *
+ * @return The return value is not used. It's simply here to conform to the
+ *         standard definition of main.
  */
 int
 main(void);

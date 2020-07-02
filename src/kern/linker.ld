@@ -1,8 +1,10 @@
 /*
- * Architecture independent linker script.
+ * Architecture independent linker script to produce the final Lazuli
+ * executable containing the kernel and the user program.
+ *
+ * The memory mapping definition is written in another linker script that is
+ * specific to the target.
  */
-
-/* INCLUDE arch/AVR/linker.ld */
 
 ENTRY(interrupt_vectors_table)
 
@@ -17,7 +19,6 @@ SECTIONS
 
     .progmem : AT(LOADADDR(.text) + SIZEOF(.text))
     {
-        *(.versionstring)
         KEEP(*(.progmem*))
     } > REGION_PROGMEM
     _progmem_size = SIZEOF(.progmem);
@@ -57,3 +58,7 @@ SECTIONS
     _brk = .;
     _ramend = LENGTH(ram) - 1;
 }
+
+/*
+ * TODO: Use the command ASSERT() to check the size of the initial kernel stack.
+ */

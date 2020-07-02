@@ -1,5 +1,5 @@
 /**
- * @file src/kern/clock_24.c
+ * @file src/kern/modules/clock_24/clock_24.c
  * @brief 24-Hour clock kernel implementation.
  * @date Jun 2019
  * @author Remi Andruccioli

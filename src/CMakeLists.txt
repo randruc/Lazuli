@@ -5,7 +5,7 @@
 # Date: Sep 2019
 #
 
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
@@ -55,7 +55,8 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     -ansi
     -std=c89
     -pedantic
-    -fshort-enums
+    -ffreestanding
+    #TODO: Manage this properly
     -mmcu=atmega328p)
 
   if(LZ_CONFIG_BUILD_OUTPUT_STACK_USAGE)
@@ -86,10 +87,6 @@ if(HAS_PARENT)
     PARENT_SCOPE)
 endif()
 
-# set(
-#   KERNEL_LST_NAME
-#   ${KERNEL_LIBRARY_NAME}.lst)
-
 # This variable is a list containing all the declared modules.
 # Elements will be added in this list by the subsequents modules declarations.
 set(DECLARED_MODULES "")
@@ -98,7 +95,6 @@ add_subdirectory(kern/modules/clock_24)
 add_subdirectory(kern/modules/mutex)
 add_subdirectory(kern/modules/serial)
 add_subdirectory(kern/modules/spinlock)
-add_subdirectory(kern/modules/version_string)
 
 if(LZ_STATIC_ANALYSIS)
   # TODO: Replace that by add_compile_definitions() the day we use a higher
@@ -120,20 +116,20 @@ add_library(
 # Link with the activated modules
 foreach(DECLARED_MODULE ${DECLARED_MODULES})
   string(TOUPPER ${DECLARED_MODULE} MODULE_NAME_UPPER)
-  
+
   if(LZ_CONFIG_${MODULE_NAME_UPPER}_USED)
     message("Using module: ${DECLARED_MODULE}")
-    
-    target_sources(
+
+    target_link_libraries(
       ${KERNEL_LIBRARY_NAME}
       PUBLIC
-      $<TARGET_OBJECTS:${DECLARED_MODULE}>)
+      ${DECLARED_MODULE})
   endif()
 endforeach()
 
 target_compile_options(
   ${KERNEL_LIBRARY_NAME}
-  PUBLIC ${LZ_KERNEL_COMPILE_FLAGS})
+  PRIVATE ${LZ_KERNEL_COMPILE_FLAGS})
 
 set(KERNEL_LST_TARGET_NAME kernel_lst_ouput)
 
