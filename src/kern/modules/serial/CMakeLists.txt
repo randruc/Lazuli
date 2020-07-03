@@ -3,8 +3,10 @@
 #
 
 declare_lazuli_module(
-  serial
-  OFF
-  "Module for serial interface configuration."
+  NAME serial
+
+  SUMMARY "Module for serial interface configuration."
+
+  SOURCES
   serial.c
   arch/AVR/usart.c)

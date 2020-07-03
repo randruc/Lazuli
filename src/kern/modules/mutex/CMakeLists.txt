@@ -3,8 +3,10 @@
 #
 
 declare_lazuli_module(
-  mutex
-  OFF
-  "Module for mutexes implementation."
+  NAME mutex
+  
+  SUMMARY "Module for mutexes implementation."
+  
+  SOURCES
   mutex.c
   arch/AVR/mutex.S)

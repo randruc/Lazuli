@@ -3,7 +3,9 @@
 #
 
 declare_lazuli_module(
-  clock_24
-  OFF
-  "Module implementing a 24-Hour clock in the kernel."
+  NAME clock_24
+
+  SUMMARY "Module implementing a 24-Hour clock in the kernel."
+
+  SOURCES
   clock_24.c)

@@ -3,8 +3,10 @@
 #
 
 declare_lazuli_module(
-  spinlock
-  OFF
-  "Module for spinlocks implementation."
+  NAME spinlock
+
+  SUMMARY "Module for spinlocks implementation."
+
+  SOURCES
   spinlock.c
   arch/AVR/spinlock.S)

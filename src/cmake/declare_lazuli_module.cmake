@@ -12,26 +12,30 @@
 # configuration).
 # The macro then adds the declared module in the global list of declared modules.
 #
-# @param MODULE_NAME The module name, in lowercase, without prefixing it by
-#                    "module_".
-# @param MODULE_ACTIVATE_BY_DEFAULT If "ON" the module is to be activated by
-#                                   default. If "OFF" it will not.
-# @param MODULE_SUMMARY A summary of the module functionnality.
-# @param ... A list of the module source files.
+# @param NAME The module name, in lowercase, without prefixing it by "module_".
+# @param SUMMARY A string describing the module functionnality.
+# @param SOURCES A list of the module source files.
 #
-macro(declare_lazuli_module
-    MODULE_NAME
-    MODULE_ACTIVATE_BY_DEFAULT
-    MODULE_SUMMARY
-#   ...
-    )
+macro(declare_lazuli_module)
 
-  set(TARGET_MODULE_NAME module_${MODULE_NAME})
+  cmake_parse_arguments(
+    # Prefix
+    PARSED_ARGS
+    # Option
+    ""
+    # Mono-values arguments
+    "NAME;SUMMARY"
+    # Multi-values arguments
+    "SOURCES"
+    # Arguments to parse
+    ${ARGN})
+
+  set(TARGET_MODULE_NAME module_${PARSED_ARGS_NAME})
 
   add_library(
     ${TARGET_MODULE_NAME}
     OBJECT
-    ${ARGN})
+    ${PARSED_ARGS_SOURCES})
 
   target_compile_options(
     ${TARGET_MODULE_NAME}
@@ -43,8 +47,8 @@ macro(declare_lazuli_module
 
   option(
     LZ_CONFIG_${TARGET_MODULE_NAME_UPPER}_USED
-    ${MODULE_SUMMARY}
-    ${MODULE_ACTIVATE_BY_DEFAULT})
+    ${PARSED_ARGS_SUMMARY}
+    OFF)
 
   # Add the module to the global list of declared modules
   set(DECLARED_MODULES ${DECLARED_MODULES} ${TARGET_MODULE_NAME} PARENT_SCOPE)
