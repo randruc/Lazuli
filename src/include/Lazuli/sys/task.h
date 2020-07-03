@@ -63,6 +63,14 @@ enum TaskToSchedulerMessage {
   WAIT_MUTEX,
 
   /**
+   * Set the task to wait for the specified number of time resolution units,
+   * using the software timer.
+   * A parameter pointing to the specified number of units must accompany this
+   * message.
+   */
+  WAIT_SOFTWARE_TIMER,
+
+  /**
    * @cond false
    *
    * Undocumented to user: only here for static verification.
@@ -162,6 +170,11 @@ typedef struct {
    * The task priority. Only used for non-cyclic tasks.
    */
   lz_task_priority_t priority;
+
+  /**
+   * The number of time units until the software timer expires for the task.
+   */
+  lz_u_resolution_unit_t timeUntilTimerExpiration;
 
   /**
    * The message the task has to pass to the scheduler for the next scheduling

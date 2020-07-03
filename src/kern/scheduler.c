@@ -53,6 +53,11 @@ static Lz_LinkedList waitingActivationTasks = LINKED_LIST_INIT;
 static NOINIT Lz_LinkedList waitingInterruptsTasks[INT_TOTAL];
 
 /**
+ * The queue of tasks waiting for their software timer to reach expiration.
+ */
+static Lz_LinkedList waitingTimerTasks = LINKED_LIST_INIT;
+
+/**
  * The queue of terminated tasks.
  */
 static Lz_LinkedList terminatedTasks = LINKED_LIST_INIT;
@@ -269,6 +274,29 @@ UpdateCyclicRealTimeTasks(void)
   }
 }
 
+/*
+ * Update all tasks waiting for the expiration of a software timer.
+ *
+ * This is to be done at every clock tick.
+ */
+static void
+UpdateTasksWaitingSoftwareTimer(void)
+{
+  Task *task;
+  Lz_LinkedListElement *iterator;
+
+  List_RemovableForEach(&waitingTimerTasks, Task, task, stateQueue, iterator) {
+    if (0 == task->timeUntilTimerExpiration) {
+      iterator = List_Remove(&waitingTimerTasks, &task->stateQueue);
+      InsertTaskByPriority(&readyTasks[PRIORITY_RT], task, PriorityComparer);
+
+      continue;
+    }
+
+    task->timeUntilTimerExpiration--;
+  }
+}
+
 /**
  * Manage cyclic real-time tasks.
  */
@@ -312,6 +340,10 @@ ManagePriorityRealTimeTask(void)
 
     List_Prepend(&waitingInterruptsTasks[interruptCode],
                  &currentTask->stateQueue);
+  } else if (WAIT_SOFTWARE_TIMER == currentTask->taskToSchedulerMessage) {
+    currentTask->timeUntilTimerExpiration =
+      *(lz_u_resolution_unit_t*)currentTask->taskToSchedulerMessageParameter;
+    List_Append(&waitingTimerTasks, &currentTask->stateQueue);
   } else if (LZ_CONFIG_MODULE_MUTEX_USED &&
              (WAIT_MUTEX == currentTask->taskToSchedulerMessage)) {
     Lz_Mutex * const mutex = currentTask->taskToSchedulerMessageParameter;
@@ -353,6 +385,8 @@ Schedule(void)
   }
 
   UpdateCyclicRealTimeTasks();
+
+  UpdateTasksWaitingSoftwareTimer();
 
   currentTask->taskToSchedulerMessage = NO_MESSAGE;
 
@@ -498,6 +532,7 @@ RegisterTask(void (* const taskEntryPoint)(void),
   newTask->stackSize = desiredStackSize;
   newTask->stackOrigin = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
   newTask->stackPointer = newTask->stackOrigin;
+  newTask->timeUntilTimerExpiration = 0;
 
   PrepareTaskContext(newTask);
 
@@ -744,8 +779,21 @@ Lz_Task_WaitActivation(void)
 void
 Lz_Task_WaitInterrupt(uint8_t interruptCode)
 {
+  /* TODO: Check if the calling task's scheduling policy is PRIORITY_RT */
+
   currentTask->taskToSchedulerMessage = WAIT_INTERRUPT;
   currentTask->taskToSchedulerMessageParameter = &interruptCode;
+
+  Scheduler_SleepUntilEndOfTimeSlice();
+}
+
+void
+Lz_WaitTimer(lz_u_resolution_unit_t units)
+{
+  /* TODO: Check if the calling task's scheduling policy is PRIORITY_RT */
+
+  currentTask->taskToSchedulerMessage = WAIT_SOFTWARE_TIMER;
+  currentTask->taskToSchedulerMessageParameter = &units;
 
   Scheduler_SleepUntilEndOfTimeSlice();
 }

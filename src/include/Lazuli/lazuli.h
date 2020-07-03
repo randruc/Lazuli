@@ -207,6 +207,14 @@ Lz_Task_Terminate(void);
 void
 Lz_Task_WaitActivation(void);
 
+/**
+ * Set the task to wait for the specified number of time resolution units, using
+ * the software timer.
+ * @warning Only works for tasks with PRIORITY_RT policy.
+ */
+void
+Lz_WaitTimer(lz_u_resolution_unit_t units);
+
 _EXTERN_C_DECL_END
 
 #endif /* LAZULI_LAZULI_H */
