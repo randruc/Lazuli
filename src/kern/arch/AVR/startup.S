@@ -339,6 +339,63 @@ Arch_AreInterruptsEnabled:
     ret
 
     /**
+     * Convert an unsigned 16-bit integer to its ASCII decimal representation.
+     *
+     * @param r24, r25 (16 bits) Input value
+     */
+    /*
+     * For more information on how it's done:
+     * https://youtu.be/v3-a-zqKfgA
+     * http://nparker.llx.com/a2/mult.html
+     *
+     * TODO: This code can be adapted to implement integer division, if needed.
+     */
+    ;; r24, r25: input
+    ;; r28, r29: working area
+    ;; r30, r31: buffer for substraction result
+    ;; r19: counter (sizeof uint16)
+convert_to_decimal:
+    push r28
+    push r29
+    push r30
+    push r31
+    push r19
+divide:
+    ;; Initialize counter to sizeof(uint16)
+    ldi r19, 16
+    ;; Initialize working area to zero
+    clr r28
+    clr r29
+    clc
+shift_loop:
+    rol r25
+    rol r24
+    rol r29
+    rol r28
+    sec
+    movw r30, r28
+    sbiw r30, 10
+    brcc ignore_result
+    movw r28, r30
+ignore_result:
+    dec r19
+    brne shift_loop
+    rol r25
+    rol r24
+    ;; Output remainder
+    clc
+    adiw r28, '0'
+    call print_or_store_character
+    sbiw r24, 0
+    brne divide
+    pop r19
+    pop r31
+    pop r30
+    pop r29
+    pop r28
+    ret
+    
+    /**
      * Copy bytes from program memory into RAM.
      *
      * @param r28, r29 (16 bits) The number of bytes to copy.
