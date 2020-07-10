@@ -12,6 +12,7 @@
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
 #include <Lazuli/lazuli.h>
+#include <Lazuli/list.h>
 #include <Lazuli/mutex.h>
 
 #include <Lazuli/sys/arch/AVR/interrupts.h>
@@ -238,7 +239,7 @@ static void
 UpdateCyclicRealTimeTasks(void)
 {
   Task *loopTask;
-  Lz_LinkedListElement *linkedListElement;
+  Lz_LinkedListElement *iterator;
 
   /* Here we update the time until activation of all cyclic RT tasks */
   List_ForEach(&readyTasks[CYCLIC_RT], Task, loopTask, stateQueue) {
@@ -258,15 +259,12 @@ UpdateCyclicRealTimeTasks(void)
                         Task,
                         loopTask,
                         stateQueue,
-                        linkedListElement) {
+                        iterator) {
     loopTask->timeUntilActivation--;
 
     if (0 == loopTask->timeUntilActivation) {
-      linkedListElement = List_Remove(&waitingActivationTasks,
-                                      &loopTask->stateQueue);
-      InsertTaskByPriority(&readyTasks[CYCLIC_RT],
-                           loopTask,
-                           PeriodComparer);
+      iterator = List_Remove(&waitingActivationTasks, &loopTask->stateQueue);
+      InsertTaskByPriority(&readyTasks[CYCLIC_RT], loopTask, PeriodComparer);
 
       loopTask->timeUntilActivation = loopTask->period;
       loopTask->timeUntilCompletion = loopTask->completion;
@@ -310,9 +308,7 @@ ManageCyclicRealTimeTask(void)
     return;
   }
 
-  InsertTaskByPriority(&readyTasks[CYCLIC_RT],
-                       currentTask,
-                       PeriodComparer);
+  InsertTaskByPriority(&readyTasks[CYCLIC_RT], currentTask, PeriodComparer);
 }
 
 /**
@@ -583,7 +579,10 @@ RegisterIdleTask(void)
 /**
  * @cond false
  *
- * Doxygen seems to not recognize this function declaration properly.
+ * Doxygen seems to not recognize this function declaration properly. An issue
+ * has been declared to the project.
+ * TODO: Keep an eye on it:
+ * https://github.com/doxygen/doxygen/issues/7845
  *
  * We could declare this function as static.
  * But if we do this we can't unit test it...
@@ -606,9 +605,6 @@ void
 
 /** @endcond */
 
-/*
- * TODO: Is it cleaner to perform a direct assign or to call Memory_Copy()?
- */
 void
 Scheduler_Init(void)
 {

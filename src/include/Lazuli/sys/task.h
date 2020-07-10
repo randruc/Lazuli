@@ -57,8 +57,7 @@ enum TaskToSchedulerMessage {
 
   /**
    * Wait for a mutex to be unlocked.
-   * A parameter representing a pointer to the mutex must accompany this
-   * message.
+   * A parameter pointing to the mutex must accompany this message.
    */
   WAIT_MUTEX,
 

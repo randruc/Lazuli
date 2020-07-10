@@ -87,7 +87,7 @@ timer1compA_handler:
     call save_context_on_stack
     in r24, spl
     in r25, sph
-    RESET_KERNEL_STACK_POINTER
+    RESET_KERNEL_STACK_POINTER r16
     jmp Scheduler_HandleClockTick
 
     .global timer1compB_handler
@@ -165,7 +165,7 @@ Task_Abort:
     call save_context_on_stack
     in r24, spl
     in r25, sph
-    RESET_KERNEL_STACK_POINTER
+    RESET_KERNEL_STACK_POINTER r16
     jmp Scheduler_AbortTask
 
     ;; TODO: This label is global. See how we can rename it (Arch_XXX, Asm_XXX,
@@ -431,7 +431,7 @@ reset_system:
     ;; Disable interrupts
     cli
 
-    RESET_KERNEL_STACK_POINTER
+    RESET_KERNEL_STACK_POINTER r16
 
     ;; Clear bss section
     ;; TODO: Find a way to omit this code if no .bss

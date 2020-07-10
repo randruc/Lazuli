@@ -88,7 +88,7 @@ set(
 option(
   LZ_CONFIG_IDLE_TASK_HAS_NAME
   "Configure if the idle task must have a name."
-  ON)
+  OFF)
 
 set(
   LZ_CONFIG_IDLE_TASK_NAME
