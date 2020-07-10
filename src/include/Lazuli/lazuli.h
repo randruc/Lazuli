@@ -208,8 +208,20 @@ void
 Lz_Task_WaitActivation(void);
 
 /**
- * Set the task to wait for the specified number of time resolution units, using
- * the software timer.
+ * Set the calling task to wait for the specified number of time resolution
+ * units (time slices), using the software timer.
+ * As Lazuli is a time sliced operating system, the effective waiting will start
+ * at the end of the current time slice. This means that the real waiting time
+ * _starting from the calling of this function_ will be:
+ *
+ * units / clock resolution frequency <= waiting time
+ * **AND**
+ * waiting time < (units + 1) / clock resolution frequency
+ *
+ * See the configuration option LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY.
+ *
+ * @param units The number of time slices to wait.
+ *
  * @warning Only works for tasks with PRIORITY_RT policy.
  */
 void
