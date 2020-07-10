@@ -18,7 +18,7 @@
 #define TIMER_COUNTER_1_PRESCALER (8)
 
 /**
- * Value of the compare match register whith the desired clock settings.
+ * Value of the compare match register with the desired clock settings.
  */
 #define COMPARE_MATCH_REGISTER_VALUE                                    \
   ((uint16_t)((LZ_CONFIG_MACHINE_CLOCK_FREQUENCY /                      \
