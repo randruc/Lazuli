@@ -286,14 +286,12 @@ UpdateTasksWaitingSoftwareTimer(void)
   Lz_LinkedListElement *iterator;
 
   List_RemovableForEach(&waitingTimerTasks, Task, task, stateQueue, iterator) {
+    --task->timeUntilTimerExpiration;
+
     if (0 == task->timeUntilTimerExpiration) {
       iterator = List_Remove(&waitingTimerTasks, &task->stateQueue);
       InsertTaskByPriority(&readyTasks[PRIORITY_RT], task, PriorityComparer);
-
-      continue;
     }
-
-    task->timeUntilTimerExpiration--;
   }
 }
 
@@ -323,6 +321,8 @@ ManageCyclicRealTimeTask(void)
 static void
 ManagePriorityRealTimeTask(void)
 {
+  bool setCurrentTaskReady = false;
+
   if (WAIT_INTERRUPT == currentTask->taskToSchedulerMessage) {
     uint8_t interruptCode =
       *((uint8_t*)currentTask->taskToSchedulerMessageParameter);
@@ -343,13 +343,21 @@ ManagePriorityRealTimeTask(void)
   } else if (WAIT_SOFTWARE_TIMER == currentTask->taskToSchedulerMessage) {
     currentTask->timeUntilTimerExpiration =
       *(lz_u_resolution_unit_t*)currentTask->taskToSchedulerMessageParameter;
-    List_Append(&waitingTimerTasks, &currentTask->stateQueue);
+    if (0 == currentTask->timeUntilTimerExpiration) {
+      setCurrentTaskReady = true;
+    } else {
+      List_Append(&waitingTimerTasks, &currentTask->stateQueue);
+    }
   } else if (LZ_CONFIG_MODULE_MUTEX_USED &&
              (WAIT_MUTEX == currentTask->taskToSchedulerMessage)) {
     Lz_Mutex * const mutex = currentTask->taskToSchedulerMessageParameter;
     List_Prepend(&mutex->waitingTasks,
                  &currentTask->stateQueue);
   } else {
+    setCurrentTaskReady = true;
+  }
+
+  if (setCurrentTaskReady) {
     InsertTaskByPriority(&readyTasks[PRIORITY_RT],
                          currentTask,
                          PriorityComparer);
@@ -376,6 +384,13 @@ Schedule(void)
      ManagePriorityRealTimeTask
     };
 
+  /*
+   * We call this function before adding new tasks waiting for a software timer
+   * in order to avoid decrementing the expiration counter immediately after
+   * adding the task to the corresponding waiting list.
+   */
+  UpdateTasksWaitingSoftwareTimer();
+
   if (currentTask != idleTask) {
     if (TERMINATE_TASK == currentTask->taskToSchedulerMessage) {
       List_Append(&terminatedTasks, &currentTask->stateQueue);
@@ -385,8 +400,6 @@ Schedule(void)
   }
 
   UpdateCyclicRealTimeTasks();
-
-  UpdateTasksWaitingSoftwareTimer();
 
   currentTask->taskToSchedulerMessage = NO_MESSAGE;
 
