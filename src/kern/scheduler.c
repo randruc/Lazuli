@@ -272,7 +272,7 @@ UpdateCyclicRealTimeTasks(void)
   }
 }
 
-/*
+/**
  * Update all tasks waiting for the expiration of a software timer.
  *
  * This is to be done at every clock tick.
