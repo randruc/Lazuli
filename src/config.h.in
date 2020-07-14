@@ -208,32 +208,32 @@
  *
  * This is the default value no sleep mode is selected.
  */
-#cmakedefine01 LZ_CONFIG_SLEEP_WITH_IDLE_MODE
+#cmakedefine01 LZ_CONFIG_AVR_SLEEP_WITH_IDLE_MODE
 
 /**
  * Enter "ADC Noise Reduction Mode" when sleeping.
  */
-#cmakedefine01 LZ_CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE
+#cmakedefine01 LZ_CONFIG_AVR_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE
 
 /**
  * Enter "Power-down Mode" when sleeping.
  */
-#cmakedefine01 LZ_CONFIG_SLEEP_WITH_POWER_DOWN_MODE
+#cmakedefine01 LZ_CONFIG_AVR_SLEEP_WITH_POWER_DOWN_MODE
 
 /**
  * Enter "Power-save Mode" when sleeping.
  */
-#cmakedefine01 LZ_CONFIG_SLEEP_WITH_POWER_SAVE_MODE
+#cmakedefine01 LZ_CONFIG_AVR_SLEEP_WITH_POWER_SAVE_MODE
 
 /**
  * Enter "Standby Mode" when sleeping.
  */
-#cmakedefine01 LZ_CONFIG_SLEEP_WITH_STANDBY_MODE
+#cmakedefine01 LZ_CONFIG_AVR_SLEEP_WITH_STANDBY_MODE
 
 /**
  * Enter "Extended Standby Mode" when sleeping.
  */
-#cmakedefine01 LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE
+#cmakedefine01 LZ_CONFIG_AVR_SLEEP_WITH_EXTENDED_STANDBY_MODE
 
 /**
  * The port used for instrumentation on AVR machines.

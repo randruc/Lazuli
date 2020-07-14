@@ -140,36 +140,36 @@ option(
 ## AVR-specific
 
 option(
-  LZ_CONFIG_SLEEP_WITH_IDLE_MODE
+  LZ_CONFIG_AVR_SLEEP_WITH_IDLE_MODE
   "Enter 'Idle Mode' when sleeping."
   ON)
 
 option(
-  LZ_CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE
+  LZ_CONFIG_AVR_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE
   "Enter 'ADC Noise Reduction Mode' when sleeping."
   OFF)
 
 option(
-  LZ_CONFIG_SLEEP_WITH_POWER_DOWN_MODE
+  LZ_CONFIG_AVR_SLEEP_WITH_POWER_DOWN_MODE
   "Enter 'Power-down Mode' when sleeping."
   OFF)
 
 option(
-  LZ_CONFIG_SLEEP_WITH_POWER_SAVE_MODE
+  LZ_CONFIG_AVR_SLEEP_WITH_POWER_SAVE_MODE
   "Enter 'Power-save Mode' when sleeping."
   OFF)
 
 option(
-  LZ_CONFIG_SLEEP_WITH_STANDBY_MODE
+  LZ_CONFIG_AVR_SLEEP_WITH_STANDBY_MODE
   "Enter 'Standby Mode' when sleeping."
   OFF)
 
 option(
-  LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE
+  LZ_CONFIG_AVR_SLEEP_WITH_EXTENDED_STANDBY_MODE
   "Enter 'Extended Standby Mode' when sleeping."
   OFF)
 
-SET(
+set(
   LZ_CONFIG_AVR_INSTRUMENT_PORT
   0x2B
   CACHE STRING
@@ -177,7 +177,7 @@ SET(
 
 mark_as_advanced(LZ_CONFIG_AVR_INSTRUMENT_PORT)
 
-SET(
+set(
   LZ_CONFIG_AVR_INSTRUMENT_POSITION
   7
   CACHE STRING

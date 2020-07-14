@@ -30,7 +30,8 @@ set(
   -Wextra
   -Werror
   -O2
-  #TODO: Manage this properly
+  -g
+  # TODO: Manage this properly
   -mmcu=atmega328p)
 
 # The following directives shouldn't be changed by the user

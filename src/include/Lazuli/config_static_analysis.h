@@ -209,32 +209,32 @@ extern const bool LZ_CONFIG_SERIAL_USE_INTERRUPTS;
  *
  * This is the default value no sleep mode is selected.
  */
-extern const bool LZ_CONFIG_SLEEP_WITH_IDLE_MODE;
+extern const bool LZ_CONFIG_AVR_SLEEP_WITH_IDLE_MODE;
 
 /**
  * Enter "ADC Noise Reduction Mode" when sleeping.
  */
-extern const bool LZ_CONFIG_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE;
+extern const bool LZ_CONFIG_AVR_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE;
 
 /**
  * Enter "Power-down Mode" when sleeping.
  */
-extern const bool LZ_CONFIG_SLEEP_WITH_POWER_DOWN_MODE;
+extern const bool LZ_CONFIG_AVR_SLEEP_WITH_POWER_DOWN_MODE;
 
 /**
  * Enter "Power-save Mode" when sleeping.
  */
-extern const bool LZ_CONFIG_SLEEP_WITH_POWER_SAVE_MODE;
+extern const bool LZ_CONFIG_AVR_SLEEP_WITH_POWER_SAVE_MODE;
 
 /**
  * Enter "Standby Mode" when sleeping.
  */
-extern const bool LZ_CONFIG_SLEEP_WITH_STANDBY_MODE;
+extern const bool LZ_CONFIG_AVR_SLEEP_WITH_STANDBY_MODE;
 
 /**
  * Enter "Extended Standby Mode" when sleeping.
  */
-extern const bool LZ_CONFIG_SLEEP_WITH_EXTENDED_STANDBY_MODE;
+extern const bool LZ_CONFIG_AVR_SLEEP_WITH_EXTENDED_STANDBY_MODE;
 
 /** @} */
 
