@@ -8,6 +8,8 @@
  * micro-framework to perform unit tests on the target machine.
  */
 
+#include <stdarg.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/list.h>
 
@@ -43,6 +45,17 @@ DEPENDENCY_ON_MODULE(SERIAL);
  */
 static void
 Assert(const bool cond, const uint16_t line);
+
+/**
+ * Test if two strings are equal.
+ *
+ * @param s1 The first string to test.
+ * @param s2 The second string to test.
+ *
+ * @return true if the 2 strings are the same, else false.
+ */
+static bool
+StringsAreEqual(const char * const s1, const char * const s2);
 
 UNIT_TEST(GlobalEnableDisableInterrupts)
 {
@@ -990,6 +1003,266 @@ UNIT_TEST(List_AppendList_4)
   ASSERT(NULL == List_PointFirst(&linkedList2));
 }
 
+void
+Variadic_1(uint16_t i, ...)
+{
+  va_list args;
+  uint8_t u8 = 0;
+  int8_t s8 = 0;
+  uint16_t u16 = 0;
+  int16_t s16 = 0;
+  uint32_t u32 = 0;
+  int32_t s32 = 0;
+  char c = '\0';
+  bool b = false;
+  void *p = NULL;
+
+  ASSERT(42 == i);
+
+  va_start(args, i);
+
+  u8 = va_arg(args, int);
+  ASSERT(56 == u8);
+
+  s8 = va_arg(args, int);
+  ASSERT(-2 == s8);
+
+  u16 = va_arg(args, uint16_t);
+  ASSERT(23796 == u16);
+
+  s16 = va_arg(args, int16_t);
+  ASSERT(-784 == s16);
+
+  u32 = va_arg(args, uint32_t);
+  ASSERT(1569125701 == u32);
+
+  s32 = va_arg(args, int32_t);
+  ASSERT(-2000364785 == s32);
+
+  c = va_arg(args, int);
+  ASSERT('y' == c);
+
+  b = va_arg(args, int);
+  ASSERT(b);
+
+  p = va_arg(args, void*);
+  ASSERT((void*)12458 == p);
+
+  va_end(args);
+}
+
+UNIT_TEST(Variadic_Function_1)
+{
+  uint8_t u8 = 56;
+  int8_t s8 = -2;
+  uint16_t u16 = 23796;
+  int16_t s16 = -784;
+  uint32_t u32 = 1569125701;
+  int32_t s32 = -2000364785;
+  char c = 'y';
+  bool b = true;
+  void *p = (void*)12458;
+
+  Variadic_1((uint16_t)42,
+             u8,
+             s8,
+             u16,
+             s16,
+             u32,
+             s32,
+             c,
+             b,
+             p);
+
+}
+
+void
+Variadic_2(char *p, ...)
+{
+  va_list args;
+  bool b = false;
+  int32_t i = 0;
+  char *str = NULL;
+
+  ASSERT(NULL == p);
+
+  va_start(args, p);
+
+  b = va_arg(args, int);
+  ASSERT(b);
+
+  i = va_arg(args, int32_t);
+  ASSERT((int32_t)-1 == i);
+
+  str = va_arg(args, char*);
+  ASSERT(StringsAreEqual("Test", str));
+
+  va_end(args);
+}
+
+UNIT_TEST(Variadic_Function_2)
+{
+  bool b = true;
+  int32_t i = -1;
+  char *str = "Test";
+
+  Variadic_2(NULL,
+             b,
+             i,
+             str);
+}
+
+void
+Variadic_3(uint16_t u, ...)
+{
+  va_list args;
+  uint16_t i;
+  uint8_t j = 0;
+
+  ASSERT(15 == u);
+
+  va_start(args, u);
+
+  for (;;) {
+    i = va_arg(args, uint16_t);
+    if (0 == i) {
+      break;
+    }
+
+    ASSERT((uint16_t)925 + j == i);
+
+    ++j;
+  }
+
+  ASSERT(8 == j);
+
+  va_end(args);
+}
+
+UNIT_TEST(Variadic_Function_3)
+{
+  uint16_t i = 15;
+  uint16_t j = 925;
+
+  Variadic_3(i,
+             j,
+             j + 1,
+             j + 2,
+             j + 3,
+             j + 4,
+             j + 5,
+             j + 6,
+             j + 7,
+             (uint16_t)0);
+}
+
+struct Size3 {
+  int8_t v[3];
+};
+
+void
+Variadic_4(char *p, ...)
+{
+  va_list args;
+  bool b = false;
+  int32_t i = 0;
+  struct Size3 s = { 0 };
+  char *str = NULL;
+
+  ASSERT(NULL == p);
+
+  va_start(args, p);
+
+  b = va_arg(args, int);
+  ASSERT(b);
+
+  i = va_arg(args, int32_t);
+  ASSERT((int32_t)-1 == i);
+
+  s = va_arg(args, struct Size3);
+  ASSERT(s.v[0] == 127);
+  ASSERT(s.v[1] == -12);
+  ASSERT(s.v[2] == 9);
+
+  str = va_arg(args, char*);
+  ASSERT(StringsAreEqual("Test", str));
+
+  va_end(args);
+}
+
+UNIT_TEST(Variadic_Function_4)
+{
+  bool b = true;
+  int32_t i = -1;
+  struct Size3 s = { { 127, -12, 9 } };
+  char *str = "Test";
+
+  Variadic_4(NULL,
+             b,
+             i,
+             s,
+             str);
+}
+
+void
+Variadic_5(char *p, va_list args)
+{
+  bool b = false;
+  int32_t i = 0;
+  struct Size3 s = { 0 };
+  char *str = NULL;
+
+  ASSERT(NULL == p);
+
+  b = va_arg(args, int);
+  ASSERT(b);
+
+  i = va_arg(args, int32_t);
+  ASSERT((int32_t)-1 == i);
+
+  s = va_arg(args, struct Size3);
+  ASSERT(s.v[0] == 127);
+  ASSERT(s.v[1] == -12);
+  ASSERT(s.v[2] == 9);
+
+  str = va_arg(args, char*);
+  ASSERT(StringsAreEqual("Test", str));
+
+  va_end(args);
+}
+
+void
+Variadic_Passthrough_5(char *p, ...) {
+  va_list args;
+
+  va_start(args, p);
+
+  Variadic_5(p, args);
+
+  va_end(args);
+}
+
+UNIT_TEST(Variadic_Function_Passtrough_5)
+{
+  bool b = false;
+  int32_t i = 0;
+  struct Size3 s = { 0 };
+  char *str = NULL;
+
+  b = true;
+  i = -1;
+  s.v[0] = 127;
+  s.v[1] = -12;
+  s.v[2] = 9;
+  str = "Test";
+
+  Variadic_Passthrough_5(NULL,
+                         b,
+                         i,
+                         s,
+                         str);
+}
+
 /**
  * Array of function pointers referencing all unit tests to execute.
  */
@@ -1027,7 +1300,12 @@ PROGMEM static void (* const tests[])(void) = {
   List_AppendList_1,
   List_AppendList_2,
   List_AppendList_3,
-  List_AppendList_4
+  List_AppendList_4,
+  Variadic_Function_1,
+  Variadic_Function_2,
+  Variadic_Function_3,
+  Variadic_Function_4,
+  Variadic_Function_Passtrough_5
 };
 
 static void
@@ -1040,6 +1318,26 @@ Assert(const bool cond, const uint16_t line)
   }
 }
 
+static bool
+StringsAreEqual(const char * const s1, const char * const s2)
+{
+  size_t i = 0;
+
+  while ('\0' != s1[i]) {
+    if (s1[i] != s2[i]) {
+      return false;
+    }
+
+    ++i;
+  }
+
+  if ('\0' != s2[i]) {
+    return false;
+  }
+
+  return true;
+}
+
 /**
  * Activate serial transmission.
  */
@@ -1049,7 +1347,7 @@ EnableSerialTransmission(void) {
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
-  serialConfiguration.speed = LZ_SERIAL_SPEED_9600;
+  serialConfiguration.speed = LZ_SERIAL_SPEED_19200;
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
