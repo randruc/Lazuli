@@ -18,10 +18,10 @@
     ;; Input:
     ;;   r24, r25: input value
     ;;   r22, r23: pointer to the buffer
-    ;; 
+    ;;
     ;; Output:
     ;;   r24: Number of bytes written
-    ;; 
+    ;;
     ;; Working registers:
     ;;   r28, r29: working area
     ;;   r30, r31: buffer for trial substraction

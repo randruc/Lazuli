@@ -337,7 +337,7 @@ Arch_AreInterruptsEnabled:
     in r24, sreg
     andi r24, IBitMask
     ret
-    
+
     /**
      * Copy bytes from program memory into RAM.
      *
