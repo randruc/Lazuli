@@ -5,7 +5,7 @@
 
 name: Lazuli CI Build
 
-on: [push]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
