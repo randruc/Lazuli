@@ -9,6 +9,7 @@
  */
 
 #include <stdarg.h>
+#include <stdint.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/list.h>
@@ -16,9 +17,11 @@
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/arch/arch.h>
 #include <Lazuli/sys/compiler.h>
+#include <Lazuli/sys/printf.h>
 #include <Lazuli/sys/scheduler.h>
 
 DEPENDENCY_ON_MODULE(SERIAL);
+DEPENDENCY_ON_MODULE(PRINTF);
 
 /**
  * Perform an assertion inside a unit test.
@@ -1263,6 +1266,138 @@ UNIT_TEST(Variadic_Function_Passtrough_5)
                          str);
 }
 
+UNIT_TEST(ConvertU16ToDecimal_1)
+{
+  const uint16_t i = 456;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(3 == size);
+  ASSERT('6' == buffer[0]);
+  ASSERT('5' == buffer[1]);
+  ASSERT('4' == buffer[2]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_2)
+{
+  const uint16_t i = 0;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(1 == size);
+  ASSERT('0' == buffer[0]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_3)
+{
+  const uint16_t i = 65535;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(5 == size);
+  ASSERT('5' == buffer[0]);
+  ASSERT('3' == buffer[1]);
+  ASSERT('5' == buffer[2]);
+  ASSERT('5' == buffer[3]);
+  ASSERT('6' == buffer[4]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_4)
+{
+  const uint16_t i = 12;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(2 == size);
+  ASSERT('2' == buffer[0]);
+  ASSERT('1' == buffer[1]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_5)
+{
+  const uint16_t i = 7;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(1 == size);
+  ASSERT('7' == buffer[0]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_6)
+{
+  const uint16_t i = 10000;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(5 == size);
+  ASSERT('0' == buffer[0]);
+  ASSERT('0' == buffer[1]);
+  ASSERT('0' == buffer[2]);
+  ASSERT('0' == buffer[3]);
+  ASSERT('1' == buffer[4]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_7)
+{
+  const uint16_t i = 22222;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(5 == size);
+  ASSERT('2' == buffer[0]);
+  ASSERT('2' == buffer[1]);
+  ASSERT('2' == buffer[2]);
+  ASSERT('2' == buffer[3]);
+  ASSERT('2' == buffer[4]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_8)
+{
+  const uint16_t i = 3141;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(4 == size);
+  ASSERT('1' == buffer[0]);
+  ASSERT('4' == buffer[1]);
+  ASSERT('1' == buffer[2]);
+  ASSERT('3' == buffer[3]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_9)
+{
+  const uint16_t i = 1;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(1 == size);
+  ASSERT('1' == buffer[0]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_10)
+{
+  const uint16_t i = 10;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(2 == size);
+  ASSERT('0' == buffer[0]);
+  ASSERT('1' == buffer[1]);
+}
+
+UNIT_TEST(ConvertU16ToDecimal_11)
+{
+  const uint16_t i = 2212;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(4 == size);
+  ASSERT('2' == buffer[0]);
+  ASSERT('1' == buffer[1]);
+  ASSERT('2' == buffer[2]);
+  ASSERT('2' == buffer[3]);
+}
+
 /**
  * Array of function pointers referencing all unit tests to execute.
  */
@@ -1305,7 +1440,18 @@ PROGMEM static void (* const tests[])(void) = {
   Variadic_Function_2,
   Variadic_Function_3,
   Variadic_Function_4,
-  Variadic_Function_Passtrough_5
+  Variadic_Function_Passtrough_5,
+  ConvertU16ToDecimal_1,
+  ConvertU16ToDecimal_2,
+  ConvertU16ToDecimal_3,
+  ConvertU16ToDecimal_4,
+  ConvertU16ToDecimal_5,
+  ConvertU16ToDecimal_6,
+  ConvertU16ToDecimal_7,
+  ConvertU16ToDecimal_8,
+  ConvertU16ToDecimal_9,
+  ConvertU16ToDecimal_10,
+  ConvertU16ToDecimal_11
 };
 
 static void

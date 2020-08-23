@@ -93,6 +93,7 @@ set(DECLARED_MODULES "")
 
 add_subdirectory(kern/modules/clock_24)
 add_subdirectory(kern/modules/mutex)
+add_subdirectory(kern/modules/printf)
 add_subdirectory(kern/modules/serial)
 add_subdirectory(kern/modules/spinlock)
 
