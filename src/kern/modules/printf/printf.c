@@ -6,6 +6,7 @@
  *
  * This file describes the implementation of printf.
  * For now it implements a very minimal subset of stdlib's printf().
+ * For now, this module is useless if module SERIAL is not used.
  */
 
 #include <stdarg.h>
@@ -18,8 +19,6 @@
 #include <Lazuli/sys/printf.h>
 
 /** @cond false */
-DEPENDENCY_ON_MODULE(SERIAL);
-
 STATIC_ASSERT(2 == sizeof(unsigned int),
               Sizeof_unsigned_int_not_supported_for_printf);
 /** @endcond */
