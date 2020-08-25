@@ -8,4 +8,5 @@ declare_lazuli_module(
   SUMMARY "Module for formatted printing."
 
   SOURCES
+  printf.c
   arch/AVR/printf.S)

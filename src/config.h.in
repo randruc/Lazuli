@@ -267,6 +267,11 @@
 #cmakedefine01 LZ_CONFIG_MODULE_MUTEX_USED
 
 /**
+ * Use module "printf": Formatted printing.
+ */
+#cmakedefine01 LZ_CONFIG_MODULE_PRINTF_USED
+
+/**
  * Use module "serial": Serial interface configuration.
  */
 #cmakedefine01 LZ_CONFIG_MODULE_SERIAL_USED
