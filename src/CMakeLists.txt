@@ -91,6 +91,8 @@ endif()
 # Elements will be added in this list by the subsequents modules declarations.
 set(DECLARED_MODULES "")
 
+# Ordered by alphabetical order.
+# Remember to declare the corresponding option in config.h.in.
 add_subdirectory(kern/modules/clock_24)
 add_subdirectory(kern/modules/mutex)
 add_subdirectory(kern/modules/printf)

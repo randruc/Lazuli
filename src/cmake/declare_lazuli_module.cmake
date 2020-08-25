@@ -41,7 +41,7 @@ macro(declare_lazuli_module)
     ${TARGET_MODULE_NAME}
     PRIVATE
     ${LZ_KERNEL_COMPILE_FLAGS})
-  
+
   # Declare the configuration option (in cache)
   string(TOUPPER ${TARGET_MODULE_NAME} TARGET_MODULE_NAME_UPPER)
 

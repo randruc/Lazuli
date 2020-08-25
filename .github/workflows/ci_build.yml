@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         machine: [AVR_ATmega328p]
-        
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Check line length, trailing whitespaces and tabs
         run: ./scripts/checklines.sh
 
@@ -61,6 +61,9 @@ jobs:
 
       - name: Install Doxygen
         run: sudo apt-get install -y doxygen
+
+      - name: Doxygen version
+        run: doxygen --version
 
         # Ugly hack to force the parameter QUIET to NO only in this
         # CI situation (for logs).

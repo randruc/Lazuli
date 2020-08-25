@@ -10,6 +10,8 @@
  * the final binary image.
  */
 
+#include <stdarg.h>
+
 #include <Lazuli/clock_24.h>
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
@@ -51,6 +53,9 @@ SIZEOF_TYPE(TaskContextLayout,
             "RAM needed to save the context of a task.");
 
 SIZEOF_TYPE(u_read_write_atomic_t,
-            "The size of u_read_write_atomic_t");
+            "The size of u_read_write_atomic_t.");
+
+SIZEOF_TYPE(va_list,
+            "The size of va_list.");
 
 /** @endcond */
