@@ -17,9 +17,9 @@
 #include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/printf.h>
 
+/** @cond false */
 DEPENDENCY_ON_MODULE(SERIAL);
 
-/** @cond false */
 STATIC_ASSERT(2 == sizeof(unsigned int),
               Sizeof_unsigned_int_not_supported_for_printf);
 /** @endcond */
