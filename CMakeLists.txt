@@ -70,7 +70,8 @@ endif()
 include_directories(
   BEFORE
   src/include                         # For Lazuli headers
-  src/libc-headers/arch-dependent/AVR # For libc headers
+  src/libc-headers                    # For libc headers
+  src/libc-headers/arch-dependent/AVR # For arch-specific libc headers
   ${PROJECT_BINARY_DIR}/src)          # For auto-generated config.h
 
 set(

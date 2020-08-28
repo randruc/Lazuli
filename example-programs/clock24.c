@@ -4,18 +4,16 @@
  * An example program demonstrating a simple real-time task: a clock.
  */
 
-#include <stdint.h>
+#include <stdio.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 #include <Lazuli/clock_24.h>
 #include <Lazuli/serial.h>
 
-#include <Lazuli/sys/printf.h>
-
 DEPENDENCY_ON_MODULE(CLOCK_24);
-DEPENDENCY_ON_MODULE(SERIAL);
 DEPENDENCY_ON_MODULE(PRINTF);
+DEPENDENCY_ON_MODULE(SERIAL);
 
 /**
  * Main clock task.
