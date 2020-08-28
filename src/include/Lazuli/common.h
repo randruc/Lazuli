@@ -220,7 +220,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  * @param A The first value.
  * @param B The second value.
  */
-#define MIN(A, B) ((A < B) ? (A) : (B))
+#define MIN(A, B) (((A) < (B)) ? (A) : (B))
 
 /**
  * Obtain the maximum between two integer values.
@@ -228,14 +228,14 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  * @param A The first value.
  * @param B The second value.
  */
-#define MAX(A, B) ((A < B) ? (B) : (A))
+#define MAX(A, B) (((A) < (B)) ? (B) : (A))
 
 /**
  * Obtain the absolute value of an integer.
  *
  * @param A The integer value.
  */
-#define ABS(A) ((A < 0) ? (-(A)) : (A))
+#define ABS(A) (((A) < 0) ? (-(A)) : (A))
 
 /**
  * Get the offset of a member in a structure.
