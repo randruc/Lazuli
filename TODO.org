@@ -60,3 +60,4 @@
 ** mandb: can't open /usr/share/man/man3/sys_clock_24.h.3: No such file or directory
 ** Check if it's a real bug, and declare the issue to the Doxygen project.
    mandb: warning: /usr/share/man/man3/Clock24_Increment.3.gz: bad symlink or ROFF `.so' request
+* Rename the src/ directory to sys/
