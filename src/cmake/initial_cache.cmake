@@ -63,11 +63,6 @@ option(
   "Put the CPU to sleep when it's idle, or infinite loop."
   ON)
 
-option(
-  LZ_CONFIG_INCLUDE_VERSION_STRING_IN_FINAL_BINARY
-  "Include a string representing the version of Lazuli in the final binary."
-  ON)
-
 ## Build options
 
 option(
