@@ -1,5 +1,5 @@
 /**
- * @file src/include/libc-headers/stdio.h
+ * @file src/libc-headers/stdio.h
  * @brief stdio standard header file.
  * @date Aug 2020
  * @author Remi Andruccioli

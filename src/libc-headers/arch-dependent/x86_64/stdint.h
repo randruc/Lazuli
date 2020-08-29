@@ -1,5 +1,5 @@
 /**
- * @file libc-headers/arch/x86_64/stdint.h
+ * @file src/libc-headers/arch-dependent/x86_64/stdint.h
  * @brief Fixed width integer types for x86_64.
  * @author Remi Andruccioli
  * @date Jul 2018
