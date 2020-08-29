@@ -3,11 +3,16 @@
  * @brief stdio standard header file.
  * @date Aug 2020
  * @author Remi Andruccioli
- * 
+ *
+ * This is the standard libc stdio header file for the Lazuli system.
  */
 
 #ifndef STDIO_H
 #define STDIO_H
+
+#include <Lazuli/common.h>
+
+_EXTERN_C_DECL_BEGIN
 
 /**
  * Produce formatted output to the serial line.
@@ -34,5 +39,7 @@
  */
 int
 printf(const char * format, ...);
+
+_EXTERN_C_DECL_END
 
 #endif /* STDIO_H */
