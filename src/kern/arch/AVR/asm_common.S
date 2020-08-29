@@ -28,8 +28,8 @@
  * @param register The register to use to store the address.
  */
 .macro RESET_KERNEL_STACK_POINTER register
-    ldi \register, lo8(_ramend)
-    out spl, \register
     ldi \register, hi8(_ramend)
     out sph, \register
+    ldi \register, lo8(_ramend)
+    out spl, \register
 .endm
