@@ -38,7 +38,7 @@ option(
 
 set(
   LZ_CONFIG_DEFAULT_TASK_STACK_SIZE
-  50
+  80
   CACHE STRING
   "Default stack size in bytes for a new task.")
 
