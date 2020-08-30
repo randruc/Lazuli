@@ -1,54 +1,65 @@
-<!---
-SPDX-License-Identifier: GPL-3.0-only
-This file is part of Lazuli.
-Copyright (c) 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
---->
+..
+   SPDX-License-Identifier: GPL-3.0-only
+   This file is part of Lazuli.
+   Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
-# Memory Layout
+.. sectionauthor:: Remi Andruccioli <remi.andruccioli@gmail.com>
 
-Here is documented the memory layout of the kernel and user tasks.
+Memory Layout
+=============
+
+Here is documented the memory layout for the kernel and user tasks.
 
 In the context of AVR MCUs the term RAM used in this document refers to the MCU
 SRAM, and the term ROM refers to the MCU flash memory.
 
-## Harvard architecture and static linking
+Memory layout is implemented in the file ``src/kern/linker.ld``.
+
+Harvard architecture and static linking
+---------------------------------------
 
 AVR MCUs use a Harvard architecture. Machine instructions and program data are
 stored in separate memories.
 
-Due to the particular architecture of AVR MCUs the kernel and user tasks are
-all linked in a single executable file. What we call "user" tasks are pieces of
-code written independently of the kernel, and that are not distributed with it.
+Due to the particular architecture of AVR MCUs (especially the absence of an
+MMU) the kernel and user tasks are all linked in a single executable file.
+What we call "user" tasks are pieces of code written independently of the
+kernel, and that are not distributed with it.
 Therefore all the object files (kernel and user tasks) are statically linked
-and share the same .text, .data, and .bss sections.
+and share the same memory sections.
 
 We explain here how these sections are loaded into ROM and how the RAM is
 subdivided according to the sections needed at runtime.
 
+ROM
+***
 
-### ROM:
+The following sections are loaded in ROM:
 
-The following sections are loaded in ROM: __.text__, __.progmem__, __.data__
-and __.rodata__.  
-The __.text__ section contains all the executable code, i.e. the interrupt
-vectors table and the machine instructions of the user tasks and the kernel.
-On the AVR architecture the interrupt vectors table must be located at address
-0x0.  
-The __.progmem__ section contains all constants that are stored in ROM. These
-constants can be any type of data (strings, structs, ...). In C code, a constant
-is marked to be stored in ROM using the `progmem` macro. When a constant is
-needed during execution, it is loaded in RAM at runtime using special AVR `lpm`
-instruction.  
-The __.data__ section contains all global variables that are initialized in C.
-The .data section doesn't contains machine code but program data so it needs
-to be loaded in RAM at startup (see Startup.md).  
-The __.rodata__ section contains all global variables that are initialized in C
-and marked as readonly using the keyword `const`.
-The .rodata section doesn't contains machine code but program data so it needs
-to be loaded in RAM at startup (see Startup.md).
+* **.text**: contains all the executable code, i.e. the interrupt vectors table
+  and the machine instructions of the user tasks and the kernel.
+  On the AVR architecture the interrupt vectors table must be located at address
+  0x0000.
 
-This graph shows how these sections are loaded into ROM:  
+* **.progmem**: contains all constants that are stored in ROM. These
+  constants can be any type of data (strings, structs, ...). In C code, a
+  constant is marked to be stored in ROM using the ``PROGMEM`` macro. When a
+  constant is needed during execution, it is loaded in RAM at runtime using
+  special AVR ``lpm`` instruction.
+
+* **.data**: contains all global variables that are initialized in C.
+  The .data section doesn't contains machine code but program data so it needs
+  to be loaded in RAM at startup (see Startup.md).
+
+* **.rodata**: contains all global variables that are initialized in C and
+  marked as readonly using the keyword ``const``.
+  The .rodata section doesn't contain machine code but program data so it needs
+  to be loaded in RAM at startup (see Startup.md).
+
+This graph shows how these sections are loaded into ROM.
 The arrows on the right specify addresses.
+
+.. code-block:: none
 
     +----------------+
     |. . . . . . . . |<- SIZEOF(ROM) - 1
@@ -61,7 +72,7 @@ The arrows on the right specify addresses.
     |                |<- _rodata_load_start + SIZEOF(.rodata) - 1
     |  .rodata       |
     |  section       |   _data_load_start + SIZEOF(.data)
-    |                |<-(_rodata_load_start in the linker)
+    |                |<- (_rodata_load_start in the linker)
     +----------------+
     |                |<- _data_load_start + SIZEOF(.data) - 1
     |  .data         |
@@ -85,31 +96,36 @@ The arrows on the right specify addresses.
     | table          |<- 0x0 
     +----------------+ 
 
-
-### RAM:
-
-The RAM sections are mainly conditioned by the AVR architecture and the
-runtime of the C language.
+RAM
+***
 
 A small part of the RAM is mapped to machine registers and I/O registers.
 The usable memory part starts at address 0x100 and contains the following
 regions:
-* __.data__ section: This section is fixed in size and is copied from ROM during
-  startup.
-* __.rodata__ section: This section is fixed in size and is copied from ROM
-  during startup.
-* __.bss__ section: This section is fixed in size and contains all uninitialized
-  global variables in C. It is set to zero during startup.
-* The heap: This is the kernel heap. On startup the heap size is 0.
-* The stack: This is the kernel stack. On the AVR architecture the stack grows
-  downward. The stack pointer points to the next free memory location that will
-  be used when performing a `push`.
+
+* **.data**: This section is fixed in size and is copied from ROM during
+  startup. It contains all initialized global variables.
+* **.rodata**: This section is fixed in size and is copied from ROM during
+  startup. It contains all global constants.
+* **.bss**: This section is fixed in size and contains all uninitialized global
+  variables in C. It is set to zero during startup.
+* **.noinit**: This section contains all variables marked with the macro
+  ``NOINIT``. This macro is used to indicated that an uninitialized global
+  variable must not be initialized to zero at startup. 
+* The **heap**: This is the kernel heap. After kernel startup the heap size is
+  0.
+* The **kernel stack**: During system startup only the kernel stack exists.
+  On the AVR architecture the stack grows downward.
+  The stack pointer points to the next free memory location that will be used
+  when performing a ``push``.
 * The space between the heap and the stack is left unused. This space isn't
   fixed in size because both the heap and the stack can grow downward or
   upward at runtime.
 
 This graph shows how these sections are loaded into RAM:  
 The arrows on the right specify addresses.
+
+.. code-block:: none
 
     +----------------+
     |                |<- SIZEOF(RAM) - 1 (_ramend in the linker)
@@ -124,6 +140,11 @@ The arrows on the right specify addresses.
     |                |
     | heap           |
     |                |<- heap_start (_brk in the linker)
+    +----------------+ 
+    | .noinit section|
+    | (non zero'd at |
+    | startup)       |   
+    |                |<- 0x100 + SIZEOF(.data) + SIZEOF(.rodata) + SIZEOF(.bss)
     +----------------+ 
     | .bss section   |<- 0x100 + SIZEOF(.data) + SIZEOF(.bss) - 1
     | (zero'd at     |
@@ -143,8 +164,8 @@ The arrows on the right specify addresses.
     |                |<- 0x0
     +----------------+
 
-
-## Allocating user tasks
+Allocating user tasks
+---------------------
 
 The allocation of new user tasks is done in the function
 Lz_Scheduler_RegisterTask().

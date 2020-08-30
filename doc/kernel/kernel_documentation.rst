@@ -16,6 +16,7 @@ reading this part.
 .. toctree::
    :maxdepth: 2
 
+   memory_layout
    version_management
    startup
    instrumentation_and_diagnostics/instrumentation_and_diagnostics
