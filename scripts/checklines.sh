@@ -14,19 +14,19 @@ failed=0
 
 # Files with lines longer that 80 characters
 tmp=$(mktemp)
-if
-    grep -nrH \
-         '.\{81\}'\
-         --include=*.c \
-         --include=*.dox \
-         --include=*.h \
-         --include=*.ld \
-         --include=*.S \
-         --include=*.sh \
-         --include=*.txt \
-         --exclude-dir=build \
-         --exclude-dir=LICENSES \
-         --exclude-dir=_build > $tmp;
+grep -nrH \
+     '.\{81\}'\
+     --include=*.c \
+     --include=*.dox \
+     --include=*.h \
+     --include=*.ld \
+     --include=*.S \
+     --include=*.sh \
+     --include=*.txt \
+     --exclude-dir=build \
+     --exclude-dir=LICENSES \
+     --exclude-dir=_build > $tmp
+if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
     echo "Files with lines longer that 80 characters:"
@@ -35,22 +35,22 @@ fi
 
 # Files with tab characters
 tmp=$(mktemp)
-if
-    grep -nrHP \
-         "\t" \
-         --include=*.c \
-         --include=*.cmake \
-         --include=*.dox \
-         --include=*.h \
-         --include=*.ld \
-         --include=*.md \
-         --include=*.rst \
-         --include=*.S \
-         --include=*.sh \
-         --include=*.txt \
-         --include=*.yml \
-         --exclude-dir=build \
-         --exclude-dir=_build > $tmp;
+grep -nrHP \
+     "\t" \
+     --include=*.c \
+     --include=*.cmake \
+     --include=*.dox \
+     --include=*.h \
+     --include=*.ld \
+     --include=*.md \
+     --include=*.rst \
+     --include=*.S \
+     --include=*.sh \
+     --include=*.txt \
+     --include=*.yml \
+     --exclude-dir=build \
+     --exclude-dir=_build > $tmp
+if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
     echo "Files with tab characters:"
@@ -59,20 +59,20 @@ fi
 
 # Files with trailing whitespaces
 tmp=$(mktemp)
-if
-    grep -nrH \
-         "\([[:space:]]\)$" \
-         --include=*.c \
-         --include=*.cmake \
-         --include=*.dox \
-         --include=*.h \
-         --include=*.ld \
-         --include=*.S \
-         --include=*.sh \
-         --include=*.txt \
-         --include=*.yml \
-         --exclude-dir=build \
-         --exclude-dir=_build > $tmp;
+grep -nrH \
+     "\([[:space:]]\)$" \
+     --include=*.c \
+     --include=*.cmake \
+     --include=*.dox \
+     --include=*.h \
+     --include=*.ld \
+     --include=*.S \
+     --include=*.sh \
+     --include=*.txt \
+     --include=*.yml \
+     --exclude-dir=build \
+     --exclude-dir=_build > $tmp
+if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
     echo "Files with trailing whitespaces:"
@@ -96,18 +96,18 @@ fi
 
 # Files with missing SPDX license identifier
 tmp=$(mktemp)
-if
-    grep -nHrL \
-         "SPDX-License-Identifier: GPL-3.0-only" \
-         --exclude-dir=.git \
-         --exclude-dir=LICENSES \
-         --exclude-dir=_build \
-         --exclude-dir=build \
-         --exclude-dir=doxygen_output \
-         --exclude-dir=user \
-         --exclude=COPYING \
-         --exclude=TODO.org \
-         --exclude=VERSION > $tmp;
+grep -nHrL \
+     "SPDX-License-Identifier: GPL-3.0-only" \
+     --exclude-dir=.git \
+     --exclude-dir=LICENSES \
+     --exclude-dir=_build \
+     --exclude-dir=build \
+     --exclude-dir=doxygen_output \
+     --exclude-dir=user \
+     --exclude=COPYING \
+     --exclude=TODO.org \
+     --exclude=VERSION > $tmp
+if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
     echo "Files with missing SPDX license identifier:"
@@ -116,14 +116,14 @@ fi
 
 # Files with missing copyright notice
 tmp=$(mktemp)
-if
-    grep -nHrL \
-         "@copyright" \
-         --include="*.c" \
-         --include="*.h" \
-         --include="*.S" \
-         --exclude-dir=user \
-         --exclude-dir=build > $tmp;
+grep -nHrL \
+     "@copyright" \
+     --include="*.c" \
+     --include="*.h" \
+     --include="*.S" \
+     --exclude-dir=user \
+     --exclude-dir=build > $tmp
+if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
     echo "Files with missing copyright notice:"
