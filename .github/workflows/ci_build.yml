@@ -14,6 +14,7 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     name: Build job
+    needs: [doxygen, sphinx]
     runs-on: ubuntu-latest
     strategy:
       matrix:
