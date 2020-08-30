@@ -12,54 +12,72 @@
 
 failed=0
 
-echo "----- Files with lines longer that 80 characters: -----"
-! grep -nrH \
-  '.\{81\}'\
-  --color \
-  --include=*.c \
-  --include=*.dox \
-  --include=*.h \
-  --include=*.ld \
-  --include=*.S \
-  --include=*.sh \
-  --include=*.txt \
-  --exclude-dir=build \
-  --exclude-dir=LICENSES \
-  --exclude-dir=_build || failed=1
+# Files with lines longer that 80 characters
+tmp=$(mktemp)
+if
+    grep -nrH \
+         '.\{81\}'\
+         --include=*.c \
+         --include=*.dox \
+         --include=*.h \
+         --include=*.ld \
+         --include=*.S \
+         --include=*.sh \
+         --include=*.txt \
+         --exclude-dir=build \
+         --exclude-dir=LICENSES \
+         --exclude-dir=_build > $tmp;
+then
+    failed=1;
+    echo "Files with lines longer that 80 characters:"
+    cat $tmp | awk '{print "    " $0}';
+fi
 
-echo "----- Files with tab characters: -----"
-! grep -nrHP \
-  --color \
-  "\t" \
-  --include=*.c \
-  --include=*.cmake \
-  --include=*.dox \
-  --include=*.h \
-  --include=*.ld \
-  --include=*.md \
-  --include=*.rst \
-  --include=*.S \
-  --include=*.sh \
-  --include=*.txt \
-  --include=*.yml \
-  --exclude-dir=build \
-  --exclude-dir=_build || failed=1
+# Files with tab characters
+tmp=$(mktemp)
+if
+    grep -nrHP \
+         "\t" \
+         --include=*.c \
+         --include=*.cmake \
+         --include=*.dox \
+         --include=*.h \
+         --include=*.ld \
+         --include=*.md \
+         --include=*.rst \
+         --include=*.S \
+         --include=*.sh \
+         --include=*.txt \
+         --include=*.yml \
+         --exclude-dir=build \
+         --exclude-dir=_build > $tmp;
+then
+    failed=1;
+    echo "Files with tab characters:"
+    cat $tmp | awk '{print "    " $0}';
+fi
 
-echo "----- Files with trailing whitespaces: -----"
-! grep -nrH \
-  "\([[:space:]]\)$" \
-  --color \
-  --include=*.c \
-  --include=*.cmake \
-  --include=*.dox \
-  --include=*.h \
-  --include=*.ld \
-  --include=*.S \
-  --include=*.sh \
-  --include=*.txt \
-  --include=*.yml \
-  --exclude-dir=build \
-  --exclude-dir=_build || failed=1
+# Files with trailing whitespaces
+tmp=$(mktemp)
+if
+    grep -nrH \
+         "\([[:space:]]\)$" \
+         --include=*.c \
+         --include=*.cmake \
+         --include=*.dox \
+         --include=*.h \
+         --include=*.ld \
+         --include=*.S \
+         --include=*.sh \
+         --include=*.txt \
+         --include=*.yml \
+         --exclude-dir=build \
+         --exclude-dir=_build > $tmp;
+then
+    failed=1;
+    echo "Files with trailing whitespaces:"
+    cat $tmp | awk '{print "    " $0}';
+fi
 
 # Find \r characters
 # ! grep -nrHP \
@@ -76,28 +94,40 @@ echo "----- Files with trailing whitespaces: -----"
 #      --exclude-dir=build \
 #      --exclude-dir=_build || failed=1
 
-echo "----- Files with missing SPDX license identifier: -----"
-! grep -nHrL \
-  "SPDX-License-Identifier: GPL-3.0-only" \
-  --exclude-dir=.git \
-  --exclude-dir=LICENSES \
-  --exclude-dir=_build \
-  --exclude-dir=build \
-  --exclude-dir=doxygen_output \
-  --exclude-dir=user \
-  --exclude=COPYING \
-  --exclude=TODO.org \
-  --exclude=VERSION \
-    || failed=1
+# Files with missing SPDX license identifier
+tmp=$(mktemp)
+if
+    grep -nHrL \
+         "SPDX-License-Identifier: GPL-3.0-only" \
+         --exclude-dir=.git \
+         --exclude-dir=LICENSES \
+         --exclude-dir=_build \
+         --exclude-dir=build \
+         --exclude-dir=doxygen_output \
+         --exclude-dir=user \
+         --exclude=COPYING \
+         --exclude=TODO.org \
+         --exclude=VERSION > $tmp;
+then
+    failed=1;
+    echo "Files with missing SPDX license identifier:"
+    cat $tmp | awk '{print "    " $0}';
+fi
 
-echo "----- Files with missing copyright notice: -----"
-! grep -nHrL \
-  "@copyright" \
-  --include="*.c" \
-  --include="*.h" \
-  --include="*.S" \
-  --exclude-dir=user \
-  --exclude-dir=build \
-    || failed=1
+# Files with missing copyright notice
+tmp=$(mktemp)
+if
+    grep -nHrL \
+         "@copyright" \
+         --include="*.c" \
+         --include="*.h" \
+         --include="*.S" \
+         --exclude-dir=user \
+         --exclude-dir=build > $tmp;
+then
+    failed=1;
+    echo "Files with missing copyright notice:"
+    cat $tmp | awk '{print "    " $0}';
+fi
 
 exit $failed
