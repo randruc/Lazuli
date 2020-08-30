@@ -1,3 +1,9 @@
+<!---
+SPDX-License-Identifier: GPL-3.0-only
+This file is part of Lazuli.
+Copyright (c) 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+--->
+
 # Memory Layout
 
 Here is documented the memory layout of the kernel and user tasks.

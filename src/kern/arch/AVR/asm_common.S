@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/arch/AVR/asm_common.S
  * @brief Common ASM macros and definitions.
- * @date Feb 2019
- * @author Remi Andruccioli
+ * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file defines commonly used AVR assembly macros and symbols in order to
  * be used in other ASM files with the .USING directive.

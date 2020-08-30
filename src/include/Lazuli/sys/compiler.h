@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/compiler.h
  * @brief Macro aliases on compiler facilities.
- * @date Feb 2017
- * @author Remi Andruccioli
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file defines macros that can be used as aliases on compiler facilities
  * to add non-standard features to pure C89.

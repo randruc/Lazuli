@@ -1,4 +1,9 @@
 #!/usr/bin/awk -f
+
+# SPDX-License-Identifier: GPL-3.0-only
+# This file is part of Lazuli.
+# Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+
 #
 # This AWK script is used to retrieve the sizes of each useful sections in order
 # to print the total bytes used by the kernel + used tasks in RAM and ROM.

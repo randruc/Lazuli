@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/config.h
  * @brief Lazuli configuration.
- * @date Sep 2019
- * @author Remi Andruccioli
+ * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file contains all the configuration for the Lazuli kernel.
  * These are only macro constants. This file must be kept simple so it can be

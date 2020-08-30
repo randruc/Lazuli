@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/clock_24.h
  * @brief 24-Hour clock kernel interface.
- * @date Jun 2019
- * @author Remi Andruccioli
+ * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the kernel interface of the 24-Hour clock.
  */

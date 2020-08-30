@@ -1,5 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/arch/AVR/timer_counter_0.h
+ * @brief Interface for Timer/Counter 0 of the ATMega328p.
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * Describes the interface of the "8-bit timer/counter 0" driver for the
  * ATMega328p.

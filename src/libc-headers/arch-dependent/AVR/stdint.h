@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/libc-headers/arch-dependent/AVR/stdint.h
  * @brief Fixed width integer types for AVR.
- * @author Remi Andruccioli
- * @date Jul 2018
+ * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the implementation of the stdint.h standard header for
  * defining fixed width integer types for the AVR architecture.

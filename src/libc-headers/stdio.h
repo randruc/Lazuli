@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/libc-headers/stdio.h
  * @brief stdio standard header file.
- * @date Aug 2020
- * @author Remi Andruccioli
+ * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This is the standard libc stdio header file for the Lazuli system.
  */

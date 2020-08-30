@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/spinlock.h
  * @brief Spinlocks interface.
- * @date Feb 2019
- * @author Remi Andruccioli
+ * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the interface for spinlocks.
  */

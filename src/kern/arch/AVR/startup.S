@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file startup.S
  * @brief ASM kernel startup and routines definitions.
- * @date Jan 2017
- * @author Remi Andruccioli
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * Set up the runtime environment and run the kernel.
  * Defines AVR-specific routines implementation declared in Arch_XXX.

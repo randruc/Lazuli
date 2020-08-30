@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/linker.h
  * @brief Symbols defined by the linker.
- * @date Feb 2017
- * @author Remi Andruccioli
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file contains all the symbols defined by the linker.
  * They only consist of addresses and are always accessed with the & operator.

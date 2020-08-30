@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/config_static_analysis.h
  * @brief Lazuli configuration file for static analysis.
- * @date May 2020
- * @author Remi Andruccioli
+ * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file is a redefinition of all the configuration macro constants that are
  * defined in config.h.in. All the macro constants are defined here as if they

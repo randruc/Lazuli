@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/scheduler.h
  * @brief Lazuli scheduler interface. The kernel API of the scheduler.
- * @date Feb 2017
- * @author Remi Andruccioli
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the kernel interface of the Lazuli scheduler.
  */

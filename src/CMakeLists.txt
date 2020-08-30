@@ -1,8 +1,9 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# This file is part of Lazuli.
+# Copyright (c) 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+
 #
 # Main CMake file to build the Lazuli kernel as a static library.
-#
-# Author: Remi Andruccioli
-# Date: Sep 2019
 #
 
 cmake_minimum_required(VERSION 3.12)

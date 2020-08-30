@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/common.h
  * @brief Basic type definitions and useful macros.
- * @date Feb 2017
- * @author Remi Andruccioli
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes basic type definitions and useful macros used in the
  * Lazuli project.

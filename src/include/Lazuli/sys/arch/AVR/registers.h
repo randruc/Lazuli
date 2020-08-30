@@ -1,7 +1,14 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/arch/AVR/registers.h
+ * @brief ATmega328P registers.
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
- * This file contains general registers definitions for the ATmega 328P.
+ * This file contains general registers definitions for the ATmega328P.
  */
 
 #ifndef LAZULI_SYS_ARCH_AVR_REGISTERS_H

@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/memory.c
  * @brief Kernel memory functions.
- * @date Jul 2016
- * @author Remi Andruccioli
+ * @copyright 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * Memory functions for the kernel: allocation, copy, ...
  */

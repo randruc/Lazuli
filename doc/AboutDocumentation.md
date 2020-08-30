@@ -1,3 +1,9 @@
+<!---
+SPDX-License-Identifier: GPL-3.0-only
+This file is part of Lazuli.
+Copyright (c) 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+--->
+
 # About documentation
 
 The directory `doc/` in the Lazuli source tree contains all the documentation

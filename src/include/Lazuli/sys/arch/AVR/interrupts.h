@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/arch/AVR/interrupts.h
  * @brief Interrupt codes of ATmega328P.
- * @date Mar 2018
- * @author Remi Andruccioli
+ * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  * @warning Can be used in both C and ASM code.
  *
  * This file describes the codes associated to each interrupt of the ATmega328P.

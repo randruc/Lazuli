@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# SPDX-License-Identifier: GPL-3.0-only
+# This file is part of Lazuli.
+# Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+
 #
 # Bash script to perform tests on lines of text.
 #
@@ -8,7 +12,7 @@
 
 failed=0
 
-# Print lines longer than 80 characters
+echo "----- Files with lines longer that 80 characters -----"
 ! grep -nrH \
   '.\{81\}'\
   --color \
@@ -20,9 +24,10 @@ failed=0
   --include=*.sh \
   --include=*.txt \
   --exclude-dir=build \
+  --exclude-dir=LICENSES \
   --exclude-dir=_build || failed=1
 
-# Find tab characters
+echo "----- Files with tab characters -----"
 ! grep -nrHP \
   --color \
   "\t" \
@@ -40,7 +45,7 @@ failed=0
   --exclude-dir=build \
   --exclude-dir=_build || failed=1
 
-# Find trailing whitespaces
+echo "----- Files with trailing whitespaces -----"
 ! grep -nrH \
   "\([[:space:]]\)$" \
   --color \
@@ -70,5 +75,29 @@ failed=0
 #      --include=*.txt \
 #      --exclude-dir=build \
 #      --exclude-dir=_build || failed=1
+
+echo "----- Files with missing SPDX license identifier: -----"
+! grep -nHrL \
+  "SPDX-License-Identifier: GPL-3.0-only" \
+  --exclude-dir=.git \
+  --exclude-dir=LICENSES \
+  --exclude-dir=_build \
+  --exclude-dir=build \
+  --exclude-dir=doxygen_output \
+  --exclude-dir=user \
+  --exclude=COPYING \
+  --exclude=TODO.org \
+  --exclude=VERSION \
+    || failed=1
+
+echo "----- Files with missing copyright notice: -----"
+! grep -nHrL \
+  "@copyright" \
+  --include="*.c" \
+  --include="*.h" \
+  --include="*.S" \
+  --exclude-dir=user \
+  --exclude-dir=build \
+    || failed=1
 
 exit $failed

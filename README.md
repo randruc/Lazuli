@@ -1,3 +1,9 @@
+<!---
+SPDX-License-Identifier: GPL-3.0-only
+This file is part of Lazuli.
+Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+--->
+
 # Lazuli
 
 ![Lazuli CI Build](https://github.com/randruc/Lazuli/workflows/Lazuli%20CI%20Build/badge.svg)

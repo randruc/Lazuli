@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file libc/stdint_assertions.c
  * @brief Static assertions on the width of types defined in stdint.
- * @author Remi Andruccioli
- * @date Jul 2018
+ * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file performs static assertions to verify the validity of the
  * definitions of file stdint.h.

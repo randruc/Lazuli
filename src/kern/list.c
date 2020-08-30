@@ -1,7 +1,14 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/list.c
+ * @brief Linked lists implementation.
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
- * This file describes the operations related to lists.
+ * This file describes the implementation of generic doubly linked lists.
  */
 
 #include <Lazuli/common.h>

@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/kernel.c
  * @brief Kernel entry point.
- * @date Jul 2016
- * @author Remi Andruccioli
+ * @copyright 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes all the kernel routines such as:
  * - Kernel main entry point after startup, system initialization

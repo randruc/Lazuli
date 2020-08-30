@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/lazuli.h
  * @brief The public API of the Lazuli kernel.
- * @date Feb 2017
- * @author Remi Andruccioli
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the public (user) API of the Lazuli kernel.
  * It defines public types and functions that can by used by user main code

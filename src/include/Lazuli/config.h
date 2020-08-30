@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/config.h
  * @brief Include appropriate config file.
- * @date May 2020
- * @author Remi Andruccioli
+ * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This header file is just here to include the appropriate config file if we
  * are performing static analysis.

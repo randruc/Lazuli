@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/arch/AVR/timer_counter_1.h
  * @brief Interface for Timer/Counter 1 of the ATMega328p.
- * @date May 2019
- * @author Remi Andruccioli
+ * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the interface of the driver for the
  * "16-bit timer counter 1" of the ATMega328p.

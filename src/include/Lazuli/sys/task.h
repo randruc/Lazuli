@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/include/Lazuli/sys/task.h
  * @brief Base task definition and context description.
- * @author Remi Andruccioli
- * @date Feb 2017
+ * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * Describes all types and functions related to tasks.
  */

@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/scheduler.c
  * @brief Lazuli scheduler implementation.
- * @date Mar 2018
- * @author Remi Andruccioli
+ * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the implementation of the Lazuli scheduler.
  */

@@ -1,5 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
- * @file clock24.c
+ * @file example-programs/clock24.c
+ * @brief A simple clock.
+ * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * An example program demonstrating a simple real-time task: a clock.
  */

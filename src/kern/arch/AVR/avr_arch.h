@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/arch/AVR/avr_arch.h
  * @brief Header file specific to the AVR arch module.
- * @date Jul 2018
- * @author Remi Andruccioli
+ * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This header file declares all symbol neeed specifically in the AVR arch
  * module, and not declared in <Lazuli/sys/arch/arch.h>.

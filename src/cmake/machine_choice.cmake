@@ -1,3 +1,7 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# This file is part of Lazuli.
+# Copyright (c) 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+
 #
 # This file defines the cache variable "LZ_TARGET_MACHINE_CHOICE" used as a
 # "drop-down" choice for the target

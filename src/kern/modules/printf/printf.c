@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/modules/printf/printf.c
  * @brief printf implementation.
- * @date Aug 2020
- * @author Remi Andruccioli
+ * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the implementation of printf.
  * For now it implements a very minimal subset of stdlib's printf().

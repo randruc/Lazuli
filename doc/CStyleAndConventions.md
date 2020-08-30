@@ -1,3 +1,9 @@
+<!---
+SPDX-License-Identifier: GPL-3.0-only
+This file is part of Lazuli.
+Copyright (c) 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+--->
+
 # C style and conventions
 
 This file describes the programming style and conventions to apply on C code.

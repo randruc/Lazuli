@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file kern/unit-tests/unit_tests.c
  * @brief Lazuli kernel unit tests.
- * @date Apr 2019
- * @author Remi Andruccioli
+ * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file contains unit tests to test the kernel, along with a
  * micro-framework to perform unit tests on the target machine.

@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/libc-headers/arch-dependent/AVR/stdarg.h
  * @brief AVR type and macros definitions for variadic functions.
- * @author Remi Andruccioli
- * @date Jul 2020
+ * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file defines types and macro to support variadic functions on the AVR
  * architecture.

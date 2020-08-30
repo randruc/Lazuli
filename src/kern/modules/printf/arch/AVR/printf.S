@@ -1,8 +1,12 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
+ */
+
 /**
  * @file src/kern/modules/printf/arch/AVR/printf.S
  * @brief AVR routines of conversions from binary integer to ASCII decimal.
- * @date Aug 2020
- * @author Remi Andruccioli
+ * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the implementation of conversion from binary integer to
  * ASCII decimal in AVR ASM.

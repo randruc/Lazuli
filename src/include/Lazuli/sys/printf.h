@@ -1,11 +1,24 @@
-/**
- * @date Aug 2020
+/*
+ * SPDX-License-Identifier: GPL-3.0-only
+ * This file is part of Lazuli.
  */
 
-#ifndef PRINTF_H
-#define PRINTF_H
+/**
+ * @file src/include/Lazuli/sys/printf.h
+ * @brief Internal functions needed for printf().
+ * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+ *
+ * This file defines internal functions used by printf().
+ */
+
+#ifndef LAZULI_SYS_PRINTF_H
+#define LAZULI_SYS_PRINTF_H
 
 #include <stdint.h>
+
+#include <Lazuli/common.h>
+
+_EXTERN_C_DECL_BEGIN
 
 /**
  * Convert an unsigned 16-bit integer to its ASCII decimal representation.
@@ -24,4 +37,6 @@
 uint8_t
 Printf_ConvertU16ToDecimal(uint16_t i, char buffer[]);
 
-#endif /* PRINTF_H */
+_EXTERN_C_DECL_END
+
+#endif /* LAZULI_SYS_PRINTF_H */
