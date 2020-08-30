@@ -12,7 +12,7 @@
 
 failed=0
 
-echo "----- Files with lines longer that 80 characters -----"
+echo "----- Files with lines longer that 80 characters: -----"
 ! grep -nrH \
   '.\{81\}'\
   --color \
@@ -27,7 +27,7 @@ echo "----- Files with lines longer that 80 characters -----"
   --exclude-dir=LICENSES \
   --exclude-dir=_build || failed=1
 
-echo "----- Files with tab characters -----"
+echo "----- Files with tab characters: -----"
 ! grep -nrHP \
   --color \
   "\t" \
@@ -45,7 +45,7 @@ echo "----- Files with tab characters -----"
   --exclude-dir=build \
   --exclude-dir=_build || failed=1
 
-echo "----- Files with trailing whitespaces -----"
+echo "----- Files with trailing whitespaces: -----"
 ! grep -nrH \
   "\([[:space:]]\)$" \
   --color \
