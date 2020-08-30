@@ -87,10 +87,12 @@ fi
 #      --include=*.dox \
 #      --include=*.h \
 #      --include=*.ld \
+#      --include=*.md \
 #      --include=*.rst \
 #      --include=*.S \
 #      --include=*.sh \
 #      --include=*.txt \
+#      --include=*.yml \
 #      --exclude-dir=build \
 #      --exclude-dir=_build || failed=1
 
