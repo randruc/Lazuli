@@ -63,12 +63,12 @@ The Lazuli project has very specific goals that make it unique. These are:
 ## Examples
 
 Example programs that use the Lazuli RTOS can be found in the directory
-`example-programs/`.
+[example-programs/](example-programs/).
 
 
 ## Documentation
 
-The documentation for the project can be found in the `doc/` directory.
+The documentation for the project can be found in the [doc/](doc/) directory.
 
 Two different tools are used to document the project:
 * `sphinx` to generate user documentation from files written in reStructuredText.
