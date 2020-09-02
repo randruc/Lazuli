@@ -79,22 +79,20 @@ then
     cat $tmp | awk '{print "    " $0}';
 fi
 
-# Find \r characters
-# ! grep -nrHP \
-#      "\r" \
-#      --color \
-#      --include=*.c \
-#      --include=*.dox \
-#      --include=*.h \
-#      --include=*.ld \
-#      --include=*.md \
-#      --include=*.rst \
-#      --include=*.S \
-#      --include=*.sh \
-#      --include=*.txt \
-#      --include=*.yml \
-#      --exclude-dir=build \
-#      --exclude-dir=_build || failed=1
+# Files with \r character
+tmp=$(mktemp)
+grep -nrH \
+     $'\xd' \
+     --exclude-dir=.git \
+     --exclude-dir=_build \
+     --exclude-dir=build \
+     --exclude-dir=doxygen_output > $tmp
+if [ $(cat $tmp | wc -l) -gt 0 ];
+then
+    failed=1;
+    echo "Files with \r character:"
+    cat $tmp | awk '{print "    " $0}';
+fi
 
 # Files with missing SPDX license identifier
 tmp=$(mktemp)
