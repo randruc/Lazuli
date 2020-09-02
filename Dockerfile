@@ -83,8 +83,8 @@ COPY ./VERSION /etc/lazuli-version
 
 RUN date -u > /etc/lazuli-container-date
 
-COPY ./.docker_bashrc /tmp/
+COPY ./docker/docker_bashrc.sh /tmp/
 
-RUN cat /tmp/.docker_bashrc >> ~/.bashrc && rm /tmp/.docker_bashrc
+RUN cat /tmp/docker_bashrc.sh >> ~/.bashrc && rm /tmp/docker_bashrc.sh
 
 CMD [ "/usr/bin/bash" ]

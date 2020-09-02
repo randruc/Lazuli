@@ -12,7 +12,7 @@ source /etc/profile.d/bash_completion.sh
 cat > /dev/tty << EOF
  _                        _ _
 | |                      | (_)
-| |      ____ _____ _   _| |_ 
+| |      ____ _____ _   _| |_
 | |     / _  (___  ) | | | | |
 | |____( ( | |/ __/| |_| | | |
 |_______)_||_(_____)\____|_|_| $(cat /etc/lazuli-version)
