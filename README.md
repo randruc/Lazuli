@@ -12,8 +12,9 @@ Copyright (c) 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
 ## What is Lazuli ?
 
-Lazuli is a kernel designed for the AVR architecture.
-It aims to provide preemptive time-sharing multitasking for AVR microcontrollers
+Lazuli is a Real-Time Operating System (RTOS) kernel designed for the AVR
+architecture.
+It aims to provide preemptive real-time multitasking for AVR microcontrollers
 (MCU).
 It currently runs on the ATmega328p MCU (that is used on the Arduino) but it
 should be easily portable to other AVR platforms.
@@ -24,7 +25,7 @@ The project is hosted on GitHub at https://github.com/randruc/Lazuli
 ### Features
 
 * Multitasking of user defined tasks
-* Realtime scheduling
+* Real-time scheduling
 * No MMU required
 * "ROMable": all the system can fit in ROM
 * Highly configurable, with a modular architecture
@@ -37,9 +38,9 @@ The project is hosted on GitHub at https://github.com/randruc/Lazuli
 For now, the Lazuli kernel provides the following functionalities:
 
 * Rate Monotonic Scheduling
-* Priority Round-robin Scheduling (POSIX's SCHED_RR)
+* Priority Round-robin Scheduling (POSIX's `SCHED_RR`)
 * Mutexes
-* AVR USART driver with a printf() API
+* AVR USART driver with a `printf()` API
 
 
 ### Challenge
