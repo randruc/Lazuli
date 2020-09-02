@@ -372,7 +372,7 @@ ManagePriorityRealTimeTask(void)
  * This function is called at each clock tick (triggered by the timer at the
  * rate of the system time resolution).
  *
- * This function updates all tasks lists accordingly to the different realtime
+ * This function updates all tasks lists accordingly to the different real-time
  * parameters and status of each task.
  */
 static void

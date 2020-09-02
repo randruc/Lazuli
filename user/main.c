@@ -32,5 +32,6 @@ main(void)
   /* Run the system */
   Lz_Run();
 
+  /* This will never be reached, this is to conform to ISO C main() prototype */
   return 0;
 }
