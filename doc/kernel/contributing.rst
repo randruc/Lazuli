@@ -1,9 +1,9 @@
 ..
    SPDX-License-Identifier: GPL-3.0-only
    This file is part of Lazuli.
-   Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
-.. sectionauthor:: Remi Andruccioli <remi.andruccioli@gmail.com>
+.. sectionauthor::
+   Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
 Contributing
 ============
@@ -31,9 +31,12 @@ The official code repository for the project is on GitHub at
 `<https://github.com/randruc/Lazuli>`_. GitHub is used to manage all the
 project: code, pull requests, issues, etc.
 
-Before contributing, make sure you've read the ``doc/AboutDocumentation.md``
-file if you wish to contribute to the documentation, or the file
-``doc/CStyleAndConventions.md`` if you wish to contribute to the code.
+Before contributing, make sure you've read :
+
+* The page :doc:`about_documentation` if you wish to contribute to the
+  documentation.
+* The page :doc:`code_style_and_conventions` if you wish to contribute to the
+  code.
 
 When coding, make sure you've updated all the appropriate files and lines of
 text apart from the code itself. That includes code comments, documentation
@@ -85,3 +88,24 @@ Here are a few examples of real commit messages that follow this format:
    * Command line options have been added to let the user sort by stack size or
      by file name.
    * The output is no longer piped into less.
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+Continuous Integration (CI) is configured on the official GitHub repository
+using GitHub Actions, and is triggered on pull-requests.
+
+The project's CI performs the following tasks:
+
+* Execute ``scripts/checklines.sh`` to check for trailing whistespaces, line
+  length, etc.
+* Build the Lazuli development environment Docker image from the root
+  ``Dockerfile``.
+* In the newly built Docker image, configure then build Lazuli in its default
+  configuration (reminder: modules are always built even if not selected to be
+  linked to the final binary).
+* Build Doxygen documentation.
+* Build Sphinx documentation.
+
+All the CI pipeline is configured to treat warnings are errors. A pull-request
+with a failing CI has no chance to be merged.

@@ -1,31 +1,52 @@
 ..
    SPDX-License-Identifier: GPL-3.0-only
    This file is part of Lazuli.
-   Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
-.. sectionauthor:: Remi Andruccioli <remi.andruccioli@gmail.com>
+.. sectionauthor::
+   Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
 System startup
 ==============
 
-System startup is written is assembly language, in the file
+Assembly - Setting up a C runtime
+---------------------------------
+
+System startup is divided in 2 parts:
+
+* The first part, written in assembly language, exectutes right after powering
+  on the system, and has the responsability to set up an operational C runtime.
+* The second part, mainly written in C, performs various operations that are
+  necessary to initialize the data structures of the kernel, before giving hand
+  to user code.
+
+Initial system startup is written is assembly language, in the file
 ``src/kern/arch/AVR/startup.S``. It contains the necessary code to launch the
 kernel. The main goal of system startup routines is to set up a working C
 runtime environment.
 
-When powered on the AVR MCU starts executing code at address 0x00 in ROM.
+When powered on the AVR MCU starts executing code at address 0x0000 in ROM.
 This entry point is defined as the reset interrupt handler (written in
 ``src/kern/arch/AVR/interrupt_vectors_table.S``). This interrupt handler
-performs a jump to the ASM routine ``reset_system``.
+performs a jump to the ASM routine ``reset_system``. This routine makes heavy
+use of symbols defines by the linker script (in the file
+``src/kern/linker.ld``).
 
-The routine ``reset_system`` will first set the stack pointer to the end of RAM.
-This is the stack that will be used during all the initialization process.
-The ``reset_system`` routine will then set up the appropriate sections in RAM:
+First of all, the routine ``reset_system`` will make sure that global interrupts
+are disabled, then set the stack pointer to the end of RAM.
+This stack that will be used during all the initialization process.
+We will then set up the appropriate sections in RAM, in the following order:
 
-* bss
-* data
-* rodata
+* ``bss``: Set all the section to zero.
+* ``data``: Copy data from ROM.
+* ``rodata``: Copy data from ROM.
 
-After these operations, we now have a working C runtime.
+After these operations, we now have an operational C runtime. That's all for the
+assembly part.
 The ``reset_system`` routine will finally give hand to C code, by calling the
 C function ``Kernel_Main`` defined in ``src/kern/kernel.c``.
+
+C - Initializing kernel structures
+----------------------------------
+
+We are now in ``Kernel_Main``.
+

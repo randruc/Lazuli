@@ -1,9 +1,9 @@
 ..
    SPDX-License-Identifier: GPL-3.0-only
    This file is part of Lazuli.
-   Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
-.. sectionauthor:: Remi Andruccioli <remi.andruccioli@gmail.com>
+.. sectionauthor::
+   Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
 Kernel documentation
 ====================
@@ -16,9 +16,11 @@ reading this part.
 .. toctree::
    :maxdepth: 2
 
+   repository_tree
    memory_layout
-   version_management
    startup
    instrumentation_and_diagnostics/instrumentation_and_diagnostics
-   code_style_and_conventions
+   version_management
    contributing
+   code_style_and_conventions
+   about_documentation
