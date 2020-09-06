@@ -1,0 +1,592 @@
+.TH "src/kern/modules/serial/arch/AVR/usart.c" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/kern/modules/serial/arch/AVR/usart.c \- ATmega328p USART driver\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+\fC#include <Lazuli/config\&.h>\fP
+.br
+\fC#include <Lazuli/serial\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/AVR/usart\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/arch\&.h>\fP
+.br
+\fC#include <Lazuli/sys/compiler\&.h>\fP
+.br
+\fC#include <Lazuli/sys/kernel\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "union \fBIntegerBytes\fP"
+.br
+.RI "Union to access individual bytes of an integer value (with a maximum width of 32 bits)\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBUsart_PutChar\fP (char c)"
+.br
+.RI "Transmit a character\&. "
+.ti -1c
+.RI "void \fBUsart_NewLine\fP (void)"
+.br
+.RI "Transmit a new line sequence\&. "
+.ti -1c
+.RI "static void \fBUsart_HexaPrint_IntegerBytes\fP (\fBIntegerBytes\fP const *const integerBytes, const \fBsize_t\fP size)"
+.br
+.RI "Print a numerical value stored in an \fBIntegerBytes\fP union to its hexadecimal form, accordig to the correct size\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_u32\fP (const \fBuint32_t\fP value)"
+.br
+.RI "Print a uint32_t value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_u16\fP (const \fBuint16_t\fP value)"
+.br
+.RI "Print a uint16_t value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_u8\fP (const \fBuint8_t\fP value)"
+.br
+.RI "Print a uint8_t value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_Pointer\fP (void *const pointer)"
+.br
+.RI "Print an pointer value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_FunctionPointer\fP (void(*functionPointer)(void))"
+.br
+.RI "Print a function pointer value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_PrintRawString\fP (const char *string)"
+.br
+.RI "Print a raw string without any formatting\&. "
+.ti -1c
+.RI "static enum \fBLz_SerialEnableFlags\fP \fBGetEnablingStatus\fP (void)"
+.br
+.RI "Retrieve the enabling status of the serial line\&. "
+.ti -1c
+.RI "static enum \fBLz_SerialStopBits\fP \fBGetStopBits\fP (void)"
+.br
+.RI "Retrieve the number of stop bits currently used by the serial line\&. "
+.ti -1c
+.RI "static enum \fBLz_SerialParityBit\fP \fBGetParityBit\fP (void)"
+.br
+.RI "Retrieve the kind of parity currently used by the serial line\&. "
+.ti -1c
+.RI "static enum \fBLz_SerialSize\fP \fBGetSize\fP (void)"
+.br
+.RI "Retrieve the character size currently used by the serial line\&. "
+.ti -1c
+.RI "static void \fBSetEnablingStatus\fP (const enum \fBLz_SerialEnableFlags\fP flags)"
+.br
+.RI "Set the enabling/disabling of Tx/Rx of the serial line\&. "
+.ti -1c
+.RI "static void \fBSetStopBits1\fP (void)"
+.br
+.RI "Set USART to use 1 stop bit\&. "
+.ti -1c
+.RI "static void \fBSetStopBits2\fP (void)"
+.br
+.RI "Set USART to use 2 stop bits\&. "
+.ti -1c
+.RI "static void \fBSetStopBits\fP (const enum \fBLz_SerialStopBits\fP stopBits)"
+.br
+.RI "Set the number of stop bits of the serial line\&. "
+.ti -1c
+.RI "static void \fBSetParityBitNone\fP (void)"
+.br
+.RI "Set no parity bit\&. "
+.ti -1c
+.RI "static void \fBSetParityBitEven\fP (void)"
+.br
+.RI "Set even parity bit\&. "
+.ti -1c
+.RI "static void \fBSetParityBitOdd\fP (void)"
+.br
+.RI "Set odd parity bit\&. "
+.ti -1c
+.RI "static void \fBSetParityBit\fP (const enum \fBLz_SerialParityBit\fP parityBit)"
+.br
+.RI "Set the kind of parity bit of the serial line\&. "
+.ti -1c
+.RI "static void \fBSetSize5\fP (void)"
+.br
+.RI "Set character size to 5 bits\&. "
+.ti -1c
+.RI "static void \fBSetSize6\fP (void)"
+.br
+.RI "Set character size to 6 bits\&. "
+.ti -1c
+.RI "static void \fBSetSize7\fP (void)"
+.br
+.RI "Set character size to 7 bits\&. "
+.ti -1c
+.RI "static void \fBSetSize8\fP (void)"
+.br
+.RI "Set character size to 8 bits\&. "
+.ti -1c
+.RI "static void \fBSetSize\fP (const enum \fBLz_SerialSize\fP size)"
+.br
+.RI "Set the character size of the serial line\&. "
+.ti -1c
+.RI "static void \fBSetSpeed\fP (const enum \fBLz_SerialSpeed\fP speed)"
+.br
+.RI "Set the baud rate of the serial line\&. "
+.ti -1c
+.RI "void \fBArch_GetSerialConfiguration\fP (\fBLz_SerialConfiguration\fP *const configuration)"
+.br
+.RI "Retrieve the current configuration of the serial line\&. "
+.ti -1c
+.RI "void \fBArch_SetSerialConfiguration\fP (const \fBLz_SerialConfiguration\fP *const configuration)"
+.br
+.RI "Configure the seria line according to the parameter\&. "
+.ti -1c
+.RI "void \fBArch_InitSerial\fP (void)"
+.br
+.RI "Initialize serial line with default configuration at system startup\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static \fBUsart\fP *const \fBusart\fP = (\fBUsart\fP*)&\fBUCSR0A\fP"
+.br
+.RI "A constant pointer to the memory mapped \fBUsart\fP structure\&. "
+.ti -1c
+.RI "static enum \fBLz_SerialSpeed\fP \fBcurrentSerialSpeed\fP"
+.br
+.RI "The current serial baud rate\&. "
+.ti -1c
+.RI "static const char \fBhexachars\fP []"
+.br
+.RI "Array used to get the character representation of a hexadecimal digit\&. "
+.ti -1c
+.RI "static void(*const \fBsetStopBits\fP [])(void)"
+.br
+.RI "Jump table to functions setting the number of stop bits of the serial line\&. "
+.ti -1c
+.RI "static void(*const \fBsetParityBit\fP [])(void)"
+.br
+.RI "Jump table to functions setting the kind of parity of the serial line\&. "
+.ti -1c
+.RI "static void(*const \fBsetSize\fP [])(void)"
+.br
+.RI "Jump table to functions setting character sizes of the serial line\&. "
+.ti -1c
+.RI "static const \fBuint16_t\fP \fBserialSpeedRegisterValue\fP []"
+.br
+.RI "Jump table containing the setting values of UBRR0L and UBRR0H registers for baud rates defined in Lz_SerialSpeed\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+ATmega328p USART driver\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2019-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+Describes the driver implementation for the USART of the ATMega328p\&. 
+.PP
+Definition in file \fBusart\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void Usart_PutChar (char c)"
+
+.PP
+Transmit a character\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIc\fP The character to transmit\&. 
+.RE
+.PP
+
+.PP
+Definition at line 74 of file usart\&.c\&.
+.SS "static void Usart_HexaPrint_IntegerBytes (\fBIntegerBytes\fP const *const integerBytes, const \fBsize_t\fP size)\fC [static]\fP"
+
+.PP
+Print a numerical value stored in an \fBIntegerBytes\fP union to its hexadecimal form, accordig to the correct size\&. This serves as the base implementation for all specialized Usart_HexaPrint_*() functions\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIintegerBytes\fP A pointer to the IntergerBytes union to print\&. 
+.br
+\fIsize\fP The size in bytes of the value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 99 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_u32 (const \fBuint32_t\fP value)"
+
+.PP
+Print a uint32_t value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIvalue\fP The uint32_t value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 119 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_u16 (const \fBuint16_t\fP value)"
+
+.PP
+Print a uint16_t value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIvalue\fP The uint16_t value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 128 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_u8 (const \fBuint8_t\fP value)"
+
+.PP
+Print a uint8_t value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIvalue\fP The uint8_t value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 137 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_Pointer (void *const pointer)"
+
+.PP
+Print an pointer value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpointer\fP The pointer value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 146 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_FunctionPointer (void(*)(void) functionPointer)"
+
+.PP
+Print a function pointer value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfunctionPointer\fP The function pointer value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 155 of file usart\&.c\&.
+.SS "void Usart_PrintRawString (const char *const string)"
+
+.PP
+Print a raw string without any formatting\&. The string must be NUL terminated\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstring\fP A pointer to the string to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 164 of file usart\&.c\&.
+.SS "static enum \fBLz_SerialEnableFlags\fP GetEnablingStatus (void)\fC [static]\fP"
+
+.PP
+Retrieve the enabling status of the serial line\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+An Lz_SerialEnableFlags containing the enabling status\&. 
+.RE
+.PP
+
+.PP
+Definition at line 182 of file usart\&.c\&.
+.SS "static enum \fBLz_SerialStopBits\fP GetStopBits (void)\fC [static]\fP"
+
+.PP
+Retrieve the number of stop bits currently used by the serial line\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+An Lz_SerialStopBits containing the number of stop bits\&. 
+.RE
+.PP
+
+.PP
+Definition at line 203 of file usart\&.c\&.
+.SS "static enum \fBLz_SerialParityBit\fP GetParityBit (void)\fC [static]\fP"
+
+.PP
+Retrieve the kind of parity currently used by the serial line\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+An Lz_SerialParityBit containing the kind of parity\&. 
+.RE
+.PP
+
+.PP
+Definition at line 218 of file usart\&.c\&.
+.SS "static enum \fBLz_SerialSize\fP GetSize (void)\fC [static]\fP"
+
+.PP
+Retrieve the character size currently used by the serial line\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+An Lz_SerialSize containing the character size\&. 
+.RE
+.PP
+
+.PP
+Definition at line 241 of file usart\&.c\&.
+.SS "static void SetEnablingStatus (const enum \fBLz_SerialEnableFlags\fP flags)\fC [static]\fP"
+
+.PP
+Set the enabling/disabling of Tx/Rx of the serial line\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIflags\fP An Lz_SerialEnableFlags containing enable flags\&. 
+.RE
+.PP
+
+.PP
+Definition at line 268 of file usart\&.c\&.
+.SS "static void SetStopBits (const enum \fBLz_SerialStopBits\fP stopBits)\fC [static]\fP"
+
+.PP
+Set the number of stop bits of the serial line\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstopBits\fP An Lz_SerialStopBits defining the number of stop bits\&. 
+.RE
+.PP
+
+.PP
+Definition at line 327 of file usart\&.c\&.
+.SS "static void SetParityBit (const enum \fBLz_SerialParityBit\fP parityBit)\fC [static]\fP"
+
+.PP
+Set the kind of parity bit of the serial line\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIparityBit\fP An Lz_SerialParityBit defining the kind of parity\&. 
+.RE
+.PP
+
+.PP
+Definition at line 397 of file usart\&.c\&.
+.SS "static void SetSize (const enum \fBLz_SerialSize\fP size)\fC [static]\fP"
+
+.PP
+Set the character size of the serial line\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsize\fP An Lz_SerialSize defining the character size\&. 
+.RE
+.PP
+
+.PP
+Definition at line 481 of file usart\&.c\&.
+.SS "static void SetSpeed (const enum \fBLz_SerialSpeed\fP speed)\fC [static]\fP"
+
+.PP
+Set the baud rate of the serial line\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIspeed\fP An Lz_SerialSpeed value defining the baud rate\&. 
+.RE
+.PP
+
+.PP
+Definition at line 524 of file usart\&.c\&.
+.SS "void Arch_GetSerialConfiguration (\fBLz_SerialConfiguration\fP *const configuration)"
+
+.PP
+Retrieve the current configuration of the serial line\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIconfiguration\fP A pointer to an allocated \fBLz_SerialConfiguration\fP used to store the configuration\&. 
+.RE
+.PP
+
+.PP
+Definition at line 544 of file usart\&.c\&.
+.SS "void Arch_SetSerialConfiguration (const \fBLz_SerialConfiguration\fP *const configuration)"
+
+.PP
+Configure the seria line according to the parameter\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIconfiguration\fP A pointer to an existing \fBLz_SerialConfiguration\fP containg the full configuration to set up the serial line\&. 
+.RE
+.PP
+
+.PP
+Definition at line 554 of file usart\&.c\&.
+.SS "void Arch_InitSerial (void)"
+
+.PP
+Initialize serial line with default configuration at system startup\&. < member: enableFlags
+.PP
+< member: stopBits
+.PP
+< member: parityBits
+.PP
+< member: size
+.PP
+< member: speed 
+.PP
+Definition at line 583 of file usart\&.c\&.
+.SH "Variable Documentation"
+.PP 
+.SS "enum \fBLz_SerialSpeed\fP currentSerialSpeed\fC [static]\fP"
+
+.PP
+The current serial baud rate\&. This is used to save the current setting of the serial baud rate\&. On AVR, the setting of the speed isn't always accurate once calculated, so we use this variable to store it and be able to retrieve it easily\&. 
+.PP
+Definition at line 36 of file usart\&.c\&.
+.SS "const char hexachars[]\fC [static]\fP"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f'
+}
+.fi
+.PP
+Array used to get the character representation of a hexadecimal digit\&. 
+.PP
+Definition at line 41 of file usart\&.c\&.
+.SS "void(* const setStopBits[])(void)\fC [static]\fP"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+  SetStopBits1, 
+  SetStopBits2  
+}
+.fi
+.PP
+Jump table to functions setting the number of stop bits of the serial line\&. 
+.PP
+\fBWarning:\fP
+.RS 4
+This table must be ordered by entry values of enum Lz_SerialStopBits\&. 
+.RE
+.PP
+
+.PP
+Definition at line 308 of file usart\&.c\&.
+.SS "void(* const setParityBit[])(void)\fC [static]\fP"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+  SetParityBitNone, 
+  SetParityBitEven, 
+  SetParityBitOdd   
+}
+.fi
+.PP
+Jump table to functions setting the kind of parity of the serial line\&. 
+.PP
+\fBWarning:\fP
+.RS 4
+This table must be ordered by entry values of enum Lz_SerialParityBit\&. 
+.RE
+.PP
+
+.PP
+Definition at line 377 of file usart\&.c\&.
+.SS "void(* const setSize[])(void)\fC [static]\fP"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+  SetSize5, 
+  SetSize6, 
+  SetSize7, 
+  SetSize8  
+}
+.fi
+.PP
+Jump table to functions setting character sizes of the serial line\&. 
+.PP
+\fBWarning:\fP
+.RS 4
+This table must be ordered by entry values of enum Lz_SerialSize\&. 
+.RE
+.PP
+
+.PP
+Definition at line 460 of file usart\&.c\&.
+.SS "const \fBuint16_t\fP serialSpeedRegisterValue[]\fC [static]\fP"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+  (uint16_t)416, 
+  (uint16_t)207, 
+  (uint16_t)103, 
+  (uint16_t)51   
+}
+.fi
+.PP
+Jump table containing the setting values of UBRR0L and UBRR0H registers for baud rates defined in Lz_SerialSpeed\&. 
+.PP
+\fBWarning:\fP
+.RS 4
+This table must be ordered by entry values of enum Lz_SerialSpeed\&. 
+.RE
+.PP
+
+.PP
+Definition at line 503 of file usart\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

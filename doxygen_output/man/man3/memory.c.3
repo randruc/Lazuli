@@ -1,0 +1,136 @@
+.TH "src/kern/memory.c" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/kern/memory.c \- Kernel memory functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+\fC#include <Lazuli/config\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/AVR/registers\&.h>\fP
+.br
+\fC#include <Lazuli/sys/kernel\&.h>\fP
+.br
+\fC#include <Lazuli/sys/memory\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBSetBreak\fP (const unsigned int increment, \fBAllocationMap\fP *const map)"
+.br
+.RI "Set break position of a memory region\&. "
+.ti -1c
+.RI "static void * \fBBaseIncrementalMalloc\fP (const \fBsize_t\fP s, \fBAllocationMap\fP *const map)"
+.br
+.RI "Common implementation of incremental memory allocation\&. "
+.ti -1c
+.RI "void * \fBKIncrementalMalloc\fP (const \fBsize_t\fP size)"
+.br
+.RI "Allocate memory for kernel objects using incremental method\&. "
+.ti -1c
+.RI "void \fBMemory_Copy\fP (const void *source, void *destination, const \fBsize_t\fP size)"
+.br
+.RI "Copy bytes from one location to another in main memory\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Kernel memory functions\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2016-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+Memory functions for the kernel: allocation, copy, \&.\&.\&. 
+.PP
+Definition in file \fBmemory\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "static void* SetBreak (const unsigned int increment, \fBAllocationMap\fP *const map)\fC [static]\fP"
+
+.PP
+Set break position of a memory region\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIincrement\fP The number of bytes to increment the break\&. 
+.br
+\fImap\fP A pointer to the concerned allocation map\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the beginning of the allocated memory block, or NULL if can't set break, or the current break position if increment is zero\&. 
+.RE
+.PP
+
+.PP
+Definition at line 34 of file memory\&.c\&.
+.SS "static void* BaseIncrementalMalloc (const \fBsize_t\fP s, \fBAllocationMap\fP *const map)\fC [static]\fP"
+
+.PP
+Common implementation of incremental memory allocation\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP The size in byte to allocate\&. 
+.br
+\fImap\fP The allocation map of the task or kernel\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the allocated region, or NULL if allocation is impossible\&. 
+.RE
+.PP
+
+.PP
+Definition at line 72 of file memory\&.c\&.
+.SS "void* KIncrementalMalloc (const \fBsize_t\fP size)"
+
+.PP
+Allocate memory for kernel objects using incremental method\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsize\fP The size in bytes to allocate\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the allocated region, or NULL if allocation is impossible\&. 
+.RE
+.PP
+
+.PP
+Definition at line 89 of file memory\&.c\&.
+.SS "void Memory_Copy (const void * source, void * destination, const \fBsize_t\fP size)"
+
+.PP
+Copy bytes from one location to another in main memory\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsource\fP A pointer to the source address in RAM\&. 
+.br
+\fIdestination\fP A pointer to the destination address in RAM\&. 
+.br
+\fIsize\fP The number of bytes to copy\&. 
+.RE
+.PP
+
+.PP
+Definition at line 95 of file memory\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

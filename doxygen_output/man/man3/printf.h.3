@@ -1,0 +1,66 @@
+.TH "src/include/Lazuli/sys/printf.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/Lazuli/sys/printf.h \- Internal functions needed for \fBprintf()\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBuint8_t\fP \fBPrintf_ConvertU16ToDecimal\fP (\fBuint16_t\fP i, char buffer[])"
+.br
+.RI "Convert an unsigned 16-bit integer to its ASCII decimal representation\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Internal functions needed for \fBprintf()\fP\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This file defines internal functions used by \fBprintf()\fP\&. 
+.PP
+Definition in file \fBprintf\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "\fBuint8_t\fP Printf_ConvertU16ToDecimal (\fBuint16_t\fP i, char buffer[])"
+
+.PP
+Convert an unsigned 16-bit integer to its ASCII decimal representation\&. 
+.PP
+\fBWarning:\fP
+.RS 4
+The conversion is put in the buffer \fCbuffer\fP \fBin reverse order\fP and \fBwithout a final NUL character\fP\&. The caller of this function then has to use the return value in order to use the characters in the buffer in the right order\&.
+.RE
+.PP
+This function will always succeed\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi\fP The 16 bits input value to convert\&. 
+.br
+\fIbuffer\fP A valid pointer to an allocated string of minimum size 5 bytes\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The number of bytes actually written to the buffer\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

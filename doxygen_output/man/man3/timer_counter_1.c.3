@@ -1,0 +1,71 @@
+.TH "src/kern/arch/AVR/timer_counter_1.c" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/kern/arch/AVR/timer_counter_1.c \- ATMega328p Timer/Counter 1 driver\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/config\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/AVR/timer_counter_1\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTIMER_COUNTER_1_PRESCALER\fP   (8)"
+.br
+.RI "The Timer/Counter 1 clock prescaler\&. "
+.ti -1c
+.RI "#define \fBCOMPARE_MATCH_REGISTER_VALUE\fP"
+.br
+.RI "Value of the compare match register with the desired clock settings\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBArch_InitSystemTimer\fP (void)"
+.br
+.RI "Initialize the system timer\&. "
+.ti -1c
+.RI "void \fBArch_StartSystemTimer\fP (void)"
+.br
+.RI "Start the system timer\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+ATMega328p Timer/Counter 1 driver\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2019-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This file describes the driver implementation for the '16-bit timer counter 1' of the ATMega328p\&. 
+.PP
+Definition in file \fBtimer_counter_1\&.c\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define COMPARE_MATCH_REGISTER_VALUE"
+\fBValue:\fP
+.PP
+.nf
+((uint16_t)((LZ_CONFIG_MACHINE_CLOCK_FREQUENCY /                      \
+               (TIMER_COUNTER_1_PRESCALER *                             \
+                LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY)) - 1))     \
+.fi
+.PP
+Value of the compare match register with the desired clock settings\&. 
+.PP
+Definition at line 27 of file timer_counter_1\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

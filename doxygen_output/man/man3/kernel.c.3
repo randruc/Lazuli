@@ -1,0 +1,110 @@
+.TH "src/kern/kernel.c" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/kern/kernel.c \- Kernel entry point\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Lazuli/common\&.h>\fP
+.br
+\fC#include <Lazuli/config\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/arch\&.h>\fP
+.br
+\fC#include <Lazuli/sys/linker\&.h>\fP
+.br
+\fC#include <Lazuli/sys/memory\&.h>\fP
+.br
+\fC#include <Lazuli/sys/scheduler\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.RI "Main entry point for user tasks\&. "
+.ti -1c
+.RI "void \fBKernel_Main\fP (void)"
+.br
+.RI "This is the kernel entry point\&. "
+.ti -1c
+.RI "void \fBKernel_Panic\fP (void)"
+.br
+.RI "Kernel panic\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBAllocationMap\fP \fBkernelAllocationMap\fP"
+.br
+.RI "The allocation map for the whole kernel\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Kernel entry point\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2016-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This file describes all the kernel routines such as:
+.IP "\(bu" 2
+Kernel main entry point after startup, system initialization
+.IP "\(bu" 2
+Kernel panic
+.PP
+.PP
+It also holds the kernel memory allocation map\&. 
+.PP
+Definition in file \fBkernel\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int main (void)"
+
+.PP
+Main entry point for user tasks\&. This is the function the user has to define to register his own tasks\&.
+.PP
+\fBReturns:\fP
+.RS 4
+The return value is not used\&. It's simply here to conform to the standard definition of main\&. 
+.RE
+.PP
+
+.SS "void Kernel_Main (void)"
+
+.PP
+This is the kernel entry point\&. This function must never return\&. 
+.PP
+Definition at line 47 of file kernel\&.c\&.
+.SS "void Kernel_Panic (void)"
+
+.PP
+Kernel panic\&. 
+.PP
+\fBWarning:\fP
+.RS 4
+This function is declared to never return! If this has to evolve, remember to remove NORETURN declaration on this function\&. 
+.RE
+.PP
+
+.PP
+Definition at line 78 of file kernel\&.c\&.
+.SH "Variable Documentation"
+.PP 
+.SS "\fBAllocationMap\fP kernelAllocationMap"
+
+.PP
+The allocation map for the whole kernel\&. Allocation map for the kernel\&. 
+.PP
+Definition at line 40 of file kernel\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

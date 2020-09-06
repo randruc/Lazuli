@@ -1,0 +1,481 @@
+.TH "src/include/Lazuli/list.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/Lazuli/list.h \- Doubly linked lists interface\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Lazuli/common\&.h>\fP
+.br
+\fC#include <Lazuli/config\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_Lz_LinkedListElement\fP"
+.br
+.RI "Represents an element of a doubly linked list\&. "
+.ti -1c
+.RI "struct \fBLz_LinkedList\fP"
+.br
+.RI "Represents the main container for doubly linked elements\&. "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBLINKED_LIST_INIT\fP   { \fBNULL\fP, \fBNULL\fP }"
+.br
+.RI "Define the initialization value for the type \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "#define \fBLINKED_LIST_ELEMENT_INIT\fP   { \fBNULL\fP, \fBNULL\fP }"
+.br
+.RI "Define the initialization value for the type Lz_LinkedListElement\&. "
+.ti -1c
+.RI "#define \fBList_UntypedForEach\fP(LINKEDLIST,  ITEM)"
+.br
+.RI "Run through an \fBLz_LinkedList\fP like a for loop\&. "
+.ti -1c
+.RI "#define \fBList_ForEach\fP(LINKEDLIST,  TYPE,  ITEM,  MEMBER)"
+.br
+.RI "Run through an \fBLz_LinkedList\fP like a for loop\&. "
+.ti -1c
+.RI "#define \fBList_RemovableForEach\fP(LINKEDLIST,  TYPE,  ITEM,  MEMBER,  ITERATOR)"
+.br
+.RI "Run through an \fBLz_LinkedList\fP like a for loop, with the ability of removing elements from the list while iterating on it\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_Lz_LinkedListElement\fP \fBLz_LinkedListElement\fP"
+.br
+.RI "Represents an element of a doubly linked list\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBList_Append\fP (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const item)"
+.br
+.RI "Insert an Lz_LinkedListElement as the last element of an existing \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "void \fBList_Prepend\fP (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const item)"
+.br
+.RI "Insert an Lz_LinkedListElement as the first element of an existing \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "void \fBList_AppendList\fP (\fBLz_LinkedList\fP *const linkedListDestination, \fBLz_LinkedList\fP *const linkedListToMove)"
+.br
+.RI "Move the content of an \fBLz_LinkedList\fP to the end of an existing \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "\fBLz_LinkedListElement\fP * \fBList_PickFirst\fP (\fBLz_LinkedList\fP *const linkedList)"
+.br
+.RI "Return the first element of an existing linked list\&. "
+.ti -1c
+.RI "\fBLz_LinkedListElement\fP * \fBList_PointFirst\fP (const \fBLz_LinkedList\fP *const linkedList)"
+.br
+.RI "Return a pointer to the first element of an existing linked list\&. "
+.ti -1c
+.RI "\fBbool\fP \fBList_IsEmpty\fP (const \fBLz_LinkedList\fP *const linkedList)"
+.br
+.RI "Test if an \fBLz_LinkedList\fP is empty\&. "
+.ti -1c
+.RI "void \fBList_InsertAfter\fP (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const listItem, \fBLz_LinkedListElement\fP *const itemToInsert)"
+.br
+.RI "Insert an element after another in an \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "void \fBList_InsertBefore\fP (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const listItem, \fBLz_LinkedListElement\fP *const itemToInsert)"
+.br
+.RI "Insert an element before another in a \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "\fBLz_LinkedListElement\fP * \fBList_Remove\fP (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const itemToRemove)"
+.br
+.RI "Remove an element from an \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "\fBLz_LinkedListElement\fP * \fBList_PointElementAt\fP (const \fBLz_LinkedList\fP *const linkedList, const \fBsize_t\fP index)"
+.br
+.RI "Point to an indexed element in an \fBLz_LinkedList\fP, starting at index 0\&. "
+.ti -1c
+.RI "void \fBList_InitLinkedList\fP (\fBLz_LinkedList\fP *const linkedList)"
+.br
+.RI "Initialize an \fBLz_LinkedList\fP\&. "
+.ti -1c
+.RI "void \fBList_InitLinkedListElement\fP (\fBLz_LinkedListElement\fP *const item)"
+.br
+.RI "Initialize an Lz_LinkedListElement\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Doubly linked lists interface\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2017-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+Describes types and functions related to doubly linked lists\&. 
+.PP
+Definition in file \fBlist\&.h\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define List_UntypedForEach(LINKEDLIST, ITEM)"
+\fBValue:\fP
+.PP
+.nf
+if ((LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
+      (NULL == (LINKEDLIST)->first))                                    \
+    {}                                                                  \
+  else                                                                  \
+    for ((ITEM) = (LINKEDLIST)->first;                                  \
+         NULL != (ITEM);                                                \
+         (ITEM) = (ITEM)->next)
+.fi
+.PP
+Run through an \fBLz_LinkedList\fP like a for loop\&. If the list is empty, no loop is performed, and the execution will continue after the foreach\&.
+.PP
+With configuration option CHECK_NULL_PARAMETERS_IN_LISTS, this implementation can also verify if the \fCLINKEDLIST\fP pointer is \fINULL\fP\&. If so, the loop is not run and the execution continues after the loop\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fILINKEDLIST\fP A pointer to the \fBLz_LinkedList\fP to run through\&. 
+.br
+\fIITEM\fP A pointer to an Lz_LinkedListElement that will point to the current item of each loop turn\&. This pointer will never be \fINULL\fP\&. 
+.RE
+.PP
+
+.PP
+Definition at line 146 of file list\&.h\&.
+.SS "#define List_ForEach(LINKEDLIST, TYPE, ITEM, MEMBER)"
+\fBValue:\fP
+.PP
+.nf
+if ((LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
+      (NULL == (LINKEDLIST)->first))                                    \
+    {}                                                                  \
+  else                                                                  \
+    for ((ITEM) = CONTAINER_OF((LINKEDLIST)->first, MEMBER, TYPE);      \
+         NULL != (ITEM);                                                \
+         (ITEM) =                                                       \
+           (NULL == ((ITEM)->MEMBER)\&.next)                              \
+           ? NULL                                                       \
+           : CONTAINER_OF(((ITEM)->MEMBER)\&.next, MEMBER, TYPE))
+.fi
+.PP
+Run through an \fBLz_LinkedList\fP like a for loop\&. This foreach implementation is typed, so each loop turn will return a typed pointer to the current loop element (ie\&. not a pointer to a raw Lz_LinkedListElement)\&.
+.PP
+If the list is empty, no loop is performed, and the execution will continue after the foreach\&.
+.PP
+With configuration option CHECK_NULL_PARAMETERS_IN_LISTS, this implementation can also verify if the \fCLINKEDLIST\fP pointer is \fINULL\fP\&. If so, the loop is not run and the execution continues after the loop\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fILINKEDLIST\fP A pointer to the \fBLz_LinkedList\fP to run through\&. 
+.br
+\fITYPE\fP The real type of the list elements 
+.br
+\fIITEM\fP A pointer to a struct of type \fCTYPE\fP containing the Lz_LinkedListELement\&. This pointer will point to the current item of each loop turn\&. This pointer will never be \fINULL\fP while the loop is running\&. 
+.br
+\fIMEMBER\fP The name of the member in \fCTYPE\fP which bears the Lz_LinkedListElement\&. 
+.RE
+.PP
+
+.PP
+Definition at line 178 of file list\&.h\&.
+.SS "#define List_RemovableForEach(LINKEDLIST, TYPE, ITEM, MEMBER, ITERATOR)"
+\fBValue:\fP
+.PP
+.nf
+if ((LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS && (NULL == (LINKEDLIST))) || \
+      (NULL == (LINKEDLIST)->first))                                    \
+    {}                                                                  \
+  else                                                                  \
+    for (STATIC_CHECK_TYPE((*(ITERATOR)), Lz_LinkedListElement),        \
+           (ITERATOR) = (LINKEDLIST)->first,                            \
+           (ITEM) = CONTAINER_OF((LINKEDLIST)->first, MEMBER, TYPE);    \
+                                                                        \
+         NULL != (ITEM);                                                \
+                                                                        \
+         ((ITERATOR) = (NULL == (ITERATOR)) ?                           \
+          (LINKEDLIST)->first : (ITERATOR)->next),                      \
+           ((ITEM) = (NULL == (ITERATOR)) ?                             \
+            NULL : CONTAINER_OF((ITERATOR), MEMBER, TYPE)))
+.fi
+.PP
+Run through an \fBLz_LinkedList\fP like a for loop, with the ability of removing elements from the list while iterating on it\&. An iterator must be provided, in the form of a pointer to an allocated Lz_LinkedListElement\&. In order to remove elements while iterating, the iterator must be updated with the return value of List_Remove\&.
+.PP
+This foreach implementation is typed, so each loop turn will return a typed pointer to the current loop element (ie\&. not a pointer to a raw Lz_LinkedListElement)\&.
+.PP
+If the list is empty, no loop is performed, and the execution will continue after the foreach\&.
+.PP
+With configuration option CHECK_NULL_PARAMETERS_IN_LISTS, this implementation can also verify if the \fCLINKEDLIST\fP pointer is \fINULL\fP\&. If so, the loop is not run and the execution continues after the loop\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fILINKEDLIST\fP A pointer to the \fBLz_LinkedList\fP to run through\&. 
+.br
+\fITYPE\fP The real type of the list elements 
+.br
+\fIITEM\fP A pointer to a struct of type \fCTYPE\fP containing the Lz_LinkedListELement\&. This pointer will point to the current item of each loop turn\&. This pointer will never be \fINULL\fP while the loop is running\&. 
+.br
+\fIMEMBER\fP The name of the member in \fCTYPE\fP which bears the Lz_LinkedListElement\&. 
+.br
+\fIITERATOR\fP A pointer to an allocated Lz_LinkedListElement that will be used as the loop iterator\&. This iterator can be updated when removing elements from the list, using the return value of List_Remove\&. 
+.RE
+.PP
+
+.PP
+Definition at line 222 of file list\&.h\&.
+.SH "Function Documentation"
+.PP 
+.SS "void List_Append (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const item)"
+
+.PP
+Insert an Lz_LinkedListElement as the last element of an existing \fBLz_LinkedList\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the linked list head\&. 
+.br
+\fIitem\fP A pointer to the item to append to the list\&. 
+.RE
+.PP
+
+.PP
+Definition at line 20 of file list\&.c\&.
+.SS "void List_Prepend (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const item)"
+
+.PP
+Insert an Lz_LinkedListElement as the first element of an existing \fBLz_LinkedList\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the linked list head\&. 
+.br
+\fIitem\fP A pointer to the item to prepend to the list\&. 
+.RE
+.PP
+
+.PP
+Definition at line 44 of file list\&.c\&.
+.SS "void List_AppendList (\fBLz_LinkedList\fP *const linkedListDestination, \fBLz_LinkedList\fP *const linkedListToMove)"
+
+.PP
+Move the content of an \fBLz_LinkedList\fP to the end of an existing \fBLz_LinkedList\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedListDestination\fP A pointer to the \fBLz_LinkedList\fP on which to append\&. 
+.br
+\fIlinkedListToMove\fP A pointer to the \fBLz_LinkedList\fP to move\&. After the operation, this linked list will be empty\&. 
+.RE
+.PP
+
+.PP
+Definition at line 69 of file list\&.c\&.
+.SS "\fBLz_LinkedListElement\fP* List_PickFirst (\fBLz_LinkedList\fP *const linkedList)"
+
+.PP
+Return the first element of an existing linked list\&. This function drops the first element of the list if it exists\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the linked list head\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the first element of the list, or \fINULL\fP if:
+.IP "\(bu" 2
+The \fClinkedList\fP is empty
+.IP "\(bu" 2
+The parameter \fClinkedList\fP is \fINULL\fP 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 96 of file list\&.c\&.
+.SS "\fBLz_LinkedListElement\fP* List_PointFirst (const \fBLz_LinkedList\fP *const linkedList)"
+
+.PP
+Return a pointer to the first element of an existing linked list\&. This function does not drop the first element of the list\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to an existing \fBLz_LinkedList\fP\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the first element of the list, or \fINULL\fP if:
+.IP "\(bu" 2
+The \fClinkedList\fP is empty
+.IP "\(bu" 2
+The parameter \fClinkedList\fP is \fINULL\fP 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 127 of file list\&.c\&.
+.SS "\fBbool\fP List_IsEmpty (const \fBLz_LinkedList\fP *const linkedList)"
+
+.PP
+Test if an \fBLz_LinkedList\fP is empty\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the \fBLz_LinkedList\fP to test\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fItrue\fP if:
+.IP "  \(bu" 4
+The \fClinkedList\fP is empty
+.IP "  \(bu" 4
+The parameter \fClinkedList\fP is \fINULL\fP
+.PP
+
+.IP "\(bu" 2
+\fIfalse\fP if:
+.IP "  \(bu" 4
+The \fClinkedList\fP contains at least 1 element 
+.PP
+
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 139 of file list\&.c\&.
+.SS "void List_InsertAfter (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const listItem, \fBLz_LinkedListElement\fP *const itemToInsert)"
+
+.PP
+Insert an element after another in an \fBLz_LinkedList\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the LinkedList containing the element \fClistItem\fP on which to insert after\&. 
+.br
+\fIlistItem\fP A pointer to an element on which to insert after, already present in the \fClinkedList\fP\&. 
+.br
+\fIitemToInsert\fP A pointer to the item to insert in the list\&.
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+The \fClistItem\fP parameter MUST already be part of the \fBLz_LinkedList\fP pointed to by parameter \fClinkedList\fP\&. No check is performed\&. 
+.RE
+.PP
+
+.PP
+Definition at line 151 of file list\&.c\&.
+.SS "void List_InsertBefore (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const listItem, \fBLz_LinkedListElement\fP *const itemToInsert)"
+
+.PP
+Insert an element before another in a \fBLz_LinkedList\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the \fBLz_LinkedList\fP containing the element \fClistItem\fP on which to insert before\&. 
+.br
+\fIlistItem\fP A pointer to an element on which to insert before, already present in the \fClinkedList\fP\&. 
+.br
+\fIitemToInsert\fP A pointer to the item to insert in the list\&.
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+The \fClistItem\fP parameter MUST already be part of the \fBLz_LinkedList\fP pointed to by parameter \fClinkedList\fP\&. No check is performed\&. 
+.RE
+.PP
+
+.PP
+Definition at line 171 of file list\&.c\&.
+.SS "\fBLz_LinkedListElement\fP* List_Remove (\fBLz_LinkedList\fP *const linkedList, \fBLz_LinkedListElement\fP *const itemToRemove)"
+
+.PP
+Remove an element from an \fBLz_LinkedList\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the \fBLz_LinkedList\fP containing the element to remove\&. 
+.br
+\fIitemToRemove\fP A pointer to the element to remove from the list\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the previous element of \fCitemToRemove\fP before it is removed\&. This return value must be used to update an iterator when using List_RemovableForEach, in order to allow removing elements from a list while iterating on it\&.
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+The \fCitemToRemove\fP parameter MUST already be part of the \fBLz_LinkedList\fP pointed to by parameter \fClinkedList\fP\&. No check is performed\&. 
+.RE
+.PP
+
+.PP
+Definition at line 195 of file list\&.c\&.
+.SS "\fBLz_LinkedListElement\fP* List_PointElementAt (const \fBLz_LinkedList\fP *const linkedList, const \fBsize_t\fP index)"
+
+.PP
+Point to an indexed element in an \fBLz_LinkedList\fP, starting at index 0\&. The element will not be removed from the list\&.
+.PP
+\fBWarning:\fP
+.RS 4
+The complexity of this function is O(n), as it is iterative\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to an \fBLz_LinkedList\fP\&. 
+.br
+\fIindex\fP The index of the element to point\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the indexed Lz_LinkedListElement, or \fINULL\fP if the index is out of the boundaries of the list\&. 
+.RE
+.PP
+
+.PP
+Definition at line 227 of file list\&.c\&.
+.SS "void List_InitLinkedList (\fBLz_LinkedList\fP *const linkedList)"
+
+.PP
+Initialize an \fBLz_LinkedList\fP\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlinkedList\fP A pointer to the \fBLz_LinkedList\fP to initialize\&. 
+.RE
+.PP
+
+.PP
+Definition at line 250 of file list\&.c\&.
+.SS "void List_InitLinkedListElement (\fBLz_LinkedListElement\fP *const item)"
+
+.PP
+Initialize an Lz_LinkedListElement\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIitem\fP A pointer to the Lz_LinkedListElement to initialize\&. 
+.RE
+.PP
+
+.PP
+Definition at line 264 of file list\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

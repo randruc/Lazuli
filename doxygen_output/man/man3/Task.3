@@ -1,0 +1,189 @@
+.TH "Task" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Task \- Represents a task\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <task\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBname\fP"
+.br
+.RI "The name of the task\&. "
+.ti -1c
+.RI "void(* \fBentryPoint\fP )(void)"
+.br
+.RI "Entry point of execution of the task\&. "
+.ti -1c
+.RI "void * \fBstackOrigin\fP"
+.br
+.RI "The bottom of the allocated stack for the task\&. "
+.ti -1c
+.RI "\fBsize_t\fP \fBstackSize\fP"
+.br
+.RI "The stack size of the task\&. "
+.ti -1c
+.RI "void * \fBstackPointer\fP"
+.br
+.RI "The saved stack pointer of the task\&. "
+.ti -1c
+.RI "enum \fBLz_SchedulingPolicy\fP \fBschedulingPolicy\fP"
+.br
+.RI "The scheduling policy\&. "
+.ti -1c
+.RI "\fBLz_LinkedListElement\fP \fBstateQueue\fP"
+.br
+.RI "The scheduling queue on which the task is stored\&. "
+.ti -1c
+.RI "\fBlz_u_resolution_unit_t\fP \fBperiod\fP"
+.br
+.RI "The period (T) of the task, expressed as an integer number of time units\&. "
+.ti -1c
+.RI "\fBlz_u_resolution_unit_t\fP \fBcompletion\fP"
+.br
+.RI "The completion time (C) of the task (worst case execution time), expressed as an integer number of time units\&. "
+.ti -1c
+.RI "\fBlz_u_resolution_unit_t\fP \fBtimeUntilCompletion\fP"
+.br
+.RI "The number of time units until the task will complete its execution\&. "
+.ti -1c
+.RI "\fBlz_u_resolution_unit_t\fP \fBtimeUntilActivation\fP"
+.br
+.RI "The number of time units until the task will be activated\&. "
+.ti -1c
+.RI "\fBlz_task_priority_t\fP \fBpriority\fP"
+.br
+.RI "The task priority\&. "
+.ti -1c
+.RI "\fBlz_u_resolution_unit_t\fP \fBtimeUntilTimerExpiration\fP"
+.br
+.RI "The number of time units until the software timer expires for the task\&. "
+.ti -1c
+.RI "enum \fBTaskToSchedulerMessage\fP \fBtaskToSchedulerMessage\fP"
+.br
+.RI "The message the task has to pass to the scheduler for the next scheduling operation (i\&.e\&. "
+.ti -1c
+.RI "void * \fBtaskToSchedulerMessageParameter\fP"
+.br
+.RI "A parameter that can accompany a taskToSchedulerMessage\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents a task\&. 
+.PP
+Definition at line 97 of file task\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "const char* Task::name"
+
+.PP
+The name of the task\&. 
+.PP
+.RS 4
+Never changes once the \fBTask\fP is allocated\&.
+.RE
+.PP
+
+.PP
+Definition at line 103 of file task\&.h\&.
+.SS "void(* Task::entryPoint) (void)"
+
+.PP
+Entry point of execution of the task\&. 
+.PP
+.RS 4
+Never changes once the \fBTask\fP is allocated\&.
+.RE
+.PP
+
+.PP
+Definition at line 110 of file task\&.h\&.
+.SS "void* Task::stackOrigin"
+
+.PP
+The bottom of the allocated stack for the task\&. 
+.PP
+.RS 4
+Never changes once the \fBTask\fP is allocated\&. 
+.RE
+.PP
+.PP
+\fBWarning:\fP
+.RS 4
+This member always points to the bottom of the task's stack (the first byte of the stack)\&. So if the stack grows downwards (as on many architectures) this will always point to an address higher or equal to member stackPointer\&. 
+.RE
+.PP
+
+.PP
+Definition at line 123 of file task\&.h\&.
+.SS "\fBsize_t\fP Task::stackSize"
+
+.PP
+The stack size of the task\&. 
+.PP
+.RS 4
+Never changes once the \fBTask\fP is allocated\&.
+.RE
+.PP
+
+.PP
+Definition at line 130 of file task\&.h\&.
+.SS "\fBlz_u_resolution_unit_t\fP Task::period"
+
+.PP
+The period (T) of the task, expressed as an integer number of time units\&. Defined by task configuration when registering task, then left read-only\&. 
+.PP
+Definition at line 151 of file task\&.h\&.
+.SS "\fBlz_u_resolution_unit_t\fP Task::completion"
+
+.PP
+The completion time (C) of the task (worst case execution time), expressed as an integer number of time units\&. Defined by task configuration when registering task, then left read-only\&. 
+.PP
+Definition at line 158 of file task\&.h\&.
+.SS "\fBlz_u_resolution_unit_t\fP Task::timeUntilCompletion"
+
+.PP
+The number of time units until the task will complete its execution\&. Updated by scheduler\&. 
+.PP
+Definition at line 164 of file task\&.h\&.
+.SS "\fBlz_u_resolution_unit_t\fP Task::timeUntilActivation"
+
+.PP
+The number of time units until the task will be activated\&. Updated by scheduler\&. 
+.PP
+Definition at line 170 of file task\&.h\&.
+.SS "\fBlz_task_priority_t\fP Task::priority"
+
+.PP
+The task priority\&. Only used for non-cyclic tasks\&. 
+.PP
+Definition at line 175 of file task\&.h\&.
+.SS "enum \fBTaskToSchedulerMessage\fP Task::taskToSchedulerMessage"
+
+.PP
+The message the task has to pass to the scheduler for the next scheduling operation (i\&.e\&. after its time slice expires)\&.
+.PP
+\fBAttention:\fP
+.RS 4
+Declared volatile because it can be updated both by the task itself or the kernel\&. 
+.RE
+.PP
+
+.PP
+Definition at line 189 of file task\&.h\&.
+.SS "void* Task::taskToSchedulerMessageParameter"
+
+.PP
+A parameter that can accompany a taskToSchedulerMessage\&. This parameter is a 'universal pointer' to the actual parameter\&. 
+.PP
+Definition at line 196 of file task\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

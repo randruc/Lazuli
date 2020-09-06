@@ -1,0 +1,147 @@
+.TH "src/include/Lazuli/sys/arch/AVR/interrupts.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/Lazuli/sys/arch/AVR/interrupts.h \- Interrupt codes of ATmega328P\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBINT_RESET\fP   (0)"
+.br
+.RI "Code for interrupt: Reset, Entry point at boot\&. "
+.ti -1c
+.RI "#define \fBINT_INT0\fP   (1)"
+.br
+.RI "Code for interrupt: External interrupt request 0\&. "
+.ti -1c
+.RI "#define \fBINT_INT1\fP   (2)"
+.br
+.RI "Code for interrupt: External interrupt request 1\&. "
+.ti -1c
+.RI "#define \fBINT_PCINT0\fP   (3)"
+.br
+.RI "Code for interrupt: Pin change interrupt request 0\&. "
+.ti -1c
+.RI "#define \fBINT_PCINT1\fP   (4)"
+.br
+.RI "Code for interrupt: Pin change interrupt request 1\&. "
+.ti -1c
+.RI "#define \fBINT_PCINT2\fP   (5)"
+.br
+.RI "Code for interrupt: Pin change interrupt request 2\&. "
+.ti -1c
+.RI "#define \fBINT_WDT\fP   (6)"
+.br
+.RI "Code for interrupt: Watchdog time-out interrupt\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER2COMPA\fP   (7)"
+.br
+.RI "Code for interrupt: Timer/counter2 compare match A\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER2COMPB\fP   (8)"
+.br
+.RI "Code for interrupt: Timer/counter2 compare match B\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER2OVF\fP   (9)"
+.br
+.RI "Code for interrupt: Timer/counter2 overflow\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER1CAPT\fP   (10)"
+.br
+.RI "Code for interrupt: Timer/counter1 capture event\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER1COMPA\fP   (11)"
+.br
+.RI "Code for interrupt: Timer/counter1 compare match A\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER1COMPB\fP   (12)"
+.br
+.RI "Code for interrupt: Timer/counter1 compare match B\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER1OVF\fP   (13)"
+.br
+.RI "Code for interrupt: Timer/counter1 overflow\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER0COMPA\fP   (14)"
+.br
+.RI "Code for interrupt: Timer/counter0 compare match A\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER0COMPB\fP   (15)"
+.br
+.RI "Code for interrupt: Timer/counter0 compare match B\&. "
+.ti -1c
+.RI "#define \fBINT_TIMER0OVF\fP   (16)"
+.br
+.RI "Code for interrupt: Timer/counter0 overflow\&. "
+.ti -1c
+.RI "#define \fBINT_SPISTC\fP   (17)"
+.br
+.RI "Code for interrupt: SPI serial transfer complete\&. "
+.ti -1c
+.RI "#define \fBINT_USARTRX\fP   (18)"
+.br
+.RI "Code for interrupt: USART Rx complete\&. "
+.ti -1c
+.RI "#define \fBINT_USARTUDRE\fP   (19)"
+.br
+.RI "Code for interrupt: USART data register empty\&. "
+.ti -1c
+.RI "#define \fBINT_USARTTX\fP   (20)"
+.br
+.RI "Code for interrupt: USART Tx complete\&. "
+.ti -1c
+.RI "#define \fBINT_ADC\fP   (21)"
+.br
+.RI "Code for interrupt: ADC conversion complete\&. "
+.ti -1c
+.RI "#define \fBINT_EEREADY\fP   (22)"
+.br
+.RI "Code for interrupt: EEPROM ready\&. "
+.ti -1c
+.RI "#define \fBINT_ANALOGCOMP\fP   (23)"
+.br
+.RI "Code for interrupt: Analog comparator\&. "
+.ti -1c
+.RI "#define \fBINT_TWI\fP   (24)"
+.br
+.RI "Code for interrupt: 2-wire serial interface\&. "
+.ti -1c
+.RI "#define \fBINT_SPMREADY\fP   (25)"
+.br
+.RI "Code for interrupt: Store program memory ready\&. "
+.ti -1c
+.RI "#define \fBINT_LAST_ENTRY\fP   \fBINT_SPMREADY\fP"
+.br
+.RI "Alias for the last code used\&. "
+.ti -1c
+.RI "#define \fBINT_TOTAL\fP   (\fBINT_LAST_ENTRY\fP + 1)"
+.br
+.RI "Total interrupt codes used\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Interrupt codes of ATmega328P\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2018-2020, Remi Andruccioli remi.andruccioli@gmail.com 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+Can be used in both C and ASM code\&.
+.RE
+.PP
+This file describes the codes associated to each interrupt of the ATmega328P\&. We can't use a C enum here because these interrupt codes need to be manipulated in ASM code\&. 
+.PP
+Definition in file \fBinterrupts\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

@@ -1,0 +1,103 @@
+.TH "src/include/Lazuli/spinlock.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/Lazuli/spinlock.h \- Spinlocks interface\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBLZ_SPINLOCK_INIT\fP   ((\fBuint8_t\fP)0)"
+.br
+.RI "Define the initialization value for the type Lz_Spinlock\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef volatile \fBuint8_t\fP \fBLz_Spinlock\fP"
+.br
+.RI "Type used to represent a spinlock\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBLz_Spinlock_Lock\fP (\fBLz_Spinlock\fP *const spinlock)"
+.br
+.RI "Set the lock and enter region, or active wait if the lock is already set\&. "
+.ti -1c
+.RI "void \fBLz_Spinlock_Unlock\fP (\fBLz_Spinlock\fP *const spinlock)"
+.br
+.RI "Unset the lock and leave region\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Spinlocks interface\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2019-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This file describes the interface for spinlocks\&. 
+.PP
+Definition in file \fBspinlock\&.h\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define LZ_SPINLOCK_INIT   ((\fBuint8_t\fP)0)"
+
+.PP
+Define the initialization value for the type Lz_Spinlock\&. This macro constant must be used to statically initialize a declared spinlock\&. 
+.PP
+Definition at line 34 of file spinlock\&.h\&.
+.SH "Function Documentation"
+.PP 
+.SS "void Lz_Spinlock_Lock (\fBLz_Spinlock\fP *const spinlock)"
+
+.PP
+Set the lock and enter region, or active wait if the lock is already set\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIspinlock\fP A pointer to a Lz_Spinlock used to hold the lock\&.
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+The calling task will abort if configuration macro LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS is set to 1 and the parameter \fCspinlock\fP is \fINULL\fP\&. 
+.RE
+.PP
+
+.SS "void Lz_Spinlock_Unlock (\fBLz_Spinlock\fP *const spinlock)"
+
+.PP
+Unset the lock and leave region\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIspinlock\fP A pointer to a Lz_Spinlock used to hold the lock\&.
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+The calling task will abort if configuration macro LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS is set to 1 and the parameter \fCspinlock\fP is \fINULL\fP\&. 
+.RE
+.PP
+
+.PP
+Definition at line 20 of file spinlock\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

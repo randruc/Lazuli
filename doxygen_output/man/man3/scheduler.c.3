@@ -1,0 +1,675 @@
+.TH "src/kern/scheduler.c" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/kern/scheduler.c \- Lazuli scheduler implementation\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+\fC#include <Lazuli/config\&.h>\fP
+.br
+\fC#include <Lazuli/lazuli\&.h>\fP
+.br
+\fC#include <Lazuli/list\&.h>\fP
+.br
+\fC#include <Lazuli/mutex\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/AVR/interrupts\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/arch\&.h>\fP
+.br
+\fC#include <Lazuli/sys/clock_24\&.h>\fP
+.br
+\fC#include <Lazuli/sys/compiler\&.h>\fP
+.br
+\fC#include <Lazuli/sys/kernel\&.h>\fP
+.br
+\fC#include <Lazuli/sys/memory\&.h>\fP
+.br
+\fC#include <Lazuli/sys/scheduler\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBIdleTask\fP (void)"
+.br
+.RI "The scheduler idle task\&. "
+.ti -1c
+.RI "static void \fBPrepareTaskContext\fP (\fBTask\fP *const task)"
+.br
+.RI "Prepare the first context of the task so it will be ready when switching context for the first time (i\&.e\&. "
+.ti -1c
+.RI "static \fBbool\fP \fBPeriodComparer\fP (const \fBTask\fP *const task1, const \fBTask\fP *const task2)"
+.br
+.RI "Compare the 'period' property of 2 tasks\&. "
+.ti -1c
+.RI "static \fBbool\fP \fBPriorityComparer\fP (const \fBTask\fP *const task1, const \fBTask\fP *const task2)"
+.br
+.RI "Compare the 'priority' property of 2 tasks\&. "
+.ti -1c
+.RI "static void \fBInsertTaskByPriority\fP (\fBLz_LinkedList\fP *const list, \fBTask\fP *const taskToInsert, \fBbool\fP(*compareByProperty)(const \fBTask\fP *const, const \fBTask\fP *const))"
+.br
+.RI "Insert a task in a list, keeping priorities ordered\&. "
+.ti -1c
+.RI "static \fBTask\fP * \fBPickTaskToRun\fP (void)"
+.br
+.RI "Pick the task ready to run with the highest priority\&. "
+.ti -1c
+.RI "static void \fBUpdateCyclicRealTimeTasks\fP (void)"
+.br
+.RI "Update all registered cyclic RT tasks\&. "
+.ti -1c
+.RI "static void \fBUpdateTasksWaitingSoftwareTimer\fP (void)"
+.br
+.RI "Update all tasks waiting for the expiration of a software timer\&. "
+.ti -1c
+.RI "static void \fBManageCyclicRealTimeTask\fP (void)"
+.br
+.RI "Manage cyclic real-time tasks\&. "
+.ti -1c
+.RI "static void \fBManagePriorityRealTimeTask\fP (void)"
+.br
+.RI "Manage priority real-time tasks\&. "
+.ti -1c
+.RI "static void \fBSchedule\fP (void)"
+.br
+.RI "Elect the new current task\&. "
+.ti -1c
+.RI "static \fBTask\fP * \fBCallbackRegisterUserTask\fP (const \fBLz_TaskConfiguration\fP *const taskConfiguration)"
+.br
+.RI "Callback of SchedulerOperations\&.registerTask() for registering a user task\&. "
+.ti -1c
+.RI "static \fBTask\fP * \fBCallbackRegisterIdleTask\fP (void)"
+.br
+.RI "Callback of SchedulerOperations\&.registerTask() for registering the scheduler idle task\&. "
+.ti -1c
+.RI "static \fBbool\fP \fBRegisterTask\fP (void(*const taskEntryPoint)(void), \fBLz_TaskConfiguration\fP *taskConfiguration, const \fBbool\fP \fBidleTask\fP)"
+.br
+.RI "Register a new task\&. "
+.ti -1c
+.RI "static \fBbool\fP \fBRegisterIdleTask\fP (void)"
+.br
+.RI "Register the idle task\&. "
+.in -1c
+.PP
+.RI "\fBKernel API\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "void \fBScheduler_Init\fP (void)"
+.br
+.RI "Initialize the scheduler prior to running it\&. "
+.ti -1c
+.RI "void \fBScheduler_AbortTask\fP (void *const sp)"
+.br
+.RI "Call the appropriate scheduler to abort the curent running task\&. "
+.ti -1c
+.RI "void \fBScheduler_HandleInterrupt\fP (const \fBuint8_t\fP interruptCode)"
+.br
+.RI "This function is called by arch-specific interrupt handling routine\&. "
+.ti -1c
+.RI "void \fBScheduler_HandleClockTick\fP (void *const sp)"
+.br
+.RI "This function is called when a clock tick occured, catch by the interrupt handler\&. "
+.ti -1c
+.RI "void \fBScheduler_WakeupTasksWaitingMutex\fP (\fBLz_Mutex\fP *const mutex)"
+.br
+.RI "Wake up all tasks waiting for a mutex\&. "
+.ti -1c
+.RI "\fBTask\fP * \fBScheduler_GetCurrentTask\fP (void)"
+.br
+.RI "Get a pointer to the current running task\&. "
+.ti -1c
+.RI "void \fBScheduler_SleepUntilEndOfTimeSlice\fP (void)"
+.br
+.RI "Put the current task to sleep until the end of its time slice\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBUser API\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "void \fBLz_TaskConfiguration_Init\fP (\fBLz_TaskConfiguration\fP *const taskConfiguration)"
+.br
+.RI "Initialize an \fBLz_TaskConfiguration\fP with default values for all parameters\&. "
+.ti -1c
+.RI "\fBbool\fP \fBLz_RegisterTask\fP (void(*const taskEntryPoint)(void), \fBLz_TaskConfiguration\fP *taskConfiguration)"
+.br
+.RI "Register a new task\&. "
+.ti -1c
+.RI "void \fBLz_Run\fP (void)"
+.br
+.RI "Run the scheduler\&. "
+.ti -1c
+.RI "const char * \fBLz_Task_GetName\fP (void)"
+.br
+.RI "Get the name of the calling task\&. "
+.ti -1c
+.RI "void \fBLz_Task_WaitActivation\fP (void)"
+.br
+.RI "Set the calling task to wait for its next activation\&. "
+.ti -1c
+.RI "void \fBLz_Task_WaitInterrupt\fP (\fBuint8_t\fP interruptCode)"
+.br
+.RI "Wait for a specific interrupt to occur\&. "
+.ti -1c
+.RI "void \fBLz_WaitTimer\fP (\fBlz_u_resolution_unit_t\fP units)"
+.br
+.RI "Set the calling task to wait for the specified number of time resolution units (time slices), using the software timer\&. "
+.ti -1c
+.RI "void \fBLz_Task_Terminate\fP (void)"
+.br
+.RI "Terminate the calling task\&. "
+.in -1c
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static \fBTask\fP * \fBcurrentTask\fP"
+.br
+.RI "A pointer to the current running task\&. "
+.ti -1c
+.RI "static \fBLz_LinkedList\fP \fBreadyTasks\fP [__LZ_SCHEDULING_POLICY_ENUM_END]"
+.br
+.RI "The queues of ready tasks for each scheduling policy\&. "
+.ti -1c
+.RI "static \fBLz_LinkedList\fP \fBwaitingActivationTasks\fP = \fBLINKED_LIST_INIT\fP"
+.br
+.RI "The queue of tasks waiting activation\&. "
+.ti -1c
+.RI "static \fBLz_LinkedList\fP \fBwaitingInterruptsTasks\fP [\fBINT_TOTAL\fP]"
+.br
+.RI "The table of waiting queues for interrupts\&. "
+.ti -1c
+.RI "static \fBLz_LinkedList\fP \fBwaitingTimerTasks\fP = \fBLINKED_LIST_INIT\fP"
+.br
+.RI "The queue of tasks waiting for their software timer to reach expiration\&. "
+.ti -1c
+.RI "static \fBLz_LinkedList\fP \fBterminatedTasks\fP = \fBLINKED_LIST_INIT\fP"
+.br
+.RI "The queue of terminated tasks\&. "
+.ti -1c
+.RI "static \fBLz_LinkedList\fP \fBabortedTasks\fP = \fBLINKED_LIST_INIT\fP"
+.br
+.RI "The queue of aborted tasks\&. "
+.ti -1c
+.RI "static \fBTask\fP * \fBidleTask\fP"
+.br
+.RI "The idle task\&. "
+.ti -1c
+.RI "static const \fBLz_TaskConfiguration\fP \fBDefaultTaskConfiguration\fP"
+.br
+.RI "Contains default values for \fBLz_TaskConfiguration\fP\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Lazuli scheduler implementation\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2018-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This file describes the implementation of the Lazuli scheduler\&. 
+.PP
+Definition in file \fBscheduler\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "static void IdleTask (void)\fC [static]\fP"
+
+.PP
+The scheduler idle task\&. This task is executed when no other task is ready for execution\&. 
+.PP
+Definition at line 100 of file scheduler\&.c\&.
+.SS "static void PrepareTaskContext (\fBTask\fP *const task)\fC [static]\fP"
+
+.PP
+Prepare the first context of the task so it will be ready when switching context for the first time (i\&.e\&. run the scheduler)\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fItask\fP A pointer to the \fBTask\fP to prepare\&. 
+.RE
+.PP
+
+.PP
+Definition at line 116 of file scheduler\&.c\&.
+.SS "static \fBbool\fP PeriodComparer (const \fBTask\fP *const task1, const \fBTask\fP *const task2)\fC [static]\fP"
+
+.PP
+Compare the 'period' property of 2 tasks\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItask1\fP A valid pointer to the first \fBTask\fP\&. 
+.br
+\fItask2\fP A valid pointer to the second \fBTask\fP\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fItrue\fP if \fCtask1\fP has a bigger period than \fCtask2\fP\&.
+.IP "\(bu" 2
+\fIfalse\fP if \fCtask1\fP has a lower period than \fCtask2\fP\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 140 of file scheduler\&.c\&.
+.SS "static \fBbool\fP PriorityComparer (const \fBTask\fP *const task1, const \fBTask\fP *const task2)\fC [static]\fP"
+
+.PP
+Compare the 'priority' property of 2 tasks\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItask1\fP A valid pointer to the first \fBTask\fP\&. 
+.br
+\fItask2\fP A valid pointer to the second \fBTask\fP\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fItrue\fP if \fCtask1\fP has a bigger priority than \fCtask2\fP\&.
+.IP "\(bu" 2
+\fIfalse\fP if \fCtask1\fP has a lower priority than \fCtask2\fP\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 156 of file scheduler\&.c\&.
+.SS "static void InsertTaskByPriority (\fBLz_LinkedList\fP *const list, \fBTask\fP *const taskToInsert, \fBbool\fP(*)(const \fBTask\fP *const, const \fBTask\fP *const) compareByProperty)\fC [static]\fP"
+
+.PP
+Insert a task in a list, keeping priorities ordered\&. The priority is determined using the function pointer \fCcompareByProperty\fP\&.
+.PP
+If tasks with the same priority than the \fCtaskToInsert\fP already exist in the list, the \fCtaskToInsert\fP will be inserted after existing tasks of the same priority\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlist\fP The list in which to insert the task\&. 
+.br
+\fItaskToInsert\fP The task to insert in the list\&. 
+.br
+\fIcompareByProperty\fP A function pointer to the appropriate property comparer\&. 
+.RE
+.PP
+
+.PP
+Definition at line 175 of file scheduler\&.c\&.
+.SS "static \fBTask\fP* PickTaskToRun (void)\fC [static]\fP"
+
+.PP
+Pick the task ready to run with the highest priority\&. To perform that operation, we iterate ready tasks in each policy, from the highest priority to the lowest until we find a task that is ready to run\&.
+.PP
+If no task is ready to run, we pick the idle task\&.
+.PP
+\fBReturns:\fP
+.RS 4
+A valid pointer to the next task to run\&. 
+.RE
+.PP
+
+.PP
+Definition at line 217 of file scheduler\&.c\&.
+.SS "static void UpdateCyclicRealTimeTasks (void)\fC [static]\fP"
+
+.PP
+Update all registered cyclic RT tasks\&. This is to be done at every clock tick\&. 
+.PP
+Definition at line 243 of file scheduler\&.c\&.
+.SS "static void UpdateTasksWaitingSoftwareTimer (void)\fC [static]\fP"
+
+.PP
+Update all tasks waiting for the expiration of a software timer\&. This is to be done at every clock tick\&. 
+.PP
+Definition at line 285 of file scheduler\&.c\&.
+.SS "static void Schedule (void)\fC [static]\fP"
+
+.PP
+Elect the new current task\&. The election is done by setting the currentTask pointer to the elected task\&.
+.PP
+This function is called at each clock tick (triggered by the timer at the rate of the system time resolution)\&.
+.PP
+This function updates all tasks lists accordingly to the different real-time parameters and status of each task\&. 
+.PP
+Definition at line 379 of file scheduler\&.c\&.
+.SS "static \fBTask\fP* CallbackRegisterUserTask (const \fBLz_TaskConfiguration\fP *const taskConfiguration)\fC [static]\fP"
+
+.PP
+Callback of SchedulerOperations\&.registerTask() for registering a user task\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItaskConfiguration\fP A pointer to an \fBLz_TaskConfiguration\fP containing the configuration of the task being registered\&. This parameter can never be \fINULL\fP, but some of its fields can contain default configuration values\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the newly allocated and initialized \fBTask\fP\&. 
+.RE
+.PP
+
+.PP
+Definition at line 421 of file scheduler\&.c\&.
+.SS "static \fBTask\fP* CallbackRegisterIdleTask (void)\fC [static]\fP"
+
+.PP
+Callback of SchedulerOperations\&.registerTask() for registering the scheduler idle task\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the allocated and initialized idle \fBTask\fP\&. 
+.RE
+.PP
+
+.PP
+Definition at line 474 of file scheduler\&.c\&.
+.SS "static \fBbool\fP RegisterTask (void(*)(void) taskEntryPoint, \fBLz_TaskConfiguration\fP * taskConfiguration, const \fBbool\fP idleTask)\fC [static]\fP"
+
+.PP
+Register a new task\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItaskEntryPoint\fP The entry point of the task to register\&. i\&.e\&. A pointer to the function representing the task\&. 
+.br
+\fItaskConfiguration\fP A pointer to an \fBLz_TaskConfiguration\fP containing the configuration of the task being registered\&. If NULL is passed, then default values are applied for all parameters\&. 
+.br
+\fIidleTask\fP A boolean value indicating that the task to register is the scheduler idle task\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fItrue\fP if the task has been registered without error\&.
+.IP "\(bu" 2
+\fIfalse\fP if an error occured during registration\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 503 of file scheduler\&.c\&.
+.SS "static \fBbool\fP RegisterIdleTask (void)\fC [static]\fP"
+
+.PP
+Register the idle task\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+
+.IP "\(bu" 2
+\fItrue\fP if the task has been registered without error\&.
+.IP "\(bu" 2
+\fIfalse\fP if an error occured during registration\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 563 of file scheduler\&.c\&.
+.SS "void Scheduler_Init (void)"
+
+.PP
+Initialize the scheduler prior to running it\&. This function is called by kernel initialization\&. 
+.PP
+Definition at line 613 of file scheduler\&.c\&.
+.SS "void Scheduler_AbortTask (void *const sp)"
+
+.PP
+Call the appropriate scheduler to abort the curent running task\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsp\fP The stack pointer of the running task after saving its context\&. 
+.RE
+.PP
+
+.PP
+Definition at line 632 of file scheduler\&.c\&.
+.SS "void Scheduler_HandleInterrupt (const \fBuint8_t\fP interruptCode)"
+
+.PP
+This function is called by arch-specific interrupt handling routine\&. This function is executed in the context of the current running task, i\&.e\&. on its stack\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinterruptCode\fP The code of the interrupt being handled\&. 
+.RE
+.PP
+
+.PP
+Definition at line 657 of file scheduler\&.c\&.
+.SS "void Scheduler_HandleClockTick (void *const sp)"
+
+.PP
+This function is called when a clock tick occured, catch by the interrupt handler\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsp\fP The stack pointer of the current running task after saving its context\&. 
+.RE
+.PP
+
+.PP
+Definition at line 680 of file scheduler\&.c\&.
+.SS "void Scheduler_WakeupTasksWaitingMutex (\fBLz_Mutex\fP *const mutex)"
+
+.PP
+Wake up all tasks waiting for a mutex\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImutex\fP A pointer to the mutex the tasks are waiting for\&. 
+.RE
+.PP
+
+.PP
+Definition at line 694 of file scheduler\&.c\&.
+.SS "\fBTask\fP* Scheduler_GetCurrentTask (void)"
+
+.PP
+Get a pointer to the current running task\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+A valid pointer to the current running task\&. 
+.RE
+.PP
+
+.PP
+Definition at line 720 of file scheduler\&.c\&.
+.SS "void Lz_TaskConfiguration_Init (\fBLz_TaskConfiguration\fP *const taskConfiguration)"
+
+.PP
+Initialize an \fBLz_TaskConfiguration\fP with default values for all parameters\&. No function is provided for allocating a new \fBLz_TaskConfiguration\fP\&. So it is strongly advised to allocate the \fBLz_TaskConfiguration\fP parameter on the stack before calling this function\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fItaskConfiguration\fP A pointer to the \fBLz_TaskConfiguration\fP to initialize\&. 
+.RE
+.PP
+
+.PP
+Definition at line 746 of file scheduler\&.c\&.
+.SS "\fBbool\fP Lz_RegisterTask (void(*)(void) taskEntryPoint, \fBLz_TaskConfiguration\fP * taskConfiguration)"
+
+.PP
+Register a new task\&. If an error occured during registration of the task \fIfalse\fP is returned and the task is not included in the set of tasks that will be run\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fItaskEntryPoint\fP The entry point of the task to register\&. i\&.e\&. A pointer to the function representing the task\&. 
+.br
+\fItaskConfiguration\fP A pointer to an \fBLz_TaskConfiguration\fP containing the configuration of the task being registered\&. If NULL is passed, then default values are applied for all parameters\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+.IP "\(bu" 2
+\fItrue\fP if the task has been registered without error\&.
+.IP "\(bu" 2
+\fIfalse\fP if an error occured during registration\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line 758 of file scheduler\&.c\&.
+.SS "void Lz_Run (void)"
+
+.PP
+Run the scheduler\&. Start scheduling tasks\&. 
+.PP
+Definition at line 765 of file scheduler\&.c\&.
+.SS "const char* Lz_Task_GetName (void)"
+
+.PP
+Get the name of the calling task\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to a string containing the name of the current running task, or NULL if the task has no name\&. 
+.RE
+.PP
+
+.PP
+Definition at line 779 of file scheduler\&.c\&.
+.SS "void Lz_Task_WaitActivation (void)"
+
+.PP
+Set the calling task to wait for its next activation\&. May be used if the task finnished its work without consuming all of its completion time\&.
+.PP
+\fBAttention:\fP
+.RS 4
+Only tasks with scheduling policy CYCLIC_RT can wait for next activation\&. 
+.RE
+.PP
+
+.PP
+Definition at line 785 of file scheduler\&.c\&.
+.SS "void Lz_Task_WaitInterrupt (\fBuint8_t\fP interruptCode)"
+
+.PP
+Wait for a specific interrupt to occur\&. Puts the calling task to sleep until the specified interrupt occurs\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinterruptCode\fP The code of the interrupt to wait for\&.
+.RE
+.PP
+\fBAttention:\fP
+.RS 4
+Only tasks with scheduling policy PRIORITY_RT can wait for interrupts\&. 
+.RE
+.PP
+
+.PP
+Definition at line 793 of file scheduler\&.c\&.
+.SS "void Lz_WaitTimer (\fBlz_u_resolution_unit_t\fP units)"
+
+.PP
+Set the calling task to wait for the specified number of time resolution units (time slices), using the software timer\&. As Lazuli is a time sliced operating system, the effective waiting will start at the end of the current time slice\&. This means that the real waiting time \fIstarting from the calling of this function\fP will be:
+.PP
+units / clock resolution frequency <= waiting time \fBAND\fP waiting time < (units + 1) / clock resolution frequency
+.PP
+See the configuration option LZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIunits\fP The number of time slices to wait\&.
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+Only works for tasks with PRIORITY_RT policy\&. 
+.RE
+.PP
+
+.PP
+Definition at line 804 of file scheduler\&.c\&.
+.SS "void Lz_Task_Terminate (void)"
+
+.PP
+Terminate the calling task\&. The context of the task will be saved on its stack\&.
+.PP
+Calling this function has the same effect than returning from the task's main function\&.
+.PP
+The terminated task will never be scheduled again\&. 
+.PP
+Definition at line 815 of file scheduler\&.c\&.
+.SH "Variable Documentation"
+.PP 
+.SS "\fBLz_LinkedList\fP readyTasks[__LZ_SCHEDULING_POLICY_ENUM_END]\fC [static]\fP"
+
+.PP
+The queues of ready tasks for each scheduling policy\&. 
+.PP
+\fBAttention:\fP
+.RS 4
+Indexed from highest priority policy to lowest\&. 
+.RE
+.PP
+
+.PP
+Definition at line 40 of file scheduler\&.c\&.
+.SS "\fBLz_LinkedList\fP waitingActivationTasks = \fBLINKED_LIST_INIT\fP\fC [static]\fP"
+
+.PP
+The queue of tasks waiting activation\&. i\&.e\&. Tasks that have come to completion for their period\&.
+.PP
+Next status for these tasks is: READY\&. 
+.PP
+Definition at line 49 of file scheduler\&.c\&.
+.SS "\fBLz_LinkedList\fP waitingInterruptsTasks[\fBINT_TOTAL\fP]\fC [static]\fP"
+
+.PP
+The table of waiting queues for interrupts\&. This table contains one entry per interrupt type\&. In each entry is the queue of tasks waiting for that particular interrupt\&. This table is indexed by the codes defined in \fBinterrupts\&.h\fP\&. 
+.PP
+Definition at line 58 of file scheduler\&.c\&.
+.SS "\fBTask\fP* idleTask\fC [static]\fP"
+
+.PP
+The idle task\&. This task is run when no other task is ready to run\&. 
+.PP
+Definition at line 80 of file scheduler\&.c\&.
+.SS "const \fBLz_TaskConfiguration\fP DefaultTaskConfiguration\fC [static]\fP"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+  NULL                              ,
+  LZ_CONFIG_DEFAULT_TASK_STACK_SIZE ,
+  PRIORITY_RT                       ,
+  0                                 ,
+  0                                 ,
+  0                                 
+}
+.fi
+.PP
+Contains default values for \fBLz_TaskConfiguration\fP\&. 
+.PP
+Definition at line 85 of file scheduler\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

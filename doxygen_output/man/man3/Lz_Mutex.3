@@ -1,0 +1,32 @@
+.TH "Lz_Mutex" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Lz_Mutex \- Represents a mutex\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <mutex\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "volatile \fBuint8_t\fP \fBlock\fP"
+.br
+.RI "The mutex lock\&. "
+.ti -1c
+.RI "\fBLz_LinkedList\fP \fBwaitingTasks\fP"
+.br
+.RI "The list of tasks waiting for that mutex\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents a mutex\&. 
+.PP
+Definition at line 28 of file mutex\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

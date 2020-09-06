@@ -1,0 +1,55 @@
+.TH "src/kern/arch/AVR/arch.c" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/kern/arch/AVR/arch.c \- Hardware specific layer\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+\fC#include <Lazuli/config\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/AVR/registers\&.h>\fP
+.br
+\fC#include <Lazuli/sys/arch/arch\&.h>\fP
+.br
+\fC#include 'avr_arch\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBArch_InitIdleCpuMode\fP (void)"
+.br
+.RI "Initialize idle CPU modes\&. "
+.ti -1c
+.RI "void \fBArch_CpuSleep\fP (void)"
+.br
+.RI "Put the CPU to sleep according to the sleep settings\&. "
+.ti -1c
+.RI "void \fBArch_InitInstrumentation\fP (void)"
+.br
+.RI "Initialize the context switch instrumentation\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Hardware specific layer\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2018-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This file describes the implementation of some architecture-specific functions\&. For now it's typically what can be written in pure C, so what doesn't go to startup\&.S\&. 
+.PP
+Definition in file \fBarch\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

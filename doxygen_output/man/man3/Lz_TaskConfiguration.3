@@ -1,0 +1,78 @@
+.TH "Lz_TaskConfiguration" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Lz_TaskConfiguration \- Represents the configuration of a task\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <lazuli\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char const  * \fBname\fP"
+.br
+.RI "A pointer to an allocated const string containing the name to give to the task\&. "
+.ti -1c
+.RI "\fBsize_t\fP \fBstackSize\fP"
+.br
+.RI "The size of the stack needed by the task\&. "
+.ti -1c
+.RI "enum \fBLz_SchedulingPolicy\fP \fBschedulingPolicy\fP"
+.br
+.RI "The scheduling policy of the task\&. "
+.ti -1c
+.RI "\fBlz_task_priority_t\fP \fBpriority\fP"
+.br
+.RI "The priority of task\&. "
+.ti -1c
+.RI "\fBlz_u_resolution_unit_t\fP \fBperiod\fP"
+.br
+.RI "The period (T) of the task\&. "
+.ti -1c
+.RI "\fBlz_u_resolution_unit_t\fP \fBcompletion\fP"
+.br
+.RI "The completion time (C) of the task (worst case execution time)\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents the configuration of a task\&. 
+.PP
+Definition at line 88 of file lazuli\&.h\&.
+.SH "Field Documentation"
+.PP 
+.SS "char const* Lz_TaskConfiguration::name"
+
+.PP
+A pointer to an allocated const string containing the name to give to the task\&. That string must NOT be deallocated after registering the task\&. 
+.PP
+Definition at line 94 of file lazuli\&.h\&.
+.SS "\fBlz_task_priority_t\fP Lz_TaskConfiguration::priority"
+
+.PP
+The priority of task\&. Only used for non-cyclic tasks\&. The lower this number is, the higher the priority will be\&. 
+.PP
+Definition at line 110 of file lazuli\&.h\&.
+.SS "\fBlz_u_resolution_unit_t\fP Lz_TaskConfiguration::period"
+
+.PP
+The period (T) of the task\&. Used only for cyclic tasks\&.
+.PP
+The period is expressed as an integer number of time units\&. 
+.PP
+Definition at line 117 of file lazuli\&.h\&.
+.SS "\fBlz_u_resolution_unit_t\fP Lz_TaskConfiguration::completion"
+
+.PP
+The completion time (C) of the task (worst case execution time)\&. Used only for cyclic tasks\&.
+.PP
+The completion time is expressed as an integer number of time units\&. 
+.PP
+Definition at line 125 of file lazuli\&.h\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

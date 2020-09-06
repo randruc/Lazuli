@@ -1,0 +1,75 @@
+.TH "src/libc-headers/stdio.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/libc-headers/stdio.h \- stdio standard header file\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Lazuli/common\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBprintf\fP (const char *format,\&.\&.\&.)"
+.br
+.RI "Produce formatted output to the serial line\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+stdio standard header file\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This is the standard libc stdio header file for the Lazuli system\&. 
+.PP
+Definition in file \fBstdio\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int printf (const char * format,  \&.\&.\&.)"
+
+.PP
+Produce formatted output to the serial line\&. This function is fully reentrant\&. No locking mechanism is provided\&.
+.PP
+.SH "Conversion specifiers"
+.PP
+.PP
+The following conversion specifiers are currently allowed:
+.PP
+\fBd\fP, \fBi\fP The \fIint\fP argument is converted to decimal\&.
+.PP
+\fBu\fP The \fIunsigned int\fP argument is converted to decimal\&.
+.PP
+\fB%\fP The character '' is output\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIformat\fP The format string\&. 
+.br
+\fI\&.\&.\&.\fP The variadic parameters\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The number of characters output to the serial line, or a negative value if an error occured\&.
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+The stack usage of this function is important\&. 
+.RE
+.PP
+
+.PP
+Definition at line 36 of file printf\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

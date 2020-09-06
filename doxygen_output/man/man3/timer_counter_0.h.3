@@ -1,0 +1,183 @@
+.TH "src/include/Lazuli/sys/arch/AVR/timer_counter_0.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/Lazuli/sys/arch/AVR/timer_counter_0.h \- Interface for Timer/Counter 0 of the ATMega328p\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBTimerCounter0\fP"
+.br
+.RI "Describes the memory mapping for timer/counter 0\&. "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTIFR0\fP   \fBDIRECT\fP(0x35)"
+.br
+.RI "Timer/Counter 0 Interrupt Flag Register\&. "
+.ti -1c
+.RI "#define \fBTCCR0A\fP   \fBDIRECT\fP(0x44)"
+.br
+.RI "Timer/Counter Control Register A\&. "
+.ti -1c
+.RI "#define \fBTCCR0B\fP   \fBDIRECT\fP(0x45)"
+.br
+.RI "Timer/Counter Control Register B\&. "
+.ti -1c
+.RI "#define \fBTCNT0\fP   \fBDIRECT\fP(0x46)"
+.br
+.RI "Timer/Counter Register\&. "
+.ti -1c
+.RI "#define \fBOCR0A\fP   \fBDIRECT\fP(0x47)"
+.br
+.RI "Output Compare register A\&. "
+.ti -1c
+.RI "#define \fBOCR0B\fP   \fBDIRECT\fP(0x48)"
+.br
+.RI "Output Compare register B\&. "
+.ti -1c
+.RI "#define \fBTIMSK0\fP   \fBDIRECT\fP(0x6e)"
+.br
+.RI "Timer/Counter Interrupt Mask Register\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBTCCR0A_WGM00\fP = POSITION(0U), \fBTCCR0A_WGM01\fP = POSITION(1U), \fBTCCR0A_COM0B0\fP = POSITION(4U), \fBTCCR0A_COM0B1\fP = POSITION(5U), \fBTCCR0A_COM0A0\fP = POSITION(6U), \fBTCCR0A_COM0A1\fP = POSITION(7U) }
+.RI "Content of the TCCR0A register\&. ""
+.br
+.ti -1c
+.RI "enum { \fBTCCR0B_CS00\fP = POSITION(0U), \fBTCCR0B_CS01\fP = POSITION(1U), \fBTCCR0B_CS02\fP = POSITION(2U), \fBTCCR0B_WGM02\fP = POSITION(3U), \fBTCCR0B_FOC0B\fP = POSITION(6U), \fBTCCR0B_FOC0A\fP = POSITION(7U) }
+.RI "Content of the TCCR0B register\&. ""
+.br
+.ti -1c
+.RI "enum { \fBTIMSK0_TOIE0\fP = POSITION(0U), \fBTIMSK0_OCIE0A\fP = POSITION(1U), \fBTIMSK0_OCIE0B\fP = POSITION(2U) }
+.RI "Content of the TIMSK0 register\&. ""
+.br
+.ti -1c
+.RI "enum { \fBTIFR0_TOV0\fP = POSITION(0U), \fBTIFR0_OCF0A\fP = POSITION(1U), \fBTIFR0_OCF0B\fP = POSITION(2U) }
+.RI "Content of the TIFR0 Register\&. ""
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Interface for Timer/Counter 0 of the ATMega328p\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2017-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+Describes the interface of the '8-bit timer/counter 0' driver for the ATMega328p\&. 
+.PP
+Definition in file \fBtimer_counter_0\&.h\fP\&.
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "anonymous enum"
+
+.PP
+Content of the TCCR0A register\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fITCCR0A_WGM00 \fP\fP
+Waveform Generation Mode\&. 
+.TP
+\fB\fITCCR0A_WGM01 \fP\fP
+Waveform Generation Mode\&. 
+.TP
+\fB\fITCCR0A_COM0B0 \fP\fP
+Compare Match Output B Mode\&. 
+.TP
+\fB\fITCCR0A_COM0B1 \fP\fP
+Compare Match Output B Mode\&. 
+.TP
+\fB\fITCCR0A_COM0A0 \fP\fP
+Compare Match Output A Mode\&. 
+.TP
+\fB\fITCCR0A_COM0A1 \fP\fP
+Compare Match Output A Mode\&. 
+.PP
+Definition at line 64 of file timer_counter_0\&.h\&.
+.SS "anonymous enum"
+
+.PP
+Content of the TCCR0B register\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fITCCR0B_CS00 \fP\fP
+Clock Select\&. 
+.TP
+\fB\fITCCR0B_CS01 \fP\fP
+Clock Select\&. 
+.TP
+\fB\fITCCR0B_CS02 \fP\fP
+Clock Select\&. 
+.TP
+\fB\fITCCR0B_WGM02 \fP\fP
+Waveform Generation Mode\&. 
+.TP
+\fB\fITCCR0B_FOC0B \fP\fP
+Force Output Compare B\&. 
+.TP
+\fB\fITCCR0B_FOC0A \fP\fP
+Force Output Compare A\&. 
+.PP
+Definition at line 76 of file timer_counter_0\&.h\&.
+.SS "anonymous enum"
+
+.PP
+Content of the TIMSK0 register\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fITIMSK0_TOIE0 \fP\fP
+Timer/Counter 0 Overflow Interrupt enable\&. 
+.TP
+\fB\fITIMSK0_OCIE0A \fP\fP
+Timer/Counter 0 Output Compare Match A Interrupt Enable\&. 
+.TP
+\fB\fITIMSK0_OCIE0B \fP\fP
+Timer/Counter 0 Output Compare Match B Interrupt Enable\&. 
+.PP
+Definition at line 88 of file timer_counter_0\&.h\&.
+.SS "anonymous enum"
+
+.PP
+Content of the TIFR0 Register\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fITIFR0_TOV0 \fP\fP
+Timer/Counter 0 Overflow Flag\&. 
+.TP
+\fB\fITIFR0_OCF0A \fP\fP
+Timer/Counter 0 Output Compare A Match Flag\&. 
+.TP
+\fB\fITIFR0_OCF0B \fP\fP
+Timer/Counter 0 Output Compare B Match Flag\&. 
+.PP
+Definition at line 102 of file timer_counter_0\&.h\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

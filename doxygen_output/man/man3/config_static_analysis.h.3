@@ -1,0 +1,296 @@
+.TH "src/include/Lazuli/config_static_analysis.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/Lazuli/config_static_analysis.h \- Lazuli configuration file for static analysis\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Lazuli/common\&.h>\fP
+.br
+\fC#include <Lazuli/lazuli\&.h>\fP
+.br
+
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const char *const \fBLZ_VERSION\fP"
+.br
+.RI "The Lazuli kernel version as a string, defined as MAJOR\&.MINOR\&.PATCH\&. "
+.ti -1c
+.RI "const int \fBLZ_VERSION_MAJOR\fP"
+.br
+.RI "The Lazuli kernel MAJOR version number\&. "
+.ti -1c
+.RI "const int \fBLZ_VERSION_MINOR\fP"
+.br
+.RI "The Lazuli kernel MINOR version number\&. "
+.ti -1c
+.RI "const int \fBLZ_VERSION_PATCH\fP"
+.br
+.RI "The Lazuli kernel PATCH version number\&. "
+.ti -1c
+.RI "const \fBsize_t\fP \fBLZ_CONFIG_BREAK_STACK_GAP\fP"
+.br
+.RI "Size in bytes of the security gap between the break and the stack pointer\&. "
+.ti -1c
+.RI "const unsigned int \fBLZ_CONFIG_MACHINE_CLOCK_FREQUENCY\fP"
+.br
+.RI "The clock frequency of the machine, in Hertz\&. "
+.ti -1c
+.RI "const unsigned int \fBLZ_CONFIG_SYSTEM_CLOCK_RESOLUTION_FREQUENCY\fP"
+.br
+.RI "The operating system clock resolution frequency, in Hertz\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_ON_PANIC_INFINITE_LOOP\fP"
+.br
+.RI "When 1, run an infinite loop on kernel panic\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_ON_PANIC_SOFTWARE_RESET\fP"
+.br
+.RI "When 1, perform a software reset on kernel panic\&. "
+.ti -1c
+.RI "const \fBsize_t\fP \fBLZ_CONFIG_DEFAULT_TASK_STACK_SIZE\fP"
+.br
+.RI "Default stack size in bytes for a new task\&. "
+.ti -1c
+.RI "const \fBlz_task_priority_t\fP \fBLZ_CONFIG_DEFAULT_TASK_PRIORITY\fP"
+.br
+.RI "Default priority for a new task\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS\fP"
+.br
+.RI "When 1, always check for NULL functions parameters in linked lists implementation\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY\fP"
+.br
+.RI "When 1, check if the interrupt code sent by the ASM interrupt handler to the base scheduler interrupt handler is an admissible value\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_ON_IDLE_SLEEP\fP"
+.br
+.RI "When 1, put the CPU to sleep when it's idle\&. "
+.in -1c
+.PP
+.RI "\fBScheduling\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "const \fBsize_t\fP \fBLZ_CONFIG_IDLE_TASK_STACK_SIZE\fP"
+.br
+.RI "The stack size in bytes of the scheduler idle task\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_IDLE_TASK_HAS_NAME\fP"
+.br
+.RI "Configure if the idle task must have a name\&. "
+.ti -1c
+.RI "const char *const \fBLZ_CONFIG_IDLE_TASK_NAME\fP"
+.br
+.RI "The name of the idle task\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_INSTRUMENT_CONTEXT_SWITCHES\fP"
+.br
+.RI "When set, add instrumentation code to measure context switches\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBSpinlocks\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS\fP"
+.br
+.RI "When 1, always check for NULL functions parameters in spinlocks implementation\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBMutexes\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES\fP"
+.br
+.RI "When 1, always check for NULL functions parameters in mutexes implementation\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBSerial\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL\fP"
+.br
+.RI "When 1, always check for NULL functions parameters in serial API\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL\fP"
+.br
+.RI "When 1, check for enum parameters that are over the admissible values defined by the enum\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_SERIAL_USE_INTERRUPTS\fP"
+.br
+.RI "When 1, serial input and output will use interrupt blocking\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBAVR-specific configuration\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_AVR_SLEEP_WITH_IDLE_MODE\fP"
+.br
+.RI "Enter 'Idle Mode' when sleeping\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_AVR_SLEEP_WITH_ADC_NOISE_REDUCTION_MODE\fP"
+.br
+.RI "Enter 'ADC Noise Reduction Mode' when sleeping\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_AVR_SLEEP_WITH_POWER_DOWN_MODE\fP"
+.br
+.RI "Enter 'Power-down Mode' when sleeping\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_AVR_SLEEP_WITH_POWER_SAVE_MODE\fP"
+.br
+.RI "Enter 'Power-save Mode' when sleeping\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_AVR_SLEEP_WITH_STANDBY_MODE\fP"
+.br
+.RI "Enter 'Standby Mode' when sleeping\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_AVR_SLEEP_WITH_EXTENDED_STANDBY_MODE\fP"
+.br
+.RI "Enter 'Extended Standby Mode' when sleeping\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBUsed modules\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_MODULE_CLOCK_24_USED\fP"
+.br
+.RI "Use module 'clock_24': Implement a 24-Hour clock in the kernel\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_MODULE_MUTEX_USED\fP"
+.br
+.RI "Use module 'mutex': Mutexes implementation\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_MODULE_SERIAL_USED\fP"
+.br
+.RI "Use module 'serial': Serial interface configuration\&. "
+.ti -1c
+.RI "const \fBbool\fP \fBLZ_CONFIG_MODULE_SPINLOCK_USED\fP"
+.br
+.RI "Use module 'spinlock': Spinlocks implementation\&. "
+.ti -1c
+.RI "\fBuint16_t\fP \fBLZ_CONFIG_AVR_INSTRUMENT_PORT\fP"
+.br
+.RI "The port used for instrumentation on AVR machines\&. "
+.ti -1c
+.RI "\fBuint8_t\fP \fBLZ_CONFIG_AVR_INSTRUMENT_POSITION\fP"
+.br
+.RI "The position in the port used for instrumentation on AVR machines\&. "
+.in -1c
+.in -1c
+.SH "Detailed Description"
+.PP 
+Lazuli configuration file for static analysis\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+This file is a redefinition of all the configuration macro constants that are defined in config\&.h\&.in\&. All the macro constants are defined here as if they were true C extern symbols\&. The reason for that is that most static code analysis tools operate on preprocessed files\&. By using this file instead of the final \fBconfig\&.h\fP, we simulate the fact that these configuration constants can take any value\&. So static analysizers don't complain/exclude/assume some parts of source code\&.
+.PP
+\fBWarning:\fP
+.RS 4
+Some of these definitions can cause problems as there are some places in the code where a true constant is expected\&. e\&.g when initializing fields of a constant struct\&. In these case, static analyzers can complain\&. 
+.RE
+.PP
+
+.PP
+Definition in file \fBconfig_static_analysis\&.h\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "const \fBbool\fP LZ_CONFIG_ON_PANIC_INFINITE_LOOP"
+
+.PP
+When 1, run an infinite loop on kernel panic\&. When 0, doesn't apply\&. 
+.SS "const \fBbool\fP LZ_CONFIG_ON_PANIC_SOFTWARE_RESET"
+
+.PP
+When 1, perform a software reset on kernel panic\&. When 0, doesn't apply\&. 
+.SS "const \fBbool\fP LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS"
+
+.PP
+When 1, always check for NULL functions parameters in linked lists implementation\&. When 0, never check for NULL parameters\&.
+.PP
+This is a way to obtain better performances, but it's also less safe\&. 
+.SS "const \fBbool\fP LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY"
+
+.PP
+When 1, check if the interrupt code sent by the ASM interrupt handler to the base scheduler interrupt handler is an admissible value\&. When 0, don't check\&. 
+.SS "const \fBbool\fP LZ_CONFIG_ON_IDLE_SLEEP"
+
+.PP
+When 1, put the CPU to sleep when it's idle\&. When 0, the CPU will actively infinite loop when it's idle\&. 
+.SS "const \fBbool\fP LZ_CONFIG_IDLE_TASK_HAS_NAME"
+
+.PP
+Configure if the idle task must have a name\&. If set to 1, the idle task will have a name attached to it, and the necessary bytes will be used to store this name in read-only data section\&. This name is defined in this configuration file\&.
+.PP
+If set to 0, the idle task will have no name attached to it\&. Thus it can save a few bytes in the read-only data section\&. 
+.SS "const char* const LZ_CONFIG_IDLE_TASK_NAME"
+
+.PP
+The name of the idle task\&. Never used if LZ_CONFIG_IDLE_TASK_HAS_NAME is set to 0\&. 
+.SS "const \fBbool\fP LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SPINLOCKS"
+
+.PP
+When 1, always check for NULL functions parameters in spinlocks implementation\&. When 0, never check for NULL parameters\&.
+.PP
+This is a way to obtain better performances, but it's also less safe\&. 
+.SS "const \fBbool\fP LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES"
+
+.PP
+When 1, always check for NULL functions parameters in mutexes implementation\&. When 0, never check for NULL parameters\&.
+.PP
+This is a way to obtain better performances, but it's also less safe\&. 
+.SS "const \fBbool\fP LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_SERIAL"
+
+.PP
+When 1, always check for NULL functions parameters in serial API\&. When 0, never check for NULL parameters\&.
+.PP
+This is one way to obtain better performances, but it's also less safe\&. 
+.SS "const \fBbool\fP LZ_CONFIG_CHECK_WRONG_ENUM_ENTRIES_IN_SERIAL"
+
+.PP
+When 1, check for enum parameters that are over the admissible values defined by the enum\&. When 0, never check the value of enum parameters\&.
+.PP
+This is one way to obtain better performances, but it's also less safe\&. 
+.SS "const \fBbool\fP LZ_CONFIG_SERIAL_USE_INTERRUPTS"
+
+.PP
+When 1, serial input and output will use interrupt blocking\&. When 0, serial input and output will use active waiting (spin)\&. 
+.SS "const \fBbool\fP LZ_CONFIG_AVR_SLEEP_WITH_IDLE_MODE"
+
+.PP
+Enter 'Idle Mode' when sleeping\&. This is the default value no sleep mode is selected\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.

@@ -1,0 +1,317 @@
+.TH "src/include/Lazuli/sys/arch/AVR/usart.h" 3 "Sun Sep 6 2020" "Lazuli" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/include/Lazuli/sys/arch/AVR/usart.h \- USART API for the ATmega328P\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <Lazuli/common\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBUsart\fP"
+.br
+.RI "Describes the memory mapping for the USART\&. "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUCSR0A\fP   \fBDIRECT\fP(0xc0)"
+.br
+.RI "USART Control and Status Register A\&. "
+.ti -1c
+.RI "#define \fBUCSR0B\fP   \fBDIRECT\fP(0xc1)"
+.br
+.RI "USART Control and Status Register B\&. "
+.ti -1c
+.RI "#define \fBUCSR0C\fP   \fBDIRECT\fP(0xc2)"
+.br
+.RI "USART Control and Status Register C\&. "
+.ti -1c
+.RI "#define \fBUBRROL\fP   \fBDIRECT\fP(0xc4)"
+.br
+.RI "USART Baud Rate Register low\&. "
+.ti -1c
+.RI "#define \fBUBRR0H\fP   \fBDIRECT\fP(0xc5)"
+.br
+.RI "USART Baud Rate Register high\&. "
+.ti -1c
+.RI "#define \fBUDR0\fP   \fBDIRECT\fP(0xc6)"
+.br
+.RI "USART I/O Data Register\&. "
+.ti -1c
+.RI "#define \fBUSART_BAUD_RATE\fP   (9600)"
+.br
+.RI "The default baud rate to use\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBUCSR0A_RXC0\fP = POSITION(7U), \fBUCSR0A_TXC0\fP = POSITION(6U), \fBUCSR0A_UDRE0\fP = POSITION(5U), \fBUCSR0A_FE0\fP = POSITION(4U), \fBUCSR0A_DOR0\fP = POSITION(3U), \fBUCSR0A_UPE0\fP = POSITION(2U), \fBUCSR0A_U2X0\fP = POSITION(1U), \fBUCSR0A_MPCM0\fP = POSITION(0U) }
+.RI "Content of the UCSR0A register\&. ""
+.br
+.ti -1c
+.RI "enum { \fBUCSR0B_RXCIE0\fP = POSITION(7U), \fBUCSR0B_TXCIE0\fP = POSITION(6U), \fBUCSR0B_UDRIE0\fP = POSITION(5U), \fBUCSR0B_RXEN0\fP = POSITION(4U), \fBUCSR0B_TXEN0\fP = POSITION(3U), \fBUCSR0B_UCSZ02\fP = POSITION(2U), \fBUCSR0B_RXB80\fP = POSITION(1U), \fBUCSR0B_TXB80\fP = POSITION(0U) }
+.RI "Content of the UCSR0B register\&. ""
+.br
+.ti -1c
+.RI "enum { \fBUCSR0C_UMSEL01\fP = POSITION(7U), \fBUCSR0C_UMSEL00\fP = POSITION(6U), \fBUCSR0C_UPM01\fP = POSITION(5U), \fBUCSR0C_UPM00\fP = POSITION(4U), \fBUCSR0C_USBS0\fP = POSITION(3U), \fBUCSR0C_UCSZ01\fP = POSITION(2U), \fBUCSR0C_UCSZ00\fP = POSITION(1U), \fBUCSR0C_UCPOL0\fP = POSITION(0U) }
+.RI "Content of the UCSR0C register\&. ""
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBUsart_PutChar\fP (char c)"
+.br
+.RI "Transmit a character\&. "
+.ti -1c
+.RI "void \fBUsart_NewLine\fP (void)"
+.br
+.RI "Transmit a new line sequence\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_u32\fP (const \fBuint32_t\fP value)"
+.br
+.RI "Print a uint32_t value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_u16\fP (const \fBuint16_t\fP value)"
+.br
+.RI "Print a uint16_t value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_u8\fP (const \fBuint8_t\fP value)"
+.br
+.RI "Print a uint8_t value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_Pointer\fP (void *const pointer)"
+.br
+.RI "Print an pointer value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_HexaPrint_FunctionPointer\fP (void(*functionPointer)(void))"
+.br
+.RI "Print a function pointer value in hexadecimal\&. "
+.ti -1c
+.RI "void \fBUsart_PrintRawString\fP (const char *const string)"
+.br
+.RI "Print a raw string without any formatting\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+USART API for the ATmega328P\&. 
+
+
+.PP
+\fBCopyright:\fP
+.RS 4
+2017-2020, Remi Andruccioli remi.andruccioli@gmail.com
+.RE
+.PP
+Describes the interface of the USART driver for the ATMega328p\&. 
+.PP
+Definition in file \fBusart\&.h\fP\&.
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "anonymous enum"
+
+.PP
+Content of the UCSR0A register\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIUCSR0A_RXC0 \fP\fP
+USART Receive Complete\&. 
+.TP
+\fB\fIUCSR0A_TXC0 \fP\fP
+USART Transmit Complete\&. 
+.TP
+\fB\fIUCSR0A_UDRE0 \fP\fP
+USART Data Register Empty\&. 
+.TP
+\fB\fIUCSR0A_FE0 \fP\fP
+Frame Error\&. 
+.TP
+\fB\fIUCSR0A_DOR0 \fP\fP
+Data OverRun\&. 
+.TP
+\fB\fIUCSR0A_UPE0 \fP\fP
+USART Parity Error\&. 
+.TP
+\fB\fIUCSR0A_U2X0 \fP\fP
+Double USART Transmission Speed\&. 
+.TP
+\fB\fIUCSR0A_MPCM0 \fP\fP
+Multi-processor Communication Mode\&. 
+.PP
+Definition at line 62 of file usart\&.h\&.
+.SS "anonymous enum"
+
+.PP
+Content of the UCSR0B register\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIUCSR0B_RXCIE0 \fP\fP
+RX Complete Interrupt Enable\&. 
+.TP
+\fB\fIUCSR0B_TXCIE0 \fP\fP
+TX Complete Interrupt Enable\&. 
+.TP
+\fB\fIUCSR0B_UDRIE0 \fP\fP
+Data Register Empty Interrupt Enable\&. 
+.TP
+\fB\fIUCSR0B_RXEN0 \fP\fP
+Receiver Enable\&. 
+.TP
+\fB\fIUCSR0B_TXEN0 \fP\fP
+Transmitter Enable\&. 
+.TP
+\fB\fIUCSR0B_UCSZ02 \fP\fP
+Character Size 2\&. 
+.TP
+\fB\fIUCSR0B_RXB80 \fP\fP
+Receive Data Bit 8\&. 
+.TP
+\fB\fIUCSR0B_TXB80 \fP\fP
+Transmit Data Bit 8\&. 
+.PP
+Definition at line 76 of file usart\&.h\&.
+.SS "anonymous enum"
+
+.PP
+Content of the UCSR0C register\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIUCSR0C_UMSEL01 \fP\fP
+USART Mode Select 1\&. 
+.TP
+\fB\fIUCSR0C_UMSEL00 \fP\fP
+USART Mode Select 0\&. 
+.TP
+\fB\fIUCSR0C_UPM01 \fP\fP
+Parity Mode 1\&. 
+.TP
+\fB\fIUCSR0C_UPM00 \fP\fP
+Parity Mode 0\&. 
+.TP
+\fB\fIUCSR0C_USBS0 \fP\fP
+Stop Bit Select\&. 
+.TP
+\fB\fIUCSR0C_UCSZ01 \fP\fP
+Character size 1\&. 
+.TP
+\fB\fIUCSR0C_UCSZ00 \fP\fP
+Character Size 0\&. 
+.TP
+\fB\fIUCSR0C_UCPOL0 \fP\fP
+Clock Polarity\&. 
+.PP
+Definition at line 90 of file usart\&.h\&.
+.SH "Function Documentation"
+.PP 
+.SS "void Usart_PutChar (char c)"
+
+.PP
+Transmit a character\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIc\fP The character to transmit\&. 
+.RE
+.PP
+
+.PP
+Definition at line 74 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_u32 (const \fBuint32_t\fP value)"
+
+.PP
+Print a uint32_t value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIvalue\fP The uint32_t value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 119 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_u16 (const \fBuint16_t\fP value)"
+
+.PP
+Print a uint16_t value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIvalue\fP The uint16_t value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 128 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_u8 (const \fBuint8_t\fP value)"
+
+.PP
+Print a uint8_t value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIvalue\fP The uint8_t value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 137 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_Pointer (void *const pointer)"
+
+.PP
+Print an pointer value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpointer\fP The pointer value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 146 of file usart\&.c\&.
+.SS "void Usart_HexaPrint_FunctionPointer (void(*)(void) functionPointer)"
+
+.PP
+Print a function pointer value in hexadecimal\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfunctionPointer\fP The function pointer value to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 155 of file usart\&.c\&.
+.SS "void Usart_PrintRawString (const char *const string)"
+
+.PP
+Print a raw string without any formatting\&. The string must be NUL terminated\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstring\fP A pointer to the string to print\&. 
+.RE
+.PP
+
+.PP
+Definition at line 164 of file usart\&.c\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Lazuli from the source code\&.
