@@ -40,7 +40,7 @@ jobs:
         run: cp -r doxygen_output/html/* origin/gh-pages/doxygen/head/
 
       - name: Move to the worktree
-        run: cp origin/gh-pages
+        run: cd origin/gh-pages
 
       - name: Setup Git configuration
         run: git config user.name "GitHub Actions" && git config user.email "<>"
