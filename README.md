@@ -24,13 +24,14 @@ The project is hosted on GitHub at https://github.com/randruc/Lazuli
 
 ### Features
 
-* Multitasking of user defined tasks
+* Multitasking of user tasks
 * Real-time scheduling
 * No MMU required
 * "ROMable": all the system can fit in ROM
 * Highly configurable, with a modular architecture
 * A "wait for event" programming model
 * A complete and containerized development environment
+* A complete documentation: API documentation, user and kernel documentation
 
 
 ### Functionalities
