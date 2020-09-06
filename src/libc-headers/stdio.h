@@ -23,6 +23,14 @@ _EXTERN_C_DECL_BEGIN
  *
  * This function is fully reentrant. No locking mechanism is provided.
  *
+ * # Flag characters
+ *
+ * **0** The value should be zero-padded.
+ *
+ * # Field width
+ *
+ * A decimal digit string can be used to specify a minimum fild width.
+ *
  * # Conversion specifiers
  *
  * The following conversion specifiers are currently allowed:
