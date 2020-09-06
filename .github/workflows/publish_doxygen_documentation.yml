@@ -50,4 +50,4 @@ jobs:
 
       - name: Git commit and push
         # We first check if files really changed
-        run: git diff-index --quiet HEAD || { git commit -m "Publish new version of Doxygen API documentation on HEAD."; && git push origin gh-pages; }
+        run: git diff-index --quiet HEAD || git commit -m "Publish new version of Doxygen API documentation on HEAD." && git push origin gh-pages
