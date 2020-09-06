@@ -23,6 +23,7 @@ grep -nrH \
      --include=*.S \
      --include=*.sh \
      --include=*.txt \
+     --include=Dockerfile \
      --exclude-dir=build \
      --exclude-dir=LICENSES \
      --exclude-dir=_build > $tmp

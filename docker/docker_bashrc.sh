@@ -27,3 +27,12 @@ $(uname -a)
   Type 'man Lazuli' to read the documentation.
 
 EOF
+
+if [ "$(cat /~/workspace/VERSION)" != "$(cat /etc/lazuli-version)" ]; then
+    printf "WARNING! You are using the container in version %s whereas your \
+sources are in version %s\n" $(cat /etc/lazuli-version) \
+$(cat /~/workspace/VERSION);
+
+    printf "It is recommended that you pull and run the container in version \
+%s\n\n" $(cat /~/workspace/VERSION);
+fi

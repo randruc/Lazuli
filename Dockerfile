@@ -48,7 +48,6 @@ RUN dnf reinstall -y \
     gawk \
     grep \
     sed \
-    time \
     && \
     dnf clean all
 
@@ -66,6 +65,7 @@ RUN dnf install -y \
     less \
     make \
     man-db \
+    time \
     && \
     dnf clean all
 
