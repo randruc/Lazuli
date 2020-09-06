@@ -39,6 +39,9 @@ jobs:
       - name: Copy Doxygen artifacts
         run: cp -r doxygen_output/html/* doxygen/head/
 
+      - name: Get rid of doxygen output
+        run: rm -rf doxygen_output
+        
       - name: Setup Git configuration
         run: git config user.name "GitHub Actions" && git config user.email "<>"
 
