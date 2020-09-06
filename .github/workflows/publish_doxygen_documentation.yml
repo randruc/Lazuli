@@ -31,7 +31,7 @@ jobs:
         run: cat Doxyfile | sed  "/^QUIET.*=/c\QUIET = NO" | doxygen -
 
       - name: Change branch
-        run: git checkout gh-pages
+        run: git fetch && git checkout gh-pages
         
       - name: Prepare the directory
         run: rm -rf doxygen/head && mkdir -p doxygen/head
