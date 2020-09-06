@@ -22,9 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Create Git Worktree
-        run: git worktree add origin/gh-pages
-
       - name: Doxygen version
         run: doxygen --version
 
@@ -33,14 +30,14 @@ jobs:
       - name: Run Doxygen
         run: cat Doxyfile | sed  "/^QUIET.*=/c\QUIET = NO" | doxygen -
 
+      - name: Change branch
+        run: git checkout gh-pages
+        
       - name: Prepare the directory
-        run: rm -rf origin/gh-pages/doxygen/head && mkdir -p origin/gh-pages/doxygen/head
+        run: rm -rf doxygen/head && mkdir -p doxygen/head
 
       - name: Copy Doxygen artifacts
-        run: cp -r doxygen_output/html/* origin/gh-pages/doxygen/head/
-
-      - name: Move to the worktree
-        run: cd origin/gh-pages
+        run: cp -r doxygen_output/html/* doxygen/head/
 
       - name: Setup Git configuration
         run: git config user.name "GitHub Actions" && git config user.email "<>"
