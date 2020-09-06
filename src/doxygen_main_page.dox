@@ -64,8 +64,7 @@
  * examples:
  * @code{.c}
  * Task
- * RrTask
- * SchedulerOperations
+ * TaskContextLayout
  * @endcode
  *
  * All kernel API functions conform to the following naming convention:
