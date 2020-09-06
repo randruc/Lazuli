@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# This file is part of Lazuli.
+# Copyright (c) 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
+
+#
+# Workflow definition to publish doxygen documentation
+#
+
+name: Publish doxygen documentation
+
+on: workflow_dispatch
+
+jobs:
+  publish:
+    name: Publish job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install complementary tools
+        run: sudo apt-get install -y doxygen git
+        
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create Git Worktree
+        run: git worktree add origin/gh-pages
+
+      - name: Doxygen version
+        run: doxygen --version
+
+        # Ugly hack to force the parameter QUIET to NO only in this
+        # CI situation (for logs).
+      - name: Run Doxygen
+        run: cat Doxyfile | sed  "/^QUIET.*=/c\QUIET = NO" | doxygen -        
+
+      - name: Prepare the directory
+        run: rm -rf origin/gh-pages/doxygen/head && mkdir -p origin/gh-pages/doxygen/head
+        
+      - name: Copy Doxygen artifacts
+        run: cp -r doxygen_output/html/* origin/gh-pages/doxygen/head/
+
+      - name: Move to the worktree
+        run: cp origin/gh-pages
+
+      - name: Setup Git configuration
+        run: git config user.name "GitHub Actions" && git config user.email "<>"
+          
+      - name: Git add, commit and push
+        run: git add --all && git commit -m "Doxygen: Publish new version of API documentation." && git push origin gh-pages
+        
