@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Install complementary tools
         run: sudo apt-get install -y doxygen git
-        
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -31,11 +31,11 @@ jobs:
         # Ugly hack to force the parameter QUIET to NO only in this
         # CI situation (for logs).
       - name: Run Doxygen
-        run: cat Doxyfile | sed  "/^QUIET.*=/c\QUIET = NO" | doxygen -        
+        run: cat Doxyfile | sed  "/^QUIET.*=/c\QUIET = NO" | doxygen -
 
       - name: Prepare the directory
         run: rm -rf origin/gh-pages/doxygen/head && mkdir -p origin/gh-pages/doxygen/head
-        
+
       - name: Copy Doxygen artifacts
         run: cp -r doxygen_output/html/* origin/gh-pages/doxygen/head/
 
@@ -44,7 +44,12 @@ jobs:
 
       - name: Setup Git configuration
         run: git config user.name "GitHub Actions" && git config user.email "<>"
-          
-      - name: Git add, commit and push
-        run: git add --all && git commit -m "Doxygen: Publish new version of API documentation." && git push origin gh-pages
-        
+
+      - name: Git add
+        run: git add --all
+
+      - name: Git commit and push
+        run: git commit -m "Doxygen: Publish new version of API documentation on HEAD."
+
+      - name: Git push
+        run: git push origin gh-pages
