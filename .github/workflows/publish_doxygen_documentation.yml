@@ -32,7 +32,7 @@ jobs:
 
       - name: Change branch
         run: git fetch && git checkout gh-pages
-        
+
       - name: Prepare the directory
         run: rm -rf doxygen/head && mkdir -p doxygen/head
 
