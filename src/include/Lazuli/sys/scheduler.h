@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/scheduler.h
+ * @file
  * @brief Lazuli scheduler interface. The kernel API of the scheduler.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

@@ -4,7 +4,7 @@
  */
 
 /**
- * @file libc/stdint_assertions.c
+ * @file
  * @brief Static assertions on the width of types defined in stdint.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

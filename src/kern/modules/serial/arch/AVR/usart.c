@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/modules/serial/arch/AVR/usart.c
+ * @file
  * @brief ATmega328p USART driver.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

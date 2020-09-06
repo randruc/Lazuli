@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/spinlocks.c
+ * @file
  * @brief Spinlocks demonstration program.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

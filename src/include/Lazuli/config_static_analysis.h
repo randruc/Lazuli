@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/config_static_analysis.h
+ * @file
  * @brief Lazuli configuration file for static analysis.
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

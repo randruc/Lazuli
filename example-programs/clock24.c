@@ -4,7 +4,7 @@
  */
 
 /**
- * @file example-programs/clock24.c
+ * @file
  * @brief A simple clock.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

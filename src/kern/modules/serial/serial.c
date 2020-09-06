@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/modules/serial/serial.c
+ * @file
  * @brief Serial port configuration implementation.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

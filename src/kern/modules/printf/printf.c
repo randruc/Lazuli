@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/modules/printf/printf.c
+ * @file
  * @brief printf implementation.
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

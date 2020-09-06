@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/arch/AVR/registers.h
+ * @file
  * @brief ATmega328P registers.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

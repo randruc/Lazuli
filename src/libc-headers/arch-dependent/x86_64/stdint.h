@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/libc-headers/arch-dependent/x86_64/stdint.h
+ * @file
  * @brief Fixed width integer types for x86_64.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

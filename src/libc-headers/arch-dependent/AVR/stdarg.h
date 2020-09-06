@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/libc-headers/arch-dependent/AVR/stdarg.h
+ * @file
  * @brief AVR type and macros definitions for variadic functions.
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

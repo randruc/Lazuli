@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/memory.h
+ * @file
  * @brief Memory management API.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

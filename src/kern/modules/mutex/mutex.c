@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/modules/mutex/mutex.c
+ * @file
  * @brief Mutex implementation.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/memory.c
+ * @file
  * @brief Kernel memory functions.
  * @copyright 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

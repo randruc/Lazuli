@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/scheduler.c
+ * @file
  * @brief Lazuli scheduler implementation.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

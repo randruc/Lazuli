@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/kernel.c
+ * @file
  * @brief Kernel entry point.
  * @copyright 2016-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

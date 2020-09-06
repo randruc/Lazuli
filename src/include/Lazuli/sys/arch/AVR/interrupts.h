@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/arch/AVR/interrupts.h
+ * @file
  * @brief Interrupt codes of ATmega328P.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  * @warning Can be used in both C and ASM code.

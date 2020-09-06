@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/arch/AVR/timer_counter_1.c
+ * @file
  * @brief ATMega328p Timer/Counter 1 driver.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

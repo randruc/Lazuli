@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/arch/AVR/avr_arch.h
+ * @file
  * @brief Header file specific to the AVR arch module.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/clock_24.h
+ * @file
  * @brief 24-Hour clock user interface.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

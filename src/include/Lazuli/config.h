@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/config.h
+ * @file
  * @brief Include appropriate config file.
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

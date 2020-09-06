@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/sizeof_types.c
+ * @file
  * @brief Sizeof types.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

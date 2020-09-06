@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/arch/arch.h
+ * @file
  * @brief Architecture Abstraction API.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

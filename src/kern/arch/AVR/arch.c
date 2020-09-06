@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/arch/AVR/arch.c
+ * @file
  * @brief Hardware specific layer.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

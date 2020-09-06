@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/serial.h
+ * @file
  * @brief Serial port configuration interface.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

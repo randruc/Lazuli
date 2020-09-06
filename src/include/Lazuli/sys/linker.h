@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/linker.h
+ * @file
  * @brief Symbols defined by the linker.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

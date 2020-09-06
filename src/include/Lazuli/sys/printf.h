@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/printf.h
+ * @file
  * @brief Internal functions needed for printf().
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

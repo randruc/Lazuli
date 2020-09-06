@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/libc-headers/arch-dependent/AVR/stdint.h
+ * @file
  * @brief Fixed width integer types for AVR.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

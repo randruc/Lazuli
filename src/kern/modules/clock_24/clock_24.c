@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/modules/clock_24/clock_24.c
+ * @file
  * @brief 24-Hour clock kernel implementation.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

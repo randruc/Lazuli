@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/compiler.h
+ * @file
  * @brief Macro aliases on compiler facilities.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

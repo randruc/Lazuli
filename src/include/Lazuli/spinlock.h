@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/spinlock.h
+ * @file
  * @brief Spinlocks interface.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

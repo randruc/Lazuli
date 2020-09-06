@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/arch/AVR/timer_counter_0.h
+ * @file
  * @brief Interface for Timer/Counter 0 of the ATMega328p.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

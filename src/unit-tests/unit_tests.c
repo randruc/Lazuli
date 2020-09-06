@@ -4,7 +4,7 @@
  */
 
 /**
- * @file kern/unit-tests/unit_tests.c
+ * @file
  * @brief Lazuli kernel unit tests.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

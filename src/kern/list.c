@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/list.c
+ * @file
  * @brief Linked lists implementation.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

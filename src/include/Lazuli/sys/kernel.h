@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/kernel.h
+ * @file
  * @brief Kernel symbols definition.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

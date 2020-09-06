@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/modules/spinlock/spinlock.c
+ * @file
  * @brief Spinlocks implementation
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

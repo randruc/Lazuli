@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/libc-headers/stdio.h
+ * @file
  * @brief stdio standard header file.
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

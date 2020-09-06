@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/sys/arch/AVR/usart.h
+ * @file
  * @brief USART API for the ATmega328P.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

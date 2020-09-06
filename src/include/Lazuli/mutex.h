@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/mutex.h
+ * @file
  * @brief Mutexes interface.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

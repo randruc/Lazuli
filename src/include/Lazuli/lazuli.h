@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/lazuli.h
+ * @file
  * @brief The public API of the Lazuli kernel.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

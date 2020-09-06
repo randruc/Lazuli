@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/list.h
+ * @file
  * @brief Doubly linked lists interface.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/include/Lazuli/common.h
+ * @file
  * @brief Basic type definitions and useful macros.
  * @copyright 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
