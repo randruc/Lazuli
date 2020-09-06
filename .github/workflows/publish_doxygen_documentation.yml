@@ -41,15 +41,13 @@ jobs:
 
       - name: Get rid of doxygen output
         run: rm -rf doxygen_output
-        
+
       - name: Setup Git configuration
         run: git config user.name "GitHub Actions" && git config user.email "<>"
 
       - name: Git add
         run: git add --all
 
-      - name: Git commit
-        run: git commit -m "Publish new version of Doxygen API documentation on HEAD."
-
-      - name: Git push
-        run: git push origin gh-pages
+      - name: Git commit and push
+        # We first check if files really changed
+        run: git diff-index --quiet HEAD || { git commit -m "Publish new version of Doxygen API documentation on HEAD."; && git push origin gh-pages; }
