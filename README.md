@@ -4,10 +4,10 @@ This file is part of Lazuli.
 Copyright (c) 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 --->
 
-![Lazuli CI Build](https://github.com/randruc/Lazuli/workflows/Lazuli%20CI%20Build/badge.svg)
-
-
 # Lazuli
+
+![Lazuli CI Build](https://github.com/randruc/Lazuli/workflows/Lazuli%20CI%20Build/badge.svg)
+![Publish doxygen documentation](https://github.com/randruc/Lazuli/workflows/Publish%20doxygen%20documentation/badge.svg)
 
 
 ## What is Lazuli ?
