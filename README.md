@@ -65,13 +65,16 @@ The Lazuli project has very specific goals that make it unique. These are:
 
 ## Documentation
 
-The documentation for the project can be found in the [doc/](doc/) directory.
+The documentation for the project can be read at
+https://lazuli.readthedocs.io/en/latest/
 
-API documentation can be read at https://randruc.github.io/Lazuli/doxygen/latest/
+The API documentation can be read at
+https://randruc.github.io/Lazuli/doxygen/latest/
 
 Two different tools are used to document the project:
-* `sphinx` to generate user documentation from files written in reStructuredText.
-* `doxygen` to generate API documentation from code comments.
+* `sphinx` to generate user documentation from files written in
+  reStructuredText. The sources are in the [doc/](doc/) directory.
+* `doxygen` to generate API documentation from C code comments.
 
 
 ## Examples
