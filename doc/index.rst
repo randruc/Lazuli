@@ -10,6 +10,8 @@ Welcome to Lazuli's documentation!
 
 You are reading the documentation of the Lazuli project.
 
+The project is hosted at `<https://github.com/randruc/Lazuli>`_
+
 This documentation is divided in two parts: **User** and **Kernel**.
 
 The **User** documentation is intended for end users, who wish to develop
