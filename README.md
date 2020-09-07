@@ -7,8 +7,8 @@ Copyright (c) 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 # Lazuli
 
 ![Lazuli CI Build](https://github.com/randruc/Lazuli/workflows/Lazuli%20CI%20Build/badge.svg)
-![Publish doxygen documentation](https://github.com/randruc/Lazuli/workflows/Publish%20doxygen%20documentation/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/lazuli/badge/?version=latest)](https://lazuli.readthedocs.io/en/latest/?badge=latest)
+![Publish doxygen documentation](https://github.com/randruc/Lazuli/workflows/Publish%20doxygen%20documentation/badge.svg)
 
 
 ## What is Lazuli ?
