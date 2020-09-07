@@ -10,7 +10,9 @@
  * This is the Lazuli kernel API and user API documentation. @n
  * @n
  * These pages only document the APIs. For more general documentation about
- * the project and use cases please refer to the corresponding documentation.
+ * the project and use cases please refer to the corresponding documentation. @n
+ *
+ * The project is hosted at https://github.com/randruc/Lazuli @n
  *
  *
  * @section user_api_subsection User API

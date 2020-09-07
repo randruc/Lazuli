@@ -36,3 +36,6 @@ of Lazuli.
    developing_your_project
    kernel/kernel_documentation
    glossary
+
+If you wish to read the API documentation, please browse to
+`<https://randruc.github.io/Lazuli/doxygen/latest/>`_

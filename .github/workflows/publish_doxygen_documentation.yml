@@ -34,10 +34,10 @@ jobs:
         run: git fetch && git checkout gh-pages
 
       - name: Prepare the directory
-        run: rm -rf doxygen/head && mkdir -p doxygen/head
+        run: rm -rf doxygen/latest && mkdir -p doxygen/latest
 
       - name: Copy Doxygen artifacts
-        run: cp -r doxygen_output/html/* doxygen/head/
+        run: cp -r doxygen_output/html/* doxygen/latest/
 
       - name: Get rid of doxygen output
         run: rm -rf doxygen_output

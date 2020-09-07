@@ -84,6 +84,9 @@ Doxygen
 The other kind of documentation comes from code comments with Doxygen commands.
 The official website of Doxygen is `<https://www.doxygen.nl>`_
 
+The API documentation for the project is hosted at
+`<https://randruc.github.io/Lazuli/doxygen/latest/>`_
+
 Code comments
 ^^^^^^^^^^^^^
 

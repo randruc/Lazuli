@@ -62,19 +62,21 @@ The Lazuli project has very specific goals that make it unique. These are:
   code or behavior, this is considered as a bug.
 
 
-## Examples
-
-Example programs that use the Lazuli RTOS can be found in the directory
-[example-programs/](example-programs/).
-
-
 ## Documentation
 
 The documentation for the project can be found in the [doc/](doc/) directory.
 
+API documentation can be read at https://randruc.github.io/Lazuli/doxygen/latest/
+
 Two different tools are used to document the project:
 * `sphinx` to generate user documentation from files written in reStructuredText.
-* `doxygen` to generate API documentation from code comments..
+* `doxygen` to generate API documentation from code comments.
+
+
+## Examples
+
+Example programs that use the Lazuli RTOS can be found in the directory
+[example-programs/](example-programs/).
 
 
 ## Prerequisites
