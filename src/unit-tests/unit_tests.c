@@ -1405,105 +1405,165 @@ UNIT_TEST(ConvertU16ToDecimal_11)
 
 UNIT_TEST(Printf_1)
 {
-  int total = printf("2019:%u\r\n", 2019);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("2019:%u\r\n", 2019);
 
   ASSERT(11 == total);
 }
 
 UNIT_TEST(Printf_2)
 {
-  int total = printf("-1205:%d\r\n", -1205);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("-1205:%d\r\n", -1205);
 
   ASSERT(13 == total);
 }
 
 UNIT_TEST(Printf_3)
 {
-  int total = printf("0:%d\r\n", 0);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("0:%d\r\n", 0);
 
   ASSERT(5 == total);
 }
 
 UNIT_TEST(Printf_4)
 {
-  int total = printf("1:%d\r\n", 1);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("1:%d\r\n", 1);
 
   ASSERT(5 == total);
 }
 
 UNIT_TEST(Printf_5)
 {
-  int total = printf("65535:%u\r\n", 65535u);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("65535:%u\r\n", 65535u);
 
   ASSERT(13 == total);
 }
 
 UNIT_TEST(Printf_6)
 {
-  int total = printf("-1:%d\r\n", -1);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("-1:%d\r\n", -1);
 
   ASSERT(7 == total);
 }
 
 UNIT_TEST(Printf_7)
 {
-  int total = printf("48620:%u\r\n", 48620u);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("48620:%u\r\n", 48620u);
 
   ASSERT(13 == total);
 }
 
 UNIT_TEST(Printf_8)
 {
-  int total = printf("0000048620:%010u\r\n", 48620u);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("0000048620:%010u\r\n", 48620u);
 
   ASSERT(23 == total);
 }
 
 UNIT_TEST(Printf_9)
 {
-  int total = printf("25631:%01u\r\n", 25631u);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("25631:%01u\r\n", 25631u);
 
   ASSERT(13 == total);
 }
 
 UNIT_TEST(Printf_10)
 {
-  int total = printf("228:%03u\r\n", 228u);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("228:%03u\r\n", 228u);
 
   ASSERT(9 == total);
 }
 
 UNIT_TEST(Printf_11)
 {
-  int total = printf("-1715:%03d\r\n", -1715);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("-1715:%03d\r\n", -1715);
 
   ASSERT(13 == total);
 }
 
 UNIT_TEST(Printf_12)
 {
-  int total = printf("-004:%04d\r\n", -4);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("-004:%04d\r\n", -4);
 
   ASSERT(11 == total);
 }
 
 UNIT_TEST(Printf_13)
 {
-  int total = printf("-563:%02d\r\n", -563);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("-563:%02d\r\n", -563);
 
   ASSERT(11 == total);
 }
 
 UNIT_TEST(Printf_14)
 {
-  int total = printf("00001963:%08d\r\n", 1963);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("00001963:%08d\r\n", 1963);
 
   ASSERT(19 == total);
 }
 
 UNIT_TEST(Printf_15)
 {
-  int total = printf("065535:%06u\r\n", 65535u);
+  int total;
+
+  Usart_PrintRawString("C:");
+
+  total = printf("065535:%06u\r\n", 65535u);
 
   ASSERT(15 == total);
 }
@@ -1583,7 +1643,6 @@ static void
 Assert(const bool cond, const uint16_t line)
 {
   if (!cond) {
-    Usart_PrintRawString("KO: ");
     Usart_HexaPrint_u16(line);
     Usart_NewLine();
   }
@@ -1631,7 +1690,7 @@ main(void)
   EnableSerialTransmission();
 
   Usart_NewLine();
-  Usart_PutChar('-');
+  Usart_PrintRawString("--BEGIN tests:0123456789!");
   Usart_NewLine();
 
   for (i = 0; i < ELEMENTS_COUNT(tests); ++i) {

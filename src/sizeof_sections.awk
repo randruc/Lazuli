@@ -19,7 +19,7 @@ $1 ~ /^\.noinit$/ { noinit_size = $2; }
 END {
     total_rom_size = text_size + progmem_size + data_size + rodata_size;
     total_ram_size = data_size + rodata_size + bss_size + noinit_size;
-    
+
     printf("%-10s %8d\n", ".text:", text_size);
     printf("%-10s %8d\n", ".progmem:", progmem_size);
     printf("%-10s %8d\n", ".data:", data_size);

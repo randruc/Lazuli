@@ -29,7 +29,7 @@ _EXTERN_C_DECL_BEGIN
  *
  * # Field width
  *
- * A decimal digit string can be used to specify a minimum fild width.
+ * A decimal digit string can be used to specify a minimum field width.
  *
  * # Conversion specifiers
  *

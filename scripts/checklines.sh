@@ -16,6 +16,7 @@ failed=0
 tmp=$(mktemp)
 grep -nrH \
      '.\{81\}'\
+     --include=*.awk \
      --include=*.c \
      --include=*.dox \
      --include=*.h \
@@ -38,6 +39,7 @@ fi
 tmp=$(mktemp)
 grep -nrHP \
      "\t" \
+     --include=*.awk \
      --include=*.c \
      --include=*.cmake \
      --include=*.dox \
@@ -62,6 +64,7 @@ fi
 tmp=$(mktemp)
 grep -nrH \
      "\([[:space:]]\)$" \
+     --include=*.awk \
      --include=*.c \
      --include=*.cmake \
      --include=*.dox \

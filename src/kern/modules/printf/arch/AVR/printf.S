@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/modules/printf/arch/AVR/printf.S
+ * @file
  * @brief AVR routines of conversions from binary integer to ASCII decimal.
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
@@ -12,13 +12,13 @@
  * ASCII decimal in AVR ASM.
  */
 
-    /*
-     * For more information on how it's done:
-     * https://youtu.be/v3-a-zqKfgA
-     * http://nparker.llx.com/a2/mult.html
-     *
-     * TODO: This code can be adapted to implement integer division, if needed.
-     */
+/*
+ * For more information on how it's done:
+ * https://youtu.be/v3-a-zqKfgA
+ * http://nparker.llx.com/a2/mult.html
+ *
+ * TODO: This code can be adapted to implement integer division, if needed.
+ */
     ;; Input:
     ;;   r24, r25: input value
     ;;   r22, r23: pointer to the buffer
