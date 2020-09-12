@@ -31,7 +31,7 @@
 # TODO: Output an error if a pattern is not recognized.
 #
 
-# Print a summary of the unit test suite.
+# Print a summary of the unit tests execution.
 function PrintSummary() {
     if (0 == failures) {
         print "Unit test suite is OK.";

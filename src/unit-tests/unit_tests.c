@@ -1568,77 +1568,6 @@ UNIT_TEST(Printf_15)
   ASSERT(15 == total);
 }
 
-/**
- * Array of function pointers referencing all unit tests to execute.
- */
-PROGMEM static void (* const tests[])(void) = {
-  GlobalEnableDisableInterrupts,
-  GlobalEnableDisableInterruptsWithStatus_1,
-  GlobalEnableDisableInterruptsWithStatus_2,
-  ReverseBytesOfFunctionPointer_1,
-  ReverseBytesOfFunctionPointer_2,
-  ReverseBytesOfFunctionPointer_3,
-  LoadU8FromProgmem_1,
-  LoadU8FromProgmem_2,
-  LoadPointerFromProgmem_1,
-  LoadPointerFromProgmem_2,
-  LoadFunctionPointerFromProgmem_1,
-  LoadFunctionPointerFromProgmem_2,
-  LoadU16FromProgmem_1,
-  LoadU16FromProgmem_2,
-  LoadFromProgmem_1,
-  LoadFromProgmem_2,
-  List_Append_1,
-  List_ForEach_1,
-  List_ForEach_2,
-  List_RemovableForEach_1,
-  List_RemovableForEach_2,
-  List_RemovableForEach_3,
-  List_RemovableForEach_4,
-  List_RemovableForEach_5,
-  List_RemovableForEach_6,
-  List_RemovableForEach_7,
-  List_RemovableForEach_8,
-  List_RemovableForEach_9,
-  List_RemovableForEach_10,
-  List_Prepend_1,
-  List_AppendList_1,
-  List_AppendList_2,
-  List_AppendList_3,
-  List_AppendList_4,
-  Variadic_Function_1,
-  Variadic_Function_2,
-  Variadic_Function_3,
-  Variadic_Function_4,
-  Variadic_Function_Passtrough_5,
-  ConvertU16ToDecimal_1,
-  ConvertU16ToDecimal_2,
-  ConvertU16ToDecimal_3,
-  ConvertU16ToDecimal_4,
-  ConvertU16ToDecimal_5,
-  ConvertU16ToDecimal_6,
-  ConvertU16ToDecimal_7,
-  ConvertU16ToDecimal_8,
-  ConvertU16ToDecimal_9,
-  ConvertU16ToDecimal_10,
-  ConvertU16ToDecimal_11,
-  Printf_1,
-  Printf_2,
-  Printf_3,
-  Printf_4,
-  Printf_5,
-  Printf_6,
-  Printf_7,
-  Printf_8,
-  Printf_9,
-  Printf_10,
-  Printf_11,
-  Printf_12,
-  Printf_13,
-  Printf_14,
-  Printf_15
-};
-
 static void
 Assert(const bool cond, const uint16_t line)
 {
@@ -1681,22 +1610,91 @@ EnableSerialTransmission(void) {
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
+/**
+ * Execute all unit tests.
+ */
+static void
+ExecuteTests(void)
+{
+  /* We test functionnalities related to printf() first */
+  Variadic_Function_1();
+  Variadic_Function_2();
+  Variadic_Function_3();
+  Variadic_Function_4();
+  Variadic_Function_Passtrough_5();
+  ConvertU16ToDecimal_1();
+  ConvertU16ToDecimal_2();
+  ConvertU16ToDecimal_3();
+  ConvertU16ToDecimal_4();
+  ConvertU16ToDecimal_5();
+  ConvertU16ToDecimal_6();
+  ConvertU16ToDecimal_7();
+  ConvertU16ToDecimal_8();
+  ConvertU16ToDecimal_9();
+  ConvertU16ToDecimal_10();
+  ConvertU16ToDecimal_11();
+  Printf_1();
+  Printf_2();
+  Printf_3();
+  Printf_4();
+  Printf_5();
+  Printf_6();
+  Printf_7();
+  Printf_8();
+  Printf_9();
+  Printf_10();
+  Printf_11();
+  Printf_12();
+  Printf_13();
+  Printf_14();
+  Printf_15();
+  
+  GlobalEnableDisableInterrupts();
+  GlobalEnableDisableInterruptsWithStatus_1();
+  GlobalEnableDisableInterruptsWithStatus_2();
+  ReverseBytesOfFunctionPointer_1();
+  ReverseBytesOfFunctionPointer_2();
+  ReverseBytesOfFunctionPointer_3();
+  LoadU8FromProgmem_1();
+  LoadU8FromProgmem_2();
+  LoadPointerFromProgmem_1();
+  LoadPointerFromProgmem_2();
+  LoadFunctionPointerFromProgmem_1();
+  LoadFunctionPointerFromProgmem_2();
+  LoadU16FromProgmem_1();
+  LoadU16FromProgmem_2();
+  LoadFromProgmem_1();
+  LoadFromProgmem_2();
+  List_Append_1();
+  List_ForEach_1();
+  List_ForEach_2();
+  List_RemovableForEach_1();
+  List_RemovableForEach_2();
+  List_RemovableForEach_3();
+  List_RemovableForEach_4();
+  List_RemovableForEach_5();
+  List_RemovableForEach_6();
+  List_RemovableForEach_7();
+  List_RemovableForEach_8();
+  List_RemovableForEach_9();
+  List_RemovableForEach_10();
+  List_Prepend_1();
+  List_AppendList_1();
+  List_AppendList_2();
+  List_AppendList_3();
+  List_AppendList_4();
+}
+
 int
 main(void)
 {
-  size_t i;
-  void (*test)(void);
-
   EnableSerialTransmission();
 
   Usart_NewLine();
   Usart_PrintRawString("--BEGIN tests:0123456789!");
   Usart_NewLine();
 
-  for (i = 0; i < ELEMENTS_COUNT(tests); ++i) {
-    test = Arch_LoadFunctionPointerFromProgmem(&tests[i]);
-    test();
-  }
+  ExecuteTests();
 
   Usart_PutChar('.');
   Usart_NewLine();
