@@ -28,6 +28,16 @@ STATIC_ASSERT(2 == sizeof(unsigned int),
               Sizeof_unsigned_int_not_supported_for_printf);
 /** @endcond */
 
+/**
+ * Convert a base 16 unit value to its hexadecimal digit representation.
+ * The value must be <= 15.
+ *
+ * @param i The value to convert.
+ * @param isUpper A boolean value indicating if the conversion must be done in
+ *        uppercase.
+ *
+ * @return The hexadecimal character representing the value.
+ */
 static char
 GetHexDigit(const uint8_t i, const bool isUpper)
 {
@@ -44,6 +54,20 @@ GetHexDigit(const uint8_t i, const bool isUpper)
   return 'a' + i - 10;
 }
 
+/**
+ * Convert an unsigned 16-bit integer to its ASCII hexadecimal representation.
+ * @warning The conversion is put in the buffer @p buffer **in reverse order**
+ * and **without a final NUL character**. The caller of this function then has
+ * to use the return value in order to use the characters in the buffer in the
+ * right order.
+ *
+ * @param value The 16-bit input value to convert.
+ * @param buffer A valid pointer to an allocated string of minimum size 4 bytes.
+ * @param isUpper A boolean value indicating if the conversion must be done in
+ *                uppercase.
+ *
+ * @return The number of characters actually written to the buffer.
+ */
 static uint8_t
 ConvertU16ToHexadecimal(uint16_t value, char * const buffer, const bool isUpper)
 {

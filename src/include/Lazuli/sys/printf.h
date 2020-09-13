@@ -29,10 +29,10 @@ _EXTERN_C_DECL_BEGIN
  *
  * This function will always succeed.
  *
- * @param i The 16 bits input value to convert.
+ * @param i The 16-bit input value to convert.
  * @param buffer A valid pointer to an allocated string of minimum size 5 bytes.
  *
- * @return The number of bytes actually written to the buffer.
+ * @return The number of characters actually written to the buffer.
  */
 uint8_t
 Printf_ConvertU16ToDecimal(uint16_t i, char buffer[]);
