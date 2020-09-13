@@ -28,9 +28,44 @@ STATIC_ASSERT(2 == sizeof(unsigned int),
               Sizeof_unsigned_int_not_supported_for_printf);
 /** @endcond */
 
+static char
+GetHexDigit(const uint8_t i, const bool isUpper)
+{
+  /* We assume that i <= 15 */
+
+  if (i <= 9) {
+    return '0' + i;
+  }
+
+  if (isUpper) {
+    return 'A' + i - 10;
+  }
+
+  return 'a' + i - 10;
+}
+
+static uint8_t
+ConvertU16ToHexadecimal(uint16_t value, char * const buffer, const bool isUpper)
+{
+  uint8_t i;
+  const uint8_t numberOfNibbles = sizeof(value) * 2;
+
+  /* WARNING! This works only with little endian */
+  for (i = 0; i < numberOfNibbles; ++i) {
+    buffer[i] = GetHexDigit(value & 0x0f, isUpper);
+    value >>= 4;
+
+    if (0 == value) {
+      break;
+    }
+  }
+
+  return i + 1;
+}
+
 /*
  * Warning! The stack usage of this function is important! Reduce the stack
- * to its strict minimum.
+ * usage to its strict minimum.
  */
 int
 printf(const char *format, ...)
@@ -49,17 +84,43 @@ printf(const char *format, ...)
     if ('%' == *c) {
       bool padWithZeros = false;
       bool firstDigitPassed = false;
+      bool isNegative = false;
       uint8_t padLength = 0;
+      uint8_t size;
+      char buffer[5];
 
       for (++c; '\0' != *c; ++c) {
-        if ('d' == *c || 'i' == *c || 'u' == *c) {
+        /*
+         * First, we parse formatting characters.
+         * After a formatting character, we must continue to parse in the
+         * current loop.
+         */
+
+        /* This test MUST be performed before the next one */
+        if ('0' == *c && !firstDigitPassed) {
+          padWithZeros = true;
+          firstDigitPassed = true;
+
+          continue;
+        } else if (*c >= '0' && *c <= '9') {
+          padLength = padLength * 10 + *c - '0';
+          firstDigitPassed = true;
+
+          continue;
+        } else if ('%' == *c) { /*
+                                 * Then we parse "terminating characters".
+                                 * After a terminating character, we must exit
+                                 * the current loop.
+                                 */
+
+          ++total;
+          Usart_PutChar('%');
+
+          break;
+        } else if ('d' == *c || 'i' == *c || 'u' == *c) {
           unsigned int absolute;
-          bool isNegative;
-          char buffer[5];
-          uint8_t size;
 
           if ('u' == *c) {
-            isNegative = false;
             absolute = va_arg(args, unsigned int);
           } else {
             const int value = va_arg(args, int);
@@ -82,45 +143,45 @@ printf(const char *format, ...)
              * sizeof(unsigned int) in the STATIC_ASSERT.
              */
           }
-
-          total += size;
-
-          if (padWithZeros && padLength > size) {
-            padLength -= size;
-
-            if (isNegative && padLength > 0) {
-              --padLength;
-            }
-
-            total += padLength;
-
-            while (padLength-- > 0) {
-              Usart_PutChar('0');
-            }
-          }
-
-          while (size-- > 0) {
-            Usart_PutChar(buffer[size]);
-          }
-
-          break;
-        } else if ('0' == *c && !firstDigitPassed) {
-          /* This test MUST be performed before the next one */
-          padWithZeros = true;
-          firstDigitPassed = true;
-        } else if (*c >= '0' && *c <= '9') {
-          padLength = padLength * 10 + *c - '0';
-          firstDigitPassed = true;
-        } else if ('%' == *c) {
-          ++total;
-          Usart_PutChar('%');
-
-          break;
+        } else if ('x' == *c || 'X' == *c) {
+          size = ConvertU16ToHexadecimal(va_arg(args, unsigned int),
+                                         buffer,
+                                         'X' == *c);
         } else {
           /*
-           * TODO: Error
+           * We encountered an unknown character.
+           * TODO: Error.
            */
+
+          break;
         }
+
+        /*
+         * If we are here, it means we have a buffer filled with a conversion.
+         * We then must print this buffer with the appropriate options.
+         */
+
+        total += size;
+
+        if (padWithZeros && padLength > size) {
+          padLength -= size;
+
+          if (isNegative && padLength > 0) {
+            --padLength;
+          }
+
+          total += padLength;
+
+          while (padLength-- > 0) {
+            Usart_PutChar('0');
+          }
+        }
+
+        while (size-- > 0) {
+          Usart_PutChar(buffer[size]);
+        }
+
+        break;
       }
     } else {
       ++total;

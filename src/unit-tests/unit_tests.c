@@ -1568,6 +1568,201 @@ UNIT_TEST(Printf_15)
   ASSERT(15 == total);
 }
 
+UNIT_TEST(Printf_16)
+{
+  int total;
+
+  Usart_PrintRawString("C:0:");
+
+  total = printf("%x", 0);
+
+  Usart_NewLine();
+
+  ASSERT(1 == total);
+}
+
+UNIT_TEST(Printf_17)
+{
+  int total;
+
+  Usart_PrintRawString("C:ff:");
+
+  total = printf("%x", 255);
+
+  Usart_NewLine();
+
+  ASSERT(2 == total);
+}
+
+UNIT_TEST(Printf_18)
+{
+  int total;
+
+  Usart_PrintRawString("C:FF:");
+
+  total = printf("%X", 255);
+
+  Usart_NewLine();
+
+  ASSERT(2 == total);
+}
+
+UNIT_TEST(Printf_19)
+{
+  int total;
+
+  Usart_PrintRawString("C:FA02:");
+
+  total = printf("%X", 0xfa02u);
+
+  Usart_NewLine();
+
+  ASSERT(4 == total);
+}
+
+UNIT_TEST(Printf_20)
+{
+  int total;
+
+  Usart_PrintRawString("C:abcd:");
+
+  total = printf("%x", 0xabcdu);
+
+  Usart_NewLine();
+
+  ASSERT(4 == total);
+}
+
+UNIT_TEST(Printf_21)
+{
+  int total;
+
+  Usart_PrintRawString("C:ffff:");
+
+  total = printf("%x", 0xffffu);
+
+  Usart_NewLine();
+
+  ASSERT(4 == total);
+}
+
+UNIT_TEST(Printf_22)
+{
+  int total;
+
+  Usart_PrintRawString("C:FFFF:");
+
+  total = printf("%X", 0xffffu);
+
+  Usart_NewLine();
+
+  ASSERT(4 == total);
+}
+
+UNIT_TEST(Printf_23)
+{
+  int total;
+
+  Usart_PrintRawString("C:FE2534:");
+
+  total = printf("%X%d", 0xfe25, 34);
+
+  Usart_NewLine();
+
+  ASSERT(6 == total);
+}
+
+UNIT_TEST(Printf_24)
+{
+  int total;
+
+  Usart_PrintRawString("C:00c:");
+
+  total = printf("%03x", 0xc);
+
+  Usart_NewLine();
+
+  ASSERT(3 == total);
+}
+
+UNIT_TEST(Printf_25)
+{
+  int total;
+
+  Usart_PrintRawString("C:000fe:");
+
+  total = printf("%05x", 0xfe);
+
+  Usart_NewLine();
+
+  ASSERT(5 == total);
+}
+
+UNIT_TEST(Printf_26)
+{
+  int total;
+
+  Usart_PrintRawString("C:DE:");
+
+  total = printf("%01X", 0xde);
+
+  Usart_NewLine();
+
+  ASSERT(2 == total);
+}
+
+UNIT_TEST(Printf_27)
+{
+  int total;
+
+  Usart_PrintRawString("C:deadbeef:");
+
+  total = printf("%02x%04x", 0xdead, 0xbeef);
+
+  Usart_NewLine();
+
+  ASSERT(8 == total);
+}
+
+UNIT_TEST(Printf_28)
+{
+  int total;
+
+  Usart_PrintRawString("C:The 1st of march.:");
+
+  total = printf("The %xst of march.", 1);
+
+  Usart_NewLine();
+
+  ASSERT(17 == total);
+}
+
+UNIT_TEST(Printf_29)
+{
+  int total;
+
+  Usart_PrintRawString("C:The 1st of march.:");
+
+  total = printf("The %Xst of march.", 1);
+
+  Usart_NewLine();
+
+  ASSERT(17 == total);
+}
+
+UNIT_TEST(Printf_30)
+{
+  int total;
+
+  Usart_PrintRawString("C:The 1st of march.:");
+
+  total = printf("The %dst of march.", 1);
+
+  Usart_NewLine();
+
+  ASSERT(17 == total);
+}
+
 static void
 Assert(const bool cond, const uint16_t line)
 {
@@ -1648,7 +1843,22 @@ ExecuteTests(void)
   Printf_13();
   Printf_14();
   Printf_15();
-  
+  Printf_16();
+  Printf_17();
+  Printf_18();
+  Printf_19();
+  Printf_20();
+  Printf_21();
+  Printf_22();
+  Printf_23();
+  Printf_24();
+  Printf_25();
+  Printf_26();
+  Printf_27();
+  Printf_28();
+  Printf_29();
+  Printf_30();
+
   GlobalEnableDisableInterrupts();
   GlobalEnableDisableInterruptsWithStatus_1();
   GlobalEnableDisableInterruptsWithStatus_2();

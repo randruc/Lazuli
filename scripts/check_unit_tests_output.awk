@@ -59,6 +59,8 @@ BEGIN {
     RS = "\r\n";
     failures = 0;
 
+    print "Reading test output..."
+
     # Now we test if the first line of output matches the expected sequence,
     # ignoring first blank lines if any.
 
