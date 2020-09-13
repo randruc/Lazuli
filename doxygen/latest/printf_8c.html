@@ -83,6 +83,12 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a0de6b8dd198d297868f28f9c8a3f67fd"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a0de6b8dd198d297868f28f9c8a3f67fd">GetHexDigit</a> (const <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> i, const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a> isUpper)</td></tr>
+<tr class="memdesc:a0de6b8dd198d297868f28f9c8a3f67fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a base 16 unit value to its hexadecimal digit representation.  <a href="#a0de6b8dd198d297868f28f9c8a3f67fd">More...</a><br /></td></tr>
+<tr class="separator:a0de6b8dd198d297868f28f9c8a3f67fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0366410ea68ca302804af845e54ae29d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a0366410ea68ca302804af845e54ae29d">ConvertU16ToHexadecimal</a> (<a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a> value, char *const buffer, const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a> isUpper)</td></tr>
+<tr class="memdesc:a0366410ea68ca302804af845e54ae29d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an unsigned 16-bit integer to its ASCII hexadecimal representation.  <a href="#a0366410ea68ca302804af845e54ae29d">More...</a><br /></td></tr>
+<tr class="separator:a0366410ea68ca302804af845e54ae29d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98631211a4a8aee62f572375d5b637be"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a98631211a4a8aee62f572375d5b637be">printf</a> (const char *format,...)</td></tr>
 <tr class="memdesc:a98631211a4a8aee62f572375d5b637be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produce formatted output to the serial line.  <a href="#a98631211a4a8aee62f572375d5b637be">More...</a><br /></td></tr>
 <tr class="separator:a98631211a4a8aee62f572375d5b637be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -94,6 +100,111 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a0de6b8dd198d297868f28f9c8a3f67fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0de6b8dd198d297868f28f9c8a3f67fd">&#9670;&nbsp;</a></span>GetHexDigit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char GetHexDigit </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a>&#160;</td>
+          <td class="paramname"><em>isUpper</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert a base 16 unit value to its hexadecimal digit representation. </p>
+<p>The value must be &lt;= 15.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The value to convert. </td></tr>
+    <tr><td class="paramname">isUpper</td><td>A boolean value indicating if the conversion must be done in uppercase.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The hexadecimal character representing the value. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00042">42</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
+
+</div>
+</div>
+<a id="a0366410ea68ca302804af845e54ae29d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0366410ea68ca302804af845e54ae29d">&#9670;&nbsp;</a></span>ConvertU16ToHexadecimal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> ConvertU16ToHexadecimal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a>&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *const&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a>&#160;</td>
+          <td class="paramname"><em>isUpper</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert an unsigned 16-bit integer to its ASCII hexadecimal representation. </p>
+<dl class="section warning"><dt>Warning</dt><dd>The conversion is put in the buffer <code>buffer</code> <b>in reverse order</b> and <b>without a final NUL character</b>. The caller of this function then has to use the return value in order to use the characters in the buffer in the right order.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The 16-bit input value to convert. </td></tr>
+    <tr><td class="paramname">buffer</td><td>A valid pointer to an allocated string of minimum size 4 bytes. </td></tr>
+    <tr><td class="paramname">isUpper</td><td>A boolean value indicating if the conversion must be done in uppercase.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of characters actually written to the buffer. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00072">72</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
+
+</div>
+</div>
 <a id="a98631211a4a8aee62f572375d5b637be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a98631211a4a8aee62f572375d5b637be">&#9670;&nbsp;</a></span>printf()</h2>
 
@@ -125,7 +236,7 @@ Functions</h2></td></tr>
 <h1>Flag characters</h1>
 <p><b>0</b> The value should be zero-padded.</p>
 <h1>Field width</h1>
-<p>A decimal digit string can be used to specify a minimum fild width.</p>
+<p>A decimal digit string can be used to specify a minimum field width.</p>
 <h1>Conversion specifiers</h1>
 <p>The following conversion specifiers are currently allowed:</p>
 <p><b>d</b>, <b>i</b> The <em>int</em> argument is converted to decimal.</p>
@@ -141,7 +252,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters output to the serial line, or a negative value if an error occured.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The stack usage of this function is important. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00036">36</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00095">95</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
 
 </div>
 </div>

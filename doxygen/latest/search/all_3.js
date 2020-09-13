@@ -15,6 +15,7 @@ var searchData=
   ['config_2eh',['config.h',['../config_8h.html',1,'']]],
   ['config_5fstatic_5fanalysis_2eh',['config_static_analysis.h',['../config__static__analysis_8h.html',1,'']]],
   ['container_5fof',['CONTAINER_OF',['../common_8h.html#a786ce7bb49fdcc5a9df1343396317f34',1,'common.h']]],
+  ['convertu16tohexadecimal',['ConvertU16ToHexadecimal',['../printf_8c.html#a0366410ea68ca302804af845e54ae29d',1,'printf.c']]],
   ['cpu_5fsleep',['cpu_sleep',['../avr__arch_8h.html#a0756562c562df4adb431af181f867711',1,'avr_arch.h']]],
   ['currentserialspeed',['currentSerialSpeed',['../usart_8c.html#a342a3846b3c53952cb511350dcfd0870',1,'usart.c']]],
   ['currenttask',['currentTask',['../scheduler_8c.html#a3dc819c6ddcf989cf40bffb7ffbf2941',1,'scheduler.c']]],
