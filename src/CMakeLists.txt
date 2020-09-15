@@ -96,6 +96,7 @@ set(DECLARED_MODULES "")
 # Ordered by alphabetical order.
 # Remember to declare the corresponding option in config.h.in.
 add_subdirectory(kern/modules/clock_24)
+add_subdirectory(kern/modules/division)
 add_subdirectory(kern/modules/mutex)
 add_subdirectory(kern/modules/printf)
 add_subdirectory(kern/modules/serial)

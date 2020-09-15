@@ -22,6 +22,10 @@
 # * Any line starting with ``C:``, and in the form ``C:XXX:YYY``: Strings
 #   ``XXX`` and ``YYY`` will be compared. An error will be output if they are
 #   not equal.
+# * Any line starting with ``D:``, and in the form
+#   ``D:num=WWW den=XXX quot=YYY rem=ZZZ``: An integer division is performed
+#   with the numerator ``num`` over  the denominator ``den``, and the result is
+#   checked against the quotient ``quot`` and the remainder ``rem``.
 # * Any line that displays a hexadecimal number, starting with ``0x`` and with
 #   any number of digits: this indicates a test fail, and corresponds to the
 #   line of the test fail. An error will be output showing the line number in
@@ -83,14 +87,33 @@ BEGIN {
     print > "/dev/stderr";
 }
 
-# "C:": Compare two string, separated by ':'
+# "C:": Compare two string, separated by ':'.
 match($0, /^C:([^:]*):([^:]*)/, groups) > 0 && groups[1] != groups[2] {
     failures++;
 
     printf("(%3d) Test fail: string comparison: \"%s\"\n", NR, $0);
 }
 
-# Hexadecimal number, indicates an error line number
+# "D:": Perform a division.
+match($0, /^D:num=([0-9]+) den=([0-9]+) quot=([0-9]+) rem=([0-9]+)/, groups) {
+    numerator = groups[1] + 0;
+    denominator = groups[2] + 0;
+    quotient = groups[3] + 0;
+    remainder = groups[4] + 0;
+
+    if ((int(numerator / denominator) != quotient) ||
+        (int(numerator % denominator) != remainder)) {
+        failures++;
+
+        printf("(%3d) Test fail: division: num=%d den=%d quot=%d rem=%d\n",
+               numerator,
+               denominator,
+               quotient,
+               remainder);
+    }
+}
+
+# Hexadecimal number, indicates an error line number.
 /^0x([0-9]|[a-f]|[A-F])*$/ {
     failures++;
 

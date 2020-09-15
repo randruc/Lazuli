@@ -1763,6 +1763,626 @@ UNIT_TEST(Printf_30)
   ASSERT(17 == total);
 }
 
+UNIT_TEST(Division_1)
+{
+  const unsigned int numerator = 15;
+  const unsigned int denominator = 1;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(15 == d.quotient);
+  ASSERT(0 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_2)
+{
+  const unsigned int numerator = 64683;
+  const unsigned int denominator = 173;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(373 == d.quotient);
+  ASSERT(154 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_3)
+{
+  const unsigned int numerator = 21447;
+  const unsigned int denominator = 325;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(65 == d.quotient);
+  ASSERT(322 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_4)
+{
+  const unsigned int numerator = 51809;
+  const unsigned int denominator = 484;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(107 == d.quotient);
+  ASSERT(21 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_5)
+{
+  const unsigned int numerator = 30545;
+  const unsigned int denominator = 453;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(67 == d.quotient);
+  ASSERT(194 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_6)
+{
+  const unsigned int numerator = 54521;
+  const unsigned int denominator = 462;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(118 == d.quotient);
+  ASSERT(5 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_7)
+{
+  const unsigned int numerator = 54955;
+  const unsigned int denominator = 261;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(210 == d.quotient);
+  ASSERT(145 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_8)
+{
+  const unsigned int numerator = 53284;
+  const unsigned int denominator = 525;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(101 == d.quotient);
+  ASSERT(259 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_9)
+{
+  const unsigned int numerator = 29840;
+  const unsigned int denominator = 205;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(145 == d.quotient);
+  ASSERT(115 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_10)
+{
+  const unsigned int numerator = 57526;
+  const unsigned int denominator = 448;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(128 == d.quotient);
+  ASSERT(182 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_11)
+{
+  const unsigned int numerator = 11047;
+  const unsigned int denominator = 582;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(18 == d.quotient);
+  ASSERT(571 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_12)
+{
+  const unsigned int numerator = 63677;
+  const unsigned int denominator = 165;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(385 == d.quotient);
+  ASSERT(152 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_13)
+{
+  const unsigned int numerator = 31447;
+  const unsigned int denominator = 180;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(174 == d.quotient);
+  ASSERT(127 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_14)
+{
+  const unsigned int numerator = 27978;
+  const unsigned int denominator = 153;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(182 == d.quotient);
+  ASSERT(132 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_15)
+{
+  const unsigned int numerator = 0;
+  const unsigned int denominator = 153;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(0 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_16)
+{
+  const unsigned int numerator = 65535;
+  const unsigned int denominator = 1;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(65535 == d.quotient);
+  ASSERT(0 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_17)
+{
+  const unsigned int numerator = 0;
+  const unsigned int denominator = 65535;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(0 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_18)
+{
+  const unsigned int numerator = 65535;
+  const unsigned int denominator = 65534;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(1 == d.quotient);
+  ASSERT(1 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_19)
+{
+  const unsigned int numerator = 65534;
+  const unsigned int denominator = 65535;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(65534 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_20)
+{
+  const unsigned int numerator = 183;
+  const unsigned int denominator = 41573;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(183 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_21)
+{
+  const unsigned int numerator = 147;
+  const unsigned int denominator = 40525;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(147 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_22)
+{
+  const unsigned int numerator = 209;
+  const unsigned int denominator = 55084;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(209 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_23)
+{
+  const unsigned int numerator = 245;
+  const unsigned int denominator = 23253;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(245 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_24)
+{
+  const unsigned int numerator = 221;
+  const unsigned int denominator = 7062;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(221 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_25)
+{
+  const unsigned int numerator = 55;
+  const unsigned int denominator = 58461;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(55 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_26)
+{
+  const unsigned int numerator = 184;
+  const unsigned int denominator = 34725;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(184 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_27)
+{
+  const unsigned int numerator = 140;
+  const unsigned int denominator = 670;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(140 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_28)
+{
+  const unsigned int numerator = 226;
+  const unsigned int denominator = 49648;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(226 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_29)
+{
+  const unsigned int numerator = 247;
+  const unsigned int denominator = 8382;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(247 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_30)
+{
+  /* WARNING! Special case of division by 0. */
+
+  const unsigned int numerator = 247;
+  const unsigned int denominator = 0;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(0 == d.remainder);
+}
+
+UNIT_TEST(Division_31)
+{
+  /* WARNING! Special case of division by 0. */
+
+  const unsigned int numerator = 0;
+  const unsigned int denominator = 0;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(0 == d.remainder);
+}
+
+UNIT_TEST(Division_32)
+{
+  const unsigned int numerator = 1;
+  const unsigned int denominator = 7000;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(1 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_33)
+{
+  const unsigned int numerator = 65535;
+  const unsigned int denominator = 65535;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(1 == d.quotient);
+  ASSERT(0 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_34)
+{
+  const unsigned int numerator = 2;
+  const unsigned int denominator = 2;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(1 == d.quotient);
+  ASSERT(0 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
+UNIT_TEST(Division_35)
+{
+  const unsigned int numerator = 0;
+  const unsigned int denominator = 65535;
+
+  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
+
+  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+         numerator,
+         denominator,
+         d.quotient,
+         d.remainder);
+
+  ASSERT(0 == d.quotient);
+  ASSERT(0 == d.remainder);
+  ASSERT(numerator == denominator * d.quotient + d.remainder);
+}
+
 static void
 Assert(const bool cond, const uint16_t line)
 {
@@ -1893,6 +2513,41 @@ ExecuteTests(void)
   List_AppendList_2();
   List_AppendList_3();
   List_AppendList_4();
+  Division_1();
+  Division_2();
+  Division_3();
+  Division_4();
+  Division_5();
+  Division_6();
+  Division_7();
+  Division_8();
+  Division_9();
+  Division_10();
+  Division_11();
+  Division_12();
+  Division_13();
+  Division_14();
+  Division_15();
+  Division_16();
+  Division_17();
+  Division_18();
+  Division_19();
+  Division_20();
+  Division_21();
+  Division_22();
+  Division_23();
+  Division_24();
+  Division_25();
+  Division_26();
+  Division_27();
+  Division_28();
+  Division_29();
+  Division_30();
+  Division_31();
+  Division_32();
+  Division_33();
+  Division_34();
+  Division_35();
 }
 
 int

@@ -257,6 +257,31 @@ Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration);
 void
 Arch_InitSerial(void);
 
+/**
+ * Represents the result of a uin16_t division.
+ */
+typedef struct {
+  uint16_t remainder; /**< The remainder of the division */
+  uint16_t quotient;  /**< The quotient of the division  */
+}U16DivisionResult;
+
+/**
+ * Perform the Euclidean division between two uint16_t operands.
+ *
+ * @param numerator The numerator of the division.
+ * @param denominator The denominator of the division.
+ *
+ * @return A U16DivisionResult by value. The strange function prototype is
+ *         inherited from libc's div().
+ *
+ * @warning As no hardware exception is provided on the AVR architecture. This
+ *          function is written to never fail, even if you perform a division by
+ *          zero. In that case the return value will be filled with zeros. So
+ *          check the denominator before calling this function.
+ */
+U16DivisionResult
+Arch_Divide_U16(uint16_t numerator, uint16_t denominator);
+
 /** @} */
 
 _EXTERN_C_DECL_END

@@ -266,6 +266,11 @@
 #cmakedefine01 LZ_CONFIG_MODULE_CLOCK_24_USED
 
 /**
+ * Use module "division": Integer division.
+ */
+#cmakedefine01 LZ_CONFIG_MODULE_DIVISION_USED
+
+/**
  * Use module "mutex": Mutexes implementation.
  */
 #cmakedefine01 LZ_CONFIG_MODULE_MUTEX_USED
