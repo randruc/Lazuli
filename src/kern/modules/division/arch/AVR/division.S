@@ -12,8 +12,8 @@
  * integers onthe AVR architecture.
  *
  * @warning On the AVR platform, no hardware exception mechanism is provided.
- *          Hence division bu zero will not cause an error! In that case, all
- *          the values returned will be zero.
+ *          Hence division by zero will not cause any error! In that case, the
+ *          returned struct will be filled with zeros.
  */
 
     ;; r24, r25 Numerator
