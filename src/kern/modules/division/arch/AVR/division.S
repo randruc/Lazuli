@@ -16,6 +16,12 @@
  *          returned struct will be filled with zeros.
  */
 
+/*
+ * For more information on how it's done:
+ * https://youtu.be/v3-a-zqKfgA
+ * http://nparker.llx.com/a2/mult.html
+ */
+
     ;; r24, r25 Numerator
     ;; r22, r23 Denominator
     .global Arch_Divide_U16

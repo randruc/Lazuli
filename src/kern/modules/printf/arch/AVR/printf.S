@@ -16,8 +16,6 @@
  * For more information on how it's done:
  * https://youtu.be/v3-a-zqKfgA
  * http://nparker.llx.com/a2/mult.html
- *
- * TODO: This code can be adapted to implement integer division, if needed.
  */
     ;; Input:
     ;;   r24, r25: input value
