@@ -9,7 +9,7 @@
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the implementation of unsigned division of 16-bit
- * integers onthe AVR architecture.
+ * integers on the AVR architecture.
  *
  * @warning On the AVR platform, no hardware exception mechanism is provided.
  *          Hence division by zero will not cause any error! In that case, the
