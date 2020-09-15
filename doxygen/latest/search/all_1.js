@@ -12,6 +12,7 @@ var searchData=
   ['arch_5fcpusleep',['Arch_CpuSleep',['../arch_8c.html#a5d2713b5d5572c9f4bb4a0dd0adf07fc',1,'Arch_CpuSleep(void):&#160;arch.c'],['../arch_8h.html#a5d2713b5d5572c9f4bb4a0dd0adf07fc',1,'Arch_CpuSleep(void):&#160;arch.c']]],
   ['arch_5fdisableinterrupts',['Arch_DisableInterrupts',['../arch_8h.html#a3ad12348930c2e857a3781f5730a6e9a',1,'arch.h']]],
   ['arch_5fdisableinterruptsgetstatus',['Arch_DisableInterruptsGetStatus',['../arch_8h.html#a9c931c536c1c8d6a5a629348a2651fb1',1,'arch.h']]],
+  ['arch_5fdivide_5fu16',['Arch_Divide_U16',['../arch_8h.html#a36c01c32eab238556fe4bc4f18ad0ef6',1,'arch.h']]],
   ['arch_5fenableinterrupts',['Arch_EnableInterrupts',['../arch_8h.html#ad42ef36245d5722b378226188bf009b4',1,'arch.h']]],
   ['arch_5fgetserialconfiguration',['Arch_GetSerialConfiguration',['../usart_8c.html#a8e1e9b1629850b3402108894318511fd',1,'Arch_GetSerialConfiguration(Lz_SerialConfiguration *const configuration):&#160;usart.c'],['../arch_8h.html#a8e1e9b1629850b3402108894318511fd',1,'Arch_GetSerialConfiguration(Lz_SerialConfiguration *const configuration):&#160;usart.c']]],
   ['arch_5finfiniteloop',['Arch_InfiniteLoop',['../arch_8h.html#a8bf5ad280bc5cda23715b3289167ce17',1,'arch.h']]],

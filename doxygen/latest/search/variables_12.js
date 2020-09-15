@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['u16value',['u16Value',['../unionIntegerBytes.html#aba1be7451c5e765fe16ca17f15d899f7',1,'IntegerBytes']]],
-  ['u32value',['u32Value',['../unionIntegerBytes.html#a93ab2fa14be2c4b6bfe547bced36c7a6',1,'IntegerBytes']]],
-  ['u8value',['u8Value',['../unionIntegerBytes.html#ab8fc86ae232d076e11c0edc90c4d32fb',1,'IntegerBytes']]],
-  ['ubrr0h',['ubrr0h',['../structUsart.html#add0c7c6c8898803e37b2880cdcb5ce4e',1,'Usart']]],
-  ['ubrr0l',['ubrr0l',['../structUsart.html#aaeb2000756573aa90b16dabc47627b76',1,'Usart']]],
-  ['ucsr0a',['ucsr0a',['../structUsart.html#a56be77d793d8b58029db52790777691e',1,'Usart']]],
-  ['ucsr0b',['ucsr0b',['../structUsart.html#a306a33029e46e2dcf1d1591406bd5b5e',1,'Usart']]],
-  ['ucsr0c',['ucsr0c',['../structUsart.html#a5173b684b78e017b59ca4770a02e8cef',1,'Usart']]],
-  ['udr0',['udr0',['../structUsart.html#acc2226d1fad039fedce2e7a67a9b544b',1,'Usart']]],
-  ['usart',['usart',['../usart_8c.html#a5f984df531e42a59a09a406c387d1060',1,'usart.c']]]
+  ['tasktoschedulermessage',['taskToSchedulerMessage',['../structTask.html#aad4952883ebbfadb4e8510a0d594acc6',1,'Task']]],
+  ['tasktoschedulermessageparameter',['taskToSchedulerMessageParameter',['../structTask.html#a24943fd6c99640055df1e3d14a9a15c2',1,'Task']]],
+  ['tccr0a',['tccr0a',['../structTimerCounter0.html#a88fbc48a17974036013d8f299ae692aa',1,'TimerCounter0']]],
+  ['tccr0b',['tccr0b',['../structTimerCounter0.html#a2a7393ec7057cd6699b4c7adc23af661',1,'TimerCounter0']]],
+  ['tcnt0',['tcnt0',['../structTimerCounter0.html#a275dafa1ff3d4c6e152dd94469115fa0',1,'TimerCounter0']]],
+  ['terminatedtasks',['terminatedTasks',['../scheduler_8c.html#a9f272f1d5431da6fe9e7e2fd64229602',1,'scheduler.c']]],
+  ['terminationcallback',['terminationCallback',['../structTaskContextLayout.html#a8288c90577c8c66b27b857c97abaa532',1,'TaskContextLayout']]],
+  ['timeuntilactivation',['timeUntilActivation',['../structTask.html#aeb8683c70a442251932e84bc0ae6c215',1,'Task']]],
+  ['timeuntilcompletion',['timeUntilCompletion',['../structTask.html#aea474a336a75462485217664936b6f72',1,'Task']]],
+  ['timeuntiltimerexpiration',['timeUntilTimerExpiration',['../structTask.html#a5dc5828d133d56a639a6208e568df215',1,'Task']]]
 ];

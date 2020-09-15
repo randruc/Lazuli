@@ -63,6 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -81,6 +82,12 @@ $(function() {
 </div>
 <p><a href="arch_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structU16DivisionResult.html">U16DivisionResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the result of a uin16_t division.  <a href="structU16DivisionResult.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ad031cb9c51a6e103419ac6b5ea83a084"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arch_8h.html#ad031cb9c51a6e103419ac6b5ea83a084">InterruptsStatus</a></td></tr>
@@ -167,6 +174,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arch
 <tr class="memitem:acec08cba59a39f260ac59c8ebb98cfee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arch_8h.html#acec08cba59a39f260ac59c8ebb98cfee">Arch_InitSerial</a> (void)</td></tr>
 <tr class="memdesc:acec08cba59a39f260ac59c8ebb98cfee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize serial line with default configuration at system startup.  <a href="#acec08cba59a39f260ac59c8ebb98cfee">More...</a><br /></td></tr>
 <tr class="separator:acec08cba59a39f260ac59c8ebb98cfee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36c01c32eab238556fe4bc4f18ad0ef6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structU16DivisionResult.html">U16DivisionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arch_8h.html#a36c01c32eab238556fe4bc4f18ad0ef6">Arch_Divide_U16</a> (<a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a> numerator, <a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a> denominator)</td></tr>
+<tr class="memdesc:a36c01c32eab238556fe4bc4f18ad0ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the Euclidean division between two uint16_t operands.  <a href="#a36c01c32eab238556fe4bc4f18ad0ef6">More...</a><br /></td></tr>
+<tr class="separator:a36c01c32eab238556fe4bc4f18ad0ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -575,6 +585,45 @@ Variables</h2></td></tr>
 <p>&lt; member: speed </p>
 
 <p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00583">583</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+
+</div>
+</div>
+<a id="a36c01c32eab238556fe4bc4f18ad0ef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c01c32eab238556fe4bc4f18ad0ef6">&#9670;&nbsp;</a></span>Arch_Divide_U16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structU16DivisionResult.html">U16DivisionResult</a> Arch_Divide_U16 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a>&#160;</td>
+          <td class="paramname"><em>numerator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a>&#160;</td>
+          <td class="paramname"><em>denominator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Perform the Euclidean division between two uint16_t operands. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">numerator</td><td>The numerator of the division. </td></tr>
+    <tr><td class="paramname">denominator</td><td>The denominator of the division.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structU16DivisionResult.html" title="Represents the result of a uin16_t division. ">U16DivisionResult</a> by value. The strange function prototype is inherited from libc's div().</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>As no hardware exception is provided on the AVR architecture. This function is written to never fail, even if you perform a division by zero. In that case the return value will be filled with zeros. So check the denominator before calling this function. </dd></dl>
 
 </div>
 </div>
