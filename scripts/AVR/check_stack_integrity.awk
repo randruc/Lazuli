@@ -55,7 +55,7 @@ BEGIN {
     inInclusions = 0;      # Flag if we are in the inclusions list section.
 
     exitCode = 0;          # Exit code of the script.
-    inRoutine = 0;         # Flag if we are currently reding a global routine.
+    inRoutine = 0;         # Flag if we are currently reading a global routine.
     stackIndex = 0;        # The current index of the current stack's routine.
                            # Points to the next free stack element.
 
@@ -100,10 +100,6 @@ inExclusions {
 inInclusions {
     inclusions[$0] = 1;
 }
-
-# inGlobals {
-#     globals[$0] = 1;
-# }
 
 inFileName {
     fileName = $0;
