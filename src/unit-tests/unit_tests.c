@@ -1403,6 +1403,19 @@ UNIT_TEST(ConvertU16ToDecimal_11)
   ASSERT('2' == buffer[3]);
 }
 
+UNIT_TEST(ConvertU16ToDecimal_12)
+{
+  const uint16_t i = 1091;
+  char buffer[5];
+  const uint8_t size = Printf_ConvertU16ToDecimal(i, buffer);
+
+  ASSERT(4 == size);
+  ASSERT('1' == buffer[0]);
+  ASSERT('9' == buffer[1]);
+  ASSERT('0' == buffer[2]);
+  ASSERT('1' == buffer[3]);
+}
+
 UNIT_TEST(Printf_1)
 {
   int total;
@@ -2448,6 +2461,7 @@ ExecuteTests(void)
   ConvertU16ToDecimal_9();
   ConvertU16ToDecimal_10();
   ConvertU16ToDecimal_11();
+  ConvertU16ToDecimal_12();
   Printf_1();
   Printf_2();
   Printf_3();

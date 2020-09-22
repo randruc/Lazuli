@@ -26,25 +26,19 @@
     ;;
     ;; Working registers:
     ;;   r28, r29: working area
-    ;;   r30, r31: buffer for trial substraction
     ;;   r26, r27 (X): copy of input pointer
-    ;;   r19: counter (sizeof uint16)
-    ;;   r22 (reuse): constant '0'
+    ;;   r22 (reuse): counter (sizeof uint16)
     ;;   r23 (reuse): counter of final size of buffer (return value)
     .global Printf_ConvertU16ToDecimal
 Printf_ConvertU16ToDecimal:
-    push r19
     push r26
     push r27
     push r28
     push r29
-    push r30
-    push r31
     movw r26, r22               ; Copy input pointer to register X
-    ldi r22, '0'                ; Reuse r22 to store the constant '0'
     clr r23                     ; Reuse r23 to initialize final size of buffer
 divide:
-    ldi r19, 16                 ; Initialize counter to sizeof(uint16)
+    ldi r22, 16                 ; Initialize counter to sizeof(uint16)
     clr r28                     ; Initialize working area to zero
     clr r29                     ; (cont.)
     clc
@@ -53,33 +47,28 @@ shift_loop:
     rol r25
     rol r28
     rol r29
-    movw r30, r28               ; Trial substraction:
-    sec                         ;     - First, force the carry flag
-    sbiw r30, 10                ;     - Then, perform the actual substraction
-    brcs ignore_result          ; Carry flag still set == Substraction failed
-    movw r28, r30               ; Copy result of the division to working area
-    dec r19                     ; If substraction succeed we need to push a 1
-    sec                         ; to the quotient. So we do it here to avoid
-    brne shift_loop             ; "dec r19" to mess everything.
+    cpi r28, 10                     ; We now check if we can substract 10 from
+    brlo subtraction_is_impossible  ; the working area.
+    sbiw r28, 10                ; If we are here, substraction is possible.
+    dec r22                     ; We need to push a 1 to the quotient:
+    sec                         ; we do it here (sec) to avoid "dec r22" to mess
+    brne shift_loop             ; everything.
     rjmp convert_to_ascii
-ignore_result:
-    dec r19
+subtraction_is_impossible:
+    dec r22
     clc
     brne shift_loop
 convert_to_ascii:
     rol r24
     rol r25
-    add r28, r22                ; r28 += '0' (Convert remainder to ASCII
+    subi r28, -'0'              ; r28 += '0' (Convert remainder to ASCII
     st X+, r28                  ; and store it in the buffer)
     inc r23                     ; Increment final size of buffer
     sbiw r24, 0                 ; r24 == 0 ?
     brne divide                 ; We do another division while quotient != 0
     mov r24, r23                ; Set the return value (final size of buffer)
-    pop r31
-    pop r30
     pop r29
     pop r28
     pop r27
     pop r26
-    pop r19
     ret

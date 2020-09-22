@@ -22,11 +22,15 @@
  * http://nparker.llx.com/a2/mult.html
  */
 
-    ;; r24, r25 Numerator
-    ;; r22, r23 Denominator
+    ;; r24, r25: Numerator
+    ;; r22, r23: Denominator
+    ;; Working registers
+    ;; r19: counter (sizeof uint16)
+    ;; r28, r29: working area
     .global Arch_Divide_U16
 Arch_Divide_U16:
     push r19
+    ;; We first test if one of the parameters is equal to zero.
     mov r19, r24
     or r19, r25
     brne test_denominator
@@ -43,8 +47,6 @@ test_denominator:
 can_divide:
     push r28
     push r29
-    push r30
-    push r31
 divide:
     ldi r19, 16                 ; Initialize counter to sizeof(uint16)
     clr r28                     ; Initialize working area to zero
@@ -55,17 +57,16 @@ shift_loop:
     rol r25
     rol r28
     rol r29
-    movw r30, r28               ; Trial substraction:
-    sec                         ;     - First, force the carry flag
-    sub r30, r22                ;     - Then, perform the actual substraction
-    sbc r31, r23                ;       (cont.)
-    brcs ignore_result          ; Carry flag still set == Substraction failed
-    movw r28, r30               ; Copy result of the division to working area
+    cp r28, r22
+    cpc r29, r23
+    brlo substraction_is_impossible
+    sub r28, r22
+    sbc r29, r23
     dec r19                     ; If substraction succeed we need to push a 1
     sec                         ; to the quotient. So we do it here to avoid
     brne shift_loop             ; "dec r19" to mess everything.
     rjmp finish
-ignore_result:
+substraction_is_impossible:
     dec r19
     clc
     brne shift_loop
@@ -73,11 +74,8 @@ finish:
     rol r24
     rol r25
     movw r22, r28
-    pop r31
-    pop r30
     pop r29
     pop r28
 exit:
     pop r19
     ret
-
