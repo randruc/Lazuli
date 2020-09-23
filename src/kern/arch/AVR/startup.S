@@ -172,8 +172,6 @@ Task_Abort:
     RESET_KERNEL_STACK_POINTER r16
     jmp Scheduler_AbortTask
 
-    ;; TODO: This label is global. See how we can rename it (Arch_XXX, Asm_XXX,
-    ;; ...)
     /**
      * Save current running task execution context on task's stack.
      *
@@ -181,7 +179,6 @@ Task_Abort:
      * The program counter is automaticaly saved by hardware when vectoring
      * interrupt handler.
      */
-    .global save_context_on_stack
 save_context_on_stack:
     ;; Push Y, r27 and r26 registers
     push r29

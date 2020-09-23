@@ -40,7 +40,7 @@ The project is hosted on GitHub at https://github.com/randruc/Lazuli
 For now, the Lazuli kernel provides the following functionalities:
 
 * Rate Monotonic Scheduling
-* Priority Round-robin Scheduling (POSIX's `SCHED_RR`)
+* Priority Round-Robin Scheduling (POSIX's `SCHED_RR`)
 * Mutexes
 * AVR USART driver with a `printf()` API
 

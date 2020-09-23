@@ -19,7 +19,7 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Produce formatted output to the serial line.
+ * Produce unbuffered formatted output to the serial line.
  *
  * This function is fully reentrant. No locking mechanism is provided.
  *
