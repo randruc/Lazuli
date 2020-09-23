@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/arch/AVR/asm_common.S
+ * @file
  * @brief Common ASM macros and definitions.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

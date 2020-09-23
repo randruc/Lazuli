@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/arch/AVR/spinlock.S
+ * @file
  * @brief AVR spinlocks implementation.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

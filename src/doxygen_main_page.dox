@@ -17,7 +17,7 @@
  *
  * @section user_api_subsection User API
  *
- * The user API consists in all header files located in @ref src/include/Lazuli.
+ * The user API consists in all header files located in @ref sys/include/Lazuli.
  * @n
  * User tasks should only include header files from this directory.
  * They are included as system headers, and the root directory is
@@ -51,7 +51,7 @@
  * @section kernel_api_subsection Kernel API
  *
  * The kernel API consists in all header files located in
- * @ref src/include/Lazuli/sys and @ref src/include/Lazuli/sys/arch. @n
+ * @ref sys/include/Lazuli/sys and @ref sys/include/Lazuli/sys/arch. @n
  * Header files from theses directories can be included all across the kernel
  * and drivers source code. @n
  * They are included as system headers, and the root directory is

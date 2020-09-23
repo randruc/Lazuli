@@ -51,11 +51,11 @@ directory of build artefacts, and we invoke ``cmake`` by pointing to the root
 
     [root@6bf01305461f workspace]# mkdir build && cd build
     [root@6bf01305461f build]# cmake ..
-    CMake Error at src/cmake/machine_choice.cmake:23 (message):
+    CMake Error at sys/cmake/machine_choice.cmake:23 (message):
     Configuration error: The target machine must be defined with cache variable
     'LZ_TARGET_MACHINE_CHOICE'.
     Call Stack (most recent call first):
-    src/CMakeLists.txt:23 (include)
+    sys/CMakeLists.txt:23 (include)
 
 
     -- Configuring incomplete, errors occurred!
@@ -174,7 +174,7 @@ available configuration variables for the toolchain it created:
     AVR_OBJDUMP                     */usr/bin/avr-objdump
     CMAKE_BUILD_TYPE                *
     CMAKE_INSTALL_PREFIX            */usr/local
-    CMAKE_TOOLCHAIN_FILE            */~/workspace/src/cmake/avr.toolchain.cmake   
+    CMAKE_TOOLCHAIN_FILE            */~/workspace/sys/cmake/avr.toolchain.cmake   
     LZ_CONFIG_AVR_INSTRUMENT_PORT   *0x2B
     LZ_CONFIG_BREAK_STACK_GAP       *50
     LZ_CONFIG_CHECK_INTERRUPT_CODE  *ON
@@ -269,17 +269,17 @@ Compilation is quite straightforward. Simply invoke ``cmake`` with
 
     [root@6bf01305461f workspace]# cmake --build ./build
     Scanning dependencies of target module_version_string
-    [  4%] Building C object src/kern/modules/version_string/CMakeFiles/module_version_string.dir/version_string.c.obj
+    [  4%] Building C object sys/kern/modules/version_string/CMakeFiles/module_version_string.dir/version_string.c.obj
     [  4%] Built target module_version_string
     Scanning dependencies of target LazuliKernel_AVR_ATmega328p_0.1.0
-    [  9%] Building C object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/arch.c.obj
-    [ 13%] Building ASM object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/interrupt_vectors_table.S.obj
-    [ 18%] Building ASM object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/startup.S.obj
-    [ 22%] Building C object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/timer_counter_1.c.obj
-    [ 27%] Building C object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/kernel.c.obj
-    [ 31%] Building C object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/memory.c.obj
-    [ 36%] Building C object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/scheduler.c.obj
-    [ 40%] Building C object src/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/list.c.obj
+    [  9%] Building C object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/arch.c.obj
+    [ 13%] Building ASM object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/interrupt_vectors_table.S.obj
+    [ 18%] Building ASM object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/startup.S.obj
+    [ 22%] Building C object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/arch/AVR/timer_counter_1.c.obj
+    [ 27%] Building C object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/kernel.c.obj
+    [ 31%] Building C object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/memory.c.obj
+    [ 36%] Building C object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/scheduler.c.obj
+    [ 40%] Building C object sys/CMakeFiles/LazuliKernel_AVR_ATmega328p_0.1.0.dir/kern/list.c.obj
     [ 45%] Linking C static library libLazuliKernel_AVR_ATmega328p_0.1.0.a
     [ 45%] Built target LazuliKernel_AVR_ATmega328p_0.1.0
     Scanning dependencies of target LazuliUserProject_AVR_ATmega328p_1.0.0
@@ -296,19 +296,19 @@ Compilation is quite straightforward. Simply invoke ``cmake`` with
     [ 68%] Generating kernel LST file: LazuliKernel_AVR_ATmega328p_0.1.0.lst
     [ 68%] Built target kernel_lst_ouput
     Scanning dependencies of target module_clock_24
-    [ 72%] Building C object src/kern/modules/clock_24/CMakeFiles/module_clock_24.dir/clock_24.c.obj
+    [ 72%] Building C object sys/kern/modules/clock_24/CMakeFiles/module_clock_24.dir/clock_24.c.obj
     [ 72%] Built target module_clock_24
     Scanning dependencies of target module_mutex
-    [ 77%] Building C object src/kern/modules/mutex/CMakeFiles/module_mutex.dir/mutex.c.obj
-    [ 81%] Building ASM object src/kern/modules/mutex/CMakeFiles/module_mutex.dir/arch/AVR/mutex.S.obj
+    [ 77%] Building C object sys/kern/modules/mutex/CMakeFiles/module_mutex.dir/mutex.c.obj
+    [ 81%] Building ASM object sys/kern/modules/mutex/CMakeFiles/module_mutex.dir/arch/AVR/mutex.S.obj
     [ 81%] Built target module_mutex
     Scanning dependencies of target module_serial
-    [ 86%] Building C object src/kern/modules/serial/CMakeFiles/module_serial.dir/serial.c.obj
-    [ 90%] Building C object src/kern/modules/serial/CMakeFiles/module_serial.dir/arch/AVR/usart.c.obj
+    [ 86%] Building C object sys/kern/modules/serial/CMakeFiles/module_serial.dir/serial.c.obj
+    [ 90%] Building C object sys/kern/modules/serial/CMakeFiles/module_serial.dir/arch/AVR/usart.c.obj
     [ 90%] Built target module_serial
     Scanning dependencies of target module_spinlock
-    [ 95%] Building C object src/kern/modules/spinlock/CMakeFiles/module_spinlock.dir/spinlock.c.obj
-    [100%] Building ASM object src/kern/modules/spinlock/CMakeFiles/module_spinlock.dir/arch/AVR/spinlock.S.obj
+    [ 95%] Building C object sys/kern/modules/spinlock/CMakeFiles/module_spinlock.dir/spinlock.c.obj
+    [100%] Building ASM object sys/kern/modules/spinlock/CMakeFiles/module_spinlock.dir/arch/AVR/spinlock.S.obj
     [100%] Built target module_spinlock
     [root@6bf01305461f workspace]# 
 

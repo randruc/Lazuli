@@ -12,6 +12,6 @@ clang-tidy \
     -header-filter=* \
     -- \
     -Iinclude \
-    -I../build/src \
+    -I../build/sys \
     -Ilibc-headers/arch-dependent/x86_64 \
     -DLZ_STATIC_ANALYSIS=1

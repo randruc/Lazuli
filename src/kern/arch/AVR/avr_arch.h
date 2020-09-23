@@ -12,8 +12,8 @@
  * module, and not declared in <Lazuli/sys/arch/arch.h>.
  */
 
-#ifndef LAZULI_SRC_KERN_ARCH_AVR_ARCH_H
-#define LAZULI_SRC_KERN_ARCH_AVR_ARCH_H
+#ifndef LAZULI_SYS_KERN_ARCH_AVR_ARCH_H
+#define LAZULI_SYS_KERN_ARCH_AVR_ARCH_H
 
 #include <Lazuli/common.h>
 
@@ -27,4 +27,4 @@ cpu_sleep(void);
 
 _EXTERN_C_DECL_END
 
-#endif /* LAZULI_SRC_KERN_ARCH_AVR_ARCH_H */
+#endif /* LAZULI_SYS_KERN_ARCH_AVR_ARCH_H */

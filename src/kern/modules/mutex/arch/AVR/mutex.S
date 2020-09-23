@@ -4,7 +4,7 @@
  */
 
 /**
- * @file src/kern/arch/AVR/mutex.S
+ * @file
  * @brief AVR locks for mutexes implementation.
  * @copyright 2019-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *

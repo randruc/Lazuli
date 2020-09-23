@@ -22,7 +22,7 @@ Comments on the right side have been added manually.
    ├── example-programs          Sources of examples user programs that use the Lazuli API
    ├── LICENSES                  Text of the project's licenses
    ├── scripts                   Utility scripts
-   ├── src                       Base directory for all the system sources
+   ├── sys                       Base directory for all the system sources
    │   ├── cmake                 CMake files, referenced by CMakeLists.txt
    │   ├── include               Base directory of user and kernel header files
    │   │   └── Lazuli            Base directory of user and kernel header files

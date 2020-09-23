@@ -13,7 +13,7 @@ Here is documented the memory layout for the kernel and user tasks.
 In the context of AVR MCUs the term RAM used in this document refers to the MCU
 SRAM, and the term ROM refers to the MCU flash memory.
 
-Memory layout is implemented in the file ``src/kern/linker.ld``.
+Memory layout is described in the file ``sys/kern/linker.ld``.
 
 Harvard architecture and static linking
 ---------------------------------------

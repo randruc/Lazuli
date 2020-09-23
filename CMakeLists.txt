@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
-add_subdirectory(src)
+add_subdirectory(sys)
 
 # This defines the name of your project as well as its version and the languages
 # it uses.
@@ -62,7 +62,7 @@ set_property(
 if(LZ_CONFIG_BUILD_UNIT_TESTS)
   set(
     LAZULI_USER_SOURCE_FILES
-    src/unit-tests/unit_tests.c)
+    sys/unit-tests/unit_tests.c)
 else()
   if(NOT LZ_EXAMPLE_PROGRAM STREQUAL "null")
     set(
@@ -73,10 +73,10 @@ endif()
 
 include_directories(
   BEFORE
-  src/include                         # For Lazuli headers
-  src/libc-headers                    # For libc headers
-  src/libc-headers/arch-dependent/AVR # For arch-specific libc headers
-  ${PROJECT_BINARY_DIR}/src)          # For auto-generated config.h
+  sys/include                         # For Lazuli headers
+  sys/libc-headers                    # For libc headers
+  sys/libc-headers/arch-dependent/AVR # For arch-specific libc headers
+  ${PROJECT_BINARY_DIR}/sys)          # For auto-generated config.h
 
 set(
   LAZULI_USER_LINK_FLAGS
@@ -84,8 +84,8 @@ set(
   -nostdlib
   -nodefaultlibs
   #--gc-sections # This options is invalid when gcc is used as the linker
-  -T${CMAKE_SOURCE_DIR}/src/kern/arch/AVR/linker.ld
-  -T${CMAKE_SOURCE_DIR}/src/kern/linker.ld)
+  -T${CMAKE_SOURCE_DIR}/sys/kern/arch/AVR/linker.ld
+  -T${CMAKE_SOURCE_DIR}/sys/kern/linker.ld)
 
 set(
   LAZULI_USER_PROJECT_NAME
@@ -98,8 +98,8 @@ add_executable(
 set_target_properties(
   ${LAZULI_USER_PROJECT_NAME}
   PROPERTIES LINK_DEPENDS
-  "${CMAKE_SOURCE_DIR}/src/kern/arch/AVR/linker.ld;\
-${CMAKE_SOURCE_DIR}/src/kern/linker.ld")
+  "${CMAKE_SOURCE_DIR}/sys/kern/arch/AVR/linker.ld;\
+${CMAKE_SOURCE_DIR}/sys/kern/linker.ld")
 
 target_link_libraries(
   ${LAZULI_USER_PROJECT_NAME}
