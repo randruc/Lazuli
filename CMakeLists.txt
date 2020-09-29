@@ -41,10 +41,16 @@ set(
 # The following directives shouldn't be changed by the user
 # TODO: maybe think about putting them into another file.
 
-option(
+set(
   LZ_CONFIG_BUILD_UNIT_TESTS
-  "When 1, build an executable containing unit tests."
-  OFF)
+  "null"
+  CACHE STRING
+  "Choice of unit tests set to build.")
+
+set_property(
+  CACHE LZ_CONFIG_BUILD_UNIT_TESTS
+  PROPERTY STRINGS
+  "null;unit_tests_1;unit_tests_2")
 
 mark_as_advanced(LZ_CONFIG_BUILD_UNIT_TESTS)
 
@@ -59,10 +65,11 @@ set_property(
   PROPERTY STRINGS
   "null;clock24.c;spinlocks.c;mutex.c;mutex_alternating_tasks.c")
 
-if(LZ_CONFIG_BUILD_UNIT_TESTS)
+if(NOT LZ_CONFIG_BUILD_UNIT_TESTS STREQUAL "null")
   set(
     LAZULI_USER_SOURCE_FILES
-    sys/unit-tests/unit_tests.c)
+    sys/unit-tests/unit_tests_common.c
+    sys/unit-tests/${LZ_CONFIG_BUILD_UNIT_TESTS}.c)
 else()
   if(NOT LZ_EXAMPLE_PROGRAM STREQUAL "null")
     set(
