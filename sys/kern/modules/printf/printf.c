@@ -62,7 +62,7 @@ GetHexDigit(const uint8_t i, const bool isUpper)
  * right order.
  *
  * @param value The 16-bit input value to convert.
- * @param buffer A valid pointer to an allocated string of minimum size 4 bytes.
+ * @param buffer A valid pointer to an allocated buffer of minimum size 4 chars.
  * @param isUpper A boolean value indicating if the conversion must be done in
  *                uppercase.
  *
@@ -78,6 +78,37 @@ ConvertU16ToHexadecimal(uint16_t value, char * const buffer, const bool isUpper)
   for (i = 0; i < numberOfNibbles; ++i) {
     buffer[i] = GetHexDigit(value & 0x0f, isUpper);
     value >>= 4;
+
+    if (0 == value) {
+      break;
+    }
+  }
+
+  return i + 1;
+}
+
+/**
+ * Convert an unsigned 16-bit integer to its ASCII octal representation.
+ * @warning The conversion is put in the buffer @p buffer **in reverse order**
+ * and **without a final NUL character**. The caller of this function then has
+ * to use the return value in order to use the characters in the buffer in the
+ * right order.
+ *
+ * @param value The 16-bit input value to convert.
+ * @param buffer A valid pointer to an allocated buffer of minimum size 6 chars.
+ *
+ * @return The number of characters actually written to the buffer.
+ */
+static uint8_t
+ConvertU16ToOctal(uint16_t value, char * const buffer)
+{
+  uint8_t i;
+  const uint8_t numberOfGroups = 6;
+
+  /* WARNING! This works only with little endian */
+  for (i = 0; i < numberOfGroups; ++i) {
+    buffer[i] = (value & 0x07) + '0';
+    value >>= 3;
 
     if (0 == value) {
       break;
@@ -106,12 +137,12 @@ printf(const char *format, ...)
 
   for (; '\0' != *c; ++c) {
     if ('%' == *c) {
-      bool padWithZeros = false;
+      char padChar = ' ';
       bool firstDigitPassed = false;
       bool isNegative = false;
       uint8_t padLength = 0;
       uint8_t size;
-      char buffer[5];
+      char buffer[6];
 
       for (++c; '\0' != *c; ++c) {
         /*
@@ -122,7 +153,7 @@ printf(const char *format, ...)
 
         /* This test MUST be performed before the next one */
         if ('0' == *c && !firstDigitPassed) {
-          padWithZeros = true;
+          padChar = '0';
           firstDigitPassed = true;
 
           continue;
@@ -171,6 +202,11 @@ printf(const char *format, ...)
           size = ConvertU16ToHexadecimal(va_arg(args, unsigned int),
                                          buffer,
                                          'X' == *c);
+        } else if ('o' == *c) {
+          size = ConvertU16ToOctal(va_arg(args, unsigned int), buffer);
+        } else if ('c' == *c) {
+          buffer[0] = (char)va_arg(args, int);
+          size = 1;
         } else {
           /*
            * We encountered an unknown character.
@@ -182,12 +218,12 @@ printf(const char *format, ...)
 
         /*
          * If we are here, it means we have a buffer filled with a conversion.
-         * We then must print this buffer with the appropriate options.
+         * We then must print this buffer with the appropriate padding.
          */
 
         total += size;
 
-        if (padWithZeros && padLength > size) {
+        if (padLength > size) {
           padLength -= size;
 
           if (isNegative && padLength > 0) {
@@ -197,7 +233,7 @@ printf(const char *format, ...)
           total += padLength;
 
           while (padLength-- > 0) {
-            Usart_PutChar('0');
+            Usart_PutChar(padChar);
           }
         }
 

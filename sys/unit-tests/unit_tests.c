@@ -1776,6 +1776,175 @@ UNIT_TEST(Printf_30)
   ASSERT(17 == total);
 }
 
+UNIT_TEST(Printf_31)
+{
+  int total;
+
+  Usart_PrintRawString("C:0:");
+
+  total = printf("%o", 0);
+
+  Usart_NewLine();
+
+  ASSERT(1 == total);
+}
+
+UNIT_TEST(Printf_32)
+{
+  int total;
+
+  Usart_PrintRawString("C:1:");
+
+  total = printf("%o", 1);
+
+  Usart_NewLine();
+
+  ASSERT(1 == total);
+}
+
+UNIT_TEST(Printf_33)
+{
+  int total;
+
+  Usart_PrintRawString("C:177777:");
+
+  total = printf("%o", 0xffff);
+
+  Usart_NewLine();
+
+  ASSERT(6 == total);
+}
+
+UNIT_TEST(Printf_34)
+{
+  int total;
+
+  Usart_PrintRawString("C:54124:");
+
+  total = printf("%o", 054124);
+
+  Usart_NewLine();
+
+  ASSERT(5 == total);
+}
+
+UNIT_TEST(Printf_35)
+{
+  int total;
+
+  Usart_PrintRawString("C:15:");
+
+  total = printf("%o", 015);
+
+  Usart_NewLine();
+
+  ASSERT(2 == total);
+}
+
+UNIT_TEST(Printf_36)
+{
+  int total;
+
+  Usart_PrintRawString("C:777:");
+
+  total = printf("%o", 0777);
+
+  Usart_NewLine();
+
+  ASSERT(3 == total);
+}
+
+UNIT_TEST(Printf_37)
+{
+  int total;
+
+  Usart_PrintRawString("C:1000:");
+
+  total = printf("%o", 01000);
+
+  Usart_NewLine();
+
+  ASSERT(4 == total);
+}
+
+UNIT_TEST(Printf_38)
+{
+  int total;
+
+  Usart_PrintRawString("C:A:");
+
+  total = printf("%c", 'A');
+
+  Usart_NewLine();
+
+  ASSERT(1 == total);
+}
+
+UNIT_TEST(Printf_39)
+{
+  int total;
+
+  Usart_PrintRawString("C:%:");
+
+  total = printf("%c", '%');
+
+  Usart_NewLine();
+
+  ASSERT(1 == total);
+}
+
+UNIT_TEST(Printf_40)
+{
+  int total;
+
+  Usart_PrintRawString("C: :");
+
+  total = printf("%c", ' ');
+
+  Usart_NewLine();
+
+  ASSERT(1 == total);
+}
+
+UNIT_TEST(Printf_41)
+{
+  int total;
+
+  Usart_PrintRawString("C:0:");
+
+  total = printf("%c", '0');
+
+  Usart_NewLine();
+
+  ASSERT(1 == total);
+}
+
+UNIT_TEST(Printf_42)
+{
+  int total;
+
+  Usart_PrintRawString("C:12!f9:");
+
+  total = printf("%o%c%x%d", 012, '!', 0xf, 9);
+
+  Usart_NewLine();
+
+  ASSERT(5 == total);
+}
+
+UNIT_TEST(Printf_43)
+{
+  int total;
+
+  Usart_PrintRawString("C:AZE,12:");
+
+  total = printf("%XZE%c%o", 0xA, ',', 012);
+
+  Usart_NewLine();
+
+  ASSERT(6 == total);
+}
+
 UNIT_TEST(Division_1)
 {
   const unsigned int numerator = 15;
@@ -2492,6 +2661,19 @@ ExecuteTests(void)
   Printf_28();
   Printf_29();
   Printf_30();
+  Printf_31();
+  Printf_32();
+  Printf_33();
+  Printf_34();
+  Printf_35();
+  Printf_36();
+  Printf_37();
+  Printf_38();
+  Printf_39();
+  Printf_40();
+  Printf_41();
+  Printf_42();
+  Printf_43();
 
   GlobalEnableDisableInterrupts();
   GlobalEnableDisableInterruptsWithStatus_1();
