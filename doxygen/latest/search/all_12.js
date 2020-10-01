@@ -19,7 +19,7 @@ var searchData=
   ['set_5fbits',['SET_BITS',['../common_8h.html#a2496d449f3f21615a9acc07c2ab3b3c3',1,'common.h']]],
   ['setbreak',['SetBreak',['../memory_8c.html#af22568ab180e988a1499afe27cd565ad',1,'memory.c']]],
   ['setenablingstatus',['SetEnablingStatus',['../usart_8c.html#af77be6ae7216b26691d3047bd80372ae',1,'usart.c']]],
-  ['setparitybit',['setParityBit',['../usart_8c.html#a7c6e2b3bda2daa18c5a60bbf68462231',1,'setParityBit():&#160;usart.c'],['../usart_8c.html#ab9b4626d9822d57f4d212df0b40b1e58',1,'SetParityBit(const enum Lz_SerialParityBit parityBit):&#160;usart.c']]],
+  ['setparitybit',['SetParityBit',['../usart_8c.html#ab9b4626d9822d57f4d212df0b40b1e58',1,'SetParityBit(const enum Lz_SerialParityBit parityBit):&#160;usart.c'],['../usart_8c.html#a7c6e2b3bda2daa18c5a60bbf68462231',1,'setParityBit():&#160;usart.c']]],
   ['setparitybiteven',['SetParityBitEven',['../usart_8c.html#aa897e93d5408ae36a5ac0a498bc17d8e',1,'usart.c']]],
   ['setparitybitnone',['SetParityBitNone',['../usart_8c.html#ab34de8cc1da64910ea327d0502103c21',1,'usart.c']]],
   ['setparitybitodd',['SetParityBitOdd',['../usart_8c.html#aec657f2b4d4a81b73a85840df43667e4',1,'usart.c']]],
