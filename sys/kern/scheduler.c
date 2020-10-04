@@ -216,7 +216,6 @@ InsertTaskByPriority(Lz_LinkedList * const list,
 static Task*
 PickTaskToRun(void)
 {
-  Lz_LinkedListElement *linkedListElement;
   /*
    * We can choose an uint8_t here as Lz_SchedulingPolicy has very few possible
    * values.
@@ -224,7 +223,8 @@ PickTaskToRun(void)
   uint8_t i;
 
   for (i = 0; i < ELEMENTS_COUNT(readyTasks); ++i) {
-    linkedListElement = List_PickFirst(&readyTasks[i]);
+    const Lz_LinkedListElement * const linkedListElement
+      = List_PickFirst(&readyTasks[i]);
 
     if (NULL != linkedListElement) {
       return CONTAINER_OF(linkedListElement, stateQueue, Task);
@@ -303,7 +303,7 @@ UpdateTasksWaitingSoftwareTimer(void)
 static void
 ManageCyclicRealTimeTask(void)
 {
-  currentTask->timeUntilCompletion--;
+  --currentTask->timeUntilCompletion;
 
   if (WAIT_ACTIVATION == currentTask->taskToSchedulerMessage ||
       0 == currentTask->timeUntilCompletion) {
@@ -378,12 +378,6 @@ ManagePriorityRealTimeTask(void)
 static void
 Schedule(void)
 {
-  void (* const jumpToManager[__LZ_SCHEDULING_POLICY_ENUM_END])(void) =
-    {
-     ManageCyclicRealTimeTask,
-     ManagePriorityRealTimeTask
-    };
-
   /*
    * We call this function before adding new tasks waiting for a software timer
    * in order to avoid decrementing the expiration counter immediately after
@@ -395,6 +389,12 @@ Schedule(void)
     if (TERMINATE_TASK == currentTask->taskToSchedulerMessage) {
       List_Append(&terminatedTasks, &currentTask->stateQueue);
     } else {
+      void (* const jumpToManager[__LZ_SCHEDULING_POLICY_ENUM_END])(void) =
+        {
+          ManageCyclicRealTimeTask,
+          ManagePriorityRealTimeTask
+        };
+
       jumpToManager[currentTask->schedulingPolicy]();
     }
   }
@@ -502,7 +502,7 @@ CallbackRegisterIdleTask(void)
 static bool
 RegisterTask(void (* const taskEntryPoint)(void),
              Lz_TaskConfiguration * taskConfiguration,
-             const bool idleTask)
+             const bool isIdleTask)
 {
   Lz_TaskConfiguration defaultConfiguration;
   Task *newTask;
@@ -518,7 +518,7 @@ RegisterTask(void (* const taskEntryPoint)(void),
     taskConfiguration->stackSize = LZ_CONFIG_DEFAULT_TASK_STACK_SIZE;
   }
 
-  if (idleTask) {
+  if (isIdleTask) {
     newTask = CallbackRegisterIdleTask();
   } else {
     newTask = CallbackRegisterUserTask(taskConfiguration);
@@ -794,8 +794,8 @@ Lz_Task_WaitInterrupt(uint8_t interruptCode)
 {
   /* TODO: Check if the calling task's scheduling policy is PRIORITY_RT */
 
-  currentTask->taskToSchedulerMessage = WAIT_INTERRUPT;
   currentTask->taskToSchedulerMessageParameter = &interruptCode;
+  currentTask->taskToSchedulerMessage = WAIT_INTERRUPT;
 
   Scheduler_SleepUntilEndOfTimeSlice();
 }
@@ -805,8 +805,8 @@ Lz_WaitTimer(lz_u_resolution_unit_t units)
 {
   /* TODO: Check if the calling task's scheduling policy is PRIORITY_RT */
 
-  currentTask->taskToSchedulerMessage = WAIT_SOFTWARE_TIMER;
   currentTask->taskToSchedulerMessageParameter = &units;
+  currentTask->taskToSchedulerMessage = WAIT_SOFTWARE_TIMER;
 
   Scheduler_SleepUntilEndOfTimeSlice();
 }

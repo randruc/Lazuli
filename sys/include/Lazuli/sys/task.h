@@ -23,74 +23,53 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Represents a message that a Task can pass to the scheduler after its time
- * slice has expired.
+ * Defines the type used to contain a message that a Task can pass to the
+ * scheduler after its time slice has expired.
+ *
+ * This type is declared read/write atomic because in the definition of
+ * struct Task a message can come along with data, pointed by
+ * taskToSchedulerMessageParameter. By writing the pointer first, then writing
+ * the message code, we can ensure the integrity of the full message
+ * (i.e.: message code + data), assuming the execution is "in-order".
  */
-enum TaskToSchedulerMessage {
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the first one.
-   */
-  __TASK_TO_SCHEDULER_MESSAGE_ENUM_BEGIN = -1,
+typedef u_read_write_atomic_t lz_task_to_scheduler_message_t;
 
-  /** @endcond */
-
-  /**
-   * No message has to be passed to the scheduler.
-   */
-  NO_MESSAGE = 0,
-
-  /**
-   * Set the task to wait for its next activation.
-   * i.e. It finnished its work without consuming all of its completion time.
-   */
-  WAIT_ACTIVATION,
-
-  /**
-   * Set the task to wait for an interrupt.
-   * A parameter representing the interrupt number must accompany this message.
-   */
-  WAIT_INTERRUPT,
-
-  /**
-   * Terminate the task.
-   */
-  TERMINATE_TASK,
-
-  /**
-   * Wait for a mutex to be unlocked.
-   * A parameter pointing to the mutex must accompany this message.
-   */
-  WAIT_MUTEX,
-
-  /**
-   * Set the task to wait for the specified number of time resolution units,
-   * using the software timer.
-   * A parameter pointing to the specified number of units must accompany this
-   * message.
-   */
-  WAIT_SOFTWARE_TIMER,
-
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the last one.
-   */
-  __TASK_TO_SCHEDULER_MESSAGE_ENUM_END
-
-  /** @endcond */
-};
-
-/*
- * TODO: Maybe think about storing scheduling policy parameters in a union to
- * save memory.
- * This would have the drawback of not being able for a task to save its
- * parameters if it needs to alternate between 2 different policies that use
- * different kind of parameters.
+/**
+ * No message has to be passed to the scheduler.
  */
+#define NO_MESSAGE ((lz_task_to_scheduler_message_t)0U)
+
+/**
+ * Set the task to wait for its next activation.
+ * i.e. It finnished its work without consuming all of its completion time.
+ */
+#define WAIT_ACTIVATION ((lz_task_to_scheduler_message_t)1U)
+
+/**
+ * Set the task to wait for an interrupt.
+ * A parameter representing the interrupt number must accompany this message.
+ */
+#define WAIT_INTERRUPT ((lz_task_to_scheduler_message_t)2U)
+
+/**
+ * Terminate the task.
+ */
+#define TERMINATE_TASK ((lz_task_to_scheduler_message_t)3U)
+
+/**
+ * Wait for a mutex to be unlocked.
+ * A parameter pointing to the mutex must accompany this message.
+ */
+#define WAIT_MUTEX ((lz_task_to_scheduler_message_t)4U)
+
+/**
+ * Set the task to wait for the specified number of time resolution units,
+ * using the software timer.
+ * A parameter pointing to the specified number of units must accompany this
+ * message.
+ */
+#define WAIT_SOFTWARE_TIMER ((lz_task_to_scheduler_message_t)5U)
+
 /**
  * Represents a task.
  */
@@ -185,8 +164,14 @@ typedef struct {
    *
    * @attention Declared volatile because it can be updated both by the task
    *            itself or the kernel.
+   *
+   * @warning This field is declared with a data type that is read/write atomic.
+   *          If the field taskToSchedulerMessageParameter is used to pass a
+   *          message to the scheduler, then this field taskToSchedulerMessage
+   *          must be written **last** to ensure the integrity of all the pieces
+   *          of data that compose the message to the scheduler.
    */
-  volatile enum TaskToSchedulerMessage taskToSchedulerMessage;
+  volatile lz_task_to_scheduler_message_t taskToSchedulerMessage;
 
   /**
    * A parameter that can accompany a taskToSchedulerMessage.
