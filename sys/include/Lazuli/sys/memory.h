@@ -19,14 +19,6 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
- * Defines the kind of allocation for an AllocationMap.
- */
-typedef enum {
-  ALLOC_UNDEFINED,  /** < Undefined   */
-  ALLOC_INCREMENTAL /** < Incremental */
-}AllocationType;
-
-/**
  * Represents a map of the allocated memory regions and useful memory handlers
  * for a task or the kernel.
  */
@@ -46,11 +38,6 @@ typedef struct {
    * End address of the memory region.
    */
   void *endMem;
-
-  /**
-   * The type of allocation used for this map.
-   */
-  AllocationType allocationType;
 }AllocationMap;
 
 /**

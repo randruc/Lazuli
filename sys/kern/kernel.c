@@ -50,7 +50,6 @@ Kernel_Main(void)
   kernelAllocationMap.baseMem = &_brk;
   kernelAllocationMap.brk = &_brk;
   kernelAllocationMap.endMem = &_ramend;
-  kernelAllocationMap.allocationType = ALLOC_UNDEFINED;
 
   Arch_InitIdleCpuMode();
   Scheduler_Init();

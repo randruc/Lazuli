@@ -76,8 +76,8 @@ ConvertU16ToHexadecimal(uint16_t value, char * const buffer, const bool isUpper)
 
   /* WARNING! This works only with little endian */
   for (i = 0; i < numberOfNibbles; ++i) {
-    buffer[i] = GetHexDigit(value & 0x0f, isUpper);
-    value >>= 4;
+    buffer[i] = GetHexDigit(value & 0xfU, isUpper);
+    value >>= 4U;
 
     if (0 == value) {
       break;
@@ -107,8 +107,8 @@ ConvertU16ToOctal(uint16_t value, char * const buffer)
 
   /* WARNING! This works only with little endian */
   for (i = 0; i < numberOfGroups; ++i) {
-    buffer[i] = (value & 0x07) + '0';
-    value >>= 3;
+    buffer[i] = (char)((value & 07U) + '0');
+    value >>= 3U;
 
     if (0 == value) {
       break;

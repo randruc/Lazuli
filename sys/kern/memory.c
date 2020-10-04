@@ -46,6 +46,7 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   }
 
   /* TODO: Check if this one is a good idea... */
+  /* TODO: Check for overflows */
   oldBreak = map->brk;
   newBreak = ALLOW_ARITHM(oldBreak) + increment;
   newGap = ALLOW_ARITHM(SP) - ALLOW_ARITHM(newBreak);
@@ -59,36 +60,13 @@ SetBreak(const unsigned int increment, AllocationMap * const map)
   return oldBreak;
 }
 
-/**
- * Common implementation of incremental memory allocation.
- *
- * @param s The size in byte to allocate.
- * @param map The allocation map of the task or kernel.
- *
- * @return A pointer to the allocated region, or NULL if allocation is
- *         impossible.
+/*
+ * For now, only incremental memory allocation is supported.
  */
-static void *
-BaseIncrementalMalloc(const size_t s, AllocationMap * const map)
-{
-  if (NULL == map) {
-    return NULL;
-  }
-
-  /* We force the type of allocation to be incremental by default */
-  if (ALLOC_UNDEFINED == map->allocationType) {
-    map->allocationType = ALLOC_INCREMENTAL;
-  } else if (ALLOC_INCREMENTAL != map->allocationType) {
-    return NULL;
-  }
-
-  return SetBreak(s, map);
-}
-
 void *
 KIncrementalMalloc(const size_t size)
 {
-  return BaseIncrementalMalloc(size, &kernelAllocationMap);
+  return SetBreak(size, &kernelAllocationMap);
 }
 
 void

@@ -78,7 +78,7 @@ EnableSerialTransmission(void) {
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
-  serialConfiguration.speed = LZ_SERIAL_SPEED_9600;
+  serialConfiguration.speed = LZ_SERIAL_SPEED_19200;
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
@@ -93,6 +93,4 @@ main(void)
   Usart_PrintRawString("\r\n");
 
   Lz_Run();
-
-  for (;;);
 }

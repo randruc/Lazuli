@@ -79,6 +79,4 @@ main(void)
   Usart_PrintRawString("\r\n");
 
   Lz_Run();
-
-  for (;;);
 }

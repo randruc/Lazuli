@@ -126,7 +126,7 @@ inRoutine && $2 ~ /ret|reti/ {
 
         printFileName();
 
-        printf(
+        printf( \
             "\t%s: Returning but there is still something on the stack %s.\n",
             currentRoutine,
             dumpStack(stack));

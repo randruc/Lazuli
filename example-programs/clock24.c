@@ -13,9 +13,9 @@
 
 #include <stdio.h>
 
+#include <Lazuli/clock_24.h>
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
-#include <Lazuli/clock_24.h>
 #include <Lazuli/serial.h>
 
 DEPENDENCY_ON_MODULE(CLOCK_24);

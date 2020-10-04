@@ -7,11 +7,14 @@
 # Execute clang-tidy on every .h and .c files.
 
 clang-tidy \
-    $(find . -iname *.h -o -iname *.c ! -name "unit_tests.c") \
+    $(find . \( -type f -name "*.h" -o -name "*.c" \) \
+           ! -path "./sys/unit-tests/*" \
+           ! -path "./build/*" ! -path "./templates/*") \
     -checks=*,-readability-avoid-const-params-in-decls \
     -header-filter=* \
     -- \
-    -Iinclude \
-    -I../build/sys \
-    -Ilibc-headers/arch-dependent/x86_64 \
+    -I./sys/include \
+    -I./build/sys \
+    -I./sys/libc-headers \
+    -I./sys/libc-headers/arch-dependent/x86_64 \
     -DLZ_STATIC_ANALYSIS=1

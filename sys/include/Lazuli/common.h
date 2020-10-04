@@ -91,12 +91,13 @@ STATIC_ASSERT(sizeof(bool) == 1, bool_MUST_be_1_byte_long);
  */
 #define false ((bool)0)
 
+/* TODO: Not portable!!! */
 /**
  * Represents the size of an object.
  */
-/* TODO: Not portable!!! */
 typedef uint16_t size_t;
 
+/* TODO: Arch specific */
 /**
  * Represents an unsigned integer that can be read and written atomically.
  * This type is the equivalent of libc's sig_atomic_t (signal.h).
@@ -216,7 +217,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  *
  * @param X The 16-bit value.
  */
-#define HI8(X) LO8((X) >> 8)
+#define HI8(X) LO8((X) >> 8U)
 
 /**
  * Obtain the minimum between two integer values.
