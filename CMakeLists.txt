@@ -120,6 +120,7 @@ target_link_options(
   ${LAZULI_USER_PROJECT_NAME}
   PUBLIC ${LAZULI_USER_LINK_FLAGS})
 
+# Generate disassembly listing.
 set(LST_TARGET_NAME lst_ouput)
 
 add_custom_command(
@@ -140,6 +141,7 @@ add_custom_target(
 
 add_dependencies(${LST_TARGET_NAME} ${LAZULI_USER_PROJECT_NAME})
 
+# Generate HEX output
 set(HEX_TARGET_NAME hex_output)
 
 add_custom_command(
@@ -165,3 +167,26 @@ add_custom_target(
   DEPENDS ${LAZULI_USER_PROJECT_NAME}.hex)
 
 add_dependencies(${HEX_TARGET_NAME} ${LAZULI_USER_PROJECT_NAME})
+
+# Extract final binary sections sizes
+set(SIZE_TARGET_NAME size_output)
+
+add_custom_command(
+  OUTPUT
+  ${LAZULI_USER_PROJECT_NAME}.size
+  COMMAND
+  ${MY_CMAKE_SIZE} -Adt ${LAZULI_USER_PROJECT_NAME}
+  | ${CMAKE_SOURCE_DIR}/scripts/sizeof_sections.awk
+  | tee ${LAZULI_USER_PROJECT_NAME}.size
+  DEPENDS
+  ${LAZULI_USER_PROJECT_NAME}
+  COMMENT
+  "Extracting final binary sections sizes: ${LAZULI_USER_PROJECT_NAME}.size"
+  VERBATIM)
+
+add_custom_target(
+  ${SIZE_TARGET_NAME}
+  ALL
+  DEPENDS ${LAZULI_USER_PROJECT_NAME}.size)
+
+add_dependencies(${SIZE_TARGET_NAME} ${LAZULI_USER_PROJECT_NAME})

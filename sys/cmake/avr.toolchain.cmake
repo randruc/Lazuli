@@ -16,6 +16,7 @@ find_program(AVR_AR avr-ar)
 find_program(AVR_NM avr-nm)
 find_program(AVR_OBJCOPY avr-objcopy)
 find_program(AVR_OBJDUMP avr-objdump)
+find_program(AVR_SIZE avr-size)
 
 set(CMAKE_SYSTEM_NAME Generic)
 
@@ -28,6 +29,7 @@ set(CMAKE_LINKER ${AVR_LD} CACHE FILEPATH "AVR toolchain linker.")
 set(CMAKE_NM ${AVR_NM} CACHE FILEPATH "AVR toolchain nm tool.")
 set(CMAKE_OBJCOPY ${AVR_OBJCOPY} CACHE FILEPATH "AVR toolchain objcopy tool.")
 set(CMAKE_OBJDUMP ${AVR_OBJDUMP} CACHE FILEPATH "AVR toolchain objdump tool.")
+set(MY_CMAKE_SIZE ${AVR_SIZE} CACHE FILEPATH "AVR toolchain size tool.")
 
 # By default, CMake uses the compiler as the linker executable.
 # The next line can be used to override this default behaviour and instruct

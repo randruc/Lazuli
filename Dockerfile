@@ -65,6 +65,7 @@ RUN dnf install -y \
     less \
     make \
     man-db \
+    tee \
     time \
     && \
     dnf clean all
