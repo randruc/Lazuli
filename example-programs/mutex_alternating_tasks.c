@@ -22,15 +22,12 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 #include <Lazuli/mutex.h>
 #include <Lazuli/serial.h>
-
-#include <Lazuli/sys/arch/AVR/interrupts.h>
-#include <Lazuli/sys/arch/AVR/registers.h>
-#include <Lazuli/sys/arch/AVR/usart.h>
 
 DEPENDENCY_ON_MODULE(SERIAL);
 DEPENDENCY_ON_MODULE(MUTEX);
@@ -53,7 +50,7 @@ TaskA(void)
 
   for (i = 0; i < LOOP_N; ++i) {
     Lz_Mutex_Lock(&mutexA);
-    Usart_PrintRawString("A" LZ_CONFIG_SERIAL_NEWLINE);
+    puts("A" LZ_CONFIG_SERIAL_NEWLINE);
     Lz_Mutex_Unlock(&mutexB);
   }
 }
@@ -67,7 +64,7 @@ TaskB(void)
 
   for (i = 0; i < LOOP_N; ++i) {
     Lz_Mutex_Lock(&mutexB);
-    Usart_PrintRawString("B" LZ_CONFIG_SERIAL_NEWLINE);
+    puts("B" LZ_CONFIG_SERIAL_NEWLINE);
     Lz_Mutex_Unlock(&mutexA);
   }
 }
@@ -90,7 +87,7 @@ main(void)
   Lz_RegisterTask(TaskA, NULL);
   Lz_RegisterTask(TaskB, NULL);
 
-  Usart_PrintRawString(LZ_CONFIG_SERIAL_NEWLINE);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   Lz_Run();
 }

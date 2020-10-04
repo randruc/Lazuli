@@ -12,6 +12,7 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
@@ -35,142 +36,31 @@ static Usart * const usart = (Usart*)&UCSR0A;
  */
 static enum Lz_SerialSpeed currentSerialSpeed;
 
-/**
- * Array used to get the character representation of a hexadecimal digit
- */
-PROGMEM static const char hexachars[] = {
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f'
-};
-
-/**
- * Union to access individual bytes of an integer value (with a maximum width of
- * 32 bits).
- */
-typedef union {
-  void *pointer;                 /**< Holds the pointer value              */
-  void (*functionPointer)(void); /**< Hold the function pointer value      */
-  uint8_t    u8Value;            /**< Holds the 8-bits value               */
-  uint16_t   u16Value;           /**< Holds the 16-bits value              */
-  uint32_t   u32Value;           /**< Holds the 32-bits value              */
-  char  bytes[4];                /**< Easily access each byte of the value */
-}IntegerBytes;
-
-void
-Usart_PutChar(char c)
+int
+putchar(int c)
 {
+  const unsigned char value = (unsigned char)c;
+
   while (!(usart->ucsr0a & UCSR0A_UDRE0));
 
-  usart->udr0 = c;
+  usart->udr0 = value;
+
+  return value;
 }
 
-void
-Usart_NewLine(void)
+int
+puts(const char * s)
 {
-  Usart_PutChar('\r');
-  Usart_PutChar('\n');
-}
-
-/**
- * Print a numerical value stored in an IntegerBytes union to its hexadecimal
- * form, accordig to the correct size.
- *
- * This serves as the base implementation for all specialized
- * Usart_HexaPrint_*() functions.
- *
- * @param integerBytes A pointer to the IntergerBytes union to print.
- * @param size The size in bytes of the value to print.
- */
-static void
-Usart_HexaPrint_IntegerBytes(IntegerBytes const * const integerBytes,
-                             const size_t size)
-{
-  uint8_t i;
-  uint8_t upperPart;
-  uint8_t lowerPart;
-
-  Usart_PutChar('0');
-  Usart_PutChar('x');
-
-  for (i = size; 0 != i; --i) {
-    upperPart = (integerBytes->bytes[i - 1] >> 4) & 0x0f;
-    lowerPart = integerBytes->bytes[i - 1] & 0x0f;
-
-    Usart_PutChar(Arch_LoadU8FromProgmem(&hexachars[upperPart]));
-    Usart_PutChar(Arch_LoadU8FromProgmem(&hexachars[lowerPart]));
-  }
-}
-
-void
-Usart_HexaPrint_u32(const uint32_t value)
-{
-  IntegerBytes integerBytes;
-  integerBytes.u32Value = value;
-
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(value));
-}
-
-void
-Usart_HexaPrint_u16(const uint16_t value)
-{
-  IntegerBytes integerBytes;
-  integerBytes.u16Value = value;
-
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(value));
-}
-
-void
-Usart_HexaPrint_u8(const uint8_t value)
-{
-  IntegerBytes integerBytes;
-  integerBytes.u8Value = value;
-
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(value));
-}
-
-void
-Usart_HexaPrint_Pointer(void * const pointer)
-{
-  IntegerBytes integerBytes;
-  integerBytes.pointer = pointer;
-
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(pointer));
-}
-
-void
-Usart_HexaPrint_FunctionPointer(void (*functionPointer)(void))
-{
-  IntegerBytes integerBytes;
-  integerBytes.functionPointer = functionPointer;
-
-  Usart_HexaPrint_IntegerBytes(&integerBytes, sizeof(functionPointer));
-}
-
-void
-Usart_PrintRawString(const char * string)
-{
-  if (NULL == string) {
-    return;
+  if (NULL == s) {
+    return EOF;
   }
 
-  while ('\0' != *string) {
-    Usart_PutChar(*string);
-    string++;
+  while ('\0' != *s) {
+    putchar(*s);
+    s++;
   }
+
+  return 1;
 }
 
 /**

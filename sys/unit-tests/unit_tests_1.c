@@ -24,7 +24,6 @@
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
 
-#include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/printf.h>
 
 DEPENDENCY_ON_MODULE(PRINTF);
@@ -439,176 +438,206 @@ UNIT_TEST(Printf_1)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:2019:");
 
-  total = printf("2019:%u" LZ_CONFIG_SERIAL_NEWLINE , 2019);
+  total = printf("%u" , 2019);
 
-  ASSERT(11 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(4 == total);
 }
 
 UNIT_TEST(Printf_2)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:-1205:");
 
-  total = printf("-1205:%d" LZ_CONFIG_SERIAL_NEWLINE, -1205);
+  total = printf("%d", -1205);
 
-  ASSERT(13 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(5 == total);
 }
 
 UNIT_TEST(Printf_3)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:0:");
 
-  total = printf("0:%d" LZ_CONFIG_SERIAL_NEWLINE, 0);
+  total = printf("%d", 0);
 
-  ASSERT(5 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(1 == total);
 }
 
 UNIT_TEST(Printf_4)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:1:");
 
-  total = printf("1:%d" LZ_CONFIG_SERIAL_NEWLINE, 1);
+  total = printf("%d", 1);
 
-  ASSERT(5 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(1 == total);
 }
 
 UNIT_TEST(Printf_5)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:65535:");
 
-  total = printf("65535:%u" LZ_CONFIG_SERIAL_NEWLINE, 65535u);
+  total = printf("%u", 65535u);
 
-  ASSERT(13 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(5 == total);
 }
 
 UNIT_TEST(Printf_6)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:-1:");
 
-  total = printf("-1:%d" LZ_CONFIG_SERIAL_NEWLINE, -1);
+  total = printf("%d", -1);
 
-  ASSERT(7 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(2 == total);
 }
 
 UNIT_TEST(Printf_7)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:48620:");
 
-  total = printf("48620:%u" LZ_CONFIG_SERIAL_NEWLINE, 48620u);
+  total = printf("%u", 48620u);
 
-  ASSERT(13 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(5 == total);
 }
 
 UNIT_TEST(Printf_8)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:0000048620:");
 
-  total = printf("0000048620:%010u" LZ_CONFIG_SERIAL_NEWLINE, 48620u);
+  total = printf("%010u", 48620u);
 
-  ASSERT(23 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(10 == total);
 }
 
 UNIT_TEST(Printf_9)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:25631:");
 
-  total = printf("25631:%01u" LZ_CONFIG_SERIAL_NEWLINE, 25631u);
+  total = printf("%01u", 25631u);
 
-  ASSERT(13 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(5 == total);
 }
 
 UNIT_TEST(Printf_10)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:228:");
 
-  total = printf("228:%03u" LZ_CONFIG_SERIAL_NEWLINE, 228u);
+  total = printf("%03u", 228u);
 
-  ASSERT(9 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(3 == total);
 }
 
 UNIT_TEST(Printf_11)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:-1715:");
 
-  total = printf("-1715:%03d" LZ_CONFIG_SERIAL_NEWLINE, -1715);
+  total = printf("%03d", -1715);
 
-  ASSERT(13 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(5 == total);
 }
 
 UNIT_TEST(Printf_12)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:-004:");
 
-  total = printf("-004:%04d" LZ_CONFIG_SERIAL_NEWLINE, -4);
+  total = printf("%04d", -4);
 
-  ASSERT(11 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(4 == total);
 }
 
 UNIT_TEST(Printf_13)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:-563:");
 
-  total = printf("-563:%02d" LZ_CONFIG_SERIAL_NEWLINE, -563);
+  total = printf("%02d", -563);
 
-  ASSERT(11 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(4 == total);
 }
 
 UNIT_TEST(Printf_14)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:00001963:");
 
-  total = printf("00001963:%08d" LZ_CONFIG_SERIAL_NEWLINE, 1963);
+  total = printf("%08d", 1963);
 
-  ASSERT(19 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(8 == total);
 }
 
 UNIT_TEST(Printf_15)
 {
   int total;
 
-  Usart_PrintRawString("C:");
+  puts("C:065535:");
 
-  total = printf("065535:%06u" LZ_CONFIG_SERIAL_NEWLINE, 65535u);
+  total = printf("%06u", 65535u);
 
-  ASSERT(15 == total);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(6 == total);
 }
 
 UNIT_TEST(Printf_16)
 {
   int total;
 
-  Usart_PrintRawString("C:0:");
+  puts("C:0:");
 
   total = printf("%x", 0);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(1 == total);
 }
@@ -617,11 +646,11 @@ UNIT_TEST(Printf_17)
 {
   int total;
 
-  Usart_PrintRawString("C:ff:");
+  puts("C:ff:");
 
   total = printf("%x", 255);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(2 == total);
 }
@@ -630,11 +659,11 @@ UNIT_TEST(Printf_18)
 {
   int total;
 
-  Usart_PrintRawString("C:FF:");
+  puts("C:FF:");
 
   total = printf("%X", 255);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(2 == total);
 }
@@ -643,11 +672,11 @@ UNIT_TEST(Printf_19)
 {
   int total;
 
-  Usart_PrintRawString("C:FA02:");
+  puts("C:FA02:");
 
   total = printf("%X", 0xfa02u);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(4 == total);
 }
@@ -656,11 +685,11 @@ UNIT_TEST(Printf_20)
 {
   int total;
 
-  Usart_PrintRawString("C:abcd:");
+  puts("C:abcd:");
 
   total = printf("%x", 0xabcdu);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(4 == total);
 }
@@ -669,11 +698,11 @@ UNIT_TEST(Printf_21)
 {
   int total;
 
-  Usart_PrintRawString("C:ffff:");
+  puts("C:ffff:");
 
   total = printf("%x", 0xffffu);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(4 == total);
 }
@@ -682,11 +711,11 @@ UNIT_TEST(Printf_22)
 {
   int total;
 
-  Usart_PrintRawString("C:FFFF:");
+  puts("C:FFFF:");
 
   total = printf("%X", 0xffffu);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(4 == total);
 }
@@ -695,11 +724,11 @@ UNIT_TEST(Printf_23)
 {
   int total;
 
-  Usart_PrintRawString("C:FE2534:");
+  puts("C:FE2534:");
 
   total = printf("%X%d", 0xfe25, 34);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(6 == total);
 }
@@ -708,11 +737,11 @@ UNIT_TEST(Printf_24)
 {
   int total;
 
-  Usart_PrintRawString("C:00c:");
+  puts("C:00c:");
 
   total = printf("%03x", 0xc);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(3 == total);
 }
@@ -721,11 +750,11 @@ UNIT_TEST(Printf_25)
 {
   int total;
 
-  Usart_PrintRawString("C:000fe:");
+  puts("C:000fe:");
 
   total = printf("%05x", 0xfe);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(5 == total);
 }
@@ -734,11 +763,11 @@ UNIT_TEST(Printf_26)
 {
   int total;
 
-  Usart_PrintRawString("C:DE:");
+  puts("C:DE:");
 
   total = printf("%01X", 0xde);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(2 == total);
 }
@@ -747,11 +776,11 @@ UNIT_TEST(Printf_27)
 {
   int total;
 
-  Usart_PrintRawString("C:deadbeef:");
+  puts("C:deadbeef:");
 
   total = printf("%02x%04x", 0xdead, 0xbeef);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(8 == total);
 }
@@ -760,11 +789,11 @@ UNIT_TEST(Printf_28)
 {
   int total;
 
-  Usart_PrintRawString("C:The 1st of march.:");
+  puts("C:The 1st of march.:");
 
   total = printf("The %xst of march.", 1);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(17 == total);
 }
@@ -773,11 +802,11 @@ UNIT_TEST(Printf_29)
 {
   int total;
 
-  Usart_PrintRawString("C:The 1st of march.:");
+  puts("C:The 1st of march.:");
 
   total = printf("The %Xst of march.", 1);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(17 == total);
 }
@@ -786,11 +815,11 @@ UNIT_TEST(Printf_30)
 {
   int total;
 
-  Usart_PrintRawString("C:The 1st of march.:");
+  puts("C:The 1st of march.:");
 
   total = printf("The %dst of march.", 1);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(17 == total);
 }
@@ -799,11 +828,11 @@ UNIT_TEST(Printf_31)
 {
   int total;
 
-  Usart_PrintRawString("C:0:");
+  puts("C:0:");
 
   total = printf("%o", 0);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(1 == total);
 }
@@ -812,11 +841,11 @@ UNIT_TEST(Printf_32)
 {
   int total;
 
-  Usart_PrintRawString("C:1:");
+  puts("C:1:");
 
   total = printf("%o", 1);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(1 == total);
 }
@@ -825,11 +854,11 @@ UNIT_TEST(Printf_33)
 {
   int total;
 
-  Usart_PrintRawString("C:177777:");
+  puts("C:177777:");
 
   total = printf("%o", 0xffff);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(6 == total);
 }
@@ -838,11 +867,11 @@ UNIT_TEST(Printf_34)
 {
   int total;
 
-  Usart_PrintRawString("C:54124:");
+  puts("C:54124:");
 
   total = printf("%o", 054124);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(5 == total);
 }
@@ -851,11 +880,11 @@ UNIT_TEST(Printf_35)
 {
   int total;
 
-  Usart_PrintRawString("C:15:");
+  puts("C:15:");
 
   total = printf("%o", 015);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(2 == total);
 }
@@ -864,11 +893,11 @@ UNIT_TEST(Printf_36)
 {
   int total;
 
-  Usart_PrintRawString("C:777:");
+  puts("C:777:");
 
   total = printf("%o", 0777);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(3 == total);
 }
@@ -877,11 +906,11 @@ UNIT_TEST(Printf_37)
 {
   int total;
 
-  Usart_PrintRawString("C:1000:");
+  puts("C:1000:");
 
   total = printf("%o", 01000);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(4 == total);
 }
@@ -890,11 +919,11 @@ UNIT_TEST(Printf_38)
 {
   int total;
 
-  Usart_PrintRawString("C:A:");
+  puts("C:A:");
 
   total = printf("%c", 'A');
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(1 == total);
 }
@@ -903,11 +932,11 @@ UNIT_TEST(Printf_39)
 {
   int total;
 
-  Usart_PrintRawString("C:%:");
+  puts("C:%:");
 
   total = printf("%c", '%');
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(1 == total);
 }
@@ -916,11 +945,11 @@ UNIT_TEST(Printf_40)
 {
   int total;
 
-  Usart_PrintRawString("C: :");
+  puts("C: :");
 
   total = printf("%c", ' ');
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(1 == total);
 }
@@ -929,11 +958,11 @@ UNIT_TEST(Printf_41)
 {
   int total;
 
-  Usart_PrintRawString("C:0:");
+  puts("C:0:");
 
   total = printf("%c", '0');
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(1 == total);
 }
@@ -942,11 +971,11 @@ UNIT_TEST(Printf_42)
 {
   int total;
 
-  Usart_PrintRawString("C:12!f9:");
+  puts("C:12!f9:");
 
   total = printf("%o%c%x%d", 012, '!', 0xf, 9);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(5 == total);
 }
@@ -955,11 +984,11 @@ UNIT_TEST(Printf_43)
 {
   int total;
 
-  Usart_PrintRawString("C:AZE,12:");
+  puts("C:AZE,12:");
 
   total = printf("%XZE%c%o", 0xA, ',', 012);
 
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   ASSERT(6 == total);
 }

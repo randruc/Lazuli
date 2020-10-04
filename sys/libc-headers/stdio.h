@@ -19,6 +19,11 @@
 _EXTERN_C_DECL_BEGIN
 
 /**
+ * Defines the End-Of-File constant.
+ */
+#define EOF ((int)-1)
+
+/**
  * Produce unbuffered formatted output to the serial line.
  *
  * This function is fully reentrant. No locking mechanism is provided.
@@ -51,6 +56,28 @@ _EXTERN_C_DECL_BEGIN
  */
 int
 printf(const char * format, ...);
+
+/**
+ * Transmit a single character on the serial line.
+ *
+ * @param c The character to transmit, that will be cast to an unsigned char.
+ *
+ * @return The actual value of the transmitted character, resulting from the
+           cast, as an int.
+ */
+int
+putchar(int c);
+
+/**
+ * Transmit the NUL-terminated string @p s on the serial line, without any
+ * formatting.
+ *
+ * @param s The string to transmit.
+ *
+ * @return A non-negative number on success, otherwise EOF on error.
+ */
+int
+puts(const char *s);
 
 _EXTERN_C_DECL_END
 

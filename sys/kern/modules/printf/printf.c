@@ -20,7 +20,6 @@
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
 
-#include <Lazuli/sys/arch/AVR/usart.h>
 #include <Lazuli/sys/printf.h>
 
 /** @cond false */
@@ -169,7 +168,7 @@ printf(const char *format, ...)
                                  */
 
           ++total;
-          Usart_PutChar('%');
+          putchar('%');
 
           break;
         } else if ('d' == *c || 'i' == *c || 'u' == *c) {
@@ -183,7 +182,7 @@ printf(const char *format, ...)
             absolute = ABS(value);
 
             if (isNegative) {
-              Usart_PutChar('-');
+              putchar('-');
               ++total;
             }
           }
@@ -233,19 +232,19 @@ printf(const char *format, ...)
           total += padLength;
 
           while (padLength-- > 0) {
-            Usart_PutChar(padChar);
+            putchar(padChar);
           }
         }
 
         while (size-- > 0) {
-          Usart_PutChar(buffer[size]);
+          putchar(buffer[size]);
         }
 
         break;
       }
     } else {
       ++total;
-      Usart_PutChar(*c);
+      putchar(*c);
     }
   }
 

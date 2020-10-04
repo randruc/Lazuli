@@ -12,15 +12,12 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 #include <Lazuli/mutex.h>
 #include <Lazuli/serial.h>
-
-#include <Lazuli/sys/arch/AVR/interrupts.h>
-#include <Lazuli/sys/arch/AVR/registers.h>
-#include <Lazuli/sys/arch/AVR/usart.h>
 
 DEPENDENCY_ON_MODULE(SERIAL);
 DEPENDENCY_ON_MODULE(MUTEX);
@@ -31,7 +28,7 @@ void
 Task(void)
 {
   Lz_Mutex_Lock(&mutex);
-  Usart_PrintRawString(Lz_Task_GetName());
+  puts(Lz_Task_GetName());
   Lz_Mutex_Unlock(&mutex);
 }
 
@@ -77,7 +74,7 @@ main(void)
     "\"Fire is a good servant but a bad master.\"" LZ_CONFIG_SERIAL_NEWLINE;
   Lz_RegisterTask(Task, &taskConfiguration);
 
-  Usart_PrintRawString(LZ_CONFIG_SERIAL_NEWLINE);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   Lz_Run();
 }

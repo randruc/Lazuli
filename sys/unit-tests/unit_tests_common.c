@@ -15,12 +15,11 @@
 #include "unit_tests_common.h"
 
 #include <stdint.h>
+#include <stdio.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
 #include <Lazuli/serial.h>
-
-#include <Lazuli/sys/arch/AVR/usart.h>
 
 DEPENDENCY_ON_MODULE(SERIAL);
 
@@ -28,8 +27,7 @@ void
 Assert(const bool cond, const uint16_t line)
 {
   if (!cond) {
-    Usart_HexaPrint_u16(line);
-    Usart_NewLine();
+    printf("0x%x" LZ_CONFIG_SERIAL_NEWLINE, line);
   }
 }
 
@@ -71,14 +69,13 @@ main(void)
 {
   EnableSerialTransmission();
 
-  Usart_NewLine();
-  Usart_PrintRawString("--BEGIN tests:0123456789!");
-  Usart_NewLine();
+  puts(LZ_CONFIG_SERIAL_NEWLINE
+       "--BEGIN tests:0123456789!"
+       LZ_CONFIG_SERIAL_NEWLINE);
 
   ExecuteTests();
 
-  Usart_PutChar('.');
-  Usart_NewLine();
+  puts("." LZ_CONFIG_SERIAL_NEWLINE);
 
   for (;;);
 }

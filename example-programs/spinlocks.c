@@ -12,15 +12,12 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/lazuli.h>
 #include <Lazuli/serial.h>
 #include <Lazuli/spinlock.h>
-
-#include <Lazuli/sys/arch/AVR/interrupts.h>
-#include <Lazuli/sys/arch/AVR/registers.h>
-#include <Lazuli/sys/arch/AVR/usart.h>
 
 DEPENDENCY_ON_MODULE(SPINLOCK);
 DEPENDENCY_ON_MODULE(SERIAL);
@@ -31,7 +28,7 @@ void
 Task(void)
 {
   Lz_Spinlock_Lock(&lock);
-  Usart_PrintRawString(Lz_Task_GetName());
+  puts(Lz_Task_GetName());
   Lz_Spinlock_Unlock(&lock);
 }
 
@@ -41,7 +38,7 @@ EnableSerialTransmission(void) {
 
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;
-    serialConfiguration.speed = LZ_SERIAL_SPEED_9600;
+  serialConfiguration.speed = LZ_SERIAL_SPEED_19200;
   Lz_Serial_SetConfiguration(&serialConfiguration);
 }
 
@@ -77,7 +74,7 @@ main(void)
     "\"Fire is a good servant but a bad master.\"" LZ_CONFIG_SERIAL_NEWLINE;
   Lz_RegisterTask(Task, &taskConfiguration);
 
-  Usart_PrintRawString(LZ_CONFIG_SERIAL_NEWLINE);
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
 
   Lz_Run();
 }
