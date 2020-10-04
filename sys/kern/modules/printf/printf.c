@@ -180,11 +180,6 @@ printf(const char *format, ...)
             const int value = va_arg(args, int);
             isNegative = value < 0;
             absolute = ABS(value);
-
-            if (isNegative) {
-              putchar('-');
-              ++total;
-            }
           }
 
           if (2 == sizeof(unsigned int)) {
@@ -222,6 +217,11 @@ printf(const char *format, ...)
 
         total += size;
 
+        if (isNegative && '0' == padChar) {
+          putchar('-');
+          ++total;
+        }
+
         if (padLength > size) {
           padLength -= size;
 
@@ -234,6 +234,11 @@ printf(const char *format, ...)
           while (padLength-- > 0) {
             putchar(padChar);
           }
+        }
+
+        if (isNegative && ' ' == padChar) {
+          putchar('-');
+          ++total;
         }
 
         while (size-- > 0) {

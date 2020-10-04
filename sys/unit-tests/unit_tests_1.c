@@ -993,6 +993,58 @@ UNIT_TEST(Printf_43)
   ASSERT(6 == total);
 }
 
+UNIT_TEST(Printf_44)
+{
+  int total;
+
+  puts("C:        -4:");
+
+  total = printf("%10d", -4);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(10 == total);
+}
+
+UNIT_TEST(Printf_45)
+{
+  int total;
+
+  puts("C:-000000004:");
+
+  total = printf("%010d", -4);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(10 == total);
+}
+
+UNIT_TEST(Printf_46)
+{
+  int total;
+
+  puts("C:    fe:");
+
+  total = printf("%6x", 0xfe);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(6 == total);
+}
+
+UNIT_TEST(Printf_47)
+{
+  int total;
+
+  puts("C:0000fe:");
+
+  total = printf("%06x", 0xfe);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(6 == total);
+}
+
 void
 ExecuteTests(void)
 {
@@ -1056,4 +1108,8 @@ ExecuteTests(void)
   Printf_41();
   Printf_42();
   Printf_43();
+  Printf_44();
+  Printf_45();
+  Printf_46();
+  Printf_47();
 }
