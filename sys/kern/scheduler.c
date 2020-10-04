@@ -492,8 +492,8 @@ CallbackRegisterIdleTask(void)
  *                          configuration of the task being registered.
  *                          If NULL is passed, then default values are applied
  *                          for all parameters.
- * @param idleTask A boolean value indicating that the task to register is the
- *                 scheduler idle task.
+ * @param isIdleTask A boolean value indicating that the task to register is the
+ *                   scheduler idle task.
  *
  * @return
  *         - _true_ if the task has been registered without error.
