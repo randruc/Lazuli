@@ -441,7 +441,7 @@ UNIT_TEST(Printf_1)
 
   Usart_PrintRawString("C:");
 
-  total = printf("2019:%u\r\n", 2019);
+  total = printf("2019:%u" LZ_CONFIG_SERIAL_NEWLINE , 2019);
 
   ASSERT(11 == total);
 }
@@ -452,7 +452,7 @@ UNIT_TEST(Printf_2)
 
   Usart_PrintRawString("C:");
 
-  total = printf("-1205:%d\r\n", -1205);
+  total = printf("-1205:%d" LZ_CONFIG_SERIAL_NEWLINE, -1205);
 
   ASSERT(13 == total);
 }
@@ -463,7 +463,7 @@ UNIT_TEST(Printf_3)
 
   Usart_PrintRawString("C:");
 
-  total = printf("0:%d\r\n", 0);
+  total = printf("0:%d" LZ_CONFIG_SERIAL_NEWLINE, 0);
 
   ASSERT(5 == total);
 }
@@ -474,7 +474,7 @@ UNIT_TEST(Printf_4)
 
   Usart_PrintRawString("C:");
 
-  total = printf("1:%d\r\n", 1);
+  total = printf("1:%d" LZ_CONFIG_SERIAL_NEWLINE, 1);
 
   ASSERT(5 == total);
 }
@@ -485,7 +485,7 @@ UNIT_TEST(Printf_5)
 
   Usart_PrintRawString("C:");
 
-  total = printf("65535:%u\r\n", 65535u);
+  total = printf("65535:%u" LZ_CONFIG_SERIAL_NEWLINE, 65535u);
 
   ASSERT(13 == total);
 }
@@ -496,7 +496,7 @@ UNIT_TEST(Printf_6)
 
   Usart_PrintRawString("C:");
 
-  total = printf("-1:%d\r\n", -1);
+  total = printf("-1:%d" LZ_CONFIG_SERIAL_NEWLINE, -1);
 
   ASSERT(7 == total);
 }
@@ -507,7 +507,7 @@ UNIT_TEST(Printf_7)
 
   Usart_PrintRawString("C:");
 
-  total = printf("48620:%u\r\n", 48620u);
+  total = printf("48620:%u" LZ_CONFIG_SERIAL_NEWLINE, 48620u);
 
   ASSERT(13 == total);
 }
@@ -518,7 +518,7 @@ UNIT_TEST(Printf_8)
 
   Usart_PrintRawString("C:");
 
-  total = printf("0000048620:%010u\r\n", 48620u);
+  total = printf("0000048620:%010u" LZ_CONFIG_SERIAL_NEWLINE, 48620u);
 
   ASSERT(23 == total);
 }
@@ -529,7 +529,7 @@ UNIT_TEST(Printf_9)
 
   Usart_PrintRawString("C:");
 
-  total = printf("25631:%01u\r\n", 25631u);
+  total = printf("25631:%01u" LZ_CONFIG_SERIAL_NEWLINE, 25631u);
 
   ASSERT(13 == total);
 }
@@ -540,7 +540,7 @@ UNIT_TEST(Printf_10)
 
   Usart_PrintRawString("C:");
 
-  total = printf("228:%03u\r\n", 228u);
+  total = printf("228:%03u" LZ_CONFIG_SERIAL_NEWLINE, 228u);
 
   ASSERT(9 == total);
 }
@@ -551,7 +551,7 @@ UNIT_TEST(Printf_11)
 
   Usart_PrintRawString("C:");
 
-  total = printf("-1715:%03d\r\n", -1715);
+  total = printf("-1715:%03d" LZ_CONFIG_SERIAL_NEWLINE, -1715);
 
   ASSERT(13 == total);
 }
@@ -562,7 +562,7 @@ UNIT_TEST(Printf_12)
 
   Usart_PrintRawString("C:");
 
-  total = printf("-004:%04d\r\n", -4);
+  total = printf("-004:%04d" LZ_CONFIG_SERIAL_NEWLINE, -4);
 
   ASSERT(11 == total);
 }
@@ -573,7 +573,7 @@ UNIT_TEST(Printf_13)
 
   Usart_PrintRawString("C:");
 
-  total = printf("-563:%02d\r\n", -563);
+  total = printf("-563:%02d" LZ_CONFIG_SERIAL_NEWLINE, -563);
 
   ASSERT(11 == total);
 }
@@ -584,7 +584,7 @@ UNIT_TEST(Printf_14)
 
   Usart_PrintRawString("C:");
 
-  total = printf("00001963:%08d\r\n", 1963);
+  total = printf("00001963:%08d" LZ_CONFIG_SERIAL_NEWLINE, 1963);
 
   ASSERT(19 == total);
 }
@@ -595,7 +595,7 @@ UNIT_TEST(Printf_15)
 
   Usart_PrintRawString("C:");
 
-  total = printf("065535:%06u\r\n", 65535u);
+  total = printf("065535:%06u" LZ_CONFIG_SERIAL_NEWLINE, 65535u);
 
   ASSERT(15 == total);
 }

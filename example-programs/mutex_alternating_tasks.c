@@ -53,7 +53,7 @@ TaskA(void)
 
   for (i = 0; i < LOOP_N; ++i) {
     Lz_Mutex_Lock(&mutexA);
-    Usart_PrintRawString("A\r\n");
+    Usart_PrintRawString("A" LZ_CONFIG_SERIAL_NEWLINE);
     Lz_Mutex_Unlock(&mutexB);
   }
 }
@@ -67,7 +67,7 @@ TaskB(void)
 
   for (i = 0; i < LOOP_N; ++i) {
     Lz_Mutex_Lock(&mutexB);
-    Usart_PrintRawString("B\r\n");
+    Usart_PrintRawString("B" LZ_CONFIG_SERIAL_NEWLINE);
     Lz_Mutex_Unlock(&mutexA);
   }
 }
@@ -90,7 +90,7 @@ main(void)
   Lz_RegisterTask(TaskA, NULL);
   Lz_RegisterTask(TaskB, NULL);
 
-  Usart_PrintRawString("\r\n");
+  Usart_PrintRawString(LZ_CONFIG_SERIAL_NEWLINE);
 
   Lz_Run();
 }

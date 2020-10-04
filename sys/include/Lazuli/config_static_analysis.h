@@ -112,6 +112,11 @@ extern const bool LZ_CONFIG_CHECK_INTERRUPT_CODE_OVER_LAST_ENTRY;
  */
 extern const bool LZ_CONFIG_ON_IDLE_SLEEP;
 
+/**
+ * The sequence to use for new lines on the serial line.
+ */
+#define LZ_CONFIG_SERIAL_NEWLINE "\r\n"
+
 /** @name Scheduling */
 /** @{               */
 /**

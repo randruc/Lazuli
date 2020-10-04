@@ -101,15 +101,33 @@
  */
 #cmakedefine01 LZ_CONFIG_ON_IDLE_SLEEP
 
-/**
- * When 1, an ASCII string representing the version of the Lazuli kernel will be
- * included in the ".progmem" section of the final binary. Here is an example
- * of the string: "{Lazuli-0.1.0}"
- * This string is not meant to be manipulated by code so no symbol is associated
- * with it.
- * When 0, nothing is included.
+/*
+ * The following is a trick to simulate string comparisons with the C
+ * preprocessor. Of course, we rely on CMake to perform part of the job.
  */
-#cmakedefine01 LZ_CONFIG_INCLUDE_VERSION_STRING_IN_FINAL_BINARY
+#define CRLF (1)
+#define LF (2)
+
+#if ((@LZ_CONFIG_SERIAL_NEWLINE@) == (CRLF))
+
+/**
+ * The sequence to use for new lines on the serial line.
+ */
+#define LZ_CONFIG_SERIAL_NEWLINE "\r\n"
+
+#elif ((@LZ_CONFIG_SERIAL_NEWLINE@) == (LF))
+
+/**
+ * The sequence to use for new lines on the serial line.
+ */
+#define LZ_CONFIG_SERIAL_NEWLINE "\n"
+
+#else
+#error "Unknown sequence for configuration LZ_CONFIG_SERIAL_NEWLINE."
+#endif
+
+#undef CRLF
+#undef LF
 
 /** @name Scheduling */
 /** @{               */

@@ -67,6 +67,18 @@ option(
   "Put the CPU to sleep when it's idle, or infinite loop."
   ON)
 
+# TODO: See if this should be put in the CMakeLists.txt of the serial module.
+set(
+  LZ_CONFIG_SERIAL_NEWLINE
+  "CRLF"
+  CACHE STRING
+  "The sequence to use for new lines on the serial line.")
+
+set_property(
+  CACHE LZ_CONFIG_SERIAL_NEWLINE
+  PROPERTY STRINGS
+  "CRLF;LF")
+
 ## Build options
 
 option(

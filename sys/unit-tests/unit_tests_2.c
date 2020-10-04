@@ -981,7 +981,7 @@ UNIT_TEST(Division_1)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -999,7 +999,7 @@ UNIT_TEST(Division_2)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1017,7 +1017,7 @@ UNIT_TEST(Division_3)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1035,7 +1035,7 @@ UNIT_TEST(Division_4)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1053,7 +1053,7 @@ UNIT_TEST(Division_5)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1071,7 +1071,7 @@ UNIT_TEST(Division_6)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1089,7 +1089,7 @@ UNIT_TEST(Division_7)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1107,7 +1107,7 @@ UNIT_TEST(Division_8)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1125,7 +1125,7 @@ UNIT_TEST(Division_9)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1143,7 +1143,7 @@ UNIT_TEST(Division_10)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1161,7 +1161,7 @@ UNIT_TEST(Division_11)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1179,7 +1179,7 @@ UNIT_TEST(Division_12)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1197,7 +1197,7 @@ UNIT_TEST(Division_13)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1215,7 +1215,7 @@ UNIT_TEST(Division_14)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1233,7 +1233,7 @@ UNIT_TEST(Division_15)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1251,7 +1251,7 @@ UNIT_TEST(Division_16)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1269,7 +1269,7 @@ UNIT_TEST(Division_17)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1287,7 +1287,7 @@ UNIT_TEST(Division_18)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1305,7 +1305,7 @@ UNIT_TEST(Division_19)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1323,7 +1323,7 @@ UNIT_TEST(Division_20)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1341,7 +1341,7 @@ UNIT_TEST(Division_21)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1359,7 +1359,7 @@ UNIT_TEST(Division_22)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1377,7 +1377,7 @@ UNIT_TEST(Division_23)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1395,7 +1395,7 @@ UNIT_TEST(Division_24)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1413,7 +1413,7 @@ UNIT_TEST(Division_25)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1431,7 +1431,7 @@ UNIT_TEST(Division_26)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1449,7 +1449,7 @@ UNIT_TEST(Division_27)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1467,7 +1467,7 @@ UNIT_TEST(Division_28)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1485,7 +1485,7 @@ UNIT_TEST(Division_29)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1529,7 +1529,7 @@ UNIT_TEST(Division_32)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1547,7 +1547,7 @@ UNIT_TEST(Division_33)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1565,7 +1565,7 @@ UNIT_TEST(Division_34)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,
@@ -1583,7 +1583,7 @@ UNIT_TEST(Division_35)
 
   U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
 
-  printf("D:num=%u den=%u quot=%u rem=%u\r\n",
+  printf("D:num=%u den=%u quot=%u rem=%u" LZ_CONFIG_SERIAL_NEWLINE,
          numerator,
          denominator,
          d.quotient,

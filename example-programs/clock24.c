@@ -35,7 +35,7 @@ ClockTask(void)
 
     Lz_Clock24_Get(&clock24);
 
-    printf("%02u:%02u:%02u\r\n",
+    printf("%02u:%02u:%02u" LZ_CONFIG_SERIAL_NEWLINE,
            clock24.hours,
            clock24.minutes,
            clock24.seconds);
