@@ -117,6 +117,56 @@ ConvertU16ToOctal(uint16_t value, char * const buffer)
   return i + 1;
 }
 
+/**
+ * Output the padding, according to the selected options.
+ *
+ * @param padLength The desired pad length.
+ * @param size The size of the buffer.
+ * @param padChar The character to use for padding.
+ * @param isNegative A boolean value indicating if the value to display is
+ *                   negative.
+ *
+ * @return The final size of the actual output padding.
+ */
+static int
+OutputPadding(uint8_t padLength,
+              const uint8_t size,
+              const char padChar,
+              const bool isNegative)
+{
+  int total = 0;
+
+  if (padLength > size) {
+    padLength -= size;
+
+    if (isNegative && padLength > 0) {
+      --padLength;
+    }
+
+    total = padLength;
+
+    while (padLength-- > 0) {
+      putchar(padChar);
+    }
+  }
+
+  return total;
+}
+
+/**
+ * Output the content of the buffer.
+ *
+ * @param buffer A valid pointer to the buffer.
+ * @param size The size of the buffer.
+ */
+static void
+OutputBuffer(const char * const buffer, uint8_t size)
+{
+  while (size-- > 0) {
+    putchar(buffer[size]);
+  }
+}
+
 /*
  * Warning! The stack usage of this function is important! Reduce the stack
  * usage to its strict minimum.
@@ -139,6 +189,7 @@ printf(const char *format, ...)
       char padChar = ' ';
       bool firstDigitPassed = false;
       bool isNegative = false;
+      bool rightPadded = false;
       uint8_t padLength = 0;
       uint8_t size;
       char buffer[6];
@@ -159,6 +210,10 @@ printf(const char *format, ...)
         } else if (*c >= '0' && *c <= '9') {
           padLength = padLength * 10 + *c - '0';
           firstDigitPassed = true;
+
+          continue;
+        } else if ('-' == *c) {
+          rightPadded = true;
 
           continue;
         } else if ('%' == *c) { /*
@@ -217,32 +272,45 @@ printf(const char *format, ...)
 
         total += size;
 
-        if (isNegative && '0' == padChar) {
-          putchar('-');
-          ++total;
-        }
+        if (rightPadded) {
+          /*
+           * The value is to be right-padded, the operations are:
+           * 1) Output the sign, if concerned.
+           * 2) Output the value.
+           * 3) Output the padding, overriding any pad character by a space
+           *    character.
+           */
 
-        if (padLength > size) {
-          padLength -= size;
-
-          if (isNegative && padLength > 0) {
-            --padLength;
+          if (isNegative) {
+            putchar('-');
+            ++total;
           }
 
-          total += padLength;
+          OutputBuffer(buffer, size);
 
-          while (padLength-- > 0) {
-            putchar(padChar);
+          total += OutputPadding(padLength, size, ' ', isNegative);
+        } else {
+          /*
+           * The value is to be left-padded, the operations are:
+           * 1) Output the sign, if concerned and only if we pad with zeros.
+           * 2) Output the padding.
+           * 3) Output the sign, if concerned and only if we pad with spaces.
+           * 3) Output the value.
+           */
+
+          if (isNegative && '0' == padChar) {
+            putchar('-');
+            ++total;
           }
-        }
 
-        if (isNegative && ' ' == padChar) {
-          putchar('-');
-          ++total;
-        }
+          total += OutputPadding(padLength, size, padChar, isNegative);
 
-        while (size-- > 0) {
-          putchar(buffer[size]);
+          if (isNegative && ' ' == padChar) {
+            putchar('-');
+            ++total;
+          }
+
+          OutputBuffer(buffer, size);
         }
 
         break;

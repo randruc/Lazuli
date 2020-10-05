@@ -1045,6 +1045,73 @@ UNIT_TEST(Printf_47)
   ASSERT(6 == total);
 }
 
+UNIT_TEST(Printf_48)
+{
+  int total;
+
+  puts("C:12    12:");
+
+  total = printf("%-6d%d", 12, 12);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(8 == total);
+}
+
+UNIT_TEST(Printf_49)
+{
+  int total;
+  char * format = "%-02d%o";
+
+  puts("C:9 1:");
+
+  total = printf(format, 9, 1);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(3 == total);
+}
+
+UNIT_TEST(Printf_50)
+{
+  int total;
+  char * format = "%-08x%c";
+
+  puts("C:fefa    c:");
+
+  total = printf(format, 0xfefa, 'c');
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(9 == total);
+}
+
+UNIT_TEST(Printf_51)
+{
+  int total;
+
+  puts("C:50001B:");
+
+  total = printf("%-2u%X", 50001U, 0xb);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(6 == total);
+}
+
+UNIT_TEST(Printf_52)
+{
+  int total;
+
+  puts("C:123124:");
+
+  total = printf("%-3u%d", 123, 124);
+
+  puts(LZ_CONFIG_SERIAL_NEWLINE);
+
+  ASSERT(6 == total);
+}
+
 void
 ExecuteTests(void)
 {
@@ -1112,4 +1179,9 @@ ExecuteTests(void)
   Printf_45();
   Printf_46();
   Printf_47();
+  Printf_48();
+  Printf_49();
+  Printf_50();
+  Printf_51();
+  Printf_52();
 }
