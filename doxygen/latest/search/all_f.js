@@ -8,7 +8,6 @@ var searchData=
   ['pinb',['PINB',['../registers_8h.html#a49f0e8289e962c02128f24b94d7aea7c',1,'registers.h']]],
   ['pinc',['PINC',['../registers_8h.html#a0545e73dc7ae14b1f62293c1feba3983',1,'registers.h']]],
   ['pind',['PIND',['../registers_8h.html#a50997bc44119b844ceaab463c564bfb7',1,'registers.h']]],
-  ['pointer',['pointer',['../unionIntegerBytes.html#a31026d062c53fd0b6e12ad3ef031e447',1,'IntegerBytes']]],
   ['portb',['PORTB',['../registers_8h.html#a09a0c85cd3da09d9cdf63a5ac4c39f77',1,'registers.h']]],
   ['portc',['PORTC',['../registers_8h.html#a68fea88642279a70246e026e7221b0a5',1,'registers.h']]],
   ['portd',['PORTD',['../registers_8h.html#a3e6a2517db4f9cb7c9037adf0aefe79b',1,'registers.h']]],
@@ -30,5 +29,7 @@ var searchData=
   ['prr_5fprtim2',['PRR_PRTIM2',['../registers_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba2fe63fd0bb5a402170a878abd7106b18',1,'registers.h']]],
   ['prr_5fprtwi',['PRR_PRTWI',['../registers_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba6c550994117984e510c25fa02691d40f',1,'registers.h']]],
   ['prr_5fprusart0',['PRR_PRUSART0',['../registers_8h.html#a06fc87d81c62e9abb8790b6e5713c55bac1a4e8015888f7be902cbbc89ba446d0',1,'registers.h']]],
-  ['ptrdiff_5ft',['ptrdiff_t',['../common_8h.html#afbe679a40a36da5983ebc5b39754c065',1,'common.h']]]
+  ['ptrdiff_5ft',['ptrdiff_t',['../common_8h.html#afbe679a40a36da5983ebc5b39754c065',1,'common.h']]],
+  ['putchar',['putchar',['../usart_8c.html#af4de2514b7778805db3815e8dd6cf09a',1,'putchar(int c):&#160;usart.c'],['../stdio_8h.html#af4de2514b7778805db3815e8dd6cf09a',1,'putchar(int c):&#160;usart.c']]],
+  ['puts',['puts',['../usart_8c.html#ad41876f99f190c7488e64ef39c50a23f',1,'puts(const char *s):&#160;usart.c'],['../stdio_8h.html#ad41876f99f190c7488e64ef39c50a23f',1,'puts(const char *s):&#160;usart.c']]]
 ];

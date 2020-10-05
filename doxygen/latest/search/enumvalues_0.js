@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['alloc_5fincremental',['ALLOC_INCREMENTAL',['../memory_8h.html#a564fc3bb689bd0ed5cdcde9580ad9b9da19e362857bdde16e97a57d763b87b3f6',1,'memory.h']]]
+  ['cyclic_5frt',['CYCLIC_RT',['../lazuli_8h.html#af6c63fcae732fc21cb5ba997ab35ab46aa25a2839525aff135baf3c40f3f40f4d',1,'lazuli.h']]]
 ];

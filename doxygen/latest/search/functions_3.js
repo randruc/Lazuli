@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['getenablingstatus',['GetEnablingStatus',['../usart_8c.html#a635cfc4b6513cdc2cc9397d5483668cf',1,'usart.c']]],
-  ['gethexdigit',['GetHexDigit',['../printf_8c.html#a0de6b8dd198d297868f28f9c8a3f67fd',1,'printf.c']]],
-  ['getparitybit',['GetParityBit',['../usart_8c.html#a6bc52cd0084bd62b6ee27eafe69f39ec',1,'usart.c']]],
-  ['getsize',['GetSize',['../usart_8c.html#a5eec987251f31cccecf54ceb464993ee',1,'usart.c']]],
-  ['getstopbits',['GetStopBits',['../usart_8c.html#a4018e81b928720305caf9540996d74e2',1,'usart.c']]]
+  ['idletask',['IdleTask',['../scheduler_8c.html#ab3de89a513b71102baa45a8320687f96',1,'scheduler.c']]],
+  ['incrementhours',['IncrementHours',['../clock__24_8c.html#a3575820d12ddb806dfb1b39a839e9048',1,'clock_24.c']]],
+  ['incrementminutes',['IncrementMinutes',['../clock__24_8c.html#a4e47a68feec757b25dd7cdb68be1a65f',1,'clock_24.c']]],
+  ['incrementseconds',['IncrementSeconds',['../clock__24_8c.html#a6c8e738396826304e1edba9e240c58b3',1,'clock_24.c']]],
+  ['incrementuntil',['IncrementUntil',['../clock__24_8c.html#a0108ce2056e201ed016b0a89d8c1cf66',1,'clock_24.c']]],
+  ['initmutex',['InitMutex',['../mutex_8c.html#ac320269909c3cde32587ee17391a62db',1,'mutex.c']]],
+  ['inserttaskbypriority',['InsertTaskByPriority',['../scheduler_8c.html#ad8d1b0f8963642ee91cf0e46f481aff7',1,'scheduler.c']]]
 ];

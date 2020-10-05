@@ -63,7 +63,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -74,6 +73,7 @@ $(function() {
 <p>ATmega328p USART driver.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="stdio_8h_source.html">stdio.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="common_8h_source.html">Lazuli/common.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="config_8h_source.html">Lazuli/config.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="serial_8h_source.html">Lazuli/serial.h</a>&gt;</code><br />
@@ -84,42 +84,14 @@ $(function() {
 </div>
 <p><a href="usart_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionIntegerBytes.html">IntegerBytes</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union to access individual bytes of an integer value (with a maximum width of 32 bits).  <a href="unionIntegerBytes.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aae6cc5ceb20b3c01ef8ce8c83f73c599"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#aae6cc5ceb20b3c01ef8ce8c83f73c599">Usart_PutChar</a> (char c)</td></tr>
-<tr class="memdesc:aae6cc5ceb20b3c01ef8ce8c83f73c599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit a character.  <a href="#aae6cc5ceb20b3c01ef8ce8c83f73c599">More...</a><br /></td></tr>
-<tr class="separator:aae6cc5ceb20b3c01ef8ce8c83f73c599"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a048463a0fc821543f22e30956edf37db"><td class="memItemLeft" align="right" valign="top"><a id="a048463a0fc821543f22e30956edf37db"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a048463a0fc821543f22e30956edf37db">Usart_NewLine</a> (void)</td></tr>
-<tr class="memdesc:a048463a0fc821543f22e30956edf37db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit a new line sequence. <br /></td></tr>
-<tr class="separator:a048463a0fc821543f22e30956edf37db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4237142e794a08fb9b094eba34a5ee22"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a4237142e794a08fb9b094eba34a5ee22">Usart_HexaPrint_IntegerBytes</a> (<a class="el" href="unionIntegerBytes.html">IntegerBytes</a> const *const integerBytes, const <a class="el" href="common_8h.html#af5439e19eec032e96a3561505be8ec35">size_t</a> size)</td></tr>
-<tr class="memdesc:a4237142e794a08fb9b094eba34a5ee22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a numerical value stored in an <a class="el" href="unionIntegerBytes.html" title="Union to access individual bytes of an integer value (with a maximum width of 32 bits). ">IntegerBytes</a> union to its hexadecimal form, accordig to the correct size.  <a href="#a4237142e794a08fb9b094eba34a5ee22">More...</a><br /></td></tr>
-<tr class="separator:a4237142e794a08fb9b094eba34a5ee22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ad9192d1ec1d95d1eff507c2a423999"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a7ad9192d1ec1d95d1eff507c2a423999">Usart_HexaPrint_u32</a> (const <a class="el" href="AVR_2stdint_8h.html#a06896e8c53f721507066c079052171f8">uint32_t</a> value)</td></tr>
-<tr class="memdesc:a7ad9192d1ec1d95d1eff507c2a423999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a uint32_t value in hexadecimal.  <a href="#a7ad9192d1ec1d95d1eff507c2a423999">More...</a><br /></td></tr>
-<tr class="separator:a7ad9192d1ec1d95d1eff507c2a423999"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf8b4b04eaf762fdf9ff30cd24aa1ccc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#abf8b4b04eaf762fdf9ff30cd24aa1ccc">Usart_HexaPrint_u16</a> (const <a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a> value)</td></tr>
-<tr class="memdesc:abf8b4b04eaf762fdf9ff30cd24aa1ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a uint16_t value in hexadecimal.  <a href="#abf8b4b04eaf762fdf9ff30cd24aa1ccc">More...</a><br /></td></tr>
-<tr class="separator:abf8b4b04eaf762fdf9ff30cd24aa1ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4d9a2247b6adbbdd7b102dcda323bed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#af4d9a2247b6adbbdd7b102dcda323bed">Usart_HexaPrint_u8</a> (const <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> value)</td></tr>
-<tr class="memdesc:af4d9a2247b6adbbdd7b102dcda323bed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a uint8_t value in hexadecimal.  <a href="#af4d9a2247b6adbbdd7b102dcda323bed">More...</a><br /></td></tr>
-<tr class="separator:af4d9a2247b6adbbdd7b102dcda323bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f1d465bf6ad0b57be20ba7d5cd03626"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a2f1d465bf6ad0b57be20ba7d5cd03626">Usart_HexaPrint_Pointer</a> (void *const pointer)</td></tr>
-<tr class="memdesc:a2f1d465bf6ad0b57be20ba7d5cd03626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print an pointer value in hexadecimal.  <a href="#a2f1d465bf6ad0b57be20ba7d5cd03626">More...</a><br /></td></tr>
-<tr class="separator:a2f1d465bf6ad0b57be20ba7d5cd03626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70a140d06aaa8cde155d0c2d7d1de90a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a70a140d06aaa8cde155d0c2d7d1de90a">Usart_HexaPrint_FunctionPointer</a> (void(*functionPointer)(void))</td></tr>
-<tr class="memdesc:a70a140d06aaa8cde155d0c2d7d1de90a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a function pointer value in hexadecimal.  <a href="#a70a140d06aaa8cde155d0c2d7d1de90a">More...</a><br /></td></tr>
-<tr class="separator:a70a140d06aaa8cde155d0c2d7d1de90a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2235bee05346b6bd67017bc8fd8a86db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a2235bee05346b6bd67017bc8fd8a86db">Usart_PrintRawString</a> (const char *string)</td></tr>
-<tr class="memdesc:a2235bee05346b6bd67017bc8fd8a86db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a raw string without any formatting.  <a href="#a2235bee05346b6bd67017bc8fd8a86db">More...</a><br /></td></tr>
-<tr class="separator:a2235bee05346b6bd67017bc8fd8a86db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4de2514b7778805db3815e8dd6cf09a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#af4de2514b7778805db3815e8dd6cf09a">putchar</a> (int c)</td></tr>
+<tr class="memdesc:af4de2514b7778805db3815e8dd6cf09a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit a single character on the serial line.  <a href="#af4de2514b7778805db3815e8dd6cf09a">More...</a><br /></td></tr>
+<tr class="separator:af4de2514b7778805db3815e8dd6cf09a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad41876f99f190c7488e64ef39c50a23f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#ad41876f99f190c7488e64ef39c50a23f">puts</a> (const char *s)</td></tr>
+<tr class="memdesc:ad41876f99f190c7488e64ef39c50a23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit the NUL-terminated string <code>s</code> on the serial line, without any formatting.  <a href="#ad41876f99f190c7488e64ef39c50a23f">More...</a><br /></td></tr>
+<tr class="separator:ad41876f99f190c7488e64ef39c50a23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a635cfc4b6513cdc2cc9397d5483668cf"><td class="memItemLeft" align="right" valign="top">static enum <a class="el" href="serial_8h.html#aa5e112d3a14fe1ee777b14ff35c86b55">Lz_SerialEnableFlags</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a635cfc4b6513cdc2cc9397d5483668cf">GetEnablingStatus</a> (void)</td></tr>
 <tr class="memdesc:a635cfc4b6513cdc2cc9397d5483668cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the enabling status of the serial line.  <a href="#a635cfc4b6513cdc2cc9397d5483668cf">More...</a><br /></td></tr>
 <tr class="separator:a635cfc4b6513cdc2cc9397d5483668cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,9 +174,6 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <tr class="memitem:a342a3846b3c53952cb511350dcfd0870"><td class="memItemLeft" align="right" valign="top">static enum <a class="el" href="serial_8h.html#a2038040fb2c280bc89dbef3f72e18a72">Lz_SerialSpeed</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a342a3846b3c53952cb511350dcfd0870">currentSerialSpeed</a></td></tr>
 <tr class="memdesc:a342a3846b3c53952cb511350dcfd0870"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current serial baud rate.  <a href="#a342a3846b3c53952cb511350dcfd0870">More...</a><br /></td></tr>
 <tr class="separator:a342a3846b3c53952cb511350dcfd0870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62a8ddf9c272ea30619e588839414984"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a62a8ddf9c272ea30619e588839414984">hexachars</a> []</td></tr>
-<tr class="memdesc:a62a8ddf9c272ea30619e588839414984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array used to get the character representation of a hexadecimal digit.  <a href="#a62a8ddf9c272ea30619e588839414984">More...</a><br /></td></tr>
-<tr class="separator:a62a8ddf9c272ea30619e588839414984"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81922e08d5efa3c46b4b09a1d7e74068"><td class="memItemLeft" align="right" valign="top">static void(*const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="usart_8c.html#a81922e08d5efa3c46b4b09a1d7e74068">setStopBits</a> [])(void)</td></tr>
 <tr class="memdesc:a81922e08d5efa3c46b4b09a1d7e74068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jump table to functions setting the number of stop bits of the serial line.  <a href="#a81922e08d5efa3c46b4b09a1d7e74068">More...</a><br /></td></tr>
 <tr class="separator:a81922e08d5efa3c46b4b09a1d7e74068"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,248 +194,61 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 
 <p class="definition">Definition in file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aae6cc5ceb20b3c01ef8ce8c83f73c599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae6cc5ceb20b3c01ef8ce8c83f73c599">&#9670;&nbsp;</a></span>Usart_PutChar()</h2>
+<a id="af4de2514b7778805db3815e8dd6cf09a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4de2514b7778805db3815e8dd6cf09a">&#9670;&nbsp;</a></span>putchar()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Usart_PutChar </td>
+          <td class="memname">int putchar </td>
           <td>(</td>
-          <td class="paramtype">char&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>c</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit a character. </p>
+<p>Transmit a single character on the serial line. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c</td><td>The character to transmit. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to transmit, that will be cast to an unsigned char.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The actual value of the transmitted character, resulting from the cast, as an int. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00074">74</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
-
-</div>
-</div>
-<a id="a4237142e794a08fb9b094eba34a5ee22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4237142e794a08fb9b094eba34a5ee22">&#9670;&nbsp;</a></span>Usart_HexaPrint_IntegerBytes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void Usart_HexaPrint_IntegerBytes </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="unionIntegerBytes.html">IntegerBytes</a> const *const&#160;</td>
-          <td class="paramname"><em>integerBytes</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="common_8h.html#af5439e19eec032e96a3561505be8ec35">size_t</a>&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Print a numerical value stored in an <a class="el" href="unionIntegerBytes.html" title="Union to access individual bytes of an integer value (with a maximum width of 32 bits). ">IntegerBytes</a> union to its hexadecimal form, accordig to the correct size. </p>
-<p>This serves as the base implementation for all specialized Usart_HexaPrint_*() functions.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">integerBytes</td><td>A pointer to the IntergerBytes union to print. </td></tr>
-    <tr><td class="paramname">size</td><td>The size in bytes of the value to print. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00099">99</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00040">40</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
-<a id="a7ad9192d1ec1d95d1eff507c2a423999"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ad9192d1ec1d95d1eff507c2a423999">&#9670;&nbsp;</a></span>Usart_HexaPrint_u32()</h2>
+<a id="ad41876f99f190c7488e64ef39c50a23f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad41876f99f190c7488e64ef39c50a23f">&#9670;&nbsp;</a></span>puts()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Usart_HexaPrint_u32 </td>
+          <td class="memname">int puts </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="AVR_2stdint_8h.html#a06896e8c53f721507066c079052171f8">uint32_t</a>&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Print a uint32_t value in hexadecimal. </p>
+<p>Transmit the NUL-terminated string <code>s</code> on the serial line, without any formatting. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>The uint32_t value to print. </td></tr>
+    <tr><td class="paramname">s</td><td>The string to transmit.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A non-negative number on success, otherwise EOF on error. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00119">119</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
-
-</div>
-</div>
-<a id="abf8b4b04eaf762fdf9ff30cd24aa1ccc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf8b4b04eaf762fdf9ff30cd24aa1ccc">&#9670;&nbsp;</a></span>Usart_HexaPrint_u16()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Usart_HexaPrint_u16 </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="AVR_2stdint_8h.html#a1f1825b69244eb3ad2c7165ddc99c956">uint16_t</a>&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Print a uint16_t value in hexadecimal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>The uint16_t value to print. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00128">128</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
-
-</div>
-</div>
-<a id="af4d9a2247b6adbbdd7b102dcda323bed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4d9a2247b6adbbdd7b102dcda323bed">&#9670;&nbsp;</a></span>Usart_HexaPrint_u8()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Usart_HexaPrint_u8 </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Print a uint8_t value in hexadecimal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>The uint8_t value to print. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00137">137</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
-
-</div>
-</div>
-<a id="a2f1d465bf6ad0b57be20ba7d5cd03626"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f1d465bf6ad0b57be20ba7d5cd03626">&#9670;&nbsp;</a></span>Usart_HexaPrint_Pointer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Usart_HexaPrint_Pointer </td>
-          <td>(</td>
-          <td class="paramtype">void *const&#160;</td>
-          <td class="paramname"><em>pointer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Print an pointer value in hexadecimal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pointer</td><td>The pointer value to print. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00146">146</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
-
-</div>
-</div>
-<a id="a70a140d06aaa8cde155d0c2d7d1de90a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70a140d06aaa8cde155d0c2d7d1de90a">&#9670;&nbsp;</a></span>Usart_HexaPrint_FunctionPointer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Usart_HexaPrint_FunctionPointer </td>
-          <td>(</td>
-          <td class="paramtype">void(*)(void)&#160;</td>
-          <td class="paramname"><em>functionPointer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Print a function pointer value in hexadecimal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">functionPointer</td><td>The function pointer value to print. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00155">155</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
-
-</div>
-</div>
-<a id="a2235bee05346b6bd67017bc8fd8a86db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2235bee05346b6bd67017bc8fd8a86db">&#9670;&nbsp;</a></span>Usart_PrintRawString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Usart_PrintRawString </td>
-          <td>(</td>
-          <td class="paramtype">const char *const&#160;</td>
-          <td class="paramname"><em>string</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Print a raw string without any formatting. </p>
-<p>The string must be NUL terminated.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">string</td><td>A pointer to the string to print. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00164">164</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00052">52</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -497,7 +279,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <p>Retrieve the enabling status of the serial line. </p>
 <dl class="section return"><dt>Returns</dt><dd>An Lz_SerialEnableFlags containing the enabling status. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00182">182</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00072">72</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -528,7 +310,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <p>Retrieve the number of stop bits currently used by the serial line. </p>
 <dl class="section return"><dt>Returns</dt><dd>An Lz_SerialStopBits containing the number of stop bits. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00203">203</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00093">93</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -559,7 +341,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <p>Retrieve the kind of parity currently used by the serial line. </p>
 <dl class="section return"><dt>Returns</dt><dd>An Lz_SerialParityBit containing the kind of parity. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00218">218</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00108">108</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -590,7 +372,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <p>Retrieve the character size currently used by the serial line. </p>
 <dl class="section return"><dt>Returns</dt><dd>An Lz_SerialSize containing the character size. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00241">241</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00131">131</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -626,7 +408,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00268">268</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00158">158</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -662,7 +444,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00327">327</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00217">217</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -698,7 +480,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00397">397</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00287">287</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -734,7 +516,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00481">481</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00371">371</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -770,7 +552,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00524">524</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00414">414</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -798,7 +580,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00544">544</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00434">434</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -826,7 +608,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00554">554</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00444">444</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -853,7 +635,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <p>&lt; member: size</p>
 <p>&lt; member: speed </p>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00583">583</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00473">473</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -881,33 +663,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <p>The current serial baud rate. </p>
 <p>This is used to save the current setting of the serial baud rate. On AVR, the setting of the speed isn't always accurate once calculated, so we use this variable to store it and be able to retrieve it easily. </p>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00036">36</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
-
-</div>
-</div>
-<a id="a62a8ddf9c272ea30619e588839414984"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62a8ddf9c272ea30619e588839414984">&#9670;&nbsp;</a></span>hexachars</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char hexachars[]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">  <span class="charliteral">&#39;0&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;1&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;2&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;3&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;4&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;5&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;6&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;7&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;8&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;9&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;a&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;b&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;c&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;d&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;e&#39;</span>,</div><div class="line">  <span class="charliteral">&#39;f&#39;</span></div><div class="line">}</div></div><!-- fragment -->
-<p>Array used to get the character representation of a hexadecimal digit. </p>
-
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00041">41</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00037">37</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -930,13 +686,13 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">  <a class="code" href="usart_8c.html#a3d565ac65a1da6c8cacf3c4111ae942c">SetStopBits1</a>, </div><div class="line">  <a class="code" href="usart_8c.html#acf840f7f65bda891bbb52176185e8b99">SetStopBits2</a>  </div><div class="line">}</div><div class="ttc" id="usart_8c_html_a3d565ac65a1da6c8cacf3c4111ae942c"><div class="ttname"><a href="usart_8c.html#a3d565ac65a1da6c8cacf3c4111ae942c">SetStopBits1</a></div><div class="ttdeci">static void SetStopBits1(void)</div><div class="ttdoc">Set USART to use 1 stop bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00287">usart.c:287</a></div></div>
-<div class="ttc" id="usart_8c_html_acf840f7f65bda891bbb52176185e8b99"><div class="ttname"><a href="usart_8c.html#acf840f7f65bda891bbb52176185e8b99">SetStopBits2</a></div><div class="ttdeci">static void SetStopBits2(void)</div><div class="ttdoc">Set USART to use 2 stop bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00296">usart.c:296</a></div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">  <a class="code" href="usart_8c.html#a3d565ac65a1da6c8cacf3c4111ae942c">SetStopBits1</a>, </div><div class="line">  <a class="code" href="usart_8c.html#acf840f7f65bda891bbb52176185e8b99">SetStopBits2</a>  </div><div class="line">}</div><div class="ttc" id="usart_8c_html_a3d565ac65a1da6c8cacf3c4111ae942c"><div class="ttname"><a href="usart_8c.html#a3d565ac65a1da6c8cacf3c4111ae942c">SetStopBits1</a></div><div class="ttdeci">static void SetStopBits1(void)</div><div class="ttdoc">Set USART to use 1 stop bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00177">usart.c:177</a></div></div>
+<div class="ttc" id="usart_8c_html_acf840f7f65bda891bbb52176185e8b99"><div class="ttname"><a href="usart_8c.html#acf840f7f65bda891bbb52176185e8b99">SetStopBits2</a></div><div class="ttdeci">static void SetStopBits2(void)</div><div class="ttdoc">Set USART to use 2 stop bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00186">usart.c:186</a></div></div>
 </div><!-- fragment -->
 <p>Jump table to functions setting the number of stop bits of the serial line. </p>
 <dl class="section warning"><dt>Warning</dt><dd>This table must be ordered by entry values of enum Lz_SerialStopBits. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00308">308</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00198">198</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -959,14 +715,14 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">  <a class="code" href="usart_8c.html#ab34de8cc1da64910ea327d0502103c21">SetParityBitNone</a>, </div><div class="line">  <a class="code" href="usart_8c.html#aa897e93d5408ae36a5ac0a498bc17d8e">SetParityBitEven</a>, </div><div class="line">  <a class="code" href="usart_8c.html#aec657f2b4d4a81b73a85840df43667e4">SetParityBitOdd</a>   </div><div class="line">}</div><div class="ttc" id="usart_8c_html_aa897e93d5408ae36a5ac0a498bc17d8e"><div class="ttname"><a href="usart_8c.html#aa897e93d5408ae36a5ac0a498bc17d8e">SetParityBitEven</a></div><div class="ttdeci">static void SetParityBitEven(void)</div><div class="ttdoc">Set even parity bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00355">usart.c:355</a></div></div>
-<div class="ttc" id="usart_8c_html_ab34de8cc1da64910ea327d0502103c21"><div class="ttname"><a href="usart_8c.html#ab34de8cc1da64910ea327d0502103c21">SetParityBitNone</a></div><div class="ttdeci">static void SetParityBitNone(void)</div><div class="ttdoc">Set no parity bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00346">usart.c:346</a></div></div>
-<div class="ttc" id="usart_8c_html_aec657f2b4d4a81b73a85840df43667e4"><div class="ttname"><a href="usart_8c.html#aec657f2b4d4a81b73a85840df43667e4">SetParityBitOdd</a></div><div class="ttdeci">static void SetParityBitOdd(void)</div><div class="ttdoc">Set odd parity bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00365">usart.c:365</a></div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">  <a class="code" href="usart_8c.html#ab34de8cc1da64910ea327d0502103c21">SetParityBitNone</a>, </div><div class="line">  <a class="code" href="usart_8c.html#aa897e93d5408ae36a5ac0a498bc17d8e">SetParityBitEven</a>, </div><div class="line">  <a class="code" href="usart_8c.html#aec657f2b4d4a81b73a85840df43667e4">SetParityBitOdd</a>   </div><div class="line">}</div><div class="ttc" id="usart_8c_html_aa897e93d5408ae36a5ac0a498bc17d8e"><div class="ttname"><a href="usart_8c.html#aa897e93d5408ae36a5ac0a498bc17d8e">SetParityBitEven</a></div><div class="ttdeci">static void SetParityBitEven(void)</div><div class="ttdoc">Set even parity bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00245">usart.c:245</a></div></div>
+<div class="ttc" id="usart_8c_html_ab34de8cc1da64910ea327d0502103c21"><div class="ttname"><a href="usart_8c.html#ab34de8cc1da64910ea327d0502103c21">SetParityBitNone</a></div><div class="ttdeci">static void SetParityBitNone(void)</div><div class="ttdoc">Set no parity bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00236">usart.c:236</a></div></div>
+<div class="ttc" id="usart_8c_html_aec657f2b4d4a81b73a85840df43667e4"><div class="ttname"><a href="usart_8c.html#aec657f2b4d4a81b73a85840df43667e4">SetParityBitOdd</a></div><div class="ttdeci">static void SetParityBitOdd(void)</div><div class="ttdoc">Set odd parity bit. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00255">usart.c:255</a></div></div>
 </div><!-- fragment -->
 <p>Jump table to functions setting the kind of parity of the serial line. </p>
 <dl class="section warning"><dt>Warning</dt><dd>This table must be ordered by entry values of enum Lz_SerialParityBit. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00377">377</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00267">267</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -989,15 +745,15 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">  <a class="code" href="usart_8c.html#ae2383a68c9ba2bbfc02e0eebbe2bab43">SetSize5</a>, </div><div class="line">  <a class="code" href="usart_8c.html#aa0874a0b7084cf2dca739e2017b91341">SetSize6</a>, </div><div class="line">  <a class="code" href="usart_8c.html#a2ed85fedff4f817c921d899612e4f1ca">SetSize7</a>, </div><div class="line">  <a class="code" href="usart_8c.html#a70585d6bca8edb01e739a7d619f29dae">SetSize8</a>  </div><div class="line">}</div><div class="ttc" id="usart_8c_html_ae2383a68c9ba2bbfc02e0eebbe2bab43"><div class="ttname"><a href="usart_8c.html#ae2383a68c9ba2bbfc02e0eebbe2bab43">SetSize5</a></div><div class="ttdeci">static void SetSize5(void)</div><div class="ttdoc">Set character size to 5 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00416">usart.c:416</a></div></div>
-<div class="ttc" id="usart_8c_html_a2ed85fedff4f817c921d899612e4f1ca"><div class="ttname"><a href="usart_8c.html#a2ed85fedff4f817c921d899612e4f1ca">SetSize7</a></div><div class="ttdeci">static void SetSize7(void)</div><div class="ttdoc">Set character size to 7 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00437">usart.c:437</a></div></div>
-<div class="ttc" id="usart_8c_html_aa0874a0b7084cf2dca739e2017b91341"><div class="ttname"><a href="usart_8c.html#aa0874a0b7084cf2dca739e2017b91341">SetSize6</a></div><div class="ttdeci">static void SetSize6(void)</div><div class="ttdoc">Set character size to 6 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00426">usart.c:426</a></div></div>
-<div class="ttc" id="usart_8c_html_a70585d6bca8edb01e739a7d619f29dae"><div class="ttname"><a href="usart_8c.html#a70585d6bca8edb01e739a7d619f29dae">SetSize8</a></div><div class="ttdeci">static void SetSize8(void)</div><div class="ttdoc">Set character size to 8 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00448">usart.c:448</a></div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">  <a class="code" href="usart_8c.html#ae2383a68c9ba2bbfc02e0eebbe2bab43">SetSize5</a>, </div><div class="line">  <a class="code" href="usart_8c.html#aa0874a0b7084cf2dca739e2017b91341">SetSize6</a>, </div><div class="line">  <a class="code" href="usart_8c.html#a2ed85fedff4f817c921d899612e4f1ca">SetSize7</a>, </div><div class="line">  <a class="code" href="usart_8c.html#a70585d6bca8edb01e739a7d619f29dae">SetSize8</a>  </div><div class="line">}</div><div class="ttc" id="usart_8c_html_ae2383a68c9ba2bbfc02e0eebbe2bab43"><div class="ttname"><a href="usart_8c.html#ae2383a68c9ba2bbfc02e0eebbe2bab43">SetSize5</a></div><div class="ttdeci">static void SetSize5(void)</div><div class="ttdoc">Set character size to 5 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00306">usart.c:306</a></div></div>
+<div class="ttc" id="usart_8c_html_a2ed85fedff4f817c921d899612e4f1ca"><div class="ttname"><a href="usart_8c.html#a2ed85fedff4f817c921d899612e4f1ca">SetSize7</a></div><div class="ttdeci">static void SetSize7(void)</div><div class="ttdoc">Set character size to 7 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00327">usart.c:327</a></div></div>
+<div class="ttc" id="usart_8c_html_aa0874a0b7084cf2dca739e2017b91341"><div class="ttname"><a href="usart_8c.html#aa0874a0b7084cf2dca739e2017b91341">SetSize6</a></div><div class="ttdeci">static void SetSize6(void)</div><div class="ttdoc">Set character size to 6 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00316">usart.c:316</a></div></div>
+<div class="ttc" id="usart_8c_html_a70585d6bca8edb01e739a7d619f29dae"><div class="ttname"><a href="usart_8c.html#a70585d6bca8edb01e739a7d619f29dae">SetSize8</a></div><div class="ttdeci">static void SetSize8(void)</div><div class="ttdoc">Set character size to 8 bits. </div><div class="ttdef"><b>Definition:</b> <a href="usart_8c_source.html#l00338">usart.c:338</a></div></div>
 </div><!-- fragment -->
 <p>Jump table to functions setting character sizes of the serial line. </p>
 <dl class="section warning"><dt>Warning</dt><dd>This table must be ordered by entry values of enum Lz_SerialSize. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00460">460</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00350">350</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>
@@ -1025,7 +781,7 @@ static <a class="el" href="structUsart.html">Usart</a> *const&#160;</td><td clas
 <p>Jump table containing the setting values of UBRR0L and UBRR0H registers for baud rates defined in Lz_SerialSpeed. </p>
 <dl class="section warning"><dt>Warning</dt><dd>This table must be ordered by entry values of enum Lz_SerialSpeed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00503">503</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="usart_8c_source.html#l00393">393</a> of file <a class="el" href="usart_8c_source.html">usart.c</a>.</p>
 
 </div>
 </div>

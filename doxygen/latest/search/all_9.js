@@ -79,7 +79,6 @@ var searchData=
   ['int_5fusarttx',['INT_USARTTX',['../interrupts_8h.html#aa301c6148479756169b8a0371a8913f9',1,'interrupts.h']]],
   ['int_5fusartudre',['INT_USARTUDRE',['../interrupts_8h.html#ad04f22dde375d432f4964d196df5ff4b',1,'interrupts.h']]],
   ['int_5fwdt',['INT_WDT',['../interrupts_8h.html#a22347e1b9092b6af1da8e21df6b7852a',1,'interrupts.h']]],
-  ['integerbytes',['IntegerBytes',['../unionIntegerBytes.html',1,'']]],
   ['interrupts_2eh',['interrupts.h',['../interrupts_8h.html',1,'']]],
   ['interruptsstatus',['InterruptsStatus',['../arch_8h.html#ad031cb9c51a6e103419ac6b5ea83a084',1,'arch.h']]],
   ['intmax_5fc',['INTMAX_C',['../AVR_2stdint_8h.html#ac7be920c2d50d0d0fcc0c20d67040cc4',1,'INTMAX_C():&#160;stdint.h'],['../x86__64_2stdint_8h.html#ac7be920c2d50d0d0fcc0c20d67040cc4',1,'INTMAX_C():&#160;stdint.h']]],

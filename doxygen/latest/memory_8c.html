@@ -85,9 +85,6 @@ Functions</h2></td></tr>
 <tr class="memitem:af22568ab180e988a1499afe27cd565ad"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8c.html#af22568ab180e988a1499afe27cd565ad">SetBreak</a> (const unsigned int increment, <a class="el" href="structAllocationMap.html">AllocationMap</a> *const map)</td></tr>
 <tr class="memdesc:af22568ab180e988a1499afe27cd565ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set break position of a memory region.  <a href="#af22568ab180e988a1499afe27cd565ad">More...</a><br /></td></tr>
 <tr class="separator:af22568ab180e988a1499afe27cd565ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8de9185658469163b492344cd96fd6c3"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8c.html#a8de9185658469163b492344cd96fd6c3">BaseIncrementalMalloc</a> (const <a class="el" href="common_8h.html#af5439e19eec032e96a3561505be8ec35">size_t</a> s, <a class="el" href="structAllocationMap.html">AllocationMap</a> *const map)</td></tr>
-<tr class="memdesc:a8de9185658469163b492344cd96fd6c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common implementation of incremental memory allocation.  <a href="#a8de9185658469163b492344cd96fd6c3">More...</a><br /></td></tr>
-<tr class="separator:a8de9185658469163b492344cd96fd6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d9741f0fc446619c9467446a800416d"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8c.html#a8d9741f0fc446619c9467446a800416d">KIncrementalMalloc</a> (const <a class="el" href="common_8h.html#af5439e19eec032e96a3561505be8ec35">size_t</a> size)</td></tr>
 <tr class="memdesc:a8d9741f0fc446619c9467446a800416d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate memory for kernel objects using incremental method.  <a href="#a8d9741f0fc446619c9467446a800416d">More...</a><br /></td></tr>
 <tr class="separator:a8d9741f0fc446619c9467446a800416d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,54 +147,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8de9185658469163b492344cd96fd6c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8de9185658469163b492344cd96fd6c3">&#9670;&nbsp;</a></span>BaseIncrementalMalloc()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void* BaseIncrementalMalloc </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="common_8h.html#af5439e19eec032e96a3561505be8ec35">size_t</a>&#160;</td>
-          <td class="paramname"><em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structAllocationMap.html">AllocationMap</a> *const&#160;</td>
-          <td class="paramname"><em>map</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Common implementation of incremental memory allocation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">s</td><td>The size in byte to allocate. </td></tr>
-    <tr><td class="paramname">map</td><td>The allocation map of the task or kernel.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the allocated region, or NULL if allocation is impossible. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00072">72</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
-
-</div>
-</div>
 <a id="a8d9741f0fc446619c9467446a800416d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d9741f0fc446619c9467446a800416d">&#9670;&nbsp;</a></span>KIncrementalMalloc()</h2>
 
@@ -223,7 +172,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the allocated region, or NULL if allocation is impossible. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00089">89</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00067">67</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
 
 </div>
 </div>
@@ -269,7 +218,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00095">95</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00073">73</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
 
 </div>
 </div>

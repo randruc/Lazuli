@@ -35,7 +35,7 @@ var searchData=
   ['readytasks',['readyTasks',['../scheduler_8c.html#a20ee9a48ac489dfc61c80143651b946f',1,'scheduler.c']]],
   ['registeridletask',['RegisterIdleTask',['../scheduler_8c.html#a98de90715d815ff1814986a22b470586',1,'scheduler.c']]],
   ['registers_2eh',['registers.h',['../registers_8h.html',1,'']]],
-  ['registertask',['RegisterTask',['../scheduler_8c.html#a422ff26e280b7205a04906017b2f220b',1,'scheduler.c']]],
+  ['registertask',['RegisterTask',['../scheduler_8c.html#a4dbbe92f80fdc471d6675cb2bbc54484',1,'scheduler.c']]],
   ['remainder',['remainder',['../structU16DivisionResult.html#aafa119aabbf6498740e220ca01aaf94b',1,'U16DivisionResult']]],
   ['reversebytesoffunctionpointer',['ReverseBytesOfFunctionPointer',['../scheduler_8h.html#a8861a5271f77ef20db3751505cb1d36d',1,'scheduler.h']]]
 ];

@@ -6,5 +6,6 @@ var searchData=
   ['elements_5fcount',['ELEMENTS_COUNT',['../common_8h.html#adbb57d70ac2b9ec11792854f4f57dd1f',1,'common.h']]],
   ['enableflags',['enableFlags',['../structLz__SerialConfiguration.html#a3646d6e42679772ed37245103c40ee2b',1,'Lz_SerialConfiguration']]],
   ['endmem',['endMem',['../structAllocationMap.html#a6ef4ede5fa1d569c5a713b5a57532c36',1,'AllocationMap']]],
-  ['entrypoint',['entryPoint',['../structTask.html#aa0e78244b6a6608b30ca5cbc4e995469',1,'Task']]]
+  ['entrypoint',['entryPoint',['../structTask.html#aa0e78244b6a6608b30ca5cbc4e995469',1,'Task']]],
+  ['eof',['EOF',['../stdio_8h.html#a59adc4c82490d23754cd39c2fb99b0da',1,'stdio.h']]]
 ];

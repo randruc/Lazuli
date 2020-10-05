@@ -2,9 +2,7 @@ var searchData=
 [
   ['abortedtasks',['abortedTasks',['../scheduler_8c.html#a5ed61585eb7ac50526efac533f97b57d',1,'scheduler.c']]],
   ['abs',['ABS',['../common_8h.html#a082d7057f6a9821d0c2858c4da16b33d',1,'common.h']]],
-  ['alloc_5fincremental',['ALLOC_INCREMENTAL',['../memory_8h.html#a564fc3bb689bd0ed5cdcde9580ad9b9da19e362857bdde16e97a57d763b87b3f6',1,'memory.h']]],
   ['allocationmap',['AllocationMap',['../structAllocationMap.html',1,'']]],
-  ['allocationtype',['allocationType',['../structAllocationMap.html#a27647232de159a1c877291f8c0ce3ba0',1,'AllocationMap::allocationType()'],['../memory_8h.html#a564fc3bb689bd0ed5cdcde9580ad9b9d',1,'AllocationType():&#160;memory.h']]],
   ['allow_5farithm',['ALLOW_ARITHM',['../common_8h.html#ae12ef927a91684e588d3c64f0b9498eb',1,'common.h']]],
   ['arch_2ec',['arch.c',['../arch_8c.html',1,'']]],
   ['arch_2eh',['arch.h',['../arch_8h.html',1,'']]],

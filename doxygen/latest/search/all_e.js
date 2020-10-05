@@ -6,5 +6,7 @@ var searchData=
   ['ocr1al',['OCR1AL',['../timer__counter__1_8h.html#a8211eac3648e90247605f4418fe0555b',1,'timer_counter_1.h']]],
   ['ocr1bh',['OCR1BH',['../timer__counter__1_8h.html#ac319afb1e8604916c605855044479335',1,'timer_counter_1.h']]],
   ['ocr1bl',['OCR1BL',['../timer__counter__1_8h.html#a0de7b21bd5e62a2afa0a07865a2e56de',1,'timer_counter_1.h']]],
-  ['offset_5fof',['OFFSET_OF',['../common_8h.html#a4dab3eab4b14bbe4024399e96480bb24',1,'common.h']]]
+  ['offset_5fof',['OFFSET_OF',['../common_8h.html#a4dab3eab4b14bbe4024399e96480bb24',1,'common.h']]],
+  ['outputbuffer',['OutputBuffer',['../printf_8c.html#a9cd56862e9f96c84d31c82c4057bc604',1,'printf.c']]],
+  ['outputpadding',['OutputPadding',['../printf_8c.html#a7a8817b6d5481eb6a53f64b4dfd4ab6d',1,'printf.c']]]
 ];

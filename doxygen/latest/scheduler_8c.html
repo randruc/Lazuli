@@ -131,9 +131,9 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:ab84930176b5161d961af147b17d480a0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structTask.html">Task</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8c.html#ab84930176b5161d961af147b17d480a0">CallbackRegisterIdleTask</a> (void)</td></tr>
 <tr class="memdesc:ab84930176b5161d961af147b17d480a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback of SchedulerOperations.registerTask() for registering the scheduler idle task.  <a href="#ab84930176b5161d961af147b17d480a0">More...</a><br /></td></tr>
 <tr class="separator:ab84930176b5161d961af147b17d480a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a422ff26e280b7205a04906017b2f220b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8c.html#a422ff26e280b7205a04906017b2f220b">RegisterTask</a> (void(*const taskEntryPoint)(void), <a class="el" href="structLz__TaskConfiguration.html">Lz_TaskConfiguration</a> *taskConfiguration, const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a> <a class="el" href="scheduler_8c.html#a936c89aacb16ef58f6370e4ed6f221e5">idleTask</a>)</td></tr>
-<tr class="memdesc:a422ff26e280b7205a04906017b2f220b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new task.  <a href="#a422ff26e280b7205a04906017b2f220b">More...</a><br /></td></tr>
-<tr class="separator:a422ff26e280b7205a04906017b2f220b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dbbe92f80fdc471d6675cb2bbc54484"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8c.html#a4dbbe92f80fdc471d6675cb2bbc54484">RegisterTask</a> (void(*const taskEntryPoint)(void), <a class="el" href="structLz__TaskConfiguration.html">Lz_TaskConfiguration</a> *taskConfiguration, const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a> isIdleTask)</td></tr>
+<tr class="memdesc:a4dbbe92f80fdc471d6675cb2bbc54484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new task.  <a href="#a4dbbe92f80fdc471d6675cb2bbc54484">More...</a><br /></td></tr>
+<tr class="separator:a4dbbe92f80fdc471d6675cb2bbc54484"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98de90715d815ff1814986a22b470586"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="scheduler_8c.html#a98de90715d815ff1814986a22b470586">RegisterIdleTask</a> (void)</td></tr>
 <tr class="memdesc:a98de90715d815ff1814986a22b470586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register the idle task.  <a href="#a98de90715d815ff1814986a22b470586">More...</a><br /></td></tr>
 <tr class="separator:a98de90715d815ff1814986a22b470586"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -651,8 +651,8 @@ static <a class="el" href="structLz__LinkedList.html">Lz_LinkedList</a>&#160;</t
 
 </div>
 </div>
-<a id="a422ff26e280b7205a04906017b2f220b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a422ff26e280b7205a04906017b2f220b">&#9670;&nbsp;</a></span>RegisterTask()</h2>
+<a id="a4dbbe92f80fdc471d6675cb2bbc54484"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dbbe92f80fdc471d6675cb2bbc54484">&#9670;&nbsp;</a></span>RegisterTask()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -676,7 +676,7 @@ static <a class="el" href="structLz__LinkedList.html">Lz_LinkedList</a>&#160;</t
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a>&#160;</td>
-          <td class="paramname"><em>idleTask</em>&#160;</td>
+          <td class="paramname"><em>isIdleTask</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -696,7 +696,7 @@ static <a class="el" href="structLz__LinkedList.html">Lz_LinkedList</a>&#160;</t
   <table class="params">
     <tr><td class="paramname">taskEntryPoint</td><td>The entry point of the task to register. i.e. A pointer to the function representing the task. </td></tr>
     <tr><td class="paramname">taskConfiguration</td><td>A pointer to an <a class="el" href="structLz__TaskConfiguration.html" title="Represents the configuration of a task. ">Lz_TaskConfiguration</a> containing the configuration of the task being registered. If NULL is passed, then default values are applied for all parameters. </td></tr>
-    <tr><td class="paramname">idleTask</td><td>A boolean value indicating that the task to register is the scheduler idle task.</td></tr>
+    <tr><td class="paramname">isIdleTask</td><td>A boolean value indicating that the task to register is the scheduler idle task.</td></tr>
   </table>
   </dd>
 </dl>

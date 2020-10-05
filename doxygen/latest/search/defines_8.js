@@ -6,6 +6,7 @@ var searchData=
   ['list_5fremovableforeach',['List_RemovableForEach',['../list_8h.html#a91711e8b28e2629b36ff8f23faa86a62',1,'list.h']]],
   ['list_5funtypedforeach',['List_UntypedForEach',['../list_8h.html#a61bc0e01bc0aef3aa72addd684a354e2',1,'list.h']]],
   ['lo8',['LO8',['../common_8h.html#ae4e52469f0e77bf569c3dd531406034b',1,'common.h']]],
+  ['lz_5fconfig_5fserial_5fnewline',['LZ_CONFIG_SERIAL_NEWLINE',['../config__static__analysis_8h.html#ac3af8bbc553eda554a3f349812564ca2',1,'config_static_analysis.h']]],
   ['lz_5fmutex_5finit',['LZ_MUTEX_INIT',['../mutex_8h.html#a2967174083640180580be901a5bfd828',1,'mutex.h']]],
   ['lz_5fmutex_5finit_5flocked',['LZ_MUTEX_INIT_LOCKED',['../mutex_8h.html#a00b7408907586671786294681777611a',1,'mutex.h']]],
   ['lz_5fspinlock_5finit',['LZ_SPINLOCK_INIT',['../spinlock_8h.html#a61db75940f70e1f50b946d05edc0ce90',1,'spinlock.h']]]

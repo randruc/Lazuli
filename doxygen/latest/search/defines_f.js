@@ -25,6 +25,5 @@ var searchData=
   ['uintmax_5fc',['UINTMAX_C',['../AVR_2stdint_8h.html#a1fed1e2494abaa84804a5e72bf4e1f9d',1,'UINTMAX_C():&#160;stdint.h'],['../x86__64_2stdint_8h.html#a1fed1e2494abaa84804a5e72bf4e1f9d',1,'UINTMAX_C():&#160;stdint.h']]],
   ['uintmax_5fmax',['UINTMAX_MAX',['../AVR_2stdint_8h.html#aa54fd5210434219e9027bfa0f0e325c8',1,'UINTMAX_MAX():&#160;stdint.h'],['../x86__64_2stdint_8h.html#aa54fd5210434219e9027bfa0f0e325c8',1,'UINTMAX_MAX():&#160;stdint.h']]],
   ['uintptr_5fmax',['UINTPTR_MAX',['../AVR_2stdint_8h.html#ab2355300ea19395357e62d780f4dd073',1,'UINTPTR_MAX():&#160;stdint.h'],['../x86__64_2stdint_8h.html#ab2355300ea19395357e62d780f4dd073',1,'UINTPTR_MAX():&#160;stdint.h']]],
-  ['unused',['UNUSED',['../common_8h.html#a6bc306171da085f4c7df2c66d2ff8e47',1,'common.h']]],
-  ['usart_5fbaud_5frate',['USART_BAUD_RATE',['../usart_8h.html#ab54b68a1ee096155399ca2ee8bf5362e',1,'usart.h']]]
+  ['unused',['UNUSED',['../common_8h.html#a6bc306171da085f4c7df2c66d2ff8e47',1,'common.h']]]
 ];

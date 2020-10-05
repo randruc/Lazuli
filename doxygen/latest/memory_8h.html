@@ -64,7 +64,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">memory.h File Reference</div>  </div>
@@ -83,17 +82,6 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a map of the allocated memory regions and useful memory handlers for a task or the kernel.  <a href="structAllocationMap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a564fc3bb689bd0ed5cdcde9580ad9b9d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8h.html#a564fc3bb689bd0ed5cdcde9580ad9b9d">AllocationType</a> { <br />
-&#160;&#160;<b>ALLOC_UNDEFINED</b>, 
-<br />
-&#160;&#160;<a class="el" href="memory_8h.html#a564fc3bb689bd0ed5cdcde9580ad9b9da19e362857bdde16e97a57d763b87b3f6">ALLOC_INCREMENTAL</a>
-<br />
- }<tr class="memdesc:a564fc3bb689bd0ed5cdcde9580ad9b9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the kind of allocation for an <a class="el" href="structAllocationMap.html" title="Represents a map of the allocated memory regions and useful memory handlers for a task or the kernel...">AllocationMap</a>.  <a href="memory_8h.html#a564fc3bb689bd0ed5cdcde9580ad9b9d">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a564fc3bb689bd0ed5cdcde9580ad9b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8d9741f0fc446619c9467446a800416d"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8h.html#a8d9741f0fc446619c9467446a800416d">KIncrementalMalloc</a> (const <a class="el" href="common_8h.html#af5439e19eec032e96a3561505be8ec35">size_t</a> size)</td></tr>
@@ -109,31 +97,7 @@ Functions</h2></td></tr>
 <p>Defines base types and operations for memory management. </p>
 
 <p class="definition">Definition in file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a564fc3bb689bd0ed5cdcde9580ad9b9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a564fc3bb689bd0ed5cdcde9580ad9b9d">&#9670;&nbsp;</a></span>AllocationType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="memory_8h.html#a564fc3bb689bd0ed5cdcde9580ad9b9d">AllocationType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines the kind of allocation for an <a class="el" href="structAllocationMap.html" title="Represents a map of the allocated memory regions and useful memory handlers for a task or the kernel...">AllocationMap</a>. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a564fc3bb689bd0ed5cdcde9580ad9b9da19e362857bdde16e97a57d763b87b3f6"></a>ALLOC_INCREMENTAL&#160;</td><td class="fielddoc"><p>&lt; Undefined </p>
-<p>&lt; Incremental </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="memory_8h_source.html#l00024">24</a> of file <a class="el" href="memory_8h_source.html">memory.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a8d9741f0fc446619c9467446a800416d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d9741f0fc446619c9467446a800416d">&#9670;&nbsp;</a></span>KIncrementalMalloc()</h2>
 
@@ -159,7 +123,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the allocated region, or NULL if allocation is impossible. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00089">89</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00067">67</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
 
 </div>
 </div>
@@ -205,7 +169,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00095">95</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="memory_8c_source.html#l00073">73</a> of file <a class="el" href="memory_8c_source.html">memory.c</a>.</p>
 
 </div>
 </div>

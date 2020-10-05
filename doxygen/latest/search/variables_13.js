@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['u16value',['u16Value',['../unionIntegerBytes.html#aba1be7451c5e765fe16ca17f15d899f7',1,'IntegerBytes']]],
-  ['u32value',['u32Value',['../unionIntegerBytes.html#a93ab2fa14be2c4b6bfe547bced36c7a6',1,'IntegerBytes']]],
-  ['u8value',['u8Value',['../unionIntegerBytes.html#ab8fc86ae232d076e11c0edc90c4d32fb',1,'IntegerBytes']]],
   ['ubrr0h',['ubrr0h',['../structUsart.html#add0c7c6c8898803e37b2880cdcb5ce4e',1,'Usart']]],
   ['ubrr0l',['ubrr0l',['../structUsart.html#aaeb2000756573aa90b16dabc47627b76',1,'Usart']]],
   ['ucsr0a',['ucsr0a',['../structUsart.html#a56be77d793d8b58029db52790777691e',1,'Usart']]],

@@ -1,9 +1,6 @@
 var searchData=
 [
   ['u16divisionresult',['U16DivisionResult',['../structU16DivisionResult.html',1,'']]],
-  ['u16value',['u16Value',['../unionIntegerBytes.html#aba1be7451c5e765fe16ca17f15d899f7',1,'IntegerBytes']]],
-  ['u32value',['u32Value',['../unionIntegerBytes.html#a93ab2fa14be2c4b6bfe547bced36c7a6',1,'IntegerBytes']]],
-  ['u8value',['u8Value',['../unionIntegerBytes.html#ab8fc86ae232d076e11c0edc90c4d32fb',1,'IntegerBytes']]],
   ['u_5fread_5fwrite_5fatomic_5ft',['u_read_write_atomic_t',['../common_8h.html#ad18bf74e72b7ba2131b4ff3bc4f1bab3',1,'common.h']]],
   ['ubrr0h',['ubrr0h',['../structUsart.html#add0c7c6c8898803e37b2880cdcb5ce4e',1,'Usart::ubrr0h()'],['../usart_8h.html#a70e1c1bfc855cc280848f7203182230d',1,'UBRR0H():&#160;usart.h']]],
   ['ubrr0l',['ubrr0l',['../structUsart.html#aaeb2000756573aa90b16dabc47627b76',1,'Usart']]],
@@ -74,15 +71,5 @@ var searchData=
   ['updatetaskswaitingsoftwaretimer',['UpdateTasksWaitingSoftwareTimer',['../scheduler_8c.html#a0a811908de25f01dce4433ed7ce02280',1,'scheduler.c']]],
   ['usart',['Usart',['../structUsart.html',1,'Usart'],['../usart_8c.html#a5f984df531e42a59a09a406c387d1060',1,'usart():&#160;usart.c']]],
   ['usart_2ec',['usart.c',['../usart_8c.html',1,'']]],
-  ['usart_2eh',['usart.h',['../usart_8h.html',1,'']]],
-  ['usart_5fbaud_5frate',['USART_BAUD_RATE',['../usart_8h.html#ab54b68a1ee096155399ca2ee8bf5362e',1,'usart.h']]],
-  ['usart_5fhexaprint_5ffunctionpointer',['Usart_HexaPrint_FunctionPointer',['../usart_8c.html#a70a140d06aaa8cde155d0c2d7d1de90a',1,'Usart_HexaPrint_FunctionPointer(void(*functionPointer)(void)):&#160;usart.c'],['../usart_8h.html#a70a140d06aaa8cde155d0c2d7d1de90a',1,'Usart_HexaPrint_FunctionPointer(void(*functionPointer)(void)):&#160;usart.c']]],
-  ['usart_5fhexaprint_5fintegerbytes',['Usart_HexaPrint_IntegerBytes',['../usart_8c.html#a4237142e794a08fb9b094eba34a5ee22',1,'usart.c']]],
-  ['usart_5fhexaprint_5fpointer',['Usart_HexaPrint_Pointer',['../usart_8c.html#a2f1d465bf6ad0b57be20ba7d5cd03626',1,'Usart_HexaPrint_Pointer(void *const pointer):&#160;usart.c'],['../usart_8h.html#a2f1d465bf6ad0b57be20ba7d5cd03626',1,'Usart_HexaPrint_Pointer(void *const pointer):&#160;usart.c']]],
-  ['usart_5fhexaprint_5fu16',['Usart_HexaPrint_u16',['../usart_8c.html#abf8b4b04eaf762fdf9ff30cd24aa1ccc',1,'Usart_HexaPrint_u16(const uint16_t value):&#160;usart.c'],['../usart_8h.html#abf8b4b04eaf762fdf9ff30cd24aa1ccc',1,'Usart_HexaPrint_u16(const uint16_t value):&#160;usart.c']]],
-  ['usart_5fhexaprint_5fu32',['Usart_HexaPrint_u32',['../usart_8c.html#a7ad9192d1ec1d95d1eff507c2a423999',1,'Usart_HexaPrint_u32(const uint32_t value):&#160;usart.c'],['../usart_8h.html#a7ad9192d1ec1d95d1eff507c2a423999',1,'Usart_HexaPrint_u32(const uint32_t value):&#160;usart.c']]],
-  ['usart_5fhexaprint_5fu8',['Usart_HexaPrint_u8',['../usart_8c.html#af4d9a2247b6adbbdd7b102dcda323bed',1,'Usart_HexaPrint_u8(const uint8_t value):&#160;usart.c'],['../usart_8h.html#af4d9a2247b6adbbdd7b102dcda323bed',1,'Usart_HexaPrint_u8(const uint8_t value):&#160;usart.c']]],
-  ['usart_5fnewline',['Usart_NewLine',['../usart_8c.html#a048463a0fc821543f22e30956edf37db',1,'Usart_NewLine(void):&#160;usart.c'],['../usart_8h.html#a048463a0fc821543f22e30956edf37db',1,'Usart_NewLine(void):&#160;usart.c']]],
-  ['usart_5fprintrawstring',['Usart_PrintRawString',['../usart_8c.html#a2235bee05346b6bd67017bc8fd8a86db',1,'Usart_PrintRawString(const char *string):&#160;usart.c'],['../usart_8h.html#a09657ebc5798fbdb7ab400315917e3db',1,'Usart_PrintRawString(const char *const string):&#160;usart.c']]],
-  ['usart_5fputchar',['Usart_PutChar',['../usart_8c.html#aae6cc5ceb20b3c01ef8ce8c83f73c599',1,'Usart_PutChar(char c):&#160;usart.c'],['../usart_8h.html#aae6cc5ceb20b3c01ef8ce8c83f73c599',1,'Usart_PutChar(char c):&#160;usart.c']]]
+  ['usart_2eh',['usart.h',['../usart_8h.html',1,'']]]
 ];
