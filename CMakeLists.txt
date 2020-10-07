@@ -50,7 +50,7 @@ set(
 set_property(
   CACHE LZ_CONFIG_BUILD_UNIT_TESTS
   PROPERTY STRINGS
-  "null;unit_tests_1;unit_tests_2")
+  "null;unit_tests_1;unit_tests_2;unit_tests_3")
 
 mark_as_advanced(LZ_CONFIG_BUILD_UNIT_TESTS)
 
@@ -114,7 +114,9 @@ target_link_libraries(
 
 target_compile_options(
   ${LAZULI_USER_PROJECT_NAME}
-  PUBLIC ${LAZULI_USER_COMPILE_FLAGS})
+  PUBLIC
+  ${LAZULI_USER_COMPILE_FLAGS}
+  -ffreestanding)
 
 target_link_options(
   ${LAZULI_USER_PROJECT_NAME}

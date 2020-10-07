@@ -101,6 +101,7 @@ add_subdirectory(kern/modules/mutex)
 add_subdirectory(kern/modules/printf)
 add_subdirectory(kern/modules/serial)
 add_subdirectory(kern/modules/spinlock)
+add_subdirectory(kern/modules/string)
 
 if(LZ_STATIC_ANALYSIS)
   # TODO: Replace that by add_compile_definitions() the day we use a higher

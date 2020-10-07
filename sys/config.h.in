@@ -308,6 +308,11 @@
  */
 #cmakedefine01 LZ_CONFIG_MODULE_SPINLOCK_USED
 
+/**
+ * Use module "string": Libc string implementation."
+ */
+#cmakedefine01 LZ_CONFIG_MODULE_STRING_USED
+
 /** @} */
 
 #endif /* CONFIG_H */
