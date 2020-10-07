@@ -69,8 +69,8 @@ int
 putchar(int c);
 
 /**
- * Transmit the NUL-terminated string @p s on the serial line, without any
- * formatting.
+ * Transmit the NUL-terminated string @p s followed by a trailing newline on the
+ * serial line, without any formatting.
  *
  * @param s The string to transmit.
  *
