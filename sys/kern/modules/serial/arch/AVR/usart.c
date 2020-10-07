@@ -53,7 +53,7 @@ puts(const char * s)
 {
   const char newLine[] = LZ_CONFIG_SERIAL_NEWLINE;
   uint8_t i;
-  
+
   if (NULL == s) {
     return EOF;
   }
@@ -66,7 +66,7 @@ puts(const char * s)
   for (i = 0; i < sizeof(newLine) - 1; ++i) {
     putchar(newLine[i]);
   }
-  
+
   return 1;
 }
 
