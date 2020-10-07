@@ -23,5 +23,6 @@ var searchData=
   ['setspeed',['SetSpeed',['../usart_8c.html#a14a6fd2b7ac6f48d87915adee55a1557',1,'usart.c']]],
   ['setstopbits',['SetStopBits',['../usart_8c.html#a2b00874406fad5a65bcf141a5fcf52cb',1,'usart.c']]],
   ['setstopbits1',['SetStopBits1',['../usart_8c.html#a3d565ac65a1da6c8cacf3c4111ae942c',1,'usart.c']]],
-  ['setstopbits2',['SetStopBits2',['../usart_8c.html#acf840f7f65bda891bbb52176185e8b99',1,'usart.c']]]
+  ['setstopbits2',['SetStopBits2',['../usart_8c.html#acf840f7f65bda891bbb52176185e8b99',1,'usart.c']]],
+  ['strlen',['strlen',['../string_8c.html#aa383452fe445bfae989358c9d7d96f4f',1,'strlen(const char *s):&#160;string.c'],['../string_8h.html#aa383452fe445bfae989358c9d7d96f4f',1,'strlen(const char *s):&#160;string.c']]]
 ];

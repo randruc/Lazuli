@@ -23,13 +23,13 @@ var searchData=
   ['setparitybiteven',['SetParityBitEven',['../usart_8c.html#aa897e93d5408ae36a5ac0a498bc17d8e',1,'usart.c']]],
   ['setparitybitnone',['SetParityBitNone',['../usart_8c.html#ab34de8cc1da64910ea327d0502103c21',1,'usart.c']]],
   ['setparitybitodd',['SetParityBitOdd',['../usart_8c.html#aec657f2b4d4a81b73a85840df43667e4',1,'usart.c']]],
-  ['setsize',['SetSize',['../usart_8c.html#aef1e6e707cab229822efae480b0840e1',1,'SetSize(const enum Lz_SerialSize size):&#160;usart.c'],['../usart_8c.html#ae9b98db60b869ed48fa788b68d1550d9',1,'setSize():&#160;usart.c']]],
+  ['setsize',['setSize',['../usart_8c.html#ae9b98db60b869ed48fa788b68d1550d9',1,'setSize():&#160;usart.c'],['../usart_8c.html#aef1e6e707cab229822efae480b0840e1',1,'SetSize(const enum Lz_SerialSize size):&#160;usart.c']]],
   ['setsize5',['SetSize5',['../usart_8c.html#ae2383a68c9ba2bbfc02e0eebbe2bab43',1,'usart.c']]],
   ['setsize6',['SetSize6',['../usart_8c.html#aa0874a0b7084cf2dca739e2017b91341',1,'usart.c']]],
   ['setsize7',['SetSize7',['../usart_8c.html#a2ed85fedff4f817c921d899612e4f1ca',1,'usart.c']]],
   ['setsize8',['SetSize8',['../usart_8c.html#a70585d6bca8edb01e739a7d619f29dae',1,'usart.c']]],
   ['setspeed',['SetSpeed',['../usart_8c.html#a14a6fd2b7ac6f48d87915adee55a1557',1,'usart.c']]],
-  ['setstopbits',['SetStopBits',['../usart_8c.html#a2b00874406fad5a65bcf141a5fcf52cb',1,'SetStopBits(const enum Lz_SerialStopBits stopBits):&#160;usart.c'],['../usart_8c.html#a81922e08d5efa3c46b4b09a1d7e74068',1,'setStopBits():&#160;usart.c']]],
+  ['setstopbits',['setStopBits',['../usart_8c.html#a81922e08d5efa3c46b4b09a1d7e74068',1,'setStopBits():&#160;usart.c'],['../usart_8c.html#a2b00874406fad5a65bcf141a5fcf52cb',1,'SetStopBits(const enum Lz_SerialStopBits stopBits):&#160;usart.c']]],
   ['setstopbits1',['SetStopBits1',['../usart_8c.html#a3d565ac65a1da6c8cacf3c4111ae942c',1,'usart.c']]],
   ['setstopbits2',['SetStopBits2',['../usart_8c.html#acf840f7f65bda891bbb52176185e8b99',1,'usart.c']]],
   ['size',['size',['../structLz__SerialConfiguration.html#ab06b323e96cce9156815a05e7b12b18c',1,'Lz_SerialConfiguration']]],
@@ -51,5 +51,8 @@ var searchData=
   ['stdarg_2eh',['stdarg.h',['../stdarg_8h.html',1,'']]],
   ['stdint_2eh',['stdint.h',['../AVR_2stdint_8h.html',1,'(Global Namespace)'],['../x86__64_2stdint_8h.html',1,'(Global Namespace)']]],
   ['stdio_2eh',['stdio.h',['../stdio_8h.html',1,'']]],
-  ['stopbits',['stopBits',['../structLz__SerialConfiguration.html#a33d4e598a21adfc7da13e30ce7e72a90',1,'Lz_SerialConfiguration']]]
+  ['stopbits',['stopBits',['../structLz__SerialConfiguration.html#a33d4e598a21adfc7da13e30ce7e72a90',1,'Lz_SerialConfiguration']]],
+  ['string_2ec',['string.c',['../string_8c.html',1,'']]],
+  ['string_2eh',['string.h',['../string_8h.html',1,'']]],
+  ['strlen',['strlen',['../string_8c.html#aa383452fe445bfae989358c9d7d96f4f',1,'strlen(const char *s):&#160;string.c'],['../string_8h.html#aa383452fe445bfae989358c9d7d96f4f',1,'strlen(const char *s):&#160;string.c']]]
 ];
