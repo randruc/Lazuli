@@ -9,13 +9,13 @@
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
  * This file describes the implementation of printf.
- * For now it implements a very minimal subset of stdlib's printf().
  * For now, this module is useless if module SERIAL is not used.
  */
 
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
@@ -160,7 +160,23 @@ OutputPadding(uint8_t padLength,
  * @param size The size of the buffer.
  */
 static void
-OutputBuffer(const char * const buffer, uint8_t size)
+OutputBuffer(const char * const buffer, const uint8_t size)
+{
+  uint8_t i;
+
+  for (i = 0; i < size; ++i) {
+    putchar(buffer[i]);
+  }
+}
+
+/**
+ * Output the content of the buffer in reverse order.
+ *
+ * @param buffer A valid pointer to the buffer.
+ * @param size The size of the buffer.
+ */
+static void
+OutputReverseBuffer(const char * const buffer, uint8_t size)
 {
   while (size-- > 0) {
     putchar(buffer[size]);
@@ -193,6 +209,7 @@ printf(const char *format, ...)
       uint8_t padLength = 0;
       uint8_t size;
       char buffer[6];
+      const char * s = buffer;
 
       for (++c; '\0' != *c; ++c) {
         /*
@@ -256,6 +273,10 @@ printf(const char *format, ...)
         } else if ('c' == *c) {
           buffer[0] = (char)va_arg(args, int);
           size = 1;
+        } else if ('s' == *c) {
+          padChar = ' '; /* For strings, we always pad with spaces */
+          s = va_arg(args, char*);
+          size = strlen(s);
         } else {
           /*
            * We encountered an unknown character.
@@ -286,7 +307,11 @@ printf(const char *format, ...)
             ++total;
           }
 
-          OutputBuffer(buffer, size);
+          if ('s' == *c) {
+            OutputBuffer(s, size);
+          } else {
+            OutputReverseBuffer(s, size);
+          }
 
           total += OutputPadding(padLength, size, ' ', isNegative);
         } else {
@@ -310,7 +335,11 @@ printf(const char *format, ...)
             ++total;
           }
 
-          OutputBuffer(buffer, size);
+          if ('s' == *c) {
+            OutputBuffer(s, size);
+          } else {
+            OutputReverseBuffer(s, size);
+          }
         }
 
         break;
