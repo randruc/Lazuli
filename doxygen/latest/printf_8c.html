@@ -74,6 +74,7 @@ $(function() {
 <div class="textblock"><code>#include &lt;<a class="el" href="stdarg_8h_source.html">stdarg.h</a>&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="stdio_8h_source.html">stdio.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="common_8h_source.html">Lazuli/common.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="config_8h_source.html">Lazuli/config.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="printf_8h_source.html">Lazuli/sys/printf.h</a>&gt;</code><br />
@@ -94,9 +95,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a7a8817b6d5481eb6a53f64b4dfd4ab6d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a7a8817b6d5481eb6a53f64b4dfd4ab6d">OutputPadding</a> (<a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> padLength, const <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> size, const char padChar, const <a class="el" href="common_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06">bool</a> isNegative)</td></tr>
 <tr class="memdesc:a7a8817b6d5481eb6a53f64b4dfd4ab6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the padding, according to the selected options.  <a href="#a7a8817b6d5481eb6a53f64b4dfd4ab6d">More...</a><br /></td></tr>
 <tr class="separator:a7a8817b6d5481eb6a53f64b4dfd4ab6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cd56862e9f96c84d31c82c4057bc604"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a9cd56862e9f96c84d31c82c4057bc604">OutputBuffer</a> (const char *const buffer, <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> size)</td></tr>
-<tr class="memdesc:a9cd56862e9f96c84d31c82c4057bc604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the content of the buffer.  <a href="#a9cd56862e9f96c84d31c82c4057bc604">More...</a><br /></td></tr>
-<tr class="separator:a9cd56862e9f96c84d31c82c4057bc604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d3f9416ff673ad7773edce37351c88d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a3d3f9416ff673ad7773edce37351c88d">OutputBuffer</a> (const char *const buffer, const <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> size)</td></tr>
+<tr class="memdesc:a3d3f9416ff673ad7773edce37351c88d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the content of the buffer.  <a href="#a3d3f9416ff673ad7773edce37351c88d">More...</a><br /></td></tr>
+<tr class="separator:a3d3f9416ff673ad7773edce37351c88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96bd9c25e3fc8c123b913d0d604f0d5b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a96bd9c25e3fc8c123b913d0d604f0d5b">OutputReverseBuffer</a> (const char *const buffer, <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a> size)</td></tr>
+<tr class="memdesc:a96bd9c25e3fc8c123b913d0d604f0d5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output the content of the buffer in reverse order.  <a href="#a96bd9c25e3fc8c123b913d0d604f0d5b">More...</a><br /></td></tr>
+<tr class="separator:a96bd9c25e3fc8c123b913d0d604f0d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98631211a4a8aee62f572375d5b637be"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="printf_8c.html#a98631211a4a8aee62f572375d5b637be">printf</a> (const char *format,...)</td></tr>
 <tr class="memdesc:a98631211a4a8aee62f572375d5b637be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produce unbuffered formatted output to the serial line.  <a href="#a98631211a4a8aee62f572375d5b637be">More...</a><br /></td></tr>
 <tr class="separator:a98631211a4a8aee62f572375d5b637be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -104,7 +108,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>printf implementation. </p>
 <dl class="section copyright"><dt>Copyright</dt><dd>2020, Remi Andruccioli <a href="#" onclick="location.href='mai'+'lto:'+'rem'+'i.'+'and'+'ru'+'cci'+'ol'+'i@g'+'ma'+'il.'+'co'+'m'; return false;">remi.<span style="display: none;">.nosp@m.</span>andr<span style="display: none;">.nosp@m.</span>uccio<span style="display: none;">.nosp@m.</span>li@g<span style="display: none;">.nosp@m.</span>mail.<span style="display: none;">.nosp@m.</span>com</a></dd></dl>
-<p>This file describes the implementation of printf. For now it implements a very minimal subset of stdlib's <a class="el" href="printf_8c.html#a98631211a4a8aee62f572375d5b637be" title="Produce unbuffered formatted output to the serial line. ">printf()</a>. For now, this module is useless if module SERIAL is not used. </p>
+<p>This file describes the implementation of printf. For now, this module is useless if module SERIAL is not used. </p>
 
 <p class="definition">Definition in file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -324,8 +328,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9cd56862e9f96c84d31c82c4057bc604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cd56862e9f96c84d31c82c4057bc604">&#9670;&nbsp;</a></span>OutputBuffer()</h2>
+<a id="a3d3f9416ff673ad7773edce37351c88d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d3f9416ff673ad7773edce37351c88d">&#9670;&nbsp;</a></span>OutputBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,7 +346,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td>
           <td class="paramname"><em>size</em>&#160;</td>
         </tr>
         <tr>
@@ -368,6 +372,53 @@ Functions</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00163">163</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
+
+</div>
+</div>
+<a id="a96bd9c25e3fc8c123b913d0d604f0d5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96bd9c25e3fc8c123b913d0d604f0d5b">&#9670;&nbsp;</a></span>OutputReverseBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void OutputReverseBuffer </td>
+          <td>(</td>
+          <td class="paramtype">const char *const&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="AVR_2stdint_8h.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Output the content of the buffer in reverse order. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>A valid pointer to the buffer. </td></tr>
+    <tr><td class="paramname">size</td><td>The size of the buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00179">179</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
 
 </div>
 </div>
@@ -418,7 +469,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The number of characters output to the serial line, or a negative value if an error occured.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The stack usage of this function is important. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00175">175</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="printf_8c_source.html#l00191">191</a> of file <a class="el" href="printf_8c_source.html">printf.c</a>.</p>
 
 </div>
 </div>
