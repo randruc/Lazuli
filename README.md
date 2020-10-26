@@ -114,7 +114,7 @@ The image can be pulled at https://hub.docker.com/r/randruc/lazuli
 
 ![Lazuli Docker container start](images/docker_container_start.png)
 
-![Lazuli Docker container man pages](images/docker_container_man.png)
+![Lazuli Docker container man pages](images/man.png)
 
 
 ## Configuration and Building
@@ -126,7 +126,9 @@ also be done interactively in the console.
 Read more in the documentation file
 [doc/developing_your_project.rst](doc/developing_your_project.rst)
 
-![Lazuli configuration with ccmake](images/ccmake.png)
+![Lazuli configuration using ccmake](images/ccmake.png)
+
+![Building using ccmake](images/cmake.png)
 
 
 ## Uploading binaries to the target platform
