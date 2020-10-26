@@ -114,6 +114,8 @@ The image can be pulled at https://hub.docker.com/r/randruc/lazuli
 
 ![Lazuli Docker container start](images/docker_container_start.png)
 
+![Lazuli Docker container man pages](images/docker_container_man.png)
+
 
 ## Configuration and Building
 
