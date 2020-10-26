@@ -101,7 +101,7 @@ You should see a message, followed by a bash prompt:
     Fedora release 31 (Thirty One)
     Linux e654b59f6c18 5.6.13-100.fc30.x86_64 #1 SMP Fri May 15 00:36:06 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 
-    [root@e654b59f6c18 workspace]# 
+    [root@e654b59f6c18 workspace]#
 
 The second line of the message indicates the corresponding version of Lazuli
 the image is built for. It should match the version number in the file named

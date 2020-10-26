@@ -72,6 +72,7 @@ grep -nrH \
      --include=*.dox \
      --include=*.h \
      --include=*.ld \
+     --include=*.rst \
      --include=*.S \
      --include=*.sh \
      --include=*.txt \

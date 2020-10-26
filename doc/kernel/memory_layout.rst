@@ -93,8 +93,8 @@ The arrows on the right specify addresses.
     +-  -  -  -  -  -+
     | interrupt      |
     | vectors        |
-    | table          |<- 0x0 
-    +----------------+ 
+    | table          |<- 0x0
+    +----------------+
 
 RAM
 ***
@@ -111,7 +111,7 @@ regions:
   variables in C. It is set to zero during startup.
 * **.noinit**: This section contains all variables marked with the macro
   ``NOINIT``. This macro is used to indicated that an uninitialized global
-  variable must not be initialized to zero at startup. 
+  variable must not be initialized to zero at startup.
 * The **heap**: This is the kernel heap. After kernel startup the heap size is
   0.
 * The **kernel stack**: During system startup only the kernel stack exists.
@@ -122,7 +122,7 @@ regions:
   fixed in size because both the heap and the stack can grow downward or
   upward at runtime.
 
-This graph shows how these sections are loaded into RAM:  
+This graph shows how these sections are loaded into RAM:
 The arrows on the right specify addresses.
 
 .. code-block:: none
@@ -140,12 +140,12 @@ The arrows on the right specify addresses.
     |                |
     | heap           |
     |                |<- heap_start (_brk in the linker)
-    +----------------+ 
+    +----------------+
     | .noinit section|
     | (non zero'd at |
-    | startup)       |   
+    | startup)       |
     |                |<- 0x100 + SIZEOF(.data) + SIZEOF(.rodata) + SIZEOF(.bss)
-    +----------------+ 
+    +----------------+
     | .bss section   |<- 0x100 + SIZEOF(.data) + SIZEOF(.bss) - 1
     | (zero'd at     |
     | startup)       |   0x100 + SIZEOF(.data) + SIZEOF(.rodata)

@@ -62,7 +62,7 @@ Except in some very specific situations (e.g. when writing URLs), line length is
 set to 80 characters.
 Documents must be easily readable without horizontal scrolling in a console
 (e.g. with ``less``), in simple text editors, in a file diff utility, or on any
-platform that don't natively supports rst syntax.  
+platform that don't natively supports rst syntax.
 80 columns line breaks are not a problem when rendering to HTML or man pages as
 rst ignores line breaks when processing.
 
@@ -76,7 +76,7 @@ Heading characters are used in the following order:
 #. ``-``
 #. ``^``
 
-There must be only one heading of level 1 per page.   
+There must be only one heading of level 1 per page.
 
 Doxygen
 -------

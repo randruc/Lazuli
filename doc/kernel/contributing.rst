@@ -54,7 +54,7 @@ Contributions is done using the classic GitHub pull-request mechanism:
   or remarks can be made before the ultimate merging.
 
 For now, squashing and rebasing are disabled for pull-requests.
-  
+
 Commit messages
 ^^^^^^^^^^^^^^^
 
@@ -74,7 +74,7 @@ Here are a few examples of real commit messages that follow this format:
 .. code-block:: none
 
    GitHub Actions: Set the "pipefail" bash option when building docker image.
-    
+
    This is needed because we pipe the output of "docker build" to "ts". So if
    "docker build" fails, the exit code is not the one of "ts".
 
@@ -84,7 +84,7 @@ Here are a few examples of real commit messages that follow this format:
 .. code-block:: none
 
    stack_usage.sh: Improvements on the usability.
-    
+
    * Command line options have been added to let the user sort by stack size or
      by file name.
    * The output is no longer piped into less.

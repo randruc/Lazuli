@@ -14,7 +14,7 @@ modifications to show only the most important ones.
 Comments on the right side have been added manually.
 
 ::
-   
+
    .
    ├── doc                       Sources of Sphinx user documentation
    │   └── kernel                Sources of Sphinx kernel documentation
@@ -36,4 +36,3 @@ Comments on the right side have been added manually.
    │   └── unit-tests            Unit tests sources
    ├── templates                 File templates, used when creating new files
    └── user                      Directory for the user code.
-

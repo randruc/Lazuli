@@ -18,7 +18,7 @@ We explain here the programming style and conventions to apply on C code for the
 project.
 
 As a general rule, the code must be clear and readable. Reading it must be a
-pleasant experience.  
+pleasant experience.
 The code must not contain useless or redundant things.
 
 C dialect
@@ -27,7 +27,7 @@ C dialect
 The whole project is written in pure ANSI C 89.
 All C code files are encoded in raw 7-bit ASCII.
 
-.. note::   
+.. note::
    This is to the allow C code to be ported easily to many platforms and
    architectures, by being compiled by the largest number of compilers.
    Another reason is that C89 is understood by all C code-checking tools.
@@ -51,7 +51,7 @@ Files must end with a newline character.
 
 ..
     TODO: spaces before () in if, for, while
-   
+
 Line length
 ^^^^^^^^^^^
 
@@ -99,7 +99,7 @@ This is good:
 This is *not* good:
 
 .. code-block:: c
-                
+
    // This is a comment.
 
    /* This is a comment
@@ -169,7 +169,7 @@ For functions, opening and closing braces are always on their own line.
 This is the only style allowed for functions:
 
 .. code-block:: c
-                
+
     int main(void)
     {
       printf("Hello world\n");
@@ -183,10 +183,10 @@ statement and the closing braces are always on a new line.
 This is the only style allowed for control statements:
 
 .. code-block:: c
-                
+
     if (n == 4) {
       printf("Bye");
-      
+
       return 0;
     }
 
@@ -226,7 +226,7 @@ present, even for one-line expressions:
       return map->next;
     }
 
-.. note::      
+.. note::
    Always putting the braces helps to avoid some bugs.
    As an example, you can read this article about the famous case of Apple's
    SSL/TLS bug:
