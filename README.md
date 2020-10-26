@@ -13,19 +13,22 @@ Copyright (c) 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 
 ## What is Lazuli ?
 
-Lazuli is a Real-Time Operating System (RTOS) kernel designed for the AVR
-architecture.
-It aims to provide preemptive real-time multitasking for AVR microcontrollers
-(MCU).
-It currently runs on the ATmega328p MCU (that is used on the Arduino) but it
-should be easily portable to other AVR platforms.
+Lazuli is a preemptive multitasking RTOS (Real-Time Operating System/kernel),
+targeting AVR microcontrollers.
+It allows to program and run multiple independent tasks in a real-time context
+on AVR microcontrollers.
+
+AVR MCUs are widely used in embedded, industrial devices and applications, and
+are also known to be used on Arduino boards.
+Applications written on top of Lazuli RTOS suit industrial systems as well as
+hobbyists creations.
 
 The project is hosted on GitHub at https://github.com/randruc/Lazuli
 
 
 ### Features
 
-* Multitasking of user tasks
+* Preemptive multitasking of user tasks
 * Real-time scheduling
 * No MMU required
 * "ROMable": all the system can fit in ROM
@@ -42,16 +45,16 @@ For now, the Lazuli kernel provides the following functionalities:
 * Rate Monotonic Scheduling
 * Priority Round-Robin Scheduling (POSIX's `SCHED_RR`)
 * Mutexes
-* AVR USART driver with a `printf()` API
+* AVR USART driver, including a complete `printf()` implementation.
 
 
-### Challenge
+### Challenge and philosophy
 
 The Lazuli project has very specific goals that make it unique. These are:
 
 * __Free software__ - This project is developed with and can be built using only
   free software.
-* __Pure C89__ - Lazuli is coded in pure C89 for all of its C parts.
+* __Pure ANSI C (89)__ - Lazuli is coded in pure C89 for all of its C parts.
   It means that no compiler-specific code nor extensions to the C language are
   used. This choice has been made the allow to code to be ported easily (if
   needed in the future) to many platforms and architectures, and to be compiled
@@ -59,8 +62,13 @@ The Lazuli project has very specific goals that make it unique. These are:
   by all C code-checking tools.
 * __Well documented__ - The Lazuli project aims to be a well-documented project.
   All the code is carefully documented and comes with good documentation about
-  how it works and how to use it. If the documentation doesn't match the actual
-  code or behavior, this is considered as a bug.
+  how it works and how to use it.
+
+
+### Target platforms
+
+Lazuli RTOS currently runs on the ATmega328p MCU (that is used on the Arduino)
+but it should be easily portable to other AVR platforms.
 
 
 ## Documentation
@@ -86,12 +94,25 @@ Example programs that use the Lazuli RTOS can be found in the directory
 ## Prerequisites
 
 Lazuli has no dependency on any other existing code.
-You can simply write your own code, build the system, upload it and it just
-runs!
+You can simply write your own code, build the system, upload it to the target
+MCU and it just runs!
 
 To develop with Lazuli, it is strongly recommended to use the Lazuli Docker
 image. You will benefit from a complete development environment, provided with
 all the necessary tools.
+
+
+## Docker image brings a full development environment
+
+Lazuli RTOS comes with a complete and containerized development environment
+provided as a Docker image.
+This image includes all the tools that are necessary to build your own project
+using Lazuli RTOS. It includes compilers and linkers, build tools, binary
+utilities, man pages, etc.
+
+The image can be pulled at https://hub.docker.com/r/randruc/lazuli
+
+![Lazuli Docker container start](images/docker_container_start.png)
 
 
 ## Configuration and Building
@@ -102,6 +123,8 @@ also be done interactively in the console.
 
 Read more in the documentation file
 [doc/developing_your_project.rst](doc/developing_your_project.rst)
+
+![Lazuli configuration with ccmake](images/ccmake.png)
 
 
 ## Uploading binaries to the target platform
@@ -129,7 +152,7 @@ __Contributions are welcome!__
 The project is hosted on GitHub (at https://github.com/randruc/Lazuli), and
 GitHub is used to manage it all: pull request, issues, etc.
 It doesn't matter if you wish to fix a bug, implement or suggest new features,
-or fix a spelling mistake: _any kind of contribution is welcome!_
+or fix a typo/spelling mistake: _any kind of contribution is welcome!_
 
 Read more on how to contribute in the documentation file
 [doc/kernel/contributing.rst](doc/kernel/contributing.rst).

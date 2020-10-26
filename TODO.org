@@ -67,3 +67,4 @@
 * Host the Lazuli docker image to GitHub instead of docker.io.
 * Think about moving libc header files to the directory include/
 ** See if we can also get rid of directory libc/, as the corresponding functionnalities are actually implemented as kernel modules
+* See if it would be necessary to declare all global variables used the scheduler.c and kernel.c as 'volatile'.

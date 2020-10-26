@@ -26,6 +26,7 @@ grep -nrH \
      --include=*.txt \
      --include=Dockerfile \
      --exclude-dir=build \
+     --exclude-dir=images \
      --exclude-dir=LICENSES \
      --exclude-dir=_build > $tmp
 if [ $(cat $tmp | wc -l) -gt 0 ];
@@ -52,7 +53,8 @@ grep -nrHP \
      --include=*.txt \
      --include=*.yml \
      --exclude-dir=build \
-     --exclude-dir=_build > $tmp
+     --exclude-dir=_build \
+     --exclude-dir=images > $tmp
 if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
@@ -75,7 +77,8 @@ grep -nrH \
      --include=*.txt \
      --include=*.yml \
      --exclude-dir=build \
-     --exclude-dir=_build > $tmp
+     --exclude-dir=_build \
+     --exclude-dir=images > $tmp
 if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
@@ -90,7 +93,8 @@ grep -nrH \
      --exclude-dir=.git \
      --exclude-dir=_build \
      --exclude-dir=build \
-     --exclude-dir=doxygen_output > $tmp
+     --exclude-dir=doxygen_output \
+     --exclude-dir=images > $tmp
 if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
@@ -107,6 +111,7 @@ grep -nHrL \
      --exclude-dir=_build \
      --exclude-dir=build \
      --exclude-dir=doxygen_output \
+     --exclude-dir=images \
      --exclude-dir=user \
      --exclude=COPYING \
      --exclude=TODO.org \
@@ -126,7 +131,8 @@ grep -nHrL \
      --include="*.h" \
      --include="*.S" \
      --exclude-dir=user \
-     --exclude-dir=build > $tmp
+     --exclude-dir=build \
+     --exclude-dir=images > $tmp
 if [ $(cat $tmp | wc -l) -gt 0 ];
 then
     failed=1;
