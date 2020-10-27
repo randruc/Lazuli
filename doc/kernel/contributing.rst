@@ -8,6 +8,8 @@
 Contributing
 ============
 
+**Thanks for contributing to Lazuli!**
+
 **Contributions are welcome!**
 
 *However, contributions must follow a set of rules.*
