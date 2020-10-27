@@ -4,7 +4,7 @@ This file is part of Lazuli.
 Copyright (c) 2017-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
 --->
 
-# Lazuli
+# Lazuli RTOS
 
 ![Lazuli CI Build](https://github.com/randruc/Lazuli/workflows/Lazuli%20CI%20Build/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/lazuli/badge/?version=latest)](https://lazuli.readthedocs.io/en/latest/?badge=latest)
@@ -22,6 +22,11 @@ AVR MCUs are widely used in embedded, industrial devices and applications, and
 are also known to be used on Arduino boards.
 Applications written on top of Lazuli RTOS suit industrial systems as well as
 hobbyists creations.
+
+Lazuli RTOS is distributed in its source code form, to be built and statically
+linked with your own project sources.
+This allows the kernel to be statically configured, and benefit from compiler
+optimizations.
 
 The project is hosted on GitHub at https://github.com/randruc/Lazuli
 
