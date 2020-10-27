@@ -66,6 +66,9 @@ The file system of the Lazuli container is not persistent.
 Getting the Lazuli Docker image
 -------------------------------
 
+Lazuli Docker images are hosted in DockerHub at
+`<https://hub.docker.com/r/randruc/lazuli>`_
+
 Pulling the official image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 

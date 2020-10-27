@@ -115,7 +115,12 @@ This image includes all the tools that are necessary to build your own project
 using Lazuli RTOS. It includes compilers and linkers, build tools, binary
 utilities, man pages, etc.
 
-The image can be pulled at https://hub.docker.com/r/randruc/lazuli
+The official Lazuli Docker image can be pulled from
+https://hub.docker.com/r/randruc/lazuli
+
+Read more on how to set up the development environment in the official
+documentation:
+https://lazuli.readthedocs.io/en/latest/set_up_environment.html
 
 ![Lazuli Docker container start](images/docker_container_start.png)
 
@@ -128,8 +133,8 @@ The Lazuli kernel is fully configurable.
 The build system relies on CMake. With the help of `ccmake`, configuration can
 also be done interactively in the console.
 
-Read more in the documentation file
-[doc/developing_your_project.rst](doc/developing_your_project.rst)
+Read more in the official documentation:
+https://lazuli.readthedocs.io/en/latest/developing_your_project.html
 
 ![Lazuli configuration using ccmake](images/ccmake.png)
 
@@ -163,8 +168,8 @@ GitHub is used to manage it all: pull request, issues, etc.
 It doesn't matter if you wish to fix a bug, implement or suggest new features,
 or fix a typo/spelling mistake: _any kind of contribution is welcome!_
 
-Read more on how to contribute in the documentation file
-[doc/kernel/contributing.rst](doc/kernel/contributing.rst).
+Read more on how to contribute in the official documentation:
+https://lazuli.readthedocs.io/en/latest/kernel/contributing.html
 
 You can also use the `Issues` tab of the project to ask questions, suggest
 features without coding, or anything you wish!
