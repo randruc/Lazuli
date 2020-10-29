@@ -80,6 +80,15 @@ Lazuli RTOS currently runs on the ATmega328p MCU (that is used on the Arduino)
 but it should be easily portable to other AVR platforms.
 
 
+### Important notice
+
+Although Lazuli tends to reach a high level of code quality and stability,
+it *does not* suit safety-critical systems as it is not certified for those
+specific uses.
+For more information about what are safety-critical systems, please read
+https://en.wikipedia.org/wiki/Safety-critical_system
+
+
 ## Documentation
 
 The documentation for the project can be read at
