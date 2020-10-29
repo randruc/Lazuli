@@ -17,6 +17,10 @@ Lazuli is a preemptive multitasking RTOS (Real-Time Operating System/kernel),
 targeting AVR microcontrollers.
 It allows to program and run multiple independent tasks in a real-time context
 on AVR microcontrollers.
+In its basic configuration, Lazuli RTOS has a low memory footprint (< 4
+kilobytes of ROM, < 200 bytes of static RAM).
+Lazuli RTOS can be used to develop embedded applications or firmwares that have
+strong real-time constraints or demand multitasking, on minimal hardware.
 
 AVR MCUs are widely used in embedded, industrial devices and applications, and
 are also known to be used on Arduino boards.
