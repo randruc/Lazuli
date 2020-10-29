@@ -23,4 +23,5 @@ reading this part.
    version_management
    contributing
    code_style_and_conventions
+   best_practices
    about_documentation
