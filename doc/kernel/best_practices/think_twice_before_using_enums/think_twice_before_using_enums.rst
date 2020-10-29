@@ -12,16 +12,16 @@ It is generally considered a good practice to define named integer constants
 as enumerations (``enum``) if they are related to each other. i.e.: they can be
 grouped under a common name, bringing more meaning, more "semantic intention":
 
-.. include:: enum_declaration.c
-    :code: C
-    :start-line: 9
+.. literalinclude:: enum_declaration.c
+    :language: c
+    :lines: 10-
 
 as opposed to preprocessor's ``#define`` that cannot group a set of macro
 constants under a common name:
 
-.. include:: define_declaration.c
-    :code: C
-    :start-line: 9
+.. literalinclude:: define_declaration.c
+    :language: c
+    :lines: 10-
 
 Most of the time and for the vast majority of usual C code, this practice should
 be applied.
