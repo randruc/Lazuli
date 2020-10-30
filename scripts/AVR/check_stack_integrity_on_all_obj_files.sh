@@ -44,7 +44,6 @@ copy_from_program_memory
 $(avr-objdump -t -j .text $OBJ_FILE | awk '$2 ~ /g/ && $5 ~ /^[A-Z]/{print $5}')
 @@@-EXCLUDE
 Arch_RestoreContextAndReturnFromInterrupt
-Task_Abort
 @@@-DISASSEMBLY
 $(avr-objdump -d --no-show-raw-ins -j .text $OBJ_FILE)
 EOF

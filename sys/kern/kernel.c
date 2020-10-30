@@ -15,10 +15,14 @@
  * It also holds the kernel memory allocation map.
  */
 
+#include <stdint.h>
+
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
 
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/compiler.h>
+#include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/linker.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler.h>
@@ -34,10 +38,13 @@
 int
 main(void);
 
-/**
- * The allocation map for the whole kernel.
+/*
+ * Initialized at system startup. Can be usable only after the .data section
+ * have been initialized. So don't access it before.
  */
-AllocationMap kernelAllocationMap;
+volatile lz_system_status_t systemStatus = SYSTEM_STATUS_FLAG_IN_KERNEL;
+
+NOINIT AllocationMap kernelAllocationMap;
 
 /**
  * This is the kernel entry point.
@@ -73,7 +80,7 @@ Kernel_Main(void)
 #endif
 #endif
 
-NORETURN void
+void
 Kernel_Panic(void)
 {
   if (LZ_CONFIG_ON_PANIC_INFINITE_LOOP) {
@@ -81,5 +88,17 @@ Kernel_Panic(void)
   } else if (LZ_CONFIG_ON_PANIC_SOFTWARE_RESET) {
     /* TODO: Change this by a watchdog software reset */
     Arch_ResetSystem();
+  }
+}
+
+void
+Kernel_ManageFailure(void)
+{
+  if (SYSTEM_STATUS_IS_IN_KERNEL) {
+    /* We are running in the kernel */
+    Kernel_Panic();
+  } else {
+    /* We are running in a task */
+    Scheduler_AbortTask();
   }
 }

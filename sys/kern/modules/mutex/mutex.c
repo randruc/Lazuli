@@ -16,6 +16,7 @@
 #include <Lazuli/mutex.h>
 
 #include <Lazuli/sys/arch/arch.h>
+#include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 #include <Lazuli/sys/scheduler.h>
 #include <Lazuli/sys/task.h>
@@ -31,7 +32,7 @@ InitMutex(Lz_Mutex * const mutex, const Lz_Mutex * const initValue)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
-      Task_Abort();
+      Kernel_ManageFailure();
     }
   }
 
@@ -78,7 +79,7 @@ Lz_Mutex_Lock(Lz_Mutex * const mutex)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
-      Task_Abort();
+      Kernel_ManageFailure();
     }
   }
 
@@ -92,7 +93,7 @@ Lz_Mutex_Unlock(Lz_Mutex * const mutex)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_MUTEXES) {
     if (NULL == mutex) {
-      Task_Abort();
+      Kernel_ManageFailure();
     }
   }
 

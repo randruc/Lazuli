@@ -42,12 +42,12 @@ void
 Scheduler_Init(void);
 
 /**
- * Call the appropriate scheduler to abort the current running task.
- *
- * @param sp The stack pointer of the running task after saving its context.
+ * Abort the current running task. This function is to be called by the kernel if
+ * some unrecoverable error occured in the context of a task (e.g. when a
+ * mandatory pointer is _NULL_ as a function, or a division by zero).
  */
 void
-Scheduler_AbortTask(void * const sp);
+Scheduler_AbortTask(void);
 
 /*
  * TODO: Maybe rename interruptCode and eventCode to xxxxxId or something like

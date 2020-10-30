@@ -29,22 +29,15 @@
     ;; r28, r29: working area
     .global Arch_Divide_U16
 Arch_Divide_U16:
-    push r19
-    ;; We first test if one of the parameters is equal to zero.
-    mov r19, r24
-    or r19, r25
-    brne test_denominator
-    clr r22
-    clr r23
-    rjmp exit
-test_denominator:
-    mov r19, r22
-    or r19, r23
+    ;; If we attempt to divide by zero => Fail.
+    tst r22
     brne can_divide
-    clr r24
-    clr r25
-    rjmp exit
+    tst r23
+    brne can_divide
+    call Kernel_ManageFailure   ; TODO: See if this 'call' should be replaced by
+                                ;       a 'jmp'.
 can_divide:
+    push r19
     push r28
     push r29
 divide:
@@ -76,6 +69,5 @@ finish:
     movw r22, r28
     pop r29
     pop r28
-exit:
     pop r19
     ret

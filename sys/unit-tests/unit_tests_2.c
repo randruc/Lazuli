@@ -1495,32 +1495,6 @@ UNIT_TEST(Division_29)
   ASSERT(numerator == denominator * d.quotient + d.remainder);
 }
 
-UNIT_TEST(Division_30)
-{
-  /* WARNING! Special case of division by 0. */
-
-  const unsigned int numerator = 247;
-  const unsigned int denominator = 0;
-
-  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
-
-  ASSERT(0 == d.quotient);
-  ASSERT(0 == d.remainder);
-}
-
-UNIT_TEST(Division_31)
-{
-  /* WARNING! Special case of division by 0. */
-
-  const unsigned int numerator = 0;
-  const unsigned int denominator = 0;
-
-  U16DivisionResult d = Arch_Divide_U16(numerator, denominator);
-
-  ASSERT(0 == d.quotient);
-  ASSERT(0 == d.remainder);
-}
-
 UNIT_TEST(Division_32)
 {
   const unsigned int numerator = 1;
@@ -1659,8 +1633,6 @@ ExecuteTests(void)
   Division_27();
   Division_28();
   Division_29();
-  Division_30();
-  Division_31();
   Division_32();
   Division_33();
   Division_34();

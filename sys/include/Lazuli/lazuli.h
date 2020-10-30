@@ -36,51 +36,31 @@ typedef int8_t lz_task_priority_t;
 typedef uint16_t lz_u_resolution_unit_t;
 
 /**
- * Defines the possible scheduling policies for a Lazuli user task.
- *
- * @attention The constants are defined from the highest priority policy to the
- *            lowest. i.e. A lower value means a higher priority.
+ * Represents the type used for scheduling policies of a Lazuli user task.
  */
-enum Lz_SchedulingPolicy {
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the first one.
-   */
-   __LZ_SCHEDULING_POLICY_ENUM_BEGIN = -1,
+typedef uint8_t lz_scheduling_policy_t;
 
-   /** @endcond */
+/*
+ * TODO: See if we should rename the policies macro constants as LZ_POLICY_XXX
+ *       or LZ_SCHEDULING_POLICY_XXX.
+ */
 
-   /**
-    * Cyclic real-time scheduling.
-    */
-   CYCLIC_RT = 0,
+/**
+ * Cyclic real-time scheduling.
+ */
+#define CYCLIC_RT ((lz_scheduling_policy_t)0U)
 
-   /**
-    * Priority time sliced real-time scheduling.
-    *
-    * Equivalent to POSIX SCHED_RR.
-    */
-   PRIORITY_RT,
+/**
+ * Priority time sliced real-time scheduling.
+ *
+ * Equivalent to POSIX SCHED_RR.
+ */
+#define PRIORITY_RT ((lz_scheduling_policy_t)1U)
 
-   /**
-    * Priority round-robin scheduling (non real-time).
-    */
-   /*
-    * PRIORITY_RR,
-    */
-
-  /**
-   * @cond false
-   *
-   * Undocumented to user: only here for static verification.
-   * This entry MUST be the last one.
-   */
-   __LZ_SCHEDULING_POLICY_ENUM_END
-
-   /** @endcond */
-};
+/**
+ * Represents the maximum value currently defined for a lz_scheduling_policy_t.
+ */
+#define LZ_SCHEDULING_POLICY_MAX PRIORITY_RT
 
 /**
  * Represents the configuration of a task.
@@ -101,7 +81,7 @@ typedef struct {
   /**
    * The scheduling policy of the task.
    */
-  enum Lz_SchedulingPolicy schedulingPolicy;
+  lz_scheduling_policy_t schedulingPolicy;
 
   /**
    * The priority of task. Only used for non-cyclic tasks.

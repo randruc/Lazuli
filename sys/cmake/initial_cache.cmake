@@ -33,12 +33,12 @@ set(
 option(
   LZ_CONFIG_ON_PANIC_INFINITE_LOOP
   "When 1, perform a software reset on kernel panic. When 0, doesn't apply."
-  ON)
+  OFF)
 
 option(
   LZ_CONFIG_ON_PANIC_SOFTWARE_RESET
   "When 1, perform a software reset on kernel panic. When 0, doesn't apply."
-  OFF)
+  ON)
 
 set(
   LZ_CONFIG_DEFAULT_TASK_STACK_SIZE

@@ -75,7 +75,7 @@
  * in camel case. Some examples:
  * @code{.c}
  * Arch_DisableInterrupts
- * Task_Abort
+ * Scheduler_AbortTask
  * @endcode
  *
  * @note It's important to note that user API header files <i>never</i> include

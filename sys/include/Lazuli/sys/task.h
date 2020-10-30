@@ -52,7 +52,7 @@ typedef u_read_write_atomic_t lz_task_to_scheduler_message_t;
 #define WAIT_INTERRUPT ((lz_task_to_scheduler_message_t)2U)
 
 /**
- * Terminate the task.
+ * Terminate the task. This handles the case of a normal termination of a task.
  */
 #define TERMINATE_TASK ((lz_task_to_scheduler_message_t)3U)
 
@@ -69,6 +69,12 @@ typedef u_read_write_atomic_t lz_task_to_scheduler_message_t;
  * message.
  */
 #define WAIT_SOFTWARE_TIMER ((lz_task_to_scheduler_message_t)5U)
+
+/**
+ * Abort the curent running task. Called by the kernel if some unrecoverable
+ * error occured (e.g. A division by zero).
+ */
+#define ABORT_TASK ((lz_task_to_scheduler_message_t)6U)
 
 /**
  * Represents a task.
@@ -116,7 +122,7 @@ typedef struct {
   /**
    * The scheduling policy.
    */
-  enum Lz_SchedulingPolicy schedulingPolicy;
+  lz_scheduling_policy_t schedulingPolicy;
 
   /**
    * The scheduling queue on which the task is stored.
@@ -311,18 +317,6 @@ typedef struct {
    */
   volatile FuncVoidVoid terminationCallback;
 }TaskContextLayout;
-
-/**
- * Abort the calling task.
- *
- * This function can be called when some unrecoverable error occurred in the
- * context of a task (e.g. when a mandatory pointer is _NULL_ as a function
- * parameter).
- * This will have the consequence of saving the task context (saving all
- * registers and keeping the call stack) and unscheduling the task.
- */
-void
-Task_Abort(void);
 
 _EXTERN_C_DECL_END
 

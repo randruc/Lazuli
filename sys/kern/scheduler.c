@@ -30,14 +30,14 @@
 /**
  * A pointer to the current running task.
  */
-static Task * currentTask;
+static Task *currentTask;
 
 /**
  * The queues of ready tasks for each scheduling policy.
  *
  * @attention Indexed from highest priority policy to lowest.
  */
-static NOINIT Lz_LinkedList readyTasks[__LZ_SCHEDULING_POLICY_ENUM_END];
+static NOINIT Lz_LinkedList readyTasks[LZ_SCHEDULING_POLICY_MAX + 1];
 
 /**
  * The queue of tasks waiting activation.
@@ -204,6 +204,17 @@ InsertTaskByPriority(Lz_LinkedList * const list,
 }
 
 /**
+ * @cond false
+ *
+ * This assertion is necessary because in the function PickTaskToRun() we
+ * iterate over all the possible declared values of lz_scheduling_policy_t to
+ * index the array readyTasks.
+ */
+STATIC_ASSERT((LZ_SCHEDULING_POLICY_MAX + 1) == ELEMENTS_COUNT(readyTasks),
+              The_readyTasks_array_size_is_wrong);
+/** @endcond */
+
+/**
  * Pick the task ready to run with the highest priority.
  *
  * To perform that operation, we iterate ready tasks in each policy, from the
@@ -216,15 +227,11 @@ InsertTaskByPriority(Lz_LinkedList * const list,
 static Task*
 PickTaskToRun(void)
 {
-  /*
-   * We can choose an uint8_t here as Lz_SchedulingPolicy has very few possible
-   * values.
-   */
-  uint8_t i;
+  lz_scheduling_policy_t policy;
 
-  for (i = 0; i < ELEMENTS_COUNT(readyTasks); ++i) {
+  for (policy = 0; policy < ELEMENTS_COUNT(readyTasks); ++policy) {
     const Lz_LinkedListElement * const linkedListElement
-      = List_PickFirst(&readyTasks[i]);
+      = List_PickFirst(&readyTasks[policy]);
 
     if (NULL != linkedListElement) {
       return CONTAINER_OF(linkedListElement, stateQueue, Task);
@@ -247,7 +254,7 @@ UpdateCyclicRealTimeTasks(void)
 
   /* Here we update the time until activation of all cyclic RT tasks */
   List_ForEach(&readyTasks[CYCLIC_RT], Task, loopTask, stateQueue) {
-    loopTask->timeUntilActivation--;
+    --loopTask->timeUntilActivation;
 
     if (0 == loopTask->timeUntilActivation) {
       if (loopTask->timeUntilCompletion > 0) {
@@ -264,7 +271,7 @@ UpdateCyclicRealTimeTasks(void)
                         loopTask,
                         stateQueue,
                         iterator) {
-    loopTask->timeUntilActivation--;
+    --loopTask->timeUntilActivation;
 
     if (0 == loopTask->timeUntilActivation) {
       iterator = List_Remove(&waitingActivationTasks, &loopTask->stateQueue);
@@ -299,14 +306,15 @@ UpdateTasksWaitingSoftwareTimer(void)
 
 /**
  * Manage cyclic real-time tasks.
+ *
+ * @param message The message that the task passes to the scheduler.
  */
 static void
-ManageCyclicRealTimeTask(void)
+ManageCyclicRealTimeTask(const lz_task_to_scheduler_message_t message)
 {
   --currentTask->timeUntilCompletion;
 
-  if (WAIT_ACTIVATION == currentTask->taskToSchedulerMessage ||
-      0 == currentTask->timeUntilCompletion) {
+  if (WAIT_ACTIVATION == message || 0 == currentTask->timeUntilCompletion) {
     List_Append(&waitingActivationTasks, &currentTask->stateQueue);
 
     return;
@@ -317,14 +325,16 @@ ManageCyclicRealTimeTask(void)
 
 /**
  * Manage priority real-time tasks.
+ *
+ * @param message The message that the task passes to the scheduler.
  */
 static void
-ManagePriorityRealTimeTask(void)
+ManagePriorityRealTimeTask(const lz_task_to_scheduler_message_t message)
 {
   bool setCurrentTaskReady = false;
 
-  if (WAIT_INTERRUPT == currentTask->taskToSchedulerMessage) {
-    uint8_t interruptCode =
+  if (WAIT_INTERRUPT == message) {
+    const uint8_t interruptCode =
       *((uint8_t*)currentTask->taskToSchedulerMessageParameter);
 
     /*
@@ -340,7 +350,7 @@ ManagePriorityRealTimeTask(void)
 
     List_Prepend(&waitingInterruptsTasks[interruptCode],
                  &currentTask->stateQueue);
-  } else if (WAIT_SOFTWARE_TIMER == currentTask->taskToSchedulerMessage) {
+  } else if (WAIT_SOFTWARE_TIMER == message) {
     currentTask->timeUntilTimerExpiration =
       *(lz_u_resolution_unit_t*)currentTask->taskToSchedulerMessageParameter;
     if (0 == currentTask->timeUntilTimerExpiration) {
@@ -348,11 +358,9 @@ ManagePriorityRealTimeTask(void)
     } else {
       List_Append(&waitingTimerTasks, &currentTask->stateQueue);
     }
-  } else if (LZ_CONFIG_MODULE_MUTEX_USED &&
-             (WAIT_MUTEX == currentTask->taskToSchedulerMessage)) {
+  } else if (LZ_CONFIG_MODULE_MUTEX_USED && (WAIT_MUTEX == message)) {
     Lz_Mutex * const mutex = currentTask->taskToSchedulerMessageParameter;
-    List_Prepend(&mutex->waitingTasks,
-                 &currentTask->stateQueue);
+    List_Prepend(&mutex->waitingTasks, &currentTask->stateQueue);
   } else {
     setCurrentTaskReady = true;
   }
@@ -386,16 +394,30 @@ Schedule(void)
   UpdateTasksWaitingSoftwareTimer();
 
   if (currentTask != idleTask) {
-    if (TERMINATE_TASK == currentTask->taskToSchedulerMessage) {
+    /*
+     * currentTask->taskToSchedulerMessage is declared 'volatile'. However, we
+     * are here in the scheduler, which is not interruptible. We can then cache
+     * the message value in a variable to avoid reading it from memory each time
+     * we access it.
+     */
+    const lz_task_to_scheduler_message_t message
+      = currentTask->taskToSchedulerMessage;
+
+    if (ABORT_TASK == message) {
+      List_Append(&abortedTasks, &currentTask->stateQueue);
+    } else if (TERMINATE_TASK == message) {
       List_Append(&terminatedTasks, &currentTask->stateQueue);
     } else {
-      void (* const jumpToManager[__LZ_SCHEDULING_POLICY_ENUM_END])(void) =
+      /* Array of function pointers, built on the stack */
+      void
+        (* const jumpToManager[LZ_SCHEDULING_POLICY_MAX + 1])
+        (const lz_task_to_scheduler_message_t) =
         {
           ManageCyclicRealTimeTask,
           ManagePriorityRealTimeTask
         };
 
-      jumpToManager[currentTask->schedulingPolicy]();
+      jumpToManager[currentTask->schedulingPolicy](message);
     }
   }
 
@@ -425,14 +447,14 @@ CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
    * Jump table to the appropriate comparer, depending of the desired
    * scheduling policy.
    */
-  bool (* const comparers[__LZ_SCHEDULING_POLICY_ENUM_END])
+  bool (* const comparers[LZ_SCHEDULING_POLICY_MAX + 1])
     (const Task * const,
      const Task * const) = {
                             PeriodComparer,
                             PriorityComparer
   };
 
-  if (taskConfiguration->schedulingPolicy >= __LZ_SCHEDULING_POLICY_ENUM_END) {
+  if (taskConfiguration->schedulingPolicy > LZ_SCHEDULING_POLICY_MAX) {
     return NULL;
   }
 
@@ -629,24 +651,11 @@ Scheduler_Init(void)
 }
 
 void
-Scheduler_AbortTask(void * const sp)
+Scheduler_AbortTask(void)
 {
-  currentTask->stackPointer = sp;
+  currentTask->taskToSchedulerMessage = ABORT_TASK;
 
-  List_Append(&abortedTasks, &currentTask->stateQueue);
-
-  Arch_EnableInterrupts();
-
-  for(;;);
-
-  /*
-   * TODO: we have a problem here.
-   * Here, CPU is now idle.
-   * But Schedule() doesn't run the elected task.
-   *
-   * I think one good solution is to enter idle, and wait for the next clock
-   * tick.
-   */
+  Scheduler_SleepUntilEndOfTimeSlice();
 }
 
 /*

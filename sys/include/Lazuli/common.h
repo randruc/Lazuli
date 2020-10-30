@@ -17,6 +17,8 @@
 
 #include <stdint.h>
 
+#include <Lazuli/common_asm.h>
+
 #ifdef __cplusplus
 
 /**
@@ -158,20 +160,6 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
     STATIC_CHECK_TYPE(V, T);                    \
     (V) &= (T)(~(X));                           \
   } while (0)
-
-/**
- * Define a constant bit at position X, starting from index 0.
- *
- * @param X An unsigned integer constant representing the position of the bit,
- *          starting from index 0.
- *
- * @warning The constant must be specified using an unsigned integer literal
- *          in uppercase.
- *          e.g. POSITION(2U)
- *          This is to make static analyzers not complain about using a shift
- *          operator with an unsigned value.
- */
-#define POSITION(X) (1U << (X))
 
 /**
  * Define an indirect read/write variable at an absolute address.

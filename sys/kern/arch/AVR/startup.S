@@ -89,6 +89,7 @@ timer1compA_handler:
     sbi instrument_port, instrument_port_position
     .ENDIF
     call save_context_on_stack
+    SET_SYSTEM_STATUS_IN_KERNEL r16
     in r24, spl
     in r25, sph
     RESET_KERNEL_STACK_POINTER r16
@@ -159,18 +160,11 @@ spmready_handler:
  * interrupt code.
  */
 call_scheduler_handle_interrupt:
+    SET_SYSTEM_STATUS_IN_KERNEL_PRESERVE_REGISTERS r16
     call Scheduler_HandleInterrupt
+    UNSET_SYSTEM_STATUS_IN_KERNEL_PRESERVE_REGISTERS r16
     pop r24
     reti
-
-    .global Task_Abort
-Task_Abort:
-    cli
-    call save_context_on_stack
-    in r24, spl
-    in r25, sph
-    RESET_KERNEL_STACK_POINTER r16
-    jmp Scheduler_AbortTask
 
     /**
      * Save current running task execution context on task's stack.
@@ -252,6 +246,7 @@ save_context_on_stack:
  */
     .global Arch_StartRunning
 Arch_StartRunning:
+    UNSET_SYSTEM_STATUS_IN_KERNEL r16
     ;; Here we can skip POPing the 32 registers + the state register since they
     ;; have not been used yet. So we add the offset of the PC member of the
     ;; TaskContextLayout struct to the task stack pointer.
@@ -264,6 +259,7 @@ Arch_StartRunning:
 
     .global Arch_RestoreContextAndReturnFromInterrupt
 Arch_RestoreContextAndReturnFromInterrupt:
+    UNSET_SYSTEM_STATUS_IN_KERNEL r16
     ;; Switch to the task stack, passed by parameter
     out spl, r24
     out sph, r25
@@ -435,7 +431,6 @@ reset_system:
     RESET_KERNEL_STACK_POINTER r16
 
     ;; Clear bss section
-    ;; TODO: Find a way to omit this code if no .bss
     ldi r28, lo8(_bss_size)
     ldi r29, hi8(_bss_size)
     sbiw r28, 0
@@ -450,7 +445,6 @@ bss_loop_start:
 bss_loop_end:
 
     ;; Load data section
-    ;; TODO: Find a way to omit this code if no .data
     ldi r28, lo8(_data_size)
     ldi r29, hi8(_data_size)
     sbiw r28, 0
@@ -463,7 +457,6 @@ bss_loop_end:
 load_data_end:
 
     ;; Load rodata section
-    ;; TODO: Find a way to omit this code if no .rodata
     ldi r28, lo8(_rodata_size)
     ldi r29, hi8(_rodata_size)
     sbiw r28, 0
