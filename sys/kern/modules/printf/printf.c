@@ -202,14 +202,14 @@ printf(const char *format, ...)
 
   for (; '\0' != *c; ++c) {
     if ('%' == *c) {
+      int size;
+      int padLength = 0;
       char padChar = ' ';
       bool firstDigitPassed = false;
       bool isNegative = false;
       bool rightPadded = false;
-      uint8_t padLength = 0;
-      uint8_t size;
       char buffer[6];
-      const char * s = buffer;
+      const char *s = buffer;
 
       for (++c; '\0' != *c; ++c) {
         /*
@@ -260,8 +260,11 @@ printf(const char *format, ...)
             /*
              * Add here the support for another sizeof(unsigned int).
              *
-             * Remember to change the size of 'buffer', and add the new
-             * sizeof(unsigned int) in the STATIC_ASSERT.
+             * Remember to:
+             * - Change the size of 'buffer'.
+             * - Add the new sizeof(unsigned int) in the STATIC_ASSERT.
+             * - Perform the same test on sizeof() for hexadecimal and octal
+             *   conversions.
              */
           }
         } else if ('x' == *c || 'X' == *c) {
