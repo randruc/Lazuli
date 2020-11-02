@@ -28,7 +28,7 @@ Applications written on top of Lazuli RTOS suit industrial systems as well as
 hobbyists creations.
 
 Lazuli RTOS is distributed in its source code form, to be built and statically
-linked with your own project sources.
+linked with your own final executable.
 This allows the kernel to be statically configured, and benefit from compiler
 optimizations.
 
@@ -135,9 +135,11 @@ Read more on how to set up the development environment in the official
 documentation:
 https://lazuli.readthedocs.io/en/latest/set_up_environment.html
 
-![Lazuli Docker container start](images/docker_container_start.png)
+![Lazuli development environment container starting](images/docker_container_start.png)
+*Lazuli development environment container starting*
 
-![Lazuli Docker container man pages](images/man.png)
+![Man pages in Lazuli development environment container](images/man.png)
+*Man pages in Lazuli development environment container*
 
 
 ## Configuration and Building
@@ -149,9 +151,11 @@ also be done interactively in the console.
 Read more in the official documentation:
 https://lazuli.readthedocs.io/en/latest/developing_your_project.html
 
-![Lazuli configuration using ccmake](images/ccmake.png)
+![Configuration using ccmake](images/ccmake.png)
+*Configuration using ccmake*
 
-![Building using ccmake](images/cmake.png)
+![Building using cmake](images/cmake.png)
+*Building using cmake*
 
 
 ## Uploading binaries to the target platform
