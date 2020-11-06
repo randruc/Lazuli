@@ -14,6 +14,8 @@
 #include <Lazuli/common.h>
 #include <Lazuli/config.h>
 #include <Lazuli/list.h>
+
+#include <Lazuli/sys/kernel.h>
 #include <Lazuli/sys/memory.h>
 
 void
@@ -21,7 +23,7 @@ List_Append(Lz_LinkedList * const linkedList, Lz_LinkedListElement * const item)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
-      return;
+      Kernel_ManageFailure();
     }
   }
 
@@ -46,7 +48,7 @@ List_Prepend(Lz_LinkedList * const linkedList,
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == item) {
-      return;
+      Kernel_ManageFailure();
     }
   }
 
@@ -71,7 +73,7 @@ List_AppendList(Lz_LinkedList * const linkedListDestination,
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedListDestination || NULL == linkedListToMove) {
-      return;
+      Kernel_ManageFailure();
     }
   }
 
@@ -99,7 +101,7 @@ List_PickFirst(Lz_LinkedList * const linkedList)
 
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
-      return NULL;
+      Kernel_ManageFailure();
     }
   }
 
@@ -128,7 +130,7 @@ List_PointFirst(const Lz_LinkedList * const linkedList)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
-      return NULL;
+      Kernel_ManageFailure();
     }
   }
 
@@ -140,7 +142,7 @@ List_IsEmpty(const Lz_LinkedList * const linkedList)
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
-      return true;
+      Kernel_ManageFailure();
     }
   }
 
@@ -154,7 +156,7 @@ List_InsertAfter(Lz_LinkedList * const linkedList,
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == listItem || NULL == itemToInsert) {
-      return;
+      Kernel_ManageFailure();
     }
   }
 
@@ -174,7 +176,7 @@ List_InsertBefore(Lz_LinkedList * const linkedList,
 {
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == listItem || NULL == itemToInsert) {
-      return;
+      Kernel_ManageFailure();
     }
   }
 
@@ -199,7 +201,7 @@ List_Remove(Lz_LinkedList * const linkedList,
 
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList || NULL == itemToRemove) {
-      return NULL;
+      Kernel_ManageFailure();
     }
   }
 
@@ -231,7 +233,7 @@ List_PointElementAt(const Lz_LinkedList * const linkedList, const size_t index)
 
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
-      return NULL;
+      Kernel_ManageFailure();
     }
   }
 
@@ -253,7 +255,7 @@ List_InitLinkedList(Lz_LinkedList * const linkedList)
 
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == linkedList) {
-      return;
+      Kernel_ManageFailure();
     }
   }
 
@@ -267,7 +269,7 @@ List_InitLinkedListElement(Lz_LinkedListElement * const item)
 
   if (LZ_CONFIG_CHECK_NULL_PARAMETERS_IN_LISTS) {
     if (NULL == item) {
-      return;
+      Kernel_ManageFailure();
     }
   }
 
