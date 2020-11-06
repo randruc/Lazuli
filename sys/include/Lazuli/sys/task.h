@@ -41,7 +41,7 @@ typedef u_read_write_atomic_t lz_task_to_scheduler_message_t;
 
 /**
  * Set the task to wait for its next activation.
- * i.e. It finnished its work without consuming all of its completion time.
+ * i.e. It finished its work without consuming all of its completion time.
  */
 #define WAIT_ACTIVATION ((lz_task_to_scheduler_message_t)1U)
 
@@ -182,7 +182,7 @@ typedef struct {
 }Task;
 
 /**
- * This type definition is needed to exlude confusion with the 'volatile'
+ * This type definition is needed to exclude confusion with the 'volatile'
  * type qualifier used in the struct declaration below.
  */
 typedef void (*FuncVoidVoid)(void);
@@ -315,7 +315,7 @@ typedef struct {
 /**
  * Abort the calling task.
  *
- * This function can be called when some unrecoverable error occured in the
+ * This function can be called when some unrecoverable error occurred in the
  * context of a task (e.g. when a mandatory pointer is _NULL_ as a function
  * parameter).
  * This will have the consequence of saving the task context (saving all

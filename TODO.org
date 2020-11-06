@@ -54,7 +54,7 @@
 * Think about defining the execution of the main() function in the idle task.
 ** i.e. Execution begins as the idle task, and user tasks are created from the idle task.
 ** This allows/ease the implementation of Pthread API.
-** Carrefully think about priorities.
+** Carefully think about priorities.
 * For PROGMEM, implement "memcpy_P": Memory_CopyFromProgmem
 * Test command "apropos" in man pages of the Docker image.
 * In the Docker image, make sure to respect the File Hierarchy Standard
@@ -66,5 +66,5 @@
 * Think about renaming the GitHub repository to "LazuliRTOS".
 * Host the Lazuli docker image to GitHub instead of docker.io.
 * Think about moving libc header files to the directory include/
-** See if we can also get rid of directory libc/, as the corresponding functionnalities are actually implemented as kernel modules
+** See if we can also get rid of directory libc/, as the corresponding functionalities are actually implemented as kernel modules
 * See if it would be necessary to declare all global variables used the scheduler.c and kernel.c as 'volatile'.

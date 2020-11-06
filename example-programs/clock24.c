@@ -52,7 +52,7 @@ main(void)
   Lz_SerialConfiguration serialConfiguration;
 
   /*
-   * Enable serial tansmission.
+   * Enable serial transmission.
    */
   Lz_Serial_GetConfiguration(&serialConfiguration);
   serialConfiguration.enableFlags = LZ_SERIAL_ENABLE_TRANSMIT;

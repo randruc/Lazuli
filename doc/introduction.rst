@@ -12,7 +12,7 @@ Introduction
 
 Lazuli is a preemptive real-time multitasking kernel targeting microcontrollers,
 or machines with constrained resources. It allow the microcontroller to run
-multiple independant tasks simultaneously, with some of them having hard
+multiple independent tasks simultaneously, with some of them having hard
 real-time constraints.
 Lazuli provides a "time slice" scheduler in order to respect deadlines
 constraints of the tasks running in the system.

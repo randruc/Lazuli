@@ -13,8 +13,8 @@ Assembly - Setting up a C runtime
 
 System startup is divided in 2 parts:
 
-* The first part, written in assembly language, exectutes right after powering
-  on the system, and has the responsability to set up an operational C runtime.
+* The first part, written in assembly language, executes right after powering
+  on the system, and has the responsibility to set up an operational C runtime.
 * The second part, mainly written in C, performs various operations that are
   necessary to initialize the data structures of the kernel, before giving hand
   to user code.

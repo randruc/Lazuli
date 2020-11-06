@@ -17,7 +17,7 @@
 # The macro then adds the declared module in the global list of declared modules.
 #
 # @param NAME The module name, in lowercase, without prefixing it by "module_".
-# @param SUMMARY A string describing the module functionnality.
+# @param SUMMARY A string describing the module functionality.
 # @param SOURCES A list of the module source files.
 #
 macro(declare_lazuli_module)

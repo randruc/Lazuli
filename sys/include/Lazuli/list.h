@@ -169,7 +169,7 @@ List_IsEmpty(const Lz_LinkedList * const linkedList);
  * @param LINKEDLIST A pointer to the Lz_LinkedList to run through.
  * @param TYPE The real type of the list elements
  * @param ITEM A pointer to a struct of type @p TYPE containing the
- *             Lz_LinkedListELement.
+ *             Lz_LinkedListElement.
  *             This pointer will point to the current item of each loop turn.
  *             This pointer will never be _NULL_ while the loop is running.
  * @param MEMBER The name of the member in @p TYPE which bears the
@@ -209,7 +209,7 @@ List_IsEmpty(const Lz_LinkedList * const linkedList);
  * @param LINKEDLIST A pointer to the Lz_LinkedList to run through.
  * @param TYPE The real type of the list elements
  * @param ITEM A pointer to a struct of type @p TYPE containing the
- *             Lz_LinkedListELement.
+ *             Lz_LinkedListElement.
  *             This pointer will point to the current item of each loop turn.
  *             This pointer will never be _NULL_ while the loop is running.
  * @param MEMBER The name of the member in @p TYPE which bears the

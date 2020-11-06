@@ -23,7 +23,7 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR avr)
 
 set(CMAKE_C_COMPILER ${AVR_CC} CACHE FILEPATH "AVR toolchain C compiler.")
-set(CMAKE_ASM_COMPILER ${AVR_CC} CACHE FILEPATH "AVR toolchain assmebler.")
+set(CMAKE_ASM_COMPILER ${AVR_CC} CACHE FILEPATH "AVR toolchain assembler.")
 set(CMAKE_AR ${AVR_AR} CACHE FILEPATH "AVR toolchain static library archiver.")
 set(CMAKE_LINKER ${AVR_LD} CACHE FILEPATH "AVR toolchain linker.")
 set(CMAKE_NM ${AVR_NM} CACHE FILEPATH "AVR toolchain nm tool.")

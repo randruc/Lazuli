@@ -50,7 +50,7 @@ _EXTERN_C_DECL_BEGIN
  * @param ... The variadic parameters.
  *
  * @return The number of characters output to the serial line, or a negative
- *         value if an error occured.
+ *         value if an error occurred.
  *
  * @warning The stack usage of this function is important.
  */

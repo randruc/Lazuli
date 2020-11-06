@@ -8,7 +8,7 @@
  * @brief Header file specific to the AVR arch module.
  * @copyright 2018-2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
- * This header file declares all symbol neeed specifically in the AVR arch
+ * This header file declares all symbol needed specifically in the AVR arch
  * module, and not declared in <Lazuli/sys/arch/arch.h>.
  */
 

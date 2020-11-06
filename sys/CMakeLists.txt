@@ -138,7 +138,7 @@ target_compile_options(
   ${KERNEL_LIBRARY_NAME}
   PRIVATE ${LZ_KERNEL_COMPILE_FLAGS})
 
-set(KERNEL_LST_TARGET_NAME kernel_lst_ouput)
+set(KERNEL_LST_TARGET_NAME kernel_lst_output)
 
 add_custom_command(
   OUTPUT

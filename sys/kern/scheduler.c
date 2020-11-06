@@ -497,7 +497,7 @@ CallbackRegisterIdleTask(void)
  *
  * @return
  *         - _true_ if the task has been registered without error.
- *         - _false_ if an error occured during registration.
+ *         - _false_ if an error occurred during registration.
  */
 static bool
 RegisterTask(void (* const taskEntryPoint)(void),
@@ -557,7 +557,7 @@ RegisterTask(void (* const taskEntryPoint)(void),
  *
  * @return
  *         - _true_ if the task has been registered without error.
- *         - _false_ if an error occured during registration.
+ *         - _false_ if an error occurred during registration.
  */
 static bool
 RegisterIdleTask(void)

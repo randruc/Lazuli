@@ -8,7 +8,7 @@
 Repository tree
 ===============
 
-We give here an explanation of the main directorites of the repository.
+We give here an explanation of the main directories of the repository.
 It is displayed here from the root with the command ``tree -d`` with manual
 modifications to show only the most important ones.
 Comments on the right side have been added manually.
@@ -31,7 +31,7 @@ Comments on the right side have been added manually.
    │   │   ├── arch              Base directory of arch-specific kernel sources
    │   │   └── modules           Base directory of kernel modules sources
    │   ├── libc                  Base directory of C files related to libc implementation
-   │   ├── libc-headers          Base direcotry of standard C library header files
+   │   ├── libc-headers          Base directory of standard C library header files
    │   │   └── arch-dependent    Base directory of arch-dependent libc header files
    │   └── unit-tests            Unit tests sources
    ├── templates                 File templates, used when creating new files

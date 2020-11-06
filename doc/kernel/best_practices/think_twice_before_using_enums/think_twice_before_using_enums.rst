@@ -25,12 +25,12 @@ constants under a common name:
 
 Most of the time and for the vast majority of usual C code, this practice should
 be applied.
-Enumerations also have the advantage of beeing true C symbols from the compiler
+Enumerations also have the advantage of being true C symbols from the compiler
 and debugger point of view.
 
 However, there are a few situations where manipulating integer constants as
 enumerations should not be considered, or at least should be taken really
-carrefully.
+carefully.
 These situations happen when enumerations are manipulated as l-values on
 specific architectures.
 
@@ -55,7 +55,7 @@ A consequence on binary interfacing
 -----------------------------------
 
 The first consequence of the C specification is that ``enum`` constants don't
-have a fixed size accross different architectures, as the size of an ``int``
+have a fixed size across different architectures, as the size of an ``int``
 varies between architectures/compilers.
 This is quite a well-know fact amongst C programmers.
 
@@ -67,8 +67,8 @@ An argument against *specific* uses of enumerations
 ---------------------------------------------------
 
 Let's now introduce a sneaky pitfall, that happens *under specific conditions*.
-Lazuli RTOS is targetting embedded systems. It is written in ANSI C and aims to
-be easily portable accross different architectures.
+Lazuli RTOS is targeting embedded systems. It is written in ANSI C and aims to
+be easily portable across different architectures.
 
 We take here the example of the AVR architecture, which is a target for the
 Lazuli RTOS.
@@ -90,7 +90,7 @@ are often dealing with tiny machines.
 It is much more difficult to see these problems and their consequences when
 using enumerations rather than integers, because we often rely on standard
 header ``<stdint.h>`` when declaring integer variables. We then have a
-convinient way to master the size of integer variables right from their
+convenient way to master the size of integer variables right from their
 declaration.
 Unfortunately no equivalent exists for enumerations, and its not easy to spot
 their size at a glance when reviewing the source code.

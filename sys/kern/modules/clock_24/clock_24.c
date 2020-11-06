@@ -108,7 +108,7 @@ Clock24_Increment(void)
   /*
    * The clock version integer will constantly increment from 0 to its maximum
    * value.
-   * We can let it overflow as it is unsigned. Unsiged overflow is not an
+   * We can let it overflow as it is unsigned. Unsigned overflow is not an
    * undefined behaviour in C89.
    */
   ++clockVersion;

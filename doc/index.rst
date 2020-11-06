@@ -24,7 +24,7 @@ provided by Lazuli.
 The last chapter of this documentation is the **Kernel** documentation.
 It is intended for programmers, who wish to code in the Lazuli kernel, hacking
 and improving it.
-This documentation will give you detailled information about the inner working
+This documentation will give you detailed information about the inner working
 of Lazuli.
 
 .. toctree::

@@ -7,7 +7,7 @@
 #
 # This Dockerfile describes the container image that is used as the development
 # environment for Lazuli. This image is used by kernel and user application
-# developpers, as well as for continuous integration.
+# developers, as well as for continuous integration.
 #
 # Man pages are first built in an intermediate image. This has the advantage of
 # being platform-independent. The man pages are then copied into the final

@@ -156,7 +156,7 @@ https://lazuli.readthedocs.io/en/latest/developing_your_project.html
 
 ## Uploading binaries to the target platform
 
-On AVR MCUs, `avrdude` can be used to uplaod the final binary to the target
+On AVR MCUs, `avrdude` can be used to upload the final binary to the target
 machine.
 The script [scripts/AVR/upload.sh](scripts/AVR/upload.sh) can be used for that.
 It takes the HEX file as a parameter.

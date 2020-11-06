@@ -11,7 +11,7 @@
  * This file describes the interface of serial port configuration.
  * Serial port means here UART/USART device.
  *
- * The configuration is the same for input (Receive/Rx) and ouput
+ * The configuration is the same for input (Receive/Rx) and output
  * (Transmit/Tx).
  */
 

@@ -31,7 +31,7 @@
  * @endcode
  *
  * All user API types conform to the following naming convention:
- * <b>`Lz_XXXXX`</b> where <b>`XXXXX`</b> represents a type writtent in camel
+ * <b>`Lz_XXXXX`</b> where <b>`XXXXX`</b> represents a type written in camel
  * case. Some examples:
  * @code{.c}
  * Lz_Mutex

@@ -8,7 +8,7 @@
 A simple example
 ================
 
-Instead of the traditionnal "Hello world", we show here a simple clock
+Instead of the traditional "Hello world", we show here a simple clock
 application.
 
 This application demonstrates a simple clock that prints the time every second

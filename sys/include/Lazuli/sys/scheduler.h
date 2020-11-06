@@ -42,7 +42,7 @@ void
 Scheduler_Init(void);
 
 /**
- * Call the appropriate scheduler to abort the curent running task.
+ * Call the appropriate scheduler to abort the current running task.
  *
  * @param sp The stack pointer of the running task after saving its context.
  */
@@ -64,7 +64,7 @@ void
 Scheduler_HandleInterrupt(const uint8_t interruptCode);
 
 /**
- * This function is called when a clock tick occured, catch by the interrupt
+ * This function is called when a clock tick occurred, catch by the interrupt
  * handler.
  *
  * @param sp The stack pointer of the current running task after saving its

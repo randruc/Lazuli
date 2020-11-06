@@ -44,7 +44,7 @@
 #endif /* __cplusplus */
 
 /**
- * Tell the compiler that the variable X is left unsed.
+ * Tell the compiler that the variable X is left unused.
  *
  * @param X The unused variable.
  */
@@ -165,7 +165,7 @@ STATIC_ASSERT(sizeof(uint8_t) == 1,
  * @param X An unsigned integer constant representing the position of the bit,
  *          starting from index 0.
  *
- * @warning The constant must be specified using an unsigned integer litteral
+ * @warning The constant must be specified using an unsigned integer literal
  *          in uppercase.
  *          e.g. POSITION(2U)
  *          This is to make static analyzers not complain about using a shift

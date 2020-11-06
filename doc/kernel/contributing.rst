@@ -66,8 +66,8 @@ The expected format for commit messages is the following:
 
    <Part or module>: <Brief explanation on one line.>
 
-   <Detailled explanation if needed.>
-   <The detailled explanation can be expressed as a list.>
+   <Detailed explanation if needed.>
+   <The detailed explanation can be expressed as a list.>
 
 Here are a few examples of real commit messages that follow this format:
 
@@ -99,7 +99,7 @@ using GitHub Actions, and is triggered on pull-requests.
 
 The project's CI performs the following tasks:
 
-* Execute ``scripts/checklines.sh`` to check for trailing whistespaces, line
+* Execute ``scripts/checklines.sh`` to check for trailing whitespaces, line
   length, etc.
 * Build the Lazuli development environment Docker image from the root
   ``Dockerfile``.

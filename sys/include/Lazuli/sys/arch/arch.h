@@ -11,7 +11,7 @@
  * Provides a simple abstraction API to architecture specific functions.
  * This is the API that must be re-implemented if porting to another platform.
  *
- * This one is taylored after the AVR platform and can be subject to change if
+ * This one is tailored after the AVR platform and can be subject to change if
  * porting to another platform.
  */
 
@@ -243,10 +243,11 @@ void
 Arch_GetSerialConfiguration(Lz_SerialConfiguration * const configuration);
 
 /**
- * Configure the seria line according to the parameter.
+ * Configure the serial line according to the parameter.
  *
- * @param configuration A pointer to an existing Lz_SerialConfiguration containg
- *                      the full configuration to set up the serial line.
+ * @param configuration A pointer to an existing Lz_SerialConfiguration
+ *                      containing the full configuration to set up the serial
+ *                      line.
  */
 void
 Arch_SetSerialConfiguration(const Lz_SerialConfiguration * const configuration);

@@ -128,7 +128,7 @@ typedef struct {
 /**
  * Register a new task.
  *
- * If an error occured during registration of the task _false_ is returned and
+ * If an error occurred during registration of the task _false_ is returned and
  * the task is not included in the set of tasks that will be run.
  *
  * @param taskEntryPoint The entry point of the task to register.
@@ -140,7 +140,7 @@ typedef struct {
  *
  * @return
  *         - _true_ if the task has been registered without error.
- *         - _false_ if an error occured during registration.
+ *         - _false_ if an error occurred during registration.
  */
 bool
 Lz_RegisterTask(void (* const taskEntryPoint)(void),
@@ -202,7 +202,7 @@ Lz_Task_Terminate(void);
 
 /**
  * Set the calling task to wait for its next activation.
- * May be used if the task finnished its work without consuming all of its
+ * May be used if the task finished its work without consuming all of its
  * completion time.
  *
  * @attention Only tasks with scheduling policy CYCLIC_RT can wait for next

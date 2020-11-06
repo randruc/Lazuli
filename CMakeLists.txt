@@ -123,7 +123,7 @@ target_link_options(
   PUBLIC ${LAZULI_USER_LINK_FLAGS})
 
 # Generate disassembly listing.
-set(LST_TARGET_NAME lst_ouput)
+set(LST_TARGET_NAME lst_output)
 
 add_custom_command(
   OUTPUT

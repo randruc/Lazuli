@@ -21,7 +21,7 @@ The documentation is rendered in 2 formats:
 * **man**: The man page output is used in the Lazuli Docker image.
   Any developer using the development environment Docker image can type
   ``man Lazuli`` to read the exact complete documentation you are now reading.
-  Thenks to Doxygen, the user can also use ``man`` to obtain the documentation
+  Thanks to Doxygen, the user can also use ``man`` to obtain the documentation
   about any function or symbol used in the project.
 
 Sphinx and reStructuredText
@@ -90,7 +90,7 @@ The API documentation for the project is hosted at
 Code comments
 ^^^^^^^^^^^^^
 
-All C code of the project is documentated using Doxygen code comments.
+All C code of the project is documented using Doxygen code comments.
 The absence of Doxygen code comments will cause an error during build.
 
 Building Doxygen documentation

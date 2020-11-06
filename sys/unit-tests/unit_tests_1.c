@@ -8,10 +8,10 @@
  * @brief Lazuli kernel unit tests suite part 1 - Printf.
  * @copyright 2020, Remi Andruccioli <remi.andruccioli@gmail.com>
  *
- * This file contains unit tests for printf-related functionnalities.
+ * This file contains unit tests for printf-related functionalities.
  *
  * This file is part 1, so it must be executed first when all unit tests sets
- * are to be executed. This is because it tests printf-related functionnalities,
+ * are to be executed. This is because it tests printf-related functionalities,
  * so the next unit tests sets can safely rely on printing if needed.
  */
 

@@ -14,7 +14,7 @@
  * The reason for that is that most static code analysis tools operate on
  * preprocessed files. By using this file instead of the final config.h, we
  * simulate the fact that these configuration constants can take any value.
- * So static analysizers don't complain/exclude/assume some parts of source
+ * So static analysers don't complain/exclude/assume some parts of source
  * code.
  *
  * @warning Some of these definitions can cause problems as there are some
