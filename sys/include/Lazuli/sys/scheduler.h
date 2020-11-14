@@ -42,8 +42,8 @@ void
 Scheduler_Init(void);
 
 /**
- * Abort the current running task. This function is to be called by the kernel if
- * some unrecoverable error occured in the context of a task (e.g. when a
+ * Abort the current running task. This function is to be called by the kernel
+ * if some unrecoverable error occured in the context of a task (e.g. when a
  * mandatory pointer is _NULL_ as a function, or a division by zero).
  */
 void
