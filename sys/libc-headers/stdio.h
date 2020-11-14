@@ -26,7 +26,7 @@ _EXTERN_C_DECL_BEGIN
 /**
  * Produce unbuffered formatted output to the serial line.
  *
- * This function is fully reentrant. No locking mechanism is provided.
+ * This function is fully reentrant.
  *
  * # Flag characters
  *
@@ -53,6 +53,7 @@ _EXTERN_C_DECL_BEGIN
  *         value if an error occurred.
  *
  * @warning The stack usage of this function is important.
+ *          No locking mechanism is provided.
  */
 int
 printf(const char * format, ...);
@@ -63,7 +64,10 @@ printf(const char * format, ...);
  * @param c The character to transmit, that will be cast to an unsigned char.
  *
  * @return The actual value of the transmitted character, resulting from the
-           cast, as an int.
+ *         cast, as an int.
+ *
+ * @warning This operation is not thread safe.
+ *          No locking mechanism is provided.
  */
 int
 putchar(int c);
@@ -75,6 +79,9 @@ putchar(int c);
  * @param s The string to transmit.
  *
  * @return A non-negative number on success, otherwise EOF on error.
+ *
+ * @warning This operation is not thread safe.
+ *          No locking mechanism is provided.
  */
 int
 puts(const char *s);

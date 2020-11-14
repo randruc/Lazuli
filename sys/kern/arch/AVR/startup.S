@@ -36,7 +36,7 @@
 .macro INTERRUPT_HANDLER code
     push r24
     ldi r24, \code
-    jmp call_scheduler_handle_interrupt
+    rjmp call_scheduler_handle_interrupt
 .endm
 
     ;;
@@ -153,17 +153,46 @@ spmready_handler:
 
 /**
  * Call the scheduler to handle the interrupt.
- * IMPORTANT: The scheduler will execute on the stack of the current task! No
- * context saving nor context switching is performed here.
+ * IMPORTANT:
+ *     The scheduler routine will execute on the stack of the current task!
+ *     No complete context saving is performed here. Only the "call-clobbered"
+ *     registers are saved. Read more in AVR-GCC documentation:
+ *     https://gcc.gnu.org/wiki/avr-gcc
+ *     TODO: Save the T-Flag.
  *
  * Before calling this subroutine, you first need to fill r24 with the
  * interrupt code.
  */
 call_scheduler_handle_interrupt:
-    SET_SYSTEM_STATUS_IN_KERNEL_PRESERVE_REGISTERS r16
+    push r0
+    push r18
+    SET_SYSTEM_STATUS_IN_KERNEL r18
+    push r19
+    push r20
+    push r21
+    push r22
+    push r23
+    ;; r24 was already pushed
+    push r25
+    push r26
+    push r27
+    push r30
+    push r31
     call Scheduler_HandleInterrupt
-    UNSET_SYSTEM_STATUS_IN_KERNEL_PRESERVE_REGISTERS r16
+    pop r31
+    pop r30
+    pop r27
+    pop r26
+    pop r25
     pop r24
+    pop r23
+    pop r22
+    pop r21
+    pop r20
+    pop r19
+    UNSET_SYSTEM_STATUS_IN_KERNEL r18
+    pop r18
+    pop r0
     reti
 
     /**

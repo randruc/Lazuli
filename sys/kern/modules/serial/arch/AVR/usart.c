@@ -60,7 +60,7 @@ puts(const char * s)
 
   while ('\0' != *s) {
     putchar(*s);
-    s++;
+    ++s;
   }
 
   for (i = 0; i < sizeof(newLine) - 1; ++i) {
