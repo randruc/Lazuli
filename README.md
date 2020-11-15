@@ -158,7 +158,7 @@ main(void)
   /* frequency is configured to 50 Hz. This is an arbitrary value that */
   /* can be configured by the user.                                    */
   /* With a system clock resolution frequency set to 50 Hz, the system */
-  /* clock period is then 1 / 50 = 0.02 seconds.                       */
+  /* clock period is then 1 / 50 = 0.02 second.                        */
   /* So 0.02 * 25 = 0.5 second, which corresponds to the half period   */
   /* of our task.                                                      */
   configuration.period = 25;
