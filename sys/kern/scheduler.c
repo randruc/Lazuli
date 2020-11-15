@@ -554,7 +554,7 @@ RegisterTask(void (* const taskEntryPoint)(void),
     /* We add enough space to contain the context of a task on the stack */
     + sizeof(TaskContextLayout)
     /* Plus 1 call to save_context_on_stack (in startup.S) */
-    + sizeof(void *);
+    + sizeof(void (*)(void));
 
   taskStack = KIncrementalMalloc(desiredStackSize);
   if (NULL == taskStack) {
