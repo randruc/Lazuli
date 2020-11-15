@@ -32,10 +32,10 @@
  *
  * This is the function the user has to define to register his own tasks.
  *
- * @return The return value is not used. It's simply here to conform to the
- *         standard definition of main.
+ * This prototype differs from the standard "int main(void)" as the return value
+ * is useless here.
  */
-int
+void
 main(void);
 
 /*

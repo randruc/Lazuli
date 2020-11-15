@@ -23,7 +23,7 @@ Task1(void)
 /**
  * Main entry point for the user program.
  */
-int
+void
 main(void)
 {
   /* Register the defined task to run */

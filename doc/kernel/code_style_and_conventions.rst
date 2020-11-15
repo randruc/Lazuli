@@ -170,11 +170,11 @@ This is the only style allowed for functions:
 
 .. code-block:: c
 
-    int main(void)
+    int SayHello(void)
     {
       printf("Hello world\n");
 
-      return EXIT_SUCCESS;
+      return 0;
     }
 
 For control statements the opening braces are always on the same line than the

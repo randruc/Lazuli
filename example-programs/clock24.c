@@ -45,7 +45,7 @@ ClockTask(void)
 /**
  * Main entry point for user tasks.
  */
-int
+void
 main(void)
 {
   Lz_TaskConfiguration taskConfiguration;

@@ -63,7 +63,7 @@ set(
 set_property(
   CACHE LZ_EXAMPLE_PROGRAM
   PROPERTY STRINGS
-  "null;clock24.c;spinlocks.c;mutex.c;mutex_alternating_tasks.c")
+  "null;blink.c;clock24.c;spinlocks.c;mutex.c;mutex_alternating_tasks.c")
 
 if(NOT LZ_CONFIG_BUILD_UNIT_TESTS STREQUAL "null")
   set(

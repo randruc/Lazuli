@@ -453,7 +453,7 @@ CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
       PeriodComparer,
       PriorityComparer
     };
-  
+
   if (taskConfiguration->schedulingPolicy > LZ_SCHEDULING_POLICY_MAX) {
     return NULL;
   }
