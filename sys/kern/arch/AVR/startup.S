@@ -160,7 +160,7 @@ spmready_handler:
  *     https://gcc.gnu.org/wiki/avr-gcc
  *     TODO: Save the T-Flag.
  *
- * Before calling this subroutine, you first need to fill r24 with the
+ * Before calling this routine, you first need to fill r24 with the
  * interrupt code.
  */
 call_scheduler_handle_interrupt:
@@ -184,7 +184,6 @@ call_scheduler_handle_interrupt:
     pop r27
     pop r26
     pop r25
-    pop r24
     pop r23
     pop r22
     pop r21
@@ -193,6 +192,7 @@ call_scheduler_handle_interrupt:
     UNSET_SYSTEM_STATUS_IN_KERNEL r18
     pop r18
     pop r0
+    pop r24
     reti
 
     /**
