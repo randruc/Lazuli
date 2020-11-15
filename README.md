@@ -54,8 +54,8 @@ For now, the Lazuli kernel provides the following functionalities:
 * Rate Monotonic Scheduling
 * Priority Round-Robin Scheduling (POSIX's `SCHED_RR`)
 * Mutexes
-* AVR USART driver, including a complete `printf()` implementation.
-* Software timers.
+* AVR USART driver, including a complete `printf()` implementation
+* Software timers
 
 
 ### Challenge and philosophy
