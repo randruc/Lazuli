@@ -447,13 +447,13 @@ CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
    * Jump table to the appropriate comparer, depending of the desired
    * scheduling policy.
    */
-  bool (* const comparers[LZ_SCHEDULING_POLICY_MAX + 1])
-    (const Task * const,
-     const Task * const) = {
-                            PeriodComparer,
-                            PriorityComparer
-  };
-
+  bool (* const comparers[LZ_SCHEDULING_POLICY_MAX + 1]) (const Task * const,
+                                                          const Task * const) =
+    {
+      PeriodComparer,
+      PriorityComparer
+    };
+  
   if (taskConfiguration->schedulingPolicy > LZ_SCHEDULING_POLICY_MAX) {
     return NULL;
   }
@@ -474,8 +474,6 @@ CallbackRegisterUserTask(const Lz_TaskConfiguration * const taskConfiguration)
 
   newTask->timeUntilActivation = newTask->period;
   newTask->timeUntilCompletion = newTask->completion;
-
-  newTask->taskToSchedulerMessage = NO_MESSAGE;
 
   List_InitLinkedListElement(&newTask->stateQueue);
 
@@ -499,8 +497,6 @@ CallbackRegisterIdleTask(void)
   if (NULL == idleTask) {
     return NULL;
   }
-
-  idleTask->taskToSchedulerMessage = NO_MESSAGE;
 
   return idleTask;
 }
@@ -568,6 +564,7 @@ RegisterTask(void (* const taskEntryPoint)(void),
   newTask->stackOrigin = ALLOW_ARITHM(taskStack) + desiredStackSize - 1;
   newTask->stackPointer = newTask->stackOrigin;
   newTask->timeUntilTimerExpiration = 0;
+  newTask->taskToSchedulerMessage = NO_MESSAGE;
 
   PrepareTaskContext(newTask);
 
