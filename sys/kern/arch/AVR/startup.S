@@ -510,4 +510,4 @@ Arch_InfiniteLoop:
     rjmp Arch_InfiniteLoop
 
     .section ".progmem"
-    .ascii "{Lazuli-" LZ_VERSION "}";
+    .ascii "{Lazuli-" LZ_VERSION "}"
