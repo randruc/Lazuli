@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['task_5fabort',['Task_Abort',['../task_8h.html#a93d761d2e8aff4e1541f24078a7326a5',1,'task.h']]]
+  ['updatecyclicrealtimetasks_0',['UpdateCyclicRealTimeTasks',['../scheduler_8c.html#af588a453fa57337f029dabb25e139602',1,'scheduler.c']]],
+  ['updatetaskswaitingsoftwaretimer_1',['UpdateTasksWaitingSoftwareTimer',['../scheduler_8c.html#a0a811908de25f01dce4433ed7ce02280',1,'scheduler.c']]]
 ];

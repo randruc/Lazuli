@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['u16divisionresult',['U16DivisionResult',['../structU16DivisionResult.html',1,'']]],
-  ['usart',['Usart',['../structUsart.html',1,'']]]
+  ['u16divisionresult_0',['U16DivisionResult',['../structU16DivisionResult.html',1,'']]],
+  ['usart_1',['Usart',['../structUsart.html',1,'']]]
 ];

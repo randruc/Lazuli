@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lazuli_20api_20documentation',['Lazuli API documentation',['../index.html',1,'']]]
+  ['api_20documentation_0',['Lazuli API documentation',['../index.html',1,'']]]
 ];

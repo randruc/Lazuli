@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['updatecyclicrealtimetasks',['UpdateCyclicRealTimeTasks',['../scheduler_8c.html#af588a453fa57337f029dabb25e139602',1,'scheduler.c']]],
-  ['updatetaskswaitingsoftwaretimer',['UpdateTasksWaitingSoftwareTimer',['../scheduler_8c.html#a0a811908de25f01dce4433ed7ce02280',1,'scheduler.c']]]
+  ['waitmutex_0',['WaitMutex',['../mutex_8c.html#a6263e675b3a9d30af26247e6a45d7388',1,'mutex.c']]]
 ];

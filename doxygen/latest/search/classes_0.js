@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5flz_5flinkedlistelement',['_Lz_LinkedListElement',['../struct__Lz__LinkedListElement.html',1,'']]]
+  ['_5flz_5flinkedlistelement_0',['_Lz_LinkedListElement',['../struct__Lz__LinkedListElement.html',1,'']]]
 ];
